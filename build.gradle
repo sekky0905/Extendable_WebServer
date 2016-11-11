@@ -1,0 +1,23 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+mainClassName = 'jp.co.topgate.sekiguchi.kai.Main'
+
+
+// gradleラッパー、これを使ってビルドするとGradleが自動的にダウンロードされ、それを使ってビルドが実行される
+
+defaultTasks 'wrapper','build', 'run', 'test'
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.1'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	compile 'org.codehaus.groovy:groovy-all:2.4.7'
+    testCompile "junit:junit:4.11" 
+}

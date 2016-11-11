@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="jp.co.topgate.sekiguchi.kai.FileReaderTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2016-11-11T11:55:29" hostname="SekiguchiKai-1.local" time="0.003">
+  <properties/>
+  <testcase name="testConfirmExistence" classname="jp.co.topgate.sekiguchi.kai.FileReaderTest" time="0.003"/>
+  <system-out><![CDATA[ファイルの存在を確かめます
+ファイルが存在しました
+ファイルの存在を確かめます
+ファイルが存在しました
+ファイルの存在を確かめます
+ファイルが存在しました
+ファイルの存在を確かめます
+ファイルが存在しました
+ファイルの存在を確かめます
+ファイルが存在しました
+ファイルの存在を確かめます
+ファイルが存在しました
+ファイルの存在を確かめます
+ファイルが存在しませんでした
+ファイルの存在を確かめます
+ファイルが存在しませんでした
+ファイルの存在を確かめます
+ファイルが存在しませんでした
+ファイルの存在を確かめます
+ファイルが存在しませんでした
+ファイルの存在を確かめます
+ファイルが存在しませんでした
+ファイルの存在を確かめます
+ファイルが存在しませんでした
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

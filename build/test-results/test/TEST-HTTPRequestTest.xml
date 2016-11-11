@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="HTTPRequestTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2016-11-11T11:53:26" hostname="SekiguchiKai-1.local" time="0.002">
+  <properties/>
+  <testcase name="testGetRequestLine" classname="HTTPRequestTest" time="0.0"/>
+  <testcase name="testGetResourceExt" classname="HTTPRequestTest" time="0.0"/>
+  <testcase name="testGetRequestResource" classname="HTTPRequestTest" time="0.0"/>
+  <testcase name="testGetgetRequestURI" classname="HTTPRequestTest" time="0.0"/>
+  <system-out><![CDATA[リクエストラインはGET /cat.jpeg HTTP/1.1
+ここでのrequestURIは/cat.jpeg
+指定されたファイルの拡張子はjpeg
+クライアントが求めているリソースはsrc/main/resources/cat.jpeg
+クライアントから送信されてきたリクエストURIは/cat.jpeg
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

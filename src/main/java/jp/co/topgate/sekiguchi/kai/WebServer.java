@@ -1,7 +1,5 @@
 package jp.co.topgate.sekiguchi.kai;
 
-import java.io.File;
-
 //フィルタをかけて流れてくるデータをバッファリングし、量がたまったら、一気に下流に流し込む
 
 import java.io.IOException;
@@ -23,7 +21,6 @@ import java.net.Socket;
  * socketの確立と他のクラスを呼び出す責務を持ったクラス
  * 
  * @author sekiguchikai
- *
  */
 public class WebServer {
 
@@ -33,80 +30,52 @@ public class WebServer {
 	private static final int PORT = 8080;
 
 	/**
-	 * サーバソケット
+	 * メインメソッド
 	 */
-	private ServerSocket serverSocket = null;
-
-	/**
-	 * ソケット
-	 */
-	private Socket socket = null;
-
-	/**
-	 * ファイルのバイナリデータ
-	 */
-	private byte[] fileContents;
+	public static void main(String[] args) throws IOException {
+		WebServer webServer = new WebServer();
+		webServer.control();
+	}
 
 	/**
 	 * socketを確立し、他のクラスを呼び出すためのメソッド
-	 * 
-	 * @throws IOException
-	 *             Socketの確立に失敗しました
 	 */
-	public void socketGenerator() throws IOException {
-		// サーバが起動したことを知らせる
+	public void control() throws IOException {
 		System.out.println("Start the server at http://localhost:8080");
+		ServerSocket serverSocket = null;
+		Socket socket = null;
 
 		try {
-
-			this.serverSocket = new ServerSocket(PORT);
-
+			serverSocket = new ServerSocket(PORT);
 			while (true) {
-				this.socket = this.serverSocket.accept();
+				socket = serverSocket.accept();
 				System.out.println("request incoming...");
 
-				InputStream inputStream = this.socket.getInputStream();
+				InputStream inputStream = socket.getInputStream();
+				OutputStream outputStream = socket.getOutputStream();
 
 				HTTPRequest httpRequest = new HTTPRequest();
+				String requestURI = httpRequest.getRequestURI(inputStream);
 
-				// リクエストからリクエストURIを取得
-				System.out.println("リクエストの中身を取得します");
-				String requestLine = httpRequest.getRequestLine(inputStream);
+				HTTPResponse httpResponse = new HTTPResponse(outputStream);
+				httpResponse.controlResponse(requestURI);
 
-				System.out.println("リクエストの中身を表示します");
-				httpRequest.showRequest();
-
-				String requestURI = httpRequest.getRequestURI(requestLine);
-				File file = httpRequest.getRequestResource(requestURI);
-
-				// ファイルが存在するかの確認とファイルの読み込み
-				FileReader fileReader = new FileReader();
-				boolean fileExistence = fileReader.ConfirmExistence(file);
-
-				this.fileContents = fileReader.getFileData(file, fileExistence);
-
-				// レスポンスの中身を作る
-				ResponseContentsMaker responseContentsMaker = new ResponseContentsMaker();
-				String statesline = responseContentsMaker.makeStatusLine(fileExistence);
-
-				String extension = httpRequest.getResourceExt(requestURI);
-				String responsetHeader = responseContentsMaker.makeResponseHeader(extension);
-
-				// レソポンス
-				OutputStream outputStream = this.socket.getOutputStream();
-				HTTPResponse httpResponse = new HTTPResponse();
-				httpResponse.ResponseWriter(outputStream, statesline, responsetHeader, this.fileContents);
+				if (socket != null) {
+					socket.close();
+				}
 
 			}
 		} catch (IOException e) {
-			System.out.println("Socketの確立に失敗しました" + e);
+			System.err.println("エラー" + e.getMessage());
 			System.exit(1);
-
 		} finally {
-			// 各プロセスを閉じる
-			serverSocket.close();
+			if (serverSocket != null) {
+				serverSocket.close();
+			}
 
-			socket.close();
+			if (socket != null) {
+				socket.close();
+			}
 		}
 
 	}

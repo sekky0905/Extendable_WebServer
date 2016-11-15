@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'application'
 
-mainClassName = 'jp.co.topgate.sekiguchi.kai.Main'
+mainClassName = 'jp.co.topgate.sekiguchi.kai.WebServer'
 
 
 // gradleラッパー、これを使ってビルドするとGradleが自動的にダウンロードされ、それを使ってビルドが実行される

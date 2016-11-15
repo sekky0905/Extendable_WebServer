@@ -24,16 +24,16 @@ At this time, you can access following extension's files.
 
 ### run
 1. clone
-2. Hit the command ```gradle run```at Application root directory.
+2. Hit the command ```./gradlew run```at Application root directory.
 3. Start your browser.
 4. Visit ```http://localhost:8080/{resource name which you want to access}```
-(```{resource name which you want to access}``` is relative path of resource which you want to access.)
+(```{resource name which you want to access}``` is relative path of resource which you want to access from ```src/main/resources``` directory .)
 
 ### test
-1. Hit the command ```gradle test``` at Application root directory.
+1. Hit the command ```./gradlew test``` at Application root directory.
 
 ### add new directories/files
-1. add new directories/files under the ```src/main/resources/jp/co/topgate/sekiguchi/kai```.
+1. add new directories/files under the ```src/main/resources```.
 
 ## Specifications of each classes.
 Please read JavaDocument under ```doc``` directory.

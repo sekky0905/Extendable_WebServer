@@ -64,7 +64,7 @@ public class HTTPResponse {
 
 		System.out.println("ファイルの読み込みを始めます");
 
-		if (file.exists() == true) {
+		if ((file.exists() == true) && (requestURI.matches(".*\\..*"))) {
 			try {
 				System.out.println(file + "ファイルを探します");
 				InputStream inputStream = new FileInputStream(file);

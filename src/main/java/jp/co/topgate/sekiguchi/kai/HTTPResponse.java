@@ -30,14 +30,23 @@ public class HTTPResponse {
 	 *            リクエストURI
 	 */
 	public void controlResponse(String requestURI) {
-		// 読み込むファイルの取得
-		File file = new File("src/main/resources" + requestURI);
-
-		// データの読み込み
-		byte[] byteContents = readFile(requestURI, file);
 
 		// 拡張子の取得
 		String fileExtension = FileExtension.getFileExtension(requestURI);
+
+		// 読み込むファイルの取得
+		File file;
+		// クエリストリングの対応
+		if (requestURI.indexOf("?") != -1) {
+			int hatenaPotision = requestURI.indexOf("?");
+
+			file = new File("src/main/resources" + requestURI.substring(0, hatenaPotision));
+		} else {
+			file = new File("src/main/resources" + requestURI);
+		}
+
+		// データの読み込み
+		byte[] byteContents = readFile(requestURI, file);
 
 		// ステータスラインの取得
 		String statusLine = makeStatusLine(file);

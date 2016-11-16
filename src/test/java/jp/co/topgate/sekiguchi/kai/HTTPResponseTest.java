@@ -25,9 +25,11 @@ public class HTTPResponseTest {
 	@Test
 	public void testReadFile() {
 		// "HTTP/1.1 200 OK"の場合
+		// レスポンス出力用にソケットの代わりにByteArrayOutputStreamを用意する
 		OutputStream outputStream = new ByteArrayOutputStream();
 		HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
+		// メソッドを使用する
 		httpResponse.controlResponse("/next.html");
 
 		ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(
@@ -35,15 +37,25 @@ public class HTTPResponseTest {
 
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(byteArrayInputStream));
 
+		StringBuilder stringBuilder = new StringBuilder();
 		String result = null;
+
 		try {
 			result = bufferedReader.readLine();
+
+			while (result != null) {
+				System.out.println(result);
+				stringBuilder.append(result);
+				result = bufferedReader.readLine();
+			}
+			System.out.println(stringBuilder);
 		} catch (IOException e) {
 			System.err.println("エラー" + e.getMessage());
 			e.printStackTrace();
 		}
 
-		assertEquals("リクエストURIを与えると、適切なファイルを読み込むか", "やる気", result);
+		assertEquals("リクエストURIを与えると、適切なファイルを読み込むか", "HTTP/1.1 200 OKContent-Type: text/htmlやる気",
+				new String(stringBuilder));
 
 		// "404 Not Found"の場合
 		OutputStream outputStream2 = new ByteArrayOutputStream();
@@ -56,15 +68,25 @@ public class HTTPResponseTest {
 
 		BufferedReader bufferedReader2 = new BufferedReader(new InputStreamReader(byteArrayInputStream2));
 
+		StringBuilder stringBuilder2 = new StringBuilder();
 		String result2 = null;
+
 		try {
 			result2 = bufferedReader2.readLine();
+
+			while (result2 != null) {
+				System.out.println(result2);
+				stringBuilder2.append(result2);
+				result2 = bufferedReader2.readLine();
+			}
+			System.out.println(stringBuilder2);
 		} catch (IOException e) {
 			System.err.println("エラー" + e.getMessage());
 			e.printStackTrace();
 		}
 
-		assertEquals("不正なリクエストURIを与えると、404を返すか", "404 Not Found", result2);
-	}
+		assertEquals("リクエストURIを与えると、適切なファイルを読み込むか", "HTTP/1.1 404 Not FoundContent-Type: text/html404 Not Found",
+				new String(stringBuilder2));
 
+	}
 }

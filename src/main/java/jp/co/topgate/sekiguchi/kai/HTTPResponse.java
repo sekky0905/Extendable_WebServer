@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 
 /**
  * クライアントへ送信するHTTPレスポンスに関する責務を持つクラス
@@ -120,7 +119,7 @@ public class HTTPResponse {
 	 */
 	private String makeResponseHeader(String fileExtension) {
 
-		String responseHeader;
+		String responseHeader = null;
 		if (fileExtension.equals("html") || fileExtension.equals("css") || fileExtension.equals("js")) {
 			responseHeader = "Content-Type: text/" + fileExtension;
 
@@ -142,28 +141,28 @@ public class HTTPResponse {
 	 *            ステータスライン
 	 * @param responseHeader
 	 *            レスポンスヘッダ
-	 * @param byteContents
+	 * @param byteResponseBody
 	 *            読み込んだファイルのバイナリデータであり、レスポンスボディ
 	 */
-	private void sendResponse(String statusLine, String responseHeader, byte[] byteContents) {
+	private void sendResponse(String statusLine, String responseHeader, byte[] byteResponseBody) {
 		try {
 			System.out.println("クライアントに送信を開始します");
 			DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
-			StringBuilder builder = new StringBuilder();
-			builder.append(statusLine).append("\n");
-			builder.append(responseHeader).append("\n");
-			builder.append("\n");
 
-			// PrintWriter:テキスト出力ストリームに出力する
-			PrintWriter writer = new PrintWriter(outputStream, true);
-			// Stringに変えて、出力ストリームに送信
-			writer.print(builder.toString());
-			if (byteContents != null) {
-				dataOutputStream.write(byteContents, 0, byteContents.length);
+			// 引数で受け取ったステータスラインとレスポンスヘッダを結合
+
+			String responseHead = statusLine + "\n" + responseHeader + "\n" + "\n";
+			byte[] byteResponseHead = responseHead.getBytes();
+			byte[] ResponseContents = new byte[byteResponseHead.length + byteResponseBody.length];
+			// ResponseContentsにbyteResponseHeadを追加
+			System.arraycopy(byteResponseHead, 0, ResponseContents, 0, byteResponseHead.length);
+			// ResponseContentsにbyteContentsを追加
+			System.arraycopy(byteResponseBody, 0, ResponseContents, byteResponseHead.length, byteResponseBody.length);
+
+			if (byteResponseBody != null) {
+				dataOutputStream.write(ResponseContents);
 				dataOutputStream.flush();
 				dataOutputStream.close();
-			} else {
-				System.out.println("データの中身がありません");
 			}
 
 		} catch (IOException e) {

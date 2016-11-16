@@ -169,7 +169,7 @@ public class HTTPResponse {
 			System.arraycopy(byteResponseBody, 0, ResponseContents, byteResponseHead.length, byteResponseBody.length);
 
 			if (byteResponseBody != null) {
-				dataOutputStream.write(ResponseContents);
+				dataOutputStream.write(ResponseContents, 0, ResponseContents.length);
 				dataOutputStream.flush();
 				dataOutputStream.close();
 			}

@@ -45,9 +45,12 @@ public class HTTPRequest {
 		// リクエストラインのうち、リクエストURIの部分を抽出して格納する変数
 		String requestURI = requestLine.substring(firstEmpty + 1, secondEmty);
 
-		if (requestURI.equals("/")) {
-			requestURI = requestURI + "index.html";
+		//
+		String AfterSlash = requestURI.substring(requestURI.lastIndexOf("/"), requestURI.length());
+		if ((AfterSlash.indexOf("/") == AfterSlash.length() - 1) || (AfterSlash.indexOf(".") == -1)) {
+			requestURI = "/index.html";
 		}
+
 		System.out.println("リクエストURIは" + requestURI);
 		return requestURI;
 	}

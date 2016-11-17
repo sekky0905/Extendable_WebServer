@@ -25,18 +25,18 @@ public class FileExtensionTest {
 					FileExtension.getFileExtension("/index." + ExtArray[i]));
 
 			// 意地悪なテスト
-			assertEquals("ディレクトリ配下かつ、クエリリクエストをつけたリクエストで" + ExtArray[i] + "拡張子を返すことができるかのテスト", ExtArray[i],
-					FileExtension.getFileExtension("/image/index." + ExtArray[i] + "/?foo=bar"));
-
-			// 意地悪なテスト
-			assertEquals("クエリリクエストをつけたリクエストで" + ExtArray[i] + "拡張子を返すことができるかのテスト", ExtArray[i],
-					FileExtension.getFileExtension("/index." + ExtArray[i] + "/?foo=bar"));
-
-			// 意地悪なテスト
 			assertEquals("ファイル名の前に「.」がついたリクエストで" + ExtArray[i] + "拡張子を返すことができるかのテスト", ExtArray[i],
 					FileExtension.getFileExtension("/.foo/index." + ExtArray[i]));
 
+			// 「/」のときのテスト
+			assertEquals("ディレクトリ配下かつ、クエリリクエストをつけたリクエストでhtml拡張子を返すことができるかのテスト", "html",
+					FileExtension.getFileExtension("/image/index." + ExtArray[i] + "/?foo=bar"));
+
+			// 「/」のときのテスト
+			assertEquals("クエリリクエストをつけたリクエストでhtml拡張子を返すことができるかのテスト", "html",
+					FileExtension.getFileExtension("/index." + ExtArray[i] + "/?foo=bar"));
 		}
+
 	}
 
 }

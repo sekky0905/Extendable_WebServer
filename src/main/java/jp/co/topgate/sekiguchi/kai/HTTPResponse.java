@@ -36,18 +36,11 @@ public class HTTPResponse {
 
 		String requestFile = null;
 
-		String AfterSlash = requestURI.substring(requestURI.lastIndexOf("/"), requestURI.length());
+		int slash = requestURI.lastIndexOf("/");
+		int fileName = requestURI.lastIndexOf(fileExtension) + fileExtension.length();
 
-		if (AfterSlash.indexOf("/") == AfterSlash.length() - 1) {
-			requestFile = "/index.html";
-			System.out.println("『/』で指定されたファイルは" + requestFile);
-		} else if (AfterSlash.indexOf(".") != -1) {
-			int slash = requestURI.lastIndexOf("/");
-			int fileName = requestURI.lastIndexOf(fileExtension) + fileExtension.length();
-
-			requestFile = requestURI.substring(slash, fileName);
-			System.out.println("指定されたファイルは" + requestFile);
-		}
+		requestFile = requestURI.substring(slash, fileName);
+		System.out.println("指定されたファイルは" + requestFile);
 
 		// 読み込むファイルの取得
 		File file = new File("src/main/resources" + requestFile);

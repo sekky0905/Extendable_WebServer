@@ -46,9 +46,9 @@ public class FileExtension {
 			// 文字列化
 			fileExtension = stringBuilder.toString();
 			System.out.println("指定されたファイルの拡張子は" + fileExtension);
-		} else if (AfterSlash.indexOf("/") == AfterSlash.length() - 1) {
+		} else if (AfterSlash.indexOf(".") == -1) {
 			fileExtension = "html";
-			System.out.println("『/』で指定されたファイルは" + fileExtension);
+			System.out.println("指定されたファイルの拡張子は" + fileExtension);
 		} else {
 			fileExtension = "拡張子なし";
 			System.out.println("拡張子の指定がありません");

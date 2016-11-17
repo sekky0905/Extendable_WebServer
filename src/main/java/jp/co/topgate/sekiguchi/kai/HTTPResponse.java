@@ -34,16 +34,23 @@ public class HTTPResponse {
 		// 拡張子の取得
 		String fileExtension = FileExtension.getFileExtension(requestURI);
 
-		// 読み込むファイルの取得
-		File file;
-		// クエリストリングの対応
-		if (requestURI.indexOf("?") != -1) {
-			int hatenaPotision = requestURI.indexOf("?");
+		String requestFile = null;
 
-			file = new File("src/main/resources" + requestURI.substring(0, hatenaPotision));
-		} else {
-			file = new File("src/main/resources" + requestURI);
+		String AfterSlash = requestURI.substring(requestURI.lastIndexOf("/"), requestURI.length());
+
+		if (AfterSlash.indexOf("/") == AfterSlash.length() - 1) {
+			requestFile = "/index.html";
+			System.out.println("『/』で指定されたファイルは" + requestFile);
+		} else if (AfterSlash.indexOf(".") != -1) {
+			int slash = requestURI.lastIndexOf("/");
+			int fileName = requestURI.lastIndexOf(fileExtension) + fileExtension.length();
+
+			requestFile = requestURI.substring(slash, fileName);
+			System.out.println("指定されたファイルは" + requestFile);
 		}
+
+		// 読み込むファイルの取得
+		File file = new File("src/main/resources" + requestFile);
 
 		// データの読み込み
 		byte[] byteContents = readFile(requestURI, file);

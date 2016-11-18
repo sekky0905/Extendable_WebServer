@@ -107,35 +107,41 @@ public class HTTPResponseTest {
 		}
 
 		// "404 Not Found"の場合
-		OutputStream outputStream3 = new ByteArrayOutputStream();
-		HTTPResponse httpResponse3 = new HTTPResponse(outputStream3);
 
-		httpResponse3.controlResponse("/hoge.html");
+		String requestURIArry3[] = { "/hoge.html", "/image/jj.jpeg", "/image/hoge.css?foo=bar", "/hoge.jpeg?foo=bar" };
 
-		ByteArrayInputStream byteArrayInputStream3 = new ByteArrayInputStream(
-				((ByteArrayOutputStream) outputStream3).toByteArray());
+		for (int i = 0; i < requestURIArry2.length; i++) {
 
-		BufferedReader bufferedReader3 = new BufferedReader(new InputStreamReader(byteArrayInputStream3));
+			OutputStream outputStream3 = new ByteArrayOutputStream();
+			HTTPResponse httpResponse3 = new HTTPResponse(outputStream3);
 
-		StringBuilder stringBuilder3 = new StringBuilder();
-		String result3 = null;
+			httpResponse3.controlResponse(requestURIArry3[i]);
 
-		try {
-			result3 = bufferedReader3.readLine();
+			ByteArrayInputStream byteArrayInputStream3 = new ByteArrayInputStream(
+					((ByteArrayOutputStream) outputStream3).toByteArray());
 
-			while (result3 != null) {
-				System.out.println(result3);
-				stringBuilder3.append(result3);
+			BufferedReader bufferedReader3 = new BufferedReader(new InputStreamReader(byteArrayInputStream3));
+
+			StringBuilder stringBuilder3 = new StringBuilder();
+			String result3 = null;
+
+			try {
 				result3 = bufferedReader3.readLine();
+
+				while (result3 != null) {
+					System.out.println(result3);
+					stringBuilder3.append(result3);
+					result3 = bufferedReader3.readLine();
+				}
+				System.out.println(stringBuilder3);
+			} catch (IOException e) {
+				System.err.println("エラー" + e.getMessage());
+				e.printStackTrace();
 			}
-			System.out.println(stringBuilder3);
-		} catch (IOException e) {
-			System.err.println("エラー" + e.getMessage());
-			e.printStackTrace();
+
+			assertEquals("不正なリクエストURIを与えると、404を返すか", "HTTP/1.1 404 Not FoundContent-Type: text/html404 Not Found",
+					new String(stringBuilder3));
+
 		}
-
-		assertEquals("リクエストURIを与えると、適切なファイルを読み込むか", "HTTP/1.1 404 Not FoundContent-Type: text/html404 Not Found",
-				new String(stringBuilder3));
-
 	}
 }

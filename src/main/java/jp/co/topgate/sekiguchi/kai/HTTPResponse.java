@@ -80,7 +80,7 @@ public class HTTPResponse {
 		String statusLine = makeStatusLine(file);
 
 		// レスポンスヘッダの取得
-		String responseHeader = makeResponseHeader(fileExtension);
+		String responseHeader = makeResponseHeader(fileExtension, file);
 
 		// データの送信
 		sendResponse(statusLine, responseHeader, byteContents);
@@ -100,7 +100,7 @@ public class HTTPResponse {
 
 		System.out.println("ファイルの読み込みを始めます");
 
-		if ((file.exists() == true) && (requestURI.matches(".*\\..*"))) {
+		if ((file.exists() == true)) {
 			try {
 				System.out.println(file + "ファイルを探します");
 				InputStream inputStream = new FileInputStream(file);
@@ -124,7 +124,7 @@ public class HTTPResponse {
 		} else {
 			byteContents = "404 Not Found".getBytes();
 		}
-		System.out.println("レスポンスボディは" + byteContents);
+		System.out.println("レスポンスボディは「404 Not Found」" + byteContents);
 		return byteContents;
 	}
 
@@ -154,21 +154,27 @@ public class HTTPResponse {
 	 *            指定されたファイルの拡張子
 	 * @return レスポンスヘッダ
 	 */
-	private String makeResponseHeader(String fileExtension) {
+	private String makeResponseHeader(String fileExtension, File file) {
 
 		String responseHeader = null;
-		if (fileExtension.equals("html") || fileExtension.equals("css") || fileExtension.equals("js")) {
-			responseHeader = "Content-Type: text/" + fileExtension;
+		if ((file.exists() == true)) {
 
-		} else if (fileExtension.equals("png") || fileExtension.equals("jpeg") || fileExtension.equals("gif")) {
-			responseHeader = "Content-Type: image/" + fileExtension;
+			if (fileExtension.equals("html") || fileExtension.equals("css") || fileExtension.equals("js")) {
+				responseHeader = "Content-Type: text/" + fileExtension;
+
+			} else if (fileExtension.equals("png") || fileExtension.equals("jpeg") || fileExtension.equals("gif")) {
+				responseHeader = "Content-Type: image/" + fileExtension;
+			} else {
+				System.out.println("申し訳ございません、ご指定の拡張子には対応しておりません");
+				responseHeader = "Content-Type: text/html";
+			}
+
 		} else {
-			System.out.println("申し訳ございません、ご指定の拡張子には対応しておりません");
 			responseHeader = "Content-Type: text/html";
 		}
+
 		System.out.println("レスポンスヘッダは" + responseHeader);
 		return responseHeader;
-
 	}
 
 	/**

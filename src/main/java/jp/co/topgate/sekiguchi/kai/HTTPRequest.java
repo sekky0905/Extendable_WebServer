@@ -47,7 +47,7 @@ public class HTTPRequest {
 
 		//
 		String AfterSlash = requestURI.substring(requestURI.lastIndexOf("/"), requestURI.length());
-		if ((AfterSlash.indexOf("/") == AfterSlash.length() - 1) || (AfterSlash.indexOf(".") == -1)) {
+		if ((requestURI == ("/")) || (AfterSlash.indexOf(".") == -1)) {
 			requestURI = "/index.html";
 		}
 

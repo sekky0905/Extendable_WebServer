@@ -7,6 +7,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * クライアントへ送信するHTTPレスポンスに関する責務を持つクラス
@@ -31,19 +33,45 @@ public class HTTPResponse {
 	 */
 	public void controlResponse(String requestURI) {
 
+		// ここは冗長になってしまうが、テスト用
+		String AfterSlash = requestURI.substring(requestURI.lastIndexOf("/"), requestURI.length());
+		if ((requestURI == ("/")) || (AfterSlash.indexOf(".") == -1)) {
+			requestURI = "/index.html";
+		}
+
+		System.out.println("送信されてきたリクエストURIは" + requestURI);
+
 		// 拡張子の取得
 		String fileExtension = FileExtension.getFileExtension(requestURI);
 
-		String requestFile = null;
+		// 最後の.より前の文字列を抽出
+		String preString = requestURI.substring(requestURI.lastIndexOf("/"), requestURI.lastIndexOf("."));
 
-		int slash = requestURI.lastIndexOf("/");
-		int fileName = requestURI.lastIndexOf(fileExtension) + fileExtension.length();
+		// 以下ファイル名の取得
 
-		requestFile = requestURI.substring(slash, fileName);
-		System.out.println("指定されたファイルは" + requestFile);
+		// 文字列を配列に格納
+		String preStringArray[] = preString.split("");
+		// 格納した文字列を逆から読み込む
+		List<String> list = new ArrayList<String>();
 
-		// 読み込むファイルの取得
-		File file = new File("src/main/resources" + requestFile);
+		for (int i = preStringArray.length - 1; i >= 0; i--) {
+			if (preStringArray[i].matches("[a-zA-Z]")) {
+				list.add(preStringArray[i]);
+			} else {
+				break;
+			}
+		}
+
+		StringBuilder stringBuilder = new StringBuilder();
+		for (int i = list.size() - 1; i >= 0; i--) {
+			stringBuilder.append(list.get(i));
+		}
+
+		String requestFile = stringBuilder.toString();
+
+		System.out.println("指定されたファイルは" + requestFile + "." + fileExtension);
+
+		File file = new File("src/main/resources/" + requestFile + "." + fileExtension);
 
 		// データの読み込み
 		byte[] byteContents = readFile(requestURI, file);

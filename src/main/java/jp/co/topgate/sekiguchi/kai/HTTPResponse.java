@@ -38,16 +38,15 @@ public class HTTPResponse {
 	 * @param
 	 */
 	public void setResponseHeader(String requestURI) {
+		String fileExtension = null;
 		if (requestURI.indexOf("?") == -1) {
-			String fileExtension = requestURI.substring(requestURI.lastIndexOf("."), requestURI.lastIndexOf(""));
+			fileExtension = requestURI.substring(requestURI.lastIndexOf(".") + 1, requestURI.lastIndexOf(""));
 		} else {
-			String fileExtension = requestURI.substring(requestURI.lastIndexOf("."), requestURI.indexOf("?"));
+			fileExtension = requestURI.substring(requestURI.lastIndexOf(".") + 1, requestURI.indexOf("?"));
 		}
 
-		String fileExtension = null;
 		if (fileExtension.equals("html") || fileExtension.equals("css") || fileExtension.equals("js")) {
 			this.responseHeader = "Content-Type: text/" + fileExtension;
-
 		} else if (fileExtension.equals("png") || fileExtension.equals("jpeg") || fileExtension.equals("gif")) {
 			this.responseHeader = "Content-Type: image/" + fileExtension;
 		} else {

@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -46,35 +48,46 @@ public class HTTPResponseTest {
 		assertEquals("リクエストURIを与えると、適切なファイルを読み込むか", "HTTP/1.1 404 Not Found", statusLine2);
 
 	}
-	//
-	// /**
-	// * SetResponseHeaderメソッドをテストするクラス¥
-	// */
-	// @Test
-	// public void testSetResponseHeader() {
-	//
-	// String fileExtensionArray[] = { "html", "css", "js", "jpeg", "png", "gif"
-	// };
-	//
-	// for (int i = 0; i < fileExtensionArray.length; i++) {
-	// String requestURIArray[] = { "/index." + fileExtensionArray[i],
-	// "/.sample/index." + fileExtensionArray[i],
-	// "/sample/index." + fileExtensionArray[i] + "?foo=bar",
-	// "/index." + fileExtensionArray[i] + "?foo=bar" };
-	// }
-	//
-	// for (int i = 0; i < fileExtensionArray.length; i++) {
-	// // "HTTP/1.1 200 OK"の場合
-	// // レスポンス出力用にソケットの代わりにByteArrayOutputStreamを用意する
-	// OutputStream outputStream = new ByteArrayOutputStream();
-	// HTTPResponse httpResponse = new HTTPResponse(outputStream);
-	//
-	// httpResponse.responseHeader = "Content-Type: image/" + fileExtension;
-	// // メソッドを使用する
-	// httpResponse.setResponseBody(responseBody);
-	// String statusLine = httpResponse.getStatusLine();
-	// }
-	//
-	// }
+
+	/**
+	 * SetResponseHeaderメソッドをテストするクラス¥
+	 */
+	@Test
+	public void testSetResponseHeader() {
+
+		String fileExtensionArray[] = { "html", "css", "js" };
+		List<String> requestURIList = new ArrayList<String>();
+
+		// requestURIListにfileExtensionArray[]の中身を拡張子として代入
+		for (int i = 0; i < fileExtensionArray.length; i++) {
+			requestURIList.add("/index." + fileExtensionArray[i]);
+		}
+
+		for (int j = 0; j < requestURIList.size(); j++) {
+			// "HTTP/1.1 200 OK"の場合
+			// レスポンス出力用にソケットの代わりにByteArrayOutputStreamを用意する
+			OutputStream outputStream = new ByteArrayOutputStream();
+			HTTPResponse httpResponse = new HTTPResponse(outputStream);
+
+			// System.out.println("リクエストURIは" + requestURIList.get(j));
+			// メソッドを使用する
+			httpResponse.setResponseHeader(requestURIList.get(j));
+
+			assertEquals("リクエストURIを与えると、適切なファイルを読み込むか", "Content-Type: text/" + fileExtensionArray[j],
+					httpResponse.getResponseHeader());
+		}
+
+		// requestURIList.add("/.sample/index." + fileExtensionArray[i]);
+		// requestURIList.add("/sample/index." + fileExtensionArray[i] +
+		// "?foo=bar");
+		// requestURIList.add("/index." + fileExtensionArray[i] + "?foo=bar");
+		//
+		//
+		// // requestURIListの中身の個数分、
+		//
+		//
+		// }
+
+	}
 
 }

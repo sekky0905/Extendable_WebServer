@@ -13,45 +13,68 @@ import java.io.InputStreamReader;
 public class HTTPRequest {
 
 	/**
-	 * リクエストURIを取得するメソッド
-	 * 
-	 * @return リクエストURIを返す
+	 * クライアントからのsocket通信の中身を格納するための変数
 	 */
-	public String getRequestURI(InputStream inputStream) {
-		BufferedReader bufferedReader;
-		String requestLine = null;
+	private InputStream inputStream;
+	private String requestLine;
+	private String requestMethod;
+	private String requestURI;
+	private String queryString;
+
+	/**
+	 * コンストラクタ
+	 * 
+	 * @param socketからのstreamを受け取る
+	 */
+	public HTTPRequest(InputStream inputStream) {
+		this.inputStream = inputStream;
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 		try {
-			bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-			requestLine = bufferedReader.readLine();
-
-			String requestContents = null;
-
-			while (requestContents != null) {
-				System.out.println(requestContents);
-				requestContents = bufferedReader.readLine();
-			}
-
+			this.requestLine = bufferedReader.readLine();
 		} catch (IOException e) {
-			System.err.println("エラー" + e.getMessage());
+			System.err.println("エラー:" + e.getMessage());
 			e.printStackTrace();
 		}
-
-		System.out.println("リクエストラインは" + requestLine);
-
-		// リクエストラインのうち、2番目の半角空白のインデックスを格納する
-		int firstEmpty = requestLine.indexOf(" ");
-		// リクエストラインのうち、2番目の半角空白のインデックスを格納する
-		int secondEmty = requestLine.indexOf(" ", firstEmpty + 1);
-		// リクエストラインのうち、リクエストURIの部分を抽出して格納する変数
-		String requestURI = requestLine.substring(firstEmpty + 1, secondEmty);
-
-		//
-		String AfterSlash = requestURI.substring(requestURI.lastIndexOf("/"), requestURI.length());
-		if ((requestURI == ("/")) || (AfterSlash.indexOf(".") == -1)) {
-			requestURI = "/index.html";
-		}
-
-		System.out.println("リクエストURIは" + requestURI);
-		return requestURI;
 	}
+
+	/**
+	 * クライアントからのリクエストから、リクエストメソッドを抽出して返すメソッド
+	 * 
+	 * @return リクエストメソッドを抽出して返す
+	 */
+	public String getRequestMethod() {
+		this.requestMethod = this.requestLine.substring(0, this.requestLine.indexOf(" "));
+		System.out.println("リクエストURIは" + this.requestMethod);
+		return this.requestMethod;
+
+	}
+
+	/**
+	 * クライアントからのリクエストから、リクエストURIを抽出して返すメソッド S
+	 * 
+	 * @return リクエストURIを抽出して返す
+	 */
+	public String getRequestURI() {
+		int firstEmpty = this.requestLine.indexOf(" ");
+		this.requestURI = this.requestLine.substring(firstEmpty + 1, this.requestLine.indexOf(" ", firstEmpty + 1));
+		System.out.println("リクエストURIは" + this.requestURI);
+		return this.requestURI;
+
+	}
+
+	// /**
+	// * クライアントからのリクエストから、クエリストリングを抽出して返すメソッド
+	// *
+	// * @return クエリストリングを抽出して返す
+	// */
+	// public void getQueryString() {
+	// if (this.requestURI.indexOf("?") != -1) {
+	// this.queryString =
+	// this.requestLine.substring(this.requestURI.lastIndexOf("?"),
+	// this.requestURI.length() - 1);
+	// } else {
+	// this.queryString =
+	// }
+	// }
+
 }

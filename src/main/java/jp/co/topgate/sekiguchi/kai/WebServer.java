@@ -34,13 +34,13 @@ public class WebServer {
 	 */
 	public static void main(String[] args) throws IOException {
 		WebServer webServer = new WebServer();
-		webServer.control();
+		webServer.initialize();
 	}
 
 	/**
-	 * socketを確立し、他のクラスを呼び出すためのメソッド
+	 * socketを確立し、HTTPRequestクラスとHTTPResponseクラスをインスタンス化するクラス
 	 */
-	public void control() throws IOException {
+	public void initialize() throws IOException {
 		System.out.println("Start the server at http://localhost:8080");
 		ServerSocket serverSocket = null;
 		Socket socket = null;
@@ -54,11 +54,20 @@ public class WebServer {
 				InputStream inputStream = socket.getInputStream();
 				OutputStream outputStream = socket.getOutputStream();
 
-				HTTPRequest httpRequest = new HTTPRequest();
-				String requestURI = httpRequest.getRequestURI(inputStream);
-
+				HTTPRequest httpRequest = new HTTPRequest(inputStream);
 				HTTPResponse httpResponse = new HTTPResponse(outputStream);
-				httpResponse.controlResponse(requestURI);
+
+				String requestMethod = httpRequest.getRequestMethod();
+				Controler controler = new Controler();
+
+				// リクエストメソッドによってcontrolerで使うメソッドを決定する
+				if (requestMethod.equals("GET")) {
+					controler.handleGET(httpRequest, httpResponse);
+				} else if (requestMethod.equals("POST")) {
+					controler.handlePost(httpRequest, httpResponse);
+				} else {
+					System.out.println("リクエストメソッドが不正です");
+				}
 
 				if (socket != null) {
 					socket.close();

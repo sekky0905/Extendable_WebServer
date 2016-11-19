@@ -38,13 +38,18 @@ public class HTTPResponse {
 	 * @param
 	 */
 	public void setResponseHeader(String requestURI) {
-		String responseHeader = requestURI.substring(requestURI.lastIndexOf(".", requestURI.lastIndexOf("")));
+		if (requestURI.indexOf("?") == -1) {
+			String fileExtension = requestURI.substring(requestURI.lastIndexOf("."), requestURI.lastIndexOf(""));
+		} else {
+			String fileExtension = requestURI.substring(requestURI.lastIndexOf("."), requestURI.indexOf("?"));
+		}
 
-		if (requestURI.equals("html") || requestURI.equals("css") || requestURI.equals("js")) {
-			this.responseHeader = "Content-Type: text/" + requestURI;
+		String fileExtension = null;
+		if (fileExtension.equals("html") || fileExtension.equals("css") || fileExtension.equals("js")) {
+			this.responseHeader = "Content-Type: text/" + fileExtension;
 
-		} else if (requestURI.equals("png") || requestURI.equals("jpeg") || requestURI.equals("gif")) {
-			this.responseHeader = "Content-Type: image/" + requestURI;
+		} else if (fileExtension.equals("png") || fileExtension.equals("jpeg") || fileExtension.equals("gif")) {
+			this.responseHeader = "Content-Type: image/" + fileExtension;
 		} else {
 			System.out.println("申し訳ございません、ご指定の拡張子には対応しておりません");
 			this.responseHeader = "Content-Type: text/html";

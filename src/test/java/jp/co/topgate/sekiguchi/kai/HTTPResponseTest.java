@@ -46,5 +46,35 @@ public class HTTPResponseTest {
 		assertEquals("リクエストURIを与えると、適切なファイルを読み込むか", "HTTP/1.1 404 Not Found", statusLine2);
 
 	}
+	//
+	// /**
+	// * SetResponseHeaderメソッドをテストするクラス¥
+	// */
+	// @Test
+	// public void testSetResponseHeader() {
+	//
+	// String fileExtensionArray[] = { "html", "css", "js", "jpeg", "png", "gif"
+	// };
+	//
+	// for (int i = 0; i < fileExtensionArray.length; i++) {
+	// String requestURIArray[] = { "/index." + fileExtensionArray[i],
+	// "/.sample/index." + fileExtensionArray[i],
+	// "/sample/index." + fileExtensionArray[i] + "?foo=bar",
+	// "/index." + fileExtensionArray[i] + "?foo=bar" };
+	// }
+	//
+	// for (int i = 0; i < fileExtensionArray.length; i++) {
+	// // "HTTP/1.1 200 OK"の場合
+	// // レスポンス出力用にソケットの代わりにByteArrayOutputStreamを用意する
+	// OutputStream outputStream = new ByteArrayOutputStream();
+	// HTTPResponse httpResponse = new HTTPResponse(outputStream);
+	//
+	// httpResponse.responseHeader = "Content-Type: image/" + fileExtension;
+	// // メソッドを使用する
+	// httpResponse.setResponseBody(responseBody);
+	// String statusLine = httpResponse.getStatusLine();
+	// }
+	//
+	// }
 
 }

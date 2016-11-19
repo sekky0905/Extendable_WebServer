@@ -55,6 +55,7 @@ public class HTTPResponseTest {
 	@Test
 	public void testSetResponseHeader() {
 
+		// Content-Type: text/hogeの場合
 		String fileExtensionArray[] = { "html", "css", "js" };
 		List<String> requestURIList = new ArrayList<String>();
 
@@ -63,7 +64,30 @@ public class HTTPResponseTest {
 			requestURIList.add("/index." + fileExtensionArray[i]);
 		}
 
-		for (int j = 0; j < requestURIList.size(); j++) {
+		// requestURIListにfileExtensionArray[]の中身を拡張子として代入
+		for (int j = 0; j < fileExtensionArray.length; j++) {
+			requestURIList.add("/.sample/index." + fileExtensionArray[j]);
+		}
+
+		// requestURIListにfileExtensionArray[]の中身を拡張子として代入
+		for (int k = 0; k < fileExtensionArray.length; k++) {
+			requestURIList.add("/sample/index." + fileExtensionArray[k] + "?foo=bar");
+		}
+
+		// requestURIListにfileExtensionArray[]の中身を拡張子として代入
+		for (int l = 0; l < fileExtensionArray.length; l++) {
+			requestURIList.add("/index." + fileExtensionArray[l] + "?foo=bar");
+		}
+
+		List<String> extArray = new ArrayList<>();
+		for (int m = 0; m < requestURIList.size(); m++) {
+
+			for (int n = 0; n < fileExtensionArray.length; n++) {
+				extArray.add(fileExtensionArray[n]);
+			}
+		}
+
+		for (int o = 0; o < requestURIList.size(); o++) {
 			// "HTTP/1.1 200 OK"の場合
 			// レスポンス出力用にソケットの代わりにByteArrayOutputStreamを用意する
 			OutputStream outputStream = new ByteArrayOutputStream();
@@ -71,22 +95,57 @@ public class HTTPResponseTest {
 
 			// System.out.println("リクエストURIは" + requestURIList.get(j));
 			// メソッドを使用する
-			httpResponse.setResponseHeader(requestURIList.get(j));
+			httpResponse.setResponseHeader(requestURIList.get(o));
 
-			assertEquals("リクエストURIを与えると、適切なファイルを読み込むか", "Content-Type: text/" + fileExtensionArray[j],
+			assertEquals("リクエストURIを与えると、適切なファイルを読み込むか", "Content-Type: text/" + extArray.get(o),
 					httpResponse.getResponseHeader());
 		}
 
-		// requestURIList.add("/.sample/index." + fileExtensionArray[i]);
-		// requestURIList.add("/sample/index." + fileExtensionArray[i] +
-		// "?foo=bar");
-		// requestURIList.add("/index." + fileExtensionArray[i] + "?foo=bar");
-		//
-		//
-		// // requestURIListの中身の個数分、
-		//
-		//
-		// }
+		// Content-Type: text/hogeの場合
+		String fileExtensionArray2[] = { "jpeg", "png", "gif" };
+		List<String> requestURIList2 = new ArrayList<String>();
+
+		// requestURIListにfileExtensionArray[]の中身を拡張子として代入
+		for (int i = 0; i < fileExtensionArray2.length; i++) {
+			requestURIList2.add("/index." + fileExtensionArray2[i]);
+		}
+
+		// requestURIListにfileExtensionArray[]の中身を拡張子として代入
+		for (int j = 0; j < fileExtensionArray2.length; j++) {
+			requestURIList2.add("/.sample/index." + fileExtensionArray2[j]);
+		}
+
+		// requestURIListにfileExtensionArray[]の中身を拡張子として代入
+		for (int k = 0; k < fileExtensionArray2.length; k++) {
+			requestURIList2.add("/sample/index." + fileExtensionArray2[k] + "?foo=bar");
+		}
+
+		// requestURIListにfileExtensionArray[]の中身を拡張子として代入
+		for (int l = 0; l < fileExtensionArray2.length; l++) {
+			requestURIList2.add("/index." + fileExtensionArray2[l] + "?foo=bar");
+		}
+
+		List<String> extArray2 = new ArrayList<>();
+		for (int m = 0; m < requestURIList2.size(); m++) {
+
+			for (int n = 0; n < fileExtensionArray2.length; n++) {
+				extArray2.add(fileExtensionArray2[n]);
+			}
+		}
+
+		for (int o = 0; o < requestURIList2.size(); o++) {
+			// "HTTP/1.1 200 OK"の場合
+			// レスポンス出力用にソケットの代わりにByteArrayOutputStreamを用意する
+			OutputStream outputStream2 = new ByteArrayOutputStream();
+			HTTPResponse httpResponse2 = new HTTPResponse(outputStream2);
+
+			// System.out.println("リクエストURIは" + requestURIList.get(j));
+			// メソッドを使用する
+			httpResponse2.setResponseHeader(requestURIList2.get(o));
+
+			assertEquals("リクエストURIを与えると、適切なファイルを読み込むか", "Content-Type: image/" + extArray2.get(o),
+					httpResponse2.getResponseHeader());
+		}
 
 	}
 

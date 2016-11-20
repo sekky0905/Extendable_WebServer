@@ -103,7 +103,7 @@ public class HTTPResponse {
 	 * @return responseHeader
 	 */
 	public String getStatusLine() {
-		return this.responseHeader;
+		return this.statusLine;
 	}
 
 	/**

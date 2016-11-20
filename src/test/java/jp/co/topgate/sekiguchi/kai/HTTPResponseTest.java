@@ -149,4 +149,12 @@ public class HTTPResponseTest {
 
 	}
 
+	// /**
+	// * SetResponseHeaderメソッドをテストするクラス¥
+	// */
+	// @Test
+	// public void testSendResponse() {
+	//
+	// }
+
 }

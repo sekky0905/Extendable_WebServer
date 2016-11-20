@@ -37,12 +37,14 @@ public class HTTPResponse {
 	 * 
 	 * @param
 	 */
-	public void setResponseHeader(String requestURI) {
+	public void setResponseHeader(String requestResource) {
 		String fileExtension = null;
-		if (requestURI.indexOf("?") == -1) {
-			fileExtension = requestURI.substring(requestURI.lastIndexOf(".") + 1, requestURI.lastIndexOf(""));
+		if (requestResource.indexOf("?") == -1) {
+			fileExtension = requestResource.substring(requestResource.lastIndexOf(".") + 1,
+					requestResource.lastIndexOf(""));
 		} else {
-			fileExtension = requestURI.substring(requestURI.lastIndexOf(".") + 1, requestURI.indexOf("?"));
+			fileExtension = requestResource.substring(requestResource.lastIndexOf(".") + 1,
+					requestResource.indexOf("?"));
 		}
 
 		if (fileExtension.equals("html") || fileExtension.equals("css") || fileExtension.equals("js")) {
@@ -51,7 +53,6 @@ public class HTTPResponse {
 			this.responseHeader = "Content-Type: image/" + fileExtension;
 		} else {
 			System.out.println("申し訳ございません、ご指定の拡張子には対応しておりません");
-			this.responseHeader = "Content-Type: text/html";
 		}
 
 		System.out.println("レスポンスヘッダは" + this.responseHeader);
@@ -67,6 +68,9 @@ public class HTTPResponse {
 		this.responseBody = responseBody;
 	}
 
+	/**
+	 * クライアントにレスポンスを送信するためのメソッド
+	 */
 	public void sendResponse() {
 		try {
 			System.out.println("クライアントに送信を開始します");
@@ -79,8 +83,7 @@ public class HTTPResponse {
 			// ResponseContentsにbyteResponseHeadを追加
 			System.arraycopy(responseHead, 0, responseContents, 0, responseHead.length);
 			// ResponseContentsにresponseBodyを追加
-			System.arraycopy(this.responseBody, 0, responseContents, this.responseBody.length,
-					this.responseBody.length);
+			System.arraycopy(this.responseBody, 0, responseContents, responseHead.length, this.responseBody.length);
 
 			if (this.responseBody != null) {
 				dataOutputStream.write(responseContents, 0, responseContents.length);
@@ -94,15 +97,29 @@ public class HTTPResponse {
 		}
 	}
 
-	// テスト用の仕掛け
+	/**
+	 * statusLineを取得するためのメソッド
+	 * 
+	 * @return responseHeader
+	 */
 	public String getStatusLine() {
-		return this.statusLine;
+		return this.responseHeader;
 	}
 
+	/**
+	 * responseHeaderを取得するためのメソッド
+	 * 
+	 * @return responseHeader
+	 */
 	public String getResponseHeader() {
 		return this.responseHeader;
 	}
 
+	/**
+	 * responseBodyを取得するためのメソッド
+	 * 
+	 * @return responseBody
+	 */
 	public byte[] getResponseBody() {
 		return this.responseBody;
 	}

@@ -13,15 +13,15 @@ public class Files {
 	 * 
 	 * @return
 	 */
-	public byte[] readFile(String requestURI) {
+	public byte[] readFile(String requestResource) {
 
-		File file = new File(requestURI);
+		File file = new File(requestResource);
 
 		byte[] byteContents = null;
 
 		System.out.println("ファイルの読み込みを始めます");
 
-		if ((file.exists() == true)) {
+		if (file.exists()) {
 			try {
 				System.out.println(file + "ファイルを探します");
 				InputStream inputStream = new FileInputStream(file);

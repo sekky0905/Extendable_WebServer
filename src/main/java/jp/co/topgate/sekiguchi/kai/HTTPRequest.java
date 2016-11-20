@@ -31,6 +31,8 @@ public class HTTPRequest {
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 		try {
 			this.requestLine = bufferedReader.readLine();
+			if (bufferedReader != null) {
+			}
 		} catch (IOException e) {
 			System.err.println("エラー:" + e.getMessage());
 			e.printStackTrace();
@@ -59,6 +61,27 @@ public class HTTPRequest {
 		this.requestURI = this.requestLine.substring(firstEmpty + 1, this.requestLine.indexOf(" ", firstEmpty + 1));
 		System.out.println("リクエストURIは" + this.requestURI);
 		return this.requestURI;
+
+	}
+
+	public String getRequestResource(String requestURI) {
+		String afterLastSlash = requestURI.substring(requestURI.lastIndexOf("/") + 1, requestURI.length());
+
+		String requestResource = null;
+
+		if ((requestURI.indexOf("?") == -1) && (afterLastSlash.indexOf(".") != -1)) {
+			requestResource = "src/main/resources" + requestURI;
+		} else if ((requestURI.indexOf("?") == -1) && (afterLastSlash.indexOf(".") == -1)) {
+			requestResource = "src/main/resources" + requestURI.substring(0, requestURI.lastIndexOf("/") + 1)
+					+ "index.html";
+		} else if ((requestURI.indexOf("?") != -1) && (afterLastSlash.indexOf(".") != -1)) {
+			requestResource = "src/main/resources" + requestURI.substring(0, requestURI.indexOf("?"));
+		} else if ((requestURI.indexOf("?") != -1) && (afterLastSlash.indexOf(".") == -1)) {
+			requestResource = "src/main/resources" + requestURI.substring(0, requestURI.lastIndexOf("/") + 1)
+					+ "index.html";
+		}
+
+		return requestResource;
 
 	}
 

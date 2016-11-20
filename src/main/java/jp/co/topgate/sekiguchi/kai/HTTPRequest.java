@@ -61,16 +61,10 @@ public class HTTPRequest {
 		String secondSentence = this.requestLine.substring(firstEmpty + 1,
 				this.requestLine.indexOf(" ", firstEmpty + 1));
 
-		String afterLastSlash = secondSentence.substring(secondSentence.lastIndexOf("/") + 1, secondSentence.length());
-
-		if ((secondSentence.indexOf("?") == -1) && (afterLastSlash.indexOf(".") != -1)) {
+		if ((secondSentence.indexOf("?") == -1)) {
 			this.requestURI = secondSentence;
-		} else if ((secondSentence.indexOf("?") == -1) && (afterLastSlash.indexOf(".") == -1)) {
-			this.requestURI = secondSentence.substring(0, secondSentence.lastIndexOf("/") + 1);
-		} else if ((secondSentence.indexOf("?") != -1) && (afterLastSlash.indexOf(".") != -1)) {
+		} else {
 			this.requestURI = secondSentence.substring(0, secondSentence.indexOf("?"));
-		} else if ((secondSentence.indexOf("?") != -1) && (afterLastSlash.indexOf(".") == -1)) {
-			this.requestURI = secondSentence.substring(0, secondSentence.lastIndexOf("/") + 1);
 		}
 
 		return this.requestURI;

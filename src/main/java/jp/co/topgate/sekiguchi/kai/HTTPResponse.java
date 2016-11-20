@@ -38,13 +38,15 @@ public class HTTPResponse {
 	 * 
 	 * @param
 	 */
-	public void setResponseHeader(String requestURI, File file) {
+	public void setResponseHeader(String requestResource, File file) {
 		String fileExtension = null;
 		if (file.exists()) {
-			if (requestURI.indexOf("?") == -1) {
-				fileExtension = requestURI.substring(requestURI.lastIndexOf(".") + 1, requestURI.lastIndexOf(""));
+			if (requestResource.indexOf("?") == -1) {
+				fileExtension = requestResource.substring(requestResource.lastIndexOf(".") + 1,
+						requestResource.lastIndexOf(""));
 			} else {
-				fileExtension = requestURI.substring(requestURI.lastIndexOf(".") + 1, requestURI.indexOf("?"));
+				fileExtension = requestResource.substring(requestResource.lastIndexOf(".") + 1,
+						requestResource.indexOf("?"));
 			}
 
 			if (fileExtension.equals("html") || fileExtension.equals("css") || fileExtension.equals("js")) {

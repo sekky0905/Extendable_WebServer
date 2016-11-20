@@ -13,10 +13,7 @@ public class Files {
 	 * 
 	 * @return
 	 */
-	public byte[] readFile(String requestURI) {
-
-		File file = new File("src/main/resources" + requestURI);
-
+	public byte[] readFile(File file) {
 		byte[] byteContents = null;
 
 		System.out.println("ファイルの読み込みを始めます");

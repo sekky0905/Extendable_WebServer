@@ -1,6 +1,7 @@
 package jp.co.topgate.sekiguchi.kai;
 
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -37,22 +38,23 @@ public class HTTPResponse {
 	 * 
 	 * @param
 	 */
-	public void setResponseHeader(String requestResource) {
+	public void setResponseHeader(String requestURI, File file) {
 		String fileExtension = null;
-		if (requestResource.indexOf("?") == -1) {
-			fileExtension = requestResource.substring(requestResource.lastIndexOf(".") + 1,
-					requestResource.lastIndexOf(""));
-		} else {
-			fileExtension = requestResource.substring(requestResource.lastIndexOf(".") + 1,
-					requestResource.indexOf("?"));
-		}
+		if (file.exists()) {
+			if (requestURI.indexOf("?") == -1) {
+				fileExtension = requestURI.substring(requestURI.lastIndexOf(".") + 1, requestURI.lastIndexOf(""));
+			} else {
+				fileExtension = requestURI.substring(requestURI.lastIndexOf(".") + 1, requestURI.indexOf("?"));
+			}
 
-		if (fileExtension.equals("html") || fileExtension.equals("css") || fileExtension.equals("js")) {
-			this.responseHeader = "Content-Type: text/" + fileExtension;
-		} else if (fileExtension.equals("png") || fileExtension.equals("jpeg") || fileExtension.equals("gif")) {
-			this.responseHeader = "Content-Type: image/" + fileExtension;
+			if (fileExtension.equals("html") || fileExtension.equals("css") || fileExtension.equals("js")) {
+				this.responseHeader = "Content-Type: text/" + fileExtension;
+			} else if (fileExtension.equals("png") || fileExtension.equals("jpeg") || fileExtension.equals("gif")) {
+				this.responseHeader = "Content-Type: image/" + fileExtension;
+			}
+
 		} else {
-			System.out.println("申し訳ございません、ご指定の拡張子には対応しておりません");
+			this.responseHeader = "Content-Type: text/html";
 		}
 
 		System.out.println("レスポンスヘッダは" + this.responseHeader);

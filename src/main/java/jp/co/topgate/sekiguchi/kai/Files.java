@@ -13,9 +13,9 @@ public class Files {
 	 * 
 	 * @return
 	 */
-	public byte[] readFile(String requestResource) {
+	public byte[] readFile(String requestURI) {
 
-		File file = new File(requestResource);
+		File file = new File("src/main/resources" + requestURI);
 
 		byte[] byteContents = null;
 

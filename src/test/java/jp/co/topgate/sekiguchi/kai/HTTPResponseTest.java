@@ -3,6 +3,7 @@ package jp.co.topgate.sekiguchi.kai;
 import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,6 @@ import org.junit.Test;
  * @author sekiguchikai
  *
  */
-
 public class HTTPResponseTest {
 
 	/**
@@ -95,7 +95,8 @@ public class HTTPResponseTest {
 
 			// System.out.println("リクエストURIは" + requestURIList.get(j));
 			// メソッドを使用する
-			httpResponse.setResponseHeader(requestURIList.get(o));
+			File file = new File("src/main/resources" + requestURIList.get(o));
+			httpResponse.setResponseHeader(requestURIList.get(o), file);
 
 			assertEquals("リクエストURIを与えると、適切なファイルを読み込むか", "Content-Type: text/" + extArray.get(o),
 					httpResponse.getResponseHeader());
@@ -141,7 +142,8 @@ public class HTTPResponseTest {
 
 			// System.out.println("リクエストURIは" + requestURIList.get(j));
 			// メソッドを使用する
-			httpResponse2.setResponseHeader(requestURIList2.get(o));
+			File file = new File("src/main/resources" + requestURIList2.get(o));
+			httpResponse2.setResponseHeader(requestURIList2.get(o), file);
 
 			assertEquals("リクエストURIを与えると、適切なファイルを読み込むか", "Content-Type: image/" + extArray2.get(o),
 					httpResponse2.getResponseHeader());
@@ -149,12 +151,55 @@ public class HTTPResponseTest {
 
 	}
 
-	// /**
-	// * SetResponseHeaderメソッドをテストするクラス¥
-	// */
+	/**
+	 * SetResponseHeaderメソッドをテストするクラス¥
+	 */
 	// @Test
 	// public void testSendResponse() {
 	//
+	// String requestURIArry[] = { "/next.html", "/sample/next.html",
+	// "/.sample/next.html", "/next.html?foo=bar",
+	// "/sample/next.html?foo=bar", "/next.html?foo=bar.com" };
+	//
+	// for (int i = 0; i < requestURIArry.length; i++) {
+	//
+	// // "HTTP/1.1 200 OK"の場合
+	// // レスポンス出力用にソケットの代わりにByteArrayOutputStreamを用意する
+	// OutputStream outputStream = new ByteArrayOutputStream();
+	// HTTPResponse httpResponse = new HTTPResponse(outputStream);
+	//
+	// setStatusLine(String status)
+	//
+	//
+	// // メソッドを使用する
+	// httpResponse.sendResponse();
+	//
+	// ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(
+	// ((ByteArrayOutputStream) outputStream).toByteArray());
+	//
+	// BufferedReader bufferedReader = new BufferedReader(new
+	// InputStreamReader(byteArrayInputStream));
+	//
+	// StringBuilder stringBuilder = new StringBuilder();
+	// String result = null;
+	//
+	// try {
+	// result = bufferedReader.readLine();
+	//
+	// while (result != null) {
+	// System.out.println(result);
+	// stringBuilder.append(result);
+	// result = bufferedReader.readLine();
 	// }
+	// System.out.println(stringBuilder);
+	// } catch (IOException e) {
+	// System.err.println("エラー" + e.getMessage());
+	// e.printStackTrace();
+	// }
+	//
+	// assertEquals("リクエストURIを与えると、適切なファイルを読み込むか", "HTTP/1.1 200 OKContent-Type:
+	// text/htmlやる気",
+	// new String(stringBuilder));
+	//
 
 }

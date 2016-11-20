@@ -8,19 +8,16 @@ public class Controler {
 
 		String requestURI = httpRequest.getRequestURI();
 		Files files = new Files();
-
-		// リクエストしてきたリソースを取得
-		String requestResource = httpRequest.getRequestResource(requestURI);
+		File file = new File("src/main/resources" + requestURI);
 
 		// レスポンスヘッダ（今回は、Content-Typeのみ）の設定
-		httpResponse.setResponseHeader(requestResource);
+		httpResponse.setResponseHeader(requestURI, file);
 
 		// レスポンスボディの設定
-		byte[] responseBody = files.readFile(requestResource);
+		byte[] responseBody = files.readFile(requestURI);
 		httpResponse.setResponseBody(responseBody);
 
 		// ステータスラインの設定
-		File file = new File(requestResource);
 		if (file.exists()) {
 			httpResponse.setStatusLine("HTTP/1.1 200 OK");
 		} else {

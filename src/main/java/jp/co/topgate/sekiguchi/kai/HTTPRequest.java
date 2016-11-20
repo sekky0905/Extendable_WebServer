@@ -46,7 +46,7 @@ public class HTTPRequest {
 	 */
 	public String getRequestMethod() {
 		this.requestMethod = this.requestLine.substring(0, this.requestLine.indexOf(" "));
-		System.out.println("リクエストURIは" + this.requestMethod);
+		System.out.println("リクエストメソッドは" + this.requestMethod);
 		return this.requestMethod;
 
 	}
@@ -58,30 +58,22 @@ public class HTTPRequest {
 	 */
 	public String getRequestURI() {
 		int firstEmpty = this.requestLine.indexOf(" ");
-		this.requestURI = this.requestLine.substring(firstEmpty + 1, this.requestLine.indexOf(" ", firstEmpty + 1));
-		System.out.println("リクエストURIは" + this.requestURI);
-		return this.requestURI;
+		String secondSentence = this.requestLine.substring(firstEmpty + 1,
+				this.requestLine.indexOf(" ", firstEmpty + 1));
 
-	}
+		String afterLastSlash = secondSentence.substring(secondSentence.lastIndexOf("/") + 1, secondSentence.length());
 
-	public String getRequestResource(String requestURI) {
-		String afterLastSlash = requestURI.substring(requestURI.lastIndexOf("/") + 1, requestURI.length());
-
-		String requestResource = null;
-
-		if ((requestURI.indexOf("?") == -1) && (afterLastSlash.indexOf(".") != -1)) {
-			requestResource = "src/main/resources" + requestURI;
-		} else if ((requestURI.indexOf("?") == -1) && (afterLastSlash.indexOf(".") == -1)) {
-			requestResource = "src/main/resources" + requestURI.substring(0, requestURI.lastIndexOf("/") + 1)
-					+ "index.html";
-		} else if ((requestURI.indexOf("?") != -1) && (afterLastSlash.indexOf(".") != -1)) {
-			requestResource = "src/main/resources" + requestURI.substring(0, requestURI.indexOf("?"));
-		} else if ((requestURI.indexOf("?") != -1) && (afterLastSlash.indexOf(".") == -1)) {
-			requestResource = "src/main/resources" + requestURI.substring(0, requestURI.lastIndexOf("/") + 1)
-					+ "index.html";
+		if ((secondSentence.indexOf("?") == -1) && (afterLastSlash.indexOf(".") != -1)) {
+			this.requestURI = secondSentence;
+		} else if ((secondSentence.indexOf("?") == -1) && (afterLastSlash.indexOf(".") == -1)) {
+			this.requestURI = secondSentence.substring(0, secondSentence.lastIndexOf("/") + 1);
+		} else if ((secondSentence.indexOf("?") != -1) && (afterLastSlash.indexOf(".") != -1)) {
+			this.requestURI = secondSentence.substring(0, secondSentence.indexOf("?"));
+		} else if ((secondSentence.indexOf("?") != -1) && (afterLastSlash.indexOf(".") == -1)) {
+			this.requestURI = secondSentence.substring(0, secondSentence.lastIndexOf("/") + 1);
 		}
 
-		return requestResource;
+		return this.requestURI;
 
 	}
 

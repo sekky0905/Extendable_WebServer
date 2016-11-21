@@ -16,10 +16,24 @@ public class HTTPResponse {
 	 * クライアントとのsocketを格納したOutputStream
 	 */
 	private OutputStream outputStream;
+	/**
+	 * クライアントへのレスポンスライン
+	 */
 	private String statusLine;
+	/**
+	 * クライアントへのレスポンスヘッダ
+	 */
 	private String responseHeader;
+	/**
+	 * クライアントへのレスポンスボディ
+	 */
 	private byte[] responseBody;
 
+	/**
+	 * コンストラクタ
+	 * 
+	 * @param outputStream
+	 */
 	HTTPResponse(OutputStream outputStream) {
 		this.outputStream = outputStream;
 	}
@@ -27,16 +41,20 @@ public class HTTPResponse {
 	/**
 	 * クライアントへ送信するレスポンスのうち、ステータスラインを設定するメソッド
 	 * 
-	 * @return
+	 * @param statusLine
+	 *            ステータス来ん
 	 */
-	public void setStatusLine(String status) {
-		this.statusLine = status;
+	public void setStatusLine(String statusLine) {
+		this.statusLine = statusLine;
 	}
 
 	/**
 	 * クライアントへ送信するレスポンスのうち、レスポンスヘッダを設定するメソッド
 	 * 
-	 * @param
+	 * @param requestResource
+	 *            リクエストされたリソース
+	 * @param file
+	 *            ファイル
 	 */
 	public void setResponseHeader(String requestResource, File file) {
 		String fileExtension = null;
@@ -67,6 +85,7 @@ public class HTTPResponse {
 	 * クライアントへ送信するレスポンスのうち、レスポンスボディを設定するメソッド
 	 * 
 	 * @param responseBody
+	 *            リクエストボディ
 	 */
 	public void setResponseBody(byte[] responseBody) {
 		this.responseBody = responseBody;
@@ -100,6 +119,8 @@ public class HTTPResponse {
 			e.printStackTrace();
 		}
 	}
+
+	// 以下、テスト用の仕掛け
 
 	/**
 	 * statusLineを取得するためのメソッド

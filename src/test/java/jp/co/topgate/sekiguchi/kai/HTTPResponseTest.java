@@ -2,8 +2,13 @@ package jp.co.topgate.sekiguchi.kai;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +55,7 @@ public class HTTPResponseTest {
 	}
 
 	/**
-	 * SetResponseHeaderメソッドをテストするクラス¥
+	 * SetResponseHeaderメソッドをテストするクラス
 	 */
 	@Test
 	public void testSetResponseHeader() {
@@ -128,58 +133,152 @@ public class HTTPResponseTest {
 			assertEquals("リクエストURIを与えると、適切なファイルを読み込むか", "Content-Type: image/" + extArray2.get(o),
 					httpResponse2.getResponseHeader());
 		}
-
 	}
 
 	/**
 	 * SetResponseHeaderメソッドをテストするクラス¥
 	 */
-	// @Test
-	// public void testSendResponse() {
-	//
-	// String requestURIArry[] = { "/next.html", "/sample/next.html",
-	// "/.sample/next.html", "/next.html?foo=bar",
-	// "/sample/next.html?foo=bar", "/next.html?foo=bar.com" };
-	//
-	// for (int i = 0; i < requestURIArry.length; i++) {
-	//
-	// // "HTTP/1.1 200 OK"の場合
-	// // レスポンス出力用にソケットの代わりにByteArrayOutputStreamを用意する
-	// OutputStream outputStream = new ByteArrayOutputStream();
-	// HTTPResponse httpResponse = new HTTPResponse(outputStream);
-	//
-	// setStatusLine(String status)
-	//
-	//
-	// // メソッドを使用する
-	// httpResponse.sendResponse();
-	//
-	// ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(
-	// ((ByteArrayOutputStream) outputStream).toByteArray());
-	//
-	// BufferedReader bufferedReader = new BufferedReader(new
-	// InputStreamReader(byteArrayInputStream));
-	//
-	// StringBuilder stringBuilder = new StringBuilder();
-	// String result = null;
-	//
-	// try {
-	// result = bufferedReader.readLine();
-	//
-	// while (result != null) {
-	// System.out.println(result);
-	// stringBuilder.append(result);
-	// result = bufferedReader.readLine();
-	// }
-	// System.out.println(stringBuilder);
-	// } catch (IOException e) {
-	// System.err.println("エラー" + e.getMessage());
-	// e.printStackTrace();
-	// }
-	//
-	// assertEquals("リクエストURIを与えると、適切なファイルを読み込むか", "HTTP/1.1 200 OKContent-Type:
-	// text/htmlやる気",
-	// new String(stringBuilder));
-	//
+	@Test
+	public void testSendResponse() {
+		// リクエストのための処理
+		String socketContents = "GET /next.html HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+				+ "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+				+ "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+				+ "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+				+ "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
+
+		String socketContents2 = "GET /next.html?foo=bar HTTP/1.1\n" + "Host: localhost:8080\n"
+				+ "Connection: keep-alive\n"
+				+ "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+				+ "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+				+ "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+				+ "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
+
+		String socketContents3 = "GET /next.html?foo=bar.com HTTP/1.1\n" + "Host: localhost:8080\n"
+				+ "Connection: keep-alive\n"
+				+ "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+				+ "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+				+ "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+				+ "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
+
+		String socketContents4 = "GET /sample/next.html HTTP/1.1\n" + "Host: localhost:8080\n"
+				+ "Connection: keep-alive\n"
+				+ "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+				+ "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+				+ "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+				+ "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
+
+		String socketContents5 = "GET /sample/next.html?foo=bar HTTP/1.1\n" + "Host: localhost:8080\n"
+				+ "Connection: keep-alive\n"
+				+ "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+				+ "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+				+ "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+				+ "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
+
+		String socketContents6 = "GET /sample/next.html?foo=bar.com HTTP/1.1\n" + "Host: localhost:8080\n"
+				+ "Connection: keep-alive\n"
+				+ "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+				+ "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+				+ "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+				+ "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
+
+		String socketContents7 = "GET /.sample/next.html HTTP/1.1\n" + "Host: localhost:8080\n"
+				+ "Connection: keep-alive\n"
+				+ "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+				+ "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+				+ "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+				+ "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
+
+		String socketContents8 = "GET /.sample/next.html?foo=bar HTTP/1.1\n" + "Host: localhost:8080\n"
+				+ "Connection: keep-alive\n"
+				+ "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+				+ "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+				+ "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+				+ "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
+
+		String socketContents9 = "GET /.sample/next.html?foo=bar.com HTTP/1.1\n" + "Host: localhost:8080\n"
+				+ "Connection: keep-alive\n"
+				+ "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+				+ "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+				+ "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+				+ "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
+
+		String socketContentsArray[] = { socketContents, socketContents2, socketContents3, socketContents4,
+				socketContents5, socketContents6, socketContents7, socketContents8, socketContents9 };
+
+		for (int i = 0; i < socketContentsArray.length; i++) {
+
+			// リクエストの準備
+			InputStream inputStream = new ByteArrayInputStream(socketContentsArray[i].getBytes());
+			HTTPRequest httpRequest = new HTTPRequest(inputStream);
+
+			// レスポンス出力用にソケットの代わりにByteArrayOutputStreamを用意する
+			OutputStream outputStream = new ByteArrayOutputStream();
+			HTTPResponse httpResponse = new HTTPResponse(outputStream);
+
+			// ステータスラインの追加
+			httpResponse.setStatusLine("HTTP/1.1 200 OK");
+
+			// ファイルの読み込み
+			String requestURI = httpRequest.getRequestURI();
+			Files files = new Files();
+
+			File file;
+			String requestResource;
+
+			if (requestURI.substring(requestURI.length() - 1).equals("/")
+					|| requestURI.substring(requestURI.lastIndexOf("/"), requestURI.length()).indexOf(".") == -1) {
+				requestResource = "src/main/resources" + requestURI + "index.html";
+				file = new File(requestResource);
+			} else {
+				requestResource = "src/main/resources" + requestURI;
+				file = new File(requestResource);
+			}
+
+			// レスポンスヘッダを追加
+			httpResponse.setResponseHeader(requestResource, file);
+
+			// レスポンスボディの設定
+			byte[] responseBody = files.readFile(file);
+			httpResponse.setResponseBody(responseBody);
+
+			// ステータスラインの設定
+			if (file.exists()) {
+				httpResponse.setStatusLine("HTTP/1.1 200 OK");
+			} else {
+				httpResponse.setStatusLine("HTTP/1.1 404 Not Found");
+			}
+
+			// 送信
+			httpResponse.sendResponse();
+
+			// 送信されたoutputの取り出しと分析
+			ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(
+					((ByteArrayOutputStream) outputStream).toByteArray());
+
+			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(byteArrayInputStream));
+
+			StringBuilder stringBuilder = new StringBuilder();
+			String result = null;
+
+			try {
+				result = bufferedReader.readLine();
+
+				while (result != null) {
+					System.out.println(result);
+					stringBuilder.append(result);
+					result = bufferedReader.readLine();
+				}
+				System.out.println(stringBuilder);
+			} catch (IOException e) {
+				System.err.println("エラー" + e.getMessage());
+				e.printStackTrace();
+			}
+
+			assertEquals("リクエストURIを与えると、適切なファイルを読み込むか", "HTTP/1.1 200 OKContent-Type: text/htmlやる気",
+					new String(stringBuilder));
+
+		}
+	}
 
 }

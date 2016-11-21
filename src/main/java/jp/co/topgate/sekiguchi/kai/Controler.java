@@ -2,8 +2,22 @@ package jp.co.topgate.sekiguchi.kai;
 
 import java.io.File;
 
+/**
+ * 全体のプログラムを制御するクラス
+ * 
+ * @author sekiguchikai
+ *
+ */
 public class Controler {
 
+	/**
+	 * リクエストメソッドがGETメソッドの場合の処理
+	 * 
+	 * @param httpRequest
+	 *            HTTPRequestクラスのインスタンス
+	 * @param httpResponse
+	 *            HTTPResponseクラスのインスタンス
+	 */
 	public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) {
 
 		String requestURI = httpRequest.getRequestURI();
@@ -40,9 +54,17 @@ public class Controler {
 
 	}
 
+	/**
+	 * リクエストメソッドがPOSTメソッドの場合の処理
+	 * 
+	 * @param httpRequest
+	 *            HTTPRequestクラスのインスタンス
+	 * @param httpResponse
+	 *            HTTPResponseクラスのインスタンス
+	 */
 	public void handlePost(HTTPRequest httpRequest, HTTPResponse httpResponse) {
 
-		//
+		// 今後作成予定
 
 	}
 

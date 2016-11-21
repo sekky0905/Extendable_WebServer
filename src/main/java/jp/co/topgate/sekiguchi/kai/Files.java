@@ -9,9 +9,9 @@ import java.io.InputStream;
 public class Files {
 
 	/**
-	 * リクエストURIを受け取って、
+	 * 指定されたファイルを読み込んで、そのバイナリデータを返す
 	 * 
-	 * @return
+	 * @return 読み込んだファイルのバイナリデータ
 	 */
 	public byte[] readFile(File file) {
 		byte[] byteContents = null;

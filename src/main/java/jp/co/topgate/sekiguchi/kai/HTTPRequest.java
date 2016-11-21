@@ -16,19 +16,37 @@ public class HTTPRequest {
 	 * クライアントからのsocket通信の中身を格納するための変数
 	 */
 	private InputStream inputStream;
+	/**
+	 * クライアントからのリクエストライン
+	 */
 	private String requestLine;
+	/**
+	 * クライアントからのリクエストメソッド
+	 */
 	private String requestMethod;
+	/**
+	 * クライアントからのリクエストURI
+	 */
 	private String requestURI;
-	private String queryString;
+	// private String queryString;
 
 	/**
-	 * コンストラクタ
+	 * コンストラクタ、set~で各フィールドを初期設定する
 	 * 
 	 * @param socketからのstreamを受け取る
 	 */
 	public HTTPRequest(InputStream inputStream) {
 		this.inputStream = inputStream;
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+		this.setHTTPRequestLine();
+		this.setRequestURI();
+		this.setRequestMethod();
+	}
+
+	/**
+	 * クライアントからのリクエストから、リクエストラインを抽出してフィールドに設定するメソッド
+	 */
+	private void setHTTPRequestLine() {
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.inputStream));
 		try {
 			this.requestLine = bufferedReader.readLine();
 			if (bufferedReader != null) {
@@ -40,23 +58,9 @@ public class HTTPRequest {
 	}
 
 	/**
-	 * クライアントからのリクエストから、リクエストメソッドを抽出して返すメソッド
-	 * 
-	 * @return リクエストメソッドを抽出して返す
+	 * クライアントからのリクエストから、リクエストURIを抽出してフィールドに設定するメソッド
 	 */
-	public String getRequestMethod() {
-		this.requestMethod = this.requestLine.substring(0, this.requestLine.indexOf(" "));
-		System.out.println("リクエストメソッドは" + this.requestMethod);
-		return this.requestMethod;
-
-	}
-
-	/**
-	 * クライアントからのリクエストから、リクエストURIを抽出して返すメソッド S
-	 * 
-	 * @return リクエストURIを抽出して返す
-	 */
-	public String getRequestURI() {
+	public void setRequestURI() {
 		int firstEmpty = this.requestLine.indexOf(" ");
 		String secondSentence = this.requestLine.substring(firstEmpty + 1,
 				this.requestLine.indexOf(" ", firstEmpty + 1));
@@ -66,9 +70,41 @@ public class HTTPRequest {
 		} else {
 			this.requestURI = secondSentence.substring(0, secondSentence.indexOf("?"));
 		}
+	}
 
+	/**
+	 * クライアントからのリクエストから、リクエストメソッドを抽出してフィールドに設定するメソッド
+	 */
+	private void setRequestMethod() {
+		this.requestMethod = this.requestLine.substring(0, this.requestLine.indexOf(" "));
+		System.out.println("リクエストメソッドは" + this.requestMethod);
+	}
+
+	/**
+	 * リクエストラインを返すメソッド
+	 * 
+	 * @return リクエストラインを返す
+	 */
+	public String getRequestLine() {
+		return this.requestLine;
+	}
+
+	/**
+	 * リクエストメソッドを返すメソッド
+	 * 
+	 * @return リクエストメソッドを返す
+	 */
+	public String getRequestMethod() {
+		return this.requestMethod;
+	}
+
+	/**
+	 * リクエストURIを返すメソッド
+	 * 
+	 * @return リクエストURIを返す
+	 */
+	public String getRequestURI() {
 		return this.requestURI;
-
 	}
 
 	// /**

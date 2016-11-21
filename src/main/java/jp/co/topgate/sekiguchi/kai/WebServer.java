@@ -58,13 +58,13 @@ public class WebServer {
 				HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
 				String requestMethod = httpRequest.getRequestMethod();
-				Controler controler = new Controler();
+				controlle controlle = new controlle();
 
 				// リクエストメソッドによってcontrolerで使うメソッドを決定する
 				if (requestMethod.equals("GET")) {
-					controler.handleGET(httpRequest, httpResponse);
+					controlle.handleGET(httpRequest, httpResponse);
 				} else if (requestMethod.equals("POST")) {
-					controler.handlePost(httpRequest, httpResponse);
+					controlle.handlePost(httpRequest, httpResponse);
 				} else {
 					System.out.println("リクエストメソッドが不正です");
 				}

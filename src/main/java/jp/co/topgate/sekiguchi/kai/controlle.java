@@ -8,7 +8,7 @@ import java.io.File;
  * @author sekiguchikai
  *
  */
-public class Controler {
+public class controlle {
 
 	/**
 	 * リクエストメソッドがGETメソッドの場合の処理

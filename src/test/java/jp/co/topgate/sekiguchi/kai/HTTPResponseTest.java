@@ -29,24 +29,17 @@ public class HTTPResponseTest {
 	@Test
 	public void testSetStatusLine() {
 
-		// "HTTP/1.1 200 OK"の場合
-		// レスポンス出力用にソケットの代わりにByteArrayOutputStreamを用意する
 		OutputStream outputStream = new ByteArrayOutputStream();
 		HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
-		// メソッドを使用する
 		httpResponse.setStatusLine("HTTP/1.1 200 OK");
 		String statusLine = httpResponse.getStatusLine();
 
 		assertEquals("リクエストURIを与えると、適切なファイルを読み込むか", "HTTP/1.1 200 OK", statusLine);
 
-		// "HTTP/1.1 404 Not Found"
-		// "HTTP/1.1 200 OK"の場合
-		// レスポンス出力用にソケットの代わりにByteArrayOutputStreamを用意する
 		OutputStream outputStream2 = new ByteArrayOutputStream();
 		HTTPResponse httpResponse2 = new HTTPResponse(outputStream2);
 
-		// メソッドを使用する
 		httpResponse2.setStatusLine("HTTP/1.1 404 Not Found");
 		String statusLine2 = httpResponse2.getStatusLine();
 
@@ -83,13 +76,10 @@ public class HTTPResponseTest {
 		}
 
 		for (int o = 0; o < requestResourceList.size(); o++) {
-			// "HTTP/1.1 200 OK"の場合
-			// レスポンス出力用にソケットの代わりにByteArrayOutputStreamを用意する
+
 			OutputStream outputStream = new ByteArrayOutputStream();
 			HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
-			// System.out.println("リクエストURIは" + requestURIList.get(j));
-			// メソッドを使用する
 			File file = new File("src/main/resources" + requestResourceList.get(o));
 			httpResponse.setResponseHeader(requestResourceList.get(o), file);
 
@@ -97,16 +87,13 @@ public class HTTPResponseTest {
 					httpResponse.getResponseHeader());
 		}
 
-		// Content-Type: text/hogeの場合
 		String fileExtensionArray2[] = { "jpeg", "png", "gif" };
 		List<String> requestResourceList2 = new ArrayList<String>();
 
-		// requestURIListにfileExtensionArray[]の中身を拡張子として代入
 		for (int i = 0; i < fileExtensionArray2.length; i++) {
 			requestResourceList2.add("/index." + fileExtensionArray2[i]);
 		}
 
-		// requestURIListにfileExtensionArray[]の中身を拡張子として代入
 		for (int j = 0; j < fileExtensionArray2.length; j++) {
 			requestResourceList2.add("/.sample/index." + fileExtensionArray2[j]);
 		}
@@ -208,18 +195,14 @@ public class HTTPResponseTest {
 
 		for (int i = 0; i < socketContentsArray.length; i++) {
 
-			// リクエストの準備
 			InputStream inputStream = new ByteArrayInputStream(socketContentsArray[i].getBytes());
 			HTTPRequest httpRequest = new HTTPRequest(inputStream);
 
-			// レスポンス出力用にソケットの代わりにByteArrayOutputStreamを用意する
 			OutputStream outputStream = new ByteArrayOutputStream();
 			HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
-			// ステータスラインの追加
 			httpResponse.setStatusLine("HTTP/1.1 200 OK");
 
-			// ファイルの読み込み
 			String requestURI = httpRequest.getRequestURI();
 			Files files = new Files();
 
@@ -235,24 +218,19 @@ public class HTTPResponseTest {
 				file = new File(requestResource);
 			}
 
-			// レスポンスヘッダを追加
 			httpResponse.setResponseHeader(requestResource, file);
 
-			// レスポンスボディの設定
 			byte[] responseBody = files.readFile(file);
 			httpResponse.setResponseBody(responseBody);
 
-			// ステータスラインの設定
 			if (file.exists()) {
 				httpResponse.setStatusLine("HTTP/1.1 200 OK");
 			} else {
 				httpResponse.setStatusLine("HTTP/1.1 404 Not Found");
 			}
 
-			// 送信
 			httpResponse.sendResponse();
 
-			// 送信されたoutputの取り出しと分析
 			ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(
 					((ByteArrayOutputStream) outputStream).toByteArray());
 

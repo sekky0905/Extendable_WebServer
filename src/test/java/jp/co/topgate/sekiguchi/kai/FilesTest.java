@@ -10,15 +10,15 @@ import org.junit.Test;
 public class FilesTest {
 
 	@Test
-	public void testFileReader() {
+	public void FileReader() {
 		String requestResource = ("src/main/resources/next.html");
 		String requestResource2 = ("src/main/resources/sample/next.html");
 		String requestResource3 = ("src/main/resources/.sample/next.html");
 
 		String requestResourceArray[] = { requestResource, requestResource2, requestResource3 };
 		//
-		for (int i = 0; i < requestResourceArray.length; i++) {
-			File file = new File(requestResourceArray[i]);
+		for (String resource : requestResourceArray) {
+			File file = new File(resource);
 			Files files = new Files();
 			String fileContents = null;
 			try {

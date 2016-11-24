@@ -1,5 +1,6 @@
 package jp.co.topgate.sekiguchi.kai;
 
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 /**
@@ -17,7 +18,7 @@ public class Message {
     /**
      * 投稿日時
      */
-    private Date atTime;
+    private ZonedDateTime atTime;
 
 
     /**
@@ -42,16 +43,15 @@ public class Message {
      * 投稿日時のセッター
      * @param atTime
      */
-    public void setAtTime(Date atTime) {
+    public void setAtTime(ZonedDateTime atTime) {
         this.atTime = atTime;
-
     }
 
     /**
      * ユーザーネームのゲッター
      * @return ユーザーネーム
      */
-    public String userName() {
+    public String getUserName() {
         return this.userName;
 
    }
@@ -69,7 +69,7 @@ public class Message {
      * 投稿日時のゲッター
      * @return 投稿日時
      */
-    public Date getAtTime() {
+    public ZonedDateTime getAtTime() {
         return this.atTime;
 
     }

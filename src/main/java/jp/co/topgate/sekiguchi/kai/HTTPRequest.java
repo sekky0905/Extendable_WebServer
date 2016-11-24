@@ -6,6 +6,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * クライアントからのTTPリクエストに関する責務を持つクラス
@@ -25,7 +29,7 @@ public class HTTPRequest {
     /**
      * クライアントからのリクエスト本文
      */
-    private String requestString;
+    private List<String> requestString = new ArrayList<>();
 
     /**
      * クライアントからのリクエストメソッド
@@ -39,7 +43,8 @@ public class HTTPRequest {
     /**
      * クエリパラメーター
      */
-    private String requestParameter;
+    Map<String, String> requestParameter = new HashMap<>();
+    ;
 
 
     /**
@@ -58,29 +63,25 @@ public class HTTPRequest {
 
     private void setRequestString() {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.inputStream));
-        StringBuilder stringBuilder = new StringBuilder();
         String tempoRequestString;
         try {
             while ((tempoRequestString = bufferedReader.readLine()) != null) {
                 System.out.println(tempoRequestString);
-                stringBuilder.append(tempoRequestString + "\n");
+                this.requestString.add(tempoRequestString + "\n");
             }
         } catch (IOException e) {
             e.getCause();
             System.out.println("ファイル名の解析に失敗しました");
             e.printStackTrace();
         }
-
-        this.requestString = new String(stringBuilder);
-
     }
 
     /**
      * クライアントからのリクエストから、リクエストラインを抽出してフィールドに設定するメソッド
      */
     private void setHTTPRequestLine() {
-        this.requestLine = this.requestString.substring(0, this.requestString.indexOf("\n"));
-    System.out.println("リクエストラインは、" + this.requestLine);
+        this.requestLine = this.requestString.get(0);
+        System.out.println("リクエストラインは、" + this.requestLine);
     }
 
 
@@ -107,8 +108,24 @@ public class HTTPRequest {
         System.out.println("リクエストメソッドは" + this.requestMethod);
     }
 
-    private void setRequestParameter() {
 
+    /**
+     * リクエストパラメータを取得するメソッド
+     *
+     * @return リクエストパラメータの名前と値をセットで格納したMapを返す
+     */
+    public void setRequestParameter(String targetString) {
+        String[] parameter;
+        if ((targetString.indexOf("&")) != -1) {
+            parameter = targetString.split("&");
+            for (String param : parameter) {
+                String[] piece = param.split("=");
+                this.requestParameter.put(piece[0], piece[1]);
+            }
+        } else {
+            String[] piece = targetString.split("=");
+            this.requestParameter.put(piece[0], piece[1]);
+        }
     }
 
 
@@ -117,7 +134,7 @@ public class HTTPRequest {
      *
      * @return リクエスト本文を返す
      */
-    public String getRequestString() {
+    public List<String> getRequestString() {
         return this.requestString;
     }
 
@@ -154,9 +171,8 @@ public class HTTPRequest {
      *
      * @return リクエストパラメータを抽出して返す
      */
-    public void getParameter() {
-
-
+    public String getRequestParameter(String name) {
+        return this.requestParameter.get(name);
     }
 
 }

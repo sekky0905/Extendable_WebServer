@@ -1,13 +1,13 @@
 package jp.co.topgate.sekiguchi.kai;
 
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.regex.Matcher;
+import java.util.*;
 
-import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
 /**
@@ -100,15 +100,19 @@ public class HTTPRequestTest {
     public void getRequestString() {
 
 
-        for (String socketContent : socketContentsArray) {
-            InputStream inputStream = new ByteArrayInputStream(socketContent.getBytes());
+        for (int i = 0; i < socketContentsArray.length; i++) {
+            InputStream inputStream = new ByteArrayInputStream(socketContentsArray[i].getBytes());
             HTTPRequest httpRequest = new HTTPRequest(inputStream);
 
-            assertThat(httpRequest.getRequestString(), CoreMatchers.is(socketContent));
+            List requestStringList = httpRequest.getRequestString();
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int j = 0; j < requestStringList.size(); j++) {
+                stringBuilder.append(requestStringList.get(j));
+            }
+
+            assertThat(new String(stringBuilder), is(socketContentsArray[i]));
         }
-
     }
-
 
     /**
      * getRequestURIメソッドをテストするメソッド
@@ -141,19 +145,35 @@ public class HTTPRequestTest {
 
     }
 
+    @Test
+    public void getRequestParameter() {
+        String expectedParamName = "key1";
+        String expectedParamName2 = "key2";
+        String expectedParamName3 = "key3";
 
-//    @Test
-//    public void GetQueryString() {
-//        String expectedQueryString = null;
-//        String expectedQueryString2 = null;
-//        String expectedQueryString3 = "";
-//        String expectedQueryString4 = "";
-//        String expectedQueryString5 = "";
-//        String expectedQueryString6 = "";
-//        String expectedQueryString7 = "";
-//        String expectedQueryString8 = "";
-//        String expectedQueryString9 = "";
-//
-//    }
+        String epnArray[] = {expectedParamName, expectedParamName2, expectedParamName3};
+        String expectedParamValue = "value1";
+        String expectedParamValue2 = "value2";
+        String expectedParamValue3 = "value3";
+
+        String epvArray[] = {expectedParamValue, expectedParamValue2, expectedParamValue3};
+
+        String targetString1 = "key1=value1";
+        String targetString2 = "key1=value1&key2=value2";
+        String targetString3 = "key1=value1&key2=value2&key3=value3";
+
+        String targetStringArray[] = {targetString1, targetString2, targetString3};
+
+        String socketContentsArray2[] = {socketContents, socketContents2, socketContents3};
+
+        Map<String, String> expectedParamMap = new HashMap<>();
+        for (int i = 0; i < epnArray.length; i++) {
+            InputStream inputStream = new ByteArrayInputStream(socketContentsArray2[i].getBytes());
+            HTTPRequest httpRequest = new HTTPRequest(inputStream);
+            httpRequest.setRequestParameter(targetStringArray[i]);
+            assertThat(httpRequest.getRequestParameter(epnArray[i]), is(epvArray[i]));
+        }
+    }
 
 }
+

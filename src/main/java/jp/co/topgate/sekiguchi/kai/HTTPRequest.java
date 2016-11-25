@@ -67,7 +67,7 @@ public class HTTPRequest {
             tempoRequestString = bufferedReader.readLine();
             this.requestString.add(tempoRequestString + "\n");
 
-            while (!(tempoRequestString.equals(""))) {
+            while (tempoRequestString != null) {
                 System.out.println(tempoRequestString);
                 tempoRequestString = bufferedReader.readLine();
                 this.requestString.add(tempoRequestString + "\n");
@@ -97,7 +97,7 @@ public class HTTPRequest {
                 this.requestLine.indexOf(" ", firstEmpty + 1));
 
         if (secondSentence.contains("?")) {
-            this.requestURI = secondSentence;
+            this.requestURI = secondSentence.substring(0, secondSentence.indexOf("?"));
         } else {
             this.requestURI = secondSentence;
         }

@@ -6,8 +6,18 @@ import java.time.ZonedDateTime;
  * Messageに関するコントローラー
  * Created by sekiguchikai on 2016/11/22.
  */
-class MessageHandler implements Handler {
+public class MessageHandler implements Handler {
     public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) {
+
+        // 3.HTMLTemplateにMessage渡す
+        HTMLTemplate htmlTemplate = new HTMLTemplate();
+
+
+        httpResponse.setResponseHeader("html");
+        httpResponse.setStatusLine("HTTP/1.1 200 OK");
+        httpResponse.setResponseBody(htmlTemplate.writeHTML());
+
+        httpResponse.sendResponse();
 
     }
 
@@ -30,7 +40,7 @@ class MessageHandler implements Handler {
 
         httpResponse.setResponseHeader("html");
         httpResponse.setStatusLine("HTTP/1.1 200 OK");
-        httpResponse.setResponseBody(htmlTemplate.writeHTML(message));
+        httpResponse.setResponseBody(htmlTemplate.writeHTML());
 
         httpResponse.sendResponse();
 

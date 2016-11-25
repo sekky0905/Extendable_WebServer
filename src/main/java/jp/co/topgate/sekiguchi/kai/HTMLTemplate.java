@@ -12,7 +12,7 @@ public class HTMLTemplate {
      * @param messageList Messageインスタンスを格納したList
      * @return HTMLテンプレートをbyte[]にしたもの
      */
-    public byte[] writeHTML(Message message) {
+    public byte[] writeHTML() {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("<!DOCTYPE html>");

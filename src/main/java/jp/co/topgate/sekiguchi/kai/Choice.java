@@ -8,7 +8,7 @@ public class Choice {
 
         Handler handler;
 
-        if (requestURI.equals("message")) {
+        if (requestURI.equals("/message")) {
             handler = new MessageHandler();
         } else {
             handler = new StaticFileHandler();

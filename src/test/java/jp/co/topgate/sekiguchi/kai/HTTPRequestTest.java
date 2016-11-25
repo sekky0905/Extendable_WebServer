@@ -114,6 +114,36 @@ public class HTTPRequestTest {
         }
     }
 
+    @Test
+    public void getRequestLine() {
+        String expectedRequestLine = "GET /next.html HTTP/1.1\n";
+        String expectedRequestLine2 = "GET /sample/next.html HTTP/1.1\n";
+        String expectedRequestLine3 = "GET /next.html?foo=bar HTTP/1.1\n";
+        String expectedRequestLine4 = "GET /sample/next.html?foo=bar HTTP/1.1\n";
+        String expectedRequestLine5 = "GET /next.html?foo=bar.com HTTP/1.1\n";
+        String expectedRequestLine6 = "GET /sample/next.html?foo=bar.com HTTP/1.1\n";
+        String expectedRequestLine7 = "GET /.sample/next.html HTTP/1.1\n";
+        String expectedRequestLine8 = "GET /.sample/next.html?foo=bar HTTP/1.1\n";
+        String expectedRequestLine9 = "GET /.sample/next.html?foo=bar.com HTTP/1.1\n";
+
+        String expectedRequestLineArray[] = {expectedRequestLine, expectedRequestLine2, expectedRequestLine3, expectedRequestLine4, expectedRequestLine5, expectedRequestLine6, expectedRequestLine7, expectedRequestLine8, expectedRequestLine9
+        };
+
+
+        for (int i = 0; i < socketContentsArray.length; i++) {
+            InputStream inputStream = new ByteArrayInputStream(socketContentsArray[i].getBytes());
+            HTTPRequest httpRequest = new HTTPRequest(inputStream);
+
+            List<String> requestString = httpRequest.getRequestString();
+            String requestLine = httpRequest.getRequestLine(requestString);
+            System.out.println("リクエストラインは" + requestLine);
+
+            assertEquals("GETリクエストを与えると、適切なリクエストURIを返すことができるか", expectedRequestLineArray[i], requestLine);
+        }
+
+
+    }
+
     /**
      * getRequestURIメソッドをテストするメソッド
      */
@@ -137,7 +167,8 @@ public class HTTPRequestTest {
             InputStream inputStream = new ByteArrayInputStream(socketContentsArray[i].getBytes());
             HTTPRequest httpRequest = new HTTPRequest(inputStream);
 
-            String requestURI = httpRequest.getRequestURI();
+            List<String> requestString = httpRequest.getRequestString();
+            String requestURI = httpRequest.getRequestURI(httpRequest.getRequestLine(requestString));
             System.out.println("リクエストURIは" + requestURI);
 
             assertEquals("GETリクエストを与えると、適切なリクエストURIを返すことができるか", expectedRequestURIArray[i], requestURI);

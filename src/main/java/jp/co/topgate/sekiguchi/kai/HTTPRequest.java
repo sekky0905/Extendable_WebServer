@@ -22,28 +22,13 @@ public class HTTPRequest {
      * クライアントからのsocket通信の中身を格納するための変数
      */
     private InputStream inputStream;
-    /**
-     * クライアントからのリクエストライン
-     */
-    private String requestLine;
-    /**
-     * クライアントからのリクエスト本文
-     */
-    private List<String> requestString = new ArrayList<>();
-
-    /**
-     * クライアントからのリクエストメソッド
-     */
-    private String requestMethod;
-    /**
-     * クライアントからのリクエストURI
-     */
-    private String requestURI;
 
     /**
      * クエリパラメーター
      */
     private Map<String, String> requestParameter = new HashMap<>();
+
+    private List<String> requestString = new ArrayList<>();
 
 
     /**
@@ -54,62 +39,6 @@ public class HTTPRequest {
     public HTTPRequest(InputStream inputStream) {
         this.inputStream = inputStream;
         this.setRequestString();
-        this.setHTTPRequestLine();
-        this.setRequestURI();
-        this.setRequestMethod();
-    }
-
-
-    private void setRequestString() {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.inputStream));
-        String tempoRequestString;
-        try {
-            tempoRequestString = bufferedReader.readLine();
-            this.requestString.add(tempoRequestString + "\n");
-
-            while (tempoRequestString != null) {
-                System.out.println(tempoRequestString);
-                tempoRequestString = bufferedReader.readLine();
-                this.requestString.add(tempoRequestString + "\n");
-            }
-        } catch (IOException e) {
-            e.getCause();
-            System.out.println("ファイル名の解析に失敗しました");
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * クライアントからのリクエストから、リクエストラインを抽出してフィールドに設定するメソッド
-     */
-    private void setHTTPRequestLine() {
-        this.requestLine = this.requestString.get(0);
-        System.out.println("リクエストラインは、" + this.requestLine);
-    }
-
-
-    /**
-     * クライアントからのリクエストから、リクエストURIを抽出してフィールドに設定するメソッド
-     */
-    private void setRequestURI() {
-        int firstEmpty = this.requestLine.indexOf(" ");
-        String secondSentence = this.requestLine.substring(firstEmpty + 1,
-                this.requestLine.indexOf(" ", firstEmpty + 1));
-
-        if (secondSentence.contains("?")) {
-            this.requestURI = secondSentence.substring(0, secondSentence.indexOf("?"));
-        } else {
-            this.requestURI = secondSentence;
-        }
-        System.out.print("リクエストURIは" + this.requestURI);
-    }
-
-    /**
-     * クライアントからのリクエストから、リクエストメソッドを抽出してフィールドに設定するメソッド
-     */
-    private void setRequestMethod() {
-        this.requestMethod = this.requestLine.substring(0, this.requestLine.indexOf(" "));
-        System.out.println("リクエストメソッドは" + this.requestMethod);
     }
 
 
@@ -132,6 +61,27 @@ public class HTTPRequest {
         }
     }
 
+    /**
+     * リクエスト本文を返すメソッド
+     *
+     * @return リクエスト本文を返す
+     */
+    public void setRequestString() {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.inputStream));
+        String tempoRequestString;
+
+        try {
+            while (!(tempoRequestString = bufferedReader.readLine()).equals("")) {
+                System.out.println(tempoRequestString);
+                this.requestString.add(tempoRequestString + "\n");
+
+            }
+        } catch (IOException e) {
+            e.getCause();
+            System.out.println("ファイル名の解析に失敗しました");
+            e.printStackTrace();
+        }
+    }
 
     /**
      * リクエスト本文を返すメソッド
@@ -147,8 +97,10 @@ public class HTTPRequest {
      *
      * @return リクエストラインを返す
      */
-    public String getRequestLine() {
-        return this.requestLine;
+    public String getRequestLine(List<String> requestString) {
+        String requestLine = requestString.get(0);
+        System.out.println("リクエストラインは、" + requestLine);
+        return requestLine;
     }
 
     /**
@@ -156,8 +108,11 @@ public class HTTPRequest {
      *
      * @return リクエストメソッドを返す
      */
-    public String getRequestMethod() {
-        return this.requestMethod;
+    public String getRequestMethod(String requestLine) {
+
+        String requestMethod = requestLine.substring(0, requestLine.indexOf(" "));
+        System.out.println("リクエストメソッドは" + requestMethod);
+        return requestMethod;
     }
 
     /**
@@ -165,8 +120,20 @@ public class HTTPRequest {
      *
      * @return リクエストURIを返す
      */
-    public String getRequestURI() {
-        return this.requestURI;
+    public String getRequestURI(String requestLine) {
+        String requestURI;
+        int firstEmpty = requestLine.indexOf(" ");
+        String secondSentence = requestLine.substring(firstEmpty + 1,
+                requestLine.indexOf(" ", firstEmpty + 1));
+
+        if (secondSentence.contains("?")) {
+            requestURI = secondSentence.substring(0, secondSentence.indexOf("?"));
+        } else {
+            requestURI = secondSentence;
+        }
+        System.out.print("リクエストURIは" + requestURI);
+
+        return requestURI;
     }
 
 
@@ -176,6 +143,7 @@ public class HTTPRequest {
      * @return リクエストパラメータを抽出して返す
      */
     public String getRequestParameter(String name) {
+
         return this.requestParameter.get(name);
     }
 

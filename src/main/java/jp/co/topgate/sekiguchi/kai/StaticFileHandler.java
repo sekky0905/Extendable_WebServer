@@ -6,28 +6,27 @@ import java.io.File;
  * 全体のプログラムを制御するクラス
  *
  * @author sekiguchikai
- *
  */
-public class Controller {
+public class StaticFileHandler implements Handler {
+
 
     /**
      * リクエストメソッドがGETメソッドの場合の処理
      *
-     * @param httpRequest
-     *            HTTPRequestクラスのインスタンス
-     * @param httpResponse
-     *            HTTPResponseクラスのインスタンス
+     * @param httpRequest  HTTPRequestクラスのインスタンス
+     * @param httpResponse HTTPResponseクラスのインスタンス
      */
     public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) {
 
-        String requestURI = httpRequest.getRequestURI();
+        String requestURI = httpRequest.getRequestURI(httpRequest.getRequestLine(httpRequest.getRequestString()));
+
         Files files = new Files();
 
         File file;
         String requestResource;
 
-        if (requestURI.substring(requestURI.length() - 1).equals("/")
-                || requestURI.substring(requestURI.lastIndexOf("/"), requestURI.length()).indexOf(".") == -1) {
+        if ((requestURI.substring(requestURI.length() - 1).equals("/"))
+                || !(requestURI.substring(requestURI.lastIndexOf("/"), requestURI.length()).contains("."))) {
             requestResource = "src/main/resources" + requestURI + "index.html";
             file = new File(requestResource);
         } else {
@@ -35,7 +34,9 @@ public class Controller {
             file = new File(requestResource);
         }
 
-        httpResponse.setResponseHeader(requestResource, file);
+        String fileExtension = requestResource.substring(requestResource.lastIndexOf(".") + 1,
+                requestResource.lastIndexOf(""));
+        httpResponse.setResponseHeader(fileExtension);
 
         byte[] responseBody = files.readFile(file);
         httpResponse.setResponseBody(responseBody);
@@ -46,6 +47,7 @@ public class Controller {
             httpResponse.setStatusLine("HTTP/1.1 404 Not Found");
         }
 
+
         httpResponse.sendResponse();
 
     }
@@ -53,12 +55,10 @@ public class Controller {
     /**
      * リクエストメソッドがPOSTメソッドの場合の処理
      *
-     * @param httpRequest
-     *            HTTPRequestクラスのインスタンス
-     * @param httpResponse
-     *            HTTPResponseクラスのインスタンス
+     * @param httpRequest  HTTPRequestクラスのインスタンス
+     * @param httpResponse HTTPResponseクラスのインスタンス
      */
-    public void handlePost(HTTPRequest httpRequest, HTTPResponse httpResponse) {
+    public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) {
 
         // 今後作成予定
 

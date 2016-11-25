@@ -19,73 +19,73 @@ import java.net.Socket;
 
 /**
  * socketの確立とControlerクラスを呼び出す責務を持ったクラス
- * 
+ *
  * @author sekiguchikai
  */
 public class WebServer {
 
-	/**
-	 * PORT番号
-	 */
-	private static final int PORT = 8080;
+    /**
+     * PORT番号
+     */
+    private static final int PORT = 8080;
 
-	/**
-	 * メインメソッド
-	 */
-	public static void main(String[] args) throws IOException {
-		WebServer webServer = new WebServer();
-		webServer.initialize();
-	}
+    /**
+     * メインメソッド
+     */
+    public static void main(String[] args) throws IOException {
+        WebServer webServer = new WebServer();
+        webServer.initialize();
+    }
 
-	/**
-	 * socketを確立し、HTTPRequestクラスとHTTPResponseクラスをインスタンス化するクラス
-	 */
-	public void initialize() throws IOException {
-		System.out.println("Start the server at http://localhost:8080");
-		ServerSocket serverSocket = null;
-		Socket socket = null;
+    /**
+     * socketを確立し、HTTPRequestクラスとHTTPResponseクラスをインスタンス化するクラス
+     */
+    public void initialize() throws IOException {
+        System.out.println("Start the server at http://localhost:8080");
+        ServerSocket serverSocket = null;
+        Socket socket = null;
 
-		try {
-			serverSocket = new ServerSocket(PORT);
-			while (true) {
-				socket = serverSocket.accept();
-				System.out.println("request incoming...");
+        try {
+            serverSocket = new ServerSocket(PORT);
+            while (true) {
+                socket = serverSocket.accept();
+                System.out.println("request incoming...");
 
-				InputStream inputStream = socket.getInputStream();
-				OutputStream outputStream = socket.getOutputStream();
+                InputStream inputStream = socket.getInputStream();
+                OutputStream outputStream = socket.getOutputStream();
 
-				HTTPRequest httpRequest = new HTTPRequest(inputStream);
-				HTTPResponse httpResponse = new HTTPResponse(outputStream);
+                HTTPRequest httpRequest = new HTTPRequest(inputStream);
+                HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
-				String requestMethod = httpRequest.getRequestMethod();
-				controller controller = new controller();
+                String requestMethod = httpRequest.getRequestMethod();
+                Controller controller = new Controller();
 
-				// リクエストメソッドによってcontrolerで使うメソッドを決定する
-				if (requestMethod.equals("GET")) {
-					controller.handleGET(httpRequest, httpResponse);
-				} else if (requestMethod.equals("POST")) {
-					controller.handlePost(httpRequest, httpResponse);
-				} else {
-					System.out.println("リクエストメソッドが不正です");
-				}
+                // リクエストメソッドによってControllerで使うメソッドを決定する
+                if (requestMethod.equals("GET")) {
+                    controller.handleGET(httpRequest, httpResponse);
+                } else if (requestMethod.equals("POST")) {
+                    controller.handlePost(httpRequest, httpResponse);
+                } else {
+                    System.out.println("リクエストメソッドが不正です");
+                }
 
-				if (socket != null) {
-					socket.close();
-				}
+                if (socket != null) {
+                    socket.close();
+                }
 
-			}
-		} catch (IOException e) {
-			System.err.println("エラー" + e.getMessage());
-			System.exit(1);
-		} finally {
-			if (serverSocket != null) {
-				serverSocket.close();
-			}
+            }
+        } catch (IOException e) {
+            System.err.println("エラー" + e.getMessage());
+            System.exit(1);
+        } finally {
+            if (serverSocket != null) {
+                serverSocket.close();
+            }
 
-			if (socket != null) {
-				socket.close();
-			}
-		}
+            if (socket != null) {
+                socket.close();
+            }
+        }
 
-	}
+    }
 }

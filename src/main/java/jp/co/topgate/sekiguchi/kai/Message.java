@@ -23,6 +23,7 @@ public class Message {
 
     /**
      * ユーザーネームのセッター
+     *
      * @param userName
      */
     public void setUserName(String userName) {
@@ -32,6 +33,7 @@ public class Message {
 
     /**
      * 本文のセッター
+     *
      * @param text
      */
     public void setText(String text) {
@@ -41,6 +43,7 @@ public class Message {
 
     /**
      * 投稿日時のセッター
+     *
      * @param atTime
      */
     public void setAtTime(ZonedDateTime atTime) {
@@ -49,15 +52,17 @@ public class Message {
 
     /**
      * ユーザーネームのゲッター
+     *
      * @return ユーザーネーム
      */
     public String getUserName() {
         return this.userName;
 
-   }
+    }
 
     /**
      * 本文のゲッター
+     *
      * @return 本文
      */
     public String getText() {
@@ -67,13 +72,13 @@ public class Message {
 
     /**
      * 投稿日時のゲッター
+     *
      * @return 投稿日時
      */
     public ZonedDateTime getAtTime() {
         return this.atTime;
 
     }
-
 
 
 }

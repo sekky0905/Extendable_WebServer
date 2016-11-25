@@ -43,14 +43,13 @@ public class HTTPRequest {
     /**
      * クエリパラメーター
      */
-    Map<String, String> requestParameter = new HashMap<>();
-    ;
+    private Map<String, String> requestParameter = new HashMap<>();
 
 
     /**
      * コンストラクタ、set~で各フィールドを初期設定する
      *
-     * @param socketからのstreamを受け取る
+     * @param inputStream
      */
     public HTTPRequest(InputStream inputStream) {
         this.inputStream = inputStream;
@@ -65,8 +64,12 @@ public class HTTPRequest {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.inputStream));
         String tempoRequestString;
         try {
-            while ((tempoRequestString = bufferedReader.readLine()) != null) {
+            tempoRequestString = bufferedReader.readLine();
+            this.requestString.add(tempoRequestString + "\n");
+
+            while (!(tempoRequestString.equals(""))) {
                 System.out.println(tempoRequestString);
+                tempoRequestString = bufferedReader.readLine();
                 this.requestString.add(tempoRequestString + "\n");
             }
         } catch (IOException e) {
@@ -93,11 +96,12 @@ public class HTTPRequest {
         String secondSentence = this.requestLine.substring(firstEmpty + 1,
                 this.requestLine.indexOf(" ", firstEmpty + 1));
 
-        if ((secondSentence.indexOf("?") == -1)) {
+        if (secondSentence.contains("?")) {
             this.requestURI = secondSentence;
         } else {
-            this.requestURI = secondSentence.substring(0, secondSentence.indexOf("?"));
+            this.requestURI = secondSentence;
         }
+        System.out.print("リクエストURIは" + this.requestURI);
     }
 
     /**
@@ -116,7 +120,7 @@ public class HTTPRequest {
      */
     public void setRequestParameter(String targetString) {
         String[] parameter;
-        if ((targetString.indexOf("&")) != -1) {
+        if (targetString.contains("&")) {
             parameter = targetString.split("&");
             for (String param : parameter) {
                 String[] piece = param.split("=");

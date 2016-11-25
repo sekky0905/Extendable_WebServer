@@ -9,17 +9,16 @@ import java.io.File;
  */
 public class StaticFileHandler implements Handler {
 
+
 	/**
 	 * リクエストメソッドがGETメソッドの場合の処理
 	 *
-	 * @param httpRequest
-	 *            HTTPRequestクラスのインスタンス
-	 * @param httpResponse
-	 *            HTTPResponseクラスのインスタンス
+	 * @param httpRequest  HTTPRequestクラスのインスタンス
+	 * @param httpResponse HTTPResponseクラスのインスタンス
 	 */
 	public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) {
 
-		String requestURI = httpRequest.getRequestURI(httpRequest.getRequestLine());
+		String requestURI = httpRequest.getRequestURI(httpRequest.getRequestLine(httpRequest.getRequestString()));
 
 		Files files = new Files();
 
@@ -48,6 +47,7 @@ public class StaticFileHandler implements Handler {
 			httpResponse.setStatusLine("HTTP/1.1 404 Not Found");
 		}
 
+
 		httpResponse.sendResponse();
 
 	}
@@ -55,10 +55,8 @@ public class StaticFileHandler implements Handler {
 	/**
 	 * リクエストメソッドがPOSTメソッドの場合の処理
 	 *
-	 * @param httpRequest
-	 *            HTTPRequestクラスのインスタンス
-	 * @param httpResponse
-	 *            HTTPResponseクラスのインスタンス
+	 * @param httpRequest  HTTPRequestクラスのインスタンス
+	 * @param httpResponse HTTPResponseクラスのインスタンス
 	 */
 	public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) {
 

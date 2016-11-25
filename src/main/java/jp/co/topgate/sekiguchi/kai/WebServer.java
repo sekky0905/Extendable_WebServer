@@ -57,11 +57,12 @@ public class WebServer {
 				HTTPRequest httpRequest = new HTTPRequest(inputStream);
 				HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
-				String requestLine = httpRequest.getRequestLine();
-
+				String requestLine = httpRequest.getRequestLine(httpRequest.getRequestString());
 				String requestURI = httpRequest.getRequestURI(requestLine);
 
 				String requestMethod = httpRequest.getRequestMethod(requestLine);
+
+
 				Handler handler;
 
 				if (requestURI.equals("/program/board/")) {

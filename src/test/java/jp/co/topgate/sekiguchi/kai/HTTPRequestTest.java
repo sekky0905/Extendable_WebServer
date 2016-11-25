@@ -88,7 +88,7 @@ public class HTTPRequestTest {
             InputStream inputStream = new ByteArrayInputStream(socketContent.getBytes());
             HTTPRequest httpRequest = new HTTPRequest(inputStream);
 
-            assertEquals("GETリクエストを与えると、適切なリクエストメソッドを返すことができるか", "GET", httpRequest.getRequestMethod());
+            assertEquals("GETリクエストを与えると、適切なリクエストメソッドを返すことができるか", "GET", httpRequest.getRequestMethod(httpRequest.getRequestLine(httpRequest.getRequestString())));
         }
 
     }

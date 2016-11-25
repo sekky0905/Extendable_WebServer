@@ -9,7 +9,6 @@ public class FormTemplate {
     /**
      * HTMLのテンプレートを作成し、それをbyte[]にして返すメソッド
      *
-     * @param messageList Messageインスタンスを格納したList
      * @return HTMLテンプレートをbyte[]にしたもの
      */
     public byte[] writeHTML() {
@@ -22,7 +21,7 @@ public class FormTemplate {
         stringBuilder.append("<title>Document</title>");
         stringBuilder.append("</head>");
         stringBuilder.append("<body>");
-        stringBuilder.append("<form action=\"src/main/java/message\" method=\"post\">");
+        stringBuilder.append("<form action=\"/program/board/registered\" method=\"post\">");
         stringBuilder.append("<p>");
         stringBuilder.append("名前：<input type=\"text\" name=\"userName\" size=\"40\" maxlength=\"20\">");
         stringBuilder.append("</p>");

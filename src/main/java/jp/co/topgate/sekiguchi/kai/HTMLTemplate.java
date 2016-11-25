@@ -11,7 +11,8 @@ public class HTMLTemplate {
      * @param messageList Messageインスタンスを格納したList
      * @return HTMLテンプレートをbyte[]にしたもの
      */
-    public byte[] writeHTML(ArrayList<Message> messageList) {
+    public byte[] writeHTML(Message message) {
+
 
         return null;
     }

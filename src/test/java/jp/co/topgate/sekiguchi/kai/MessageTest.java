@@ -31,9 +31,9 @@ public class MessageTest {
      * ついでにgetTextメソッドも実装する
      */
     @Test
-    public void setText() {
-        message.setText("こんにちわ");
-        assertThat(message.getText(), is("こんにちわ"));
+    public void setComment() {
+        message.setComment("こんにちわ");
+        assertThat(message.getComment(), is("こんにちわ"));
     }
 
     /**
@@ -46,6 +46,6 @@ public class MessageTest {
         message.setAtTime(zT);
         assertThat(message.getAtTime(), is(zT));
     }
-    
+
 
 }

@@ -14,7 +14,7 @@ public class Message {
     /**
      * 本文
      */
-    private String text;
+    private String comment;
     /**
      * 投稿日時
      */
@@ -34,10 +34,10 @@ public class Message {
     /**
      * 本文のセッター
      *
-     * @param text
+     * @param comment
      */
-    public void setText(String text) {
-        this.text = text;
+    public void setComment(String comment) {
+        this.comment = comment;
 
     }
 
@@ -65,8 +65,8 @@ public class Message {
      *
      * @return 本文
      */
-    public String getText() {
-        return this.text;
+    public String getComment() {
+        return this.comment;
 
     }
 

@@ -138,6 +138,20 @@ public class HTTPRequest {
 
 
     /**
+     * 「?」以降の文字列を返す
+     *
+     * @param requestLine リクエストライン
+     * @return ?」以降の文字列
+     */
+    public String getRequstQuery(String requestLine) {
+        int firstEmpty = requestLine.indexOf(" ");
+        String secondSentence = requestLine.substring(firstEmpty + 1,
+                requestLine.indexOf(" ", firstEmpty + 1));
+        return secondSentence.substring(secondSentence.indexOf("?"), secondSentence.length());
+    }
+
+
+    /**
      * クライアントからのリクエストパラメータを抽出して返すメソッド
      *
      * @return リクエストパラメータを抽出して返す

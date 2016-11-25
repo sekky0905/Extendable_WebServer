@@ -59,7 +59,7 @@ public class WebServer {
 
                 String requestLine = httpRequest.getRequestLine(httpRequest.getRequestString());
 
-                Handler handler = Choice.ChoicdHandler(httpRequest.getRequestURI(requestLine));
+                Handler handler = Choice.ChoiceHandler(httpRequest.getRequestURI(requestLine));
                 String requestMethod = httpRequest.getRequestMethod(requestLine);
 
 
@@ -77,6 +77,7 @@ public class WebServer {
                 }
 
             }
+
         } catch (IOException e) {
             System.err.println("エラー" + e.getMessage());
             System.exit(1);

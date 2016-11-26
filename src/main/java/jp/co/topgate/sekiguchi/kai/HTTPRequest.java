@@ -76,6 +76,12 @@ public class HTTPRequest {
     }
 
 
+    /**
+     * Mapに格納されているJavaBeansのモデルを返すメソッド
+     *
+     * @param name モデルの名前
+     * @return モデル
+     */
     public Object getModel(String name) {
         return this.modelMap.get(name);
     }

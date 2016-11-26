@@ -57,7 +57,7 @@ public class WebServer {
 				HTTPRequest httpRequest = new HTTPRequest(inputStream);
 				HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
-				String requestLine = httpRequest.getRequestLine(httpRequest.getRequestString());
+				String requestLine = httpRequest.getRequestLine();
 				String requestURI = httpRequest.getRequestURI(requestLine);
 
 				String requestMethod = httpRequest.getRequestMethod(requestLine);

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by sekiguchikai on 2016/11/22.
  */
-public class FormTemplate implements Template {
+public class ResultTemplate implements Template {
     /**
      * HTMLのテンプレートを作成し、それをbyte[]にして返すメソッド
      *
@@ -21,17 +21,8 @@ public class FormTemplate implements Template {
         stringBuilder.append("<title>Document</title>");
         stringBuilder.append("</head>");
         stringBuilder.append("<body>");
-        stringBuilder.append("<form action=\"/program/board/registered\" method=\"post\">");
-        stringBuilder.append("<p>");
-        stringBuilder.append("名前：<input type=\"text\" name=\"userName\" size=\"40\" maxlength=\"20\">");
-        stringBuilder.append("</p>");
-        stringBuilder.append("<p>");
-        stringBuilder.append("<textarea name=\"comment\" rows=\"4\" cols=\"40\">ここにコメントを記入してください</textarea><br>");
-        stringBuilder.append("</p>");
-        stringBuilder.append("<p>");
-        stringBuilder.append("<input type=\"submit\" value=\"送信する\">");
-        stringBuilder.append("</p>");
-        stringBuilder.append("</form>");
+        stringBuilder.append("<p>名前:" + message. + "</p>");
+        stringBuilder.append("<p>コメント:" + httpRequest.getRequestParameter("comment") + "</p>");
         stringBuilder.append("</body>");
         stringBuilder.append("</html>");
 

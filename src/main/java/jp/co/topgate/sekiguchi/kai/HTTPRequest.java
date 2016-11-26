@@ -6,9 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,147 +16,166 @@ import java.util.Map;
  */
 public class HTTPRequest {
 
-	/**
-	 * クライアントからのsocket通信の中身を格納するための変数
-	 */
-	private InputStream inputStream;
+    /**
+     * クライアントからのsocket通信の中身を格納するための変数
+     */
+    private InputStream inputStream;
 
-	/**
-	 * クエリパラメーター
-	 */
-	private Map<String, String> requestParameter = new HashMap<>();
+    /**
+     * リクエストライン
+     */
+    private String requestLine;
 
-	private List<String> requestString = new ArrayList<>();
-
-
-	/**
-	 * コンストラクタ、set~で各フィールドを初期設定する
-	 *
-	 * @param inputStream
-	 */
-	public HTTPRequest(InputStream inputStream) {
-		this.inputStream = inputStream;
-		this.setRequestString();
-	}
+    /**
+     * リクエストパラメーター
+     */
+    private Map<String, String> requestParameter = new HashMap<>();
 
 
-	/**
-	 * リクエストパラメータを取得するメソッド
-	 *
-	 * @return リクエストパラメータの名前と値をセットで格納したMapを返す
-	 */
-	public void setRequestParameter(String targetString) {
-		String[] parameter;
-		if (targetString.contains("&")) {
-			parameter = targetString.split("&");
-			for (String param : parameter) {
-				String[] piece = param.split("=");
-				this.requestParameter.put(piece[0], piece[1]);
-			}
-		} else {
-			String[] piece = targetString.split("=");
-			this.requestParameter.put(piece[0], piece[1]);
-		}
-	}
-
-	/**
-	 * リクエスト本文を返すメソッド
-	 *
-	 * @return リクエスト本文を返す
-	 */
-	public void setRequestString() {
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.inputStream));
-		String tempoRequestString;
-
-		try {
-			while (!(tempoRequestString = bufferedReader.readLine()).equals("")) {
-				System.out.println(tempoRequestString);
-				this.requestString.add(tempoRequestString + "\n");
-
-			}
-		} catch (IOException e) {
-			e.getCause();
-			System.out.println("ファイル名の解析に失敗しました");
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * リクエスト本文を返すメソッド
-	 *
-	 * @return リクエスト本文を返す
-	 */
-	public List<String> getRequestString() {
-		return this.requestString;
-	}
-
-	/**
-	 * リクエストラインを返すメソッド
-	 *
-	 * @return リクエストラインを返す
-	 */
-	public String getRequestLine(List<String> requestString) {
-		String requestLine = requestString.get(0);
-		System.out.println("リクエストラインは、" + requestLine);
-		return requestLine;
-	}
-
-	/**
-	 * リクエストメソッドを返すメソッド
-	 *
-	 * @return リクエストメソッドを返す
-	 */
-	public String getRequestMethod(String requestLine) {
-
-		String requestMethod = requestLine.substring(0, requestLine.indexOf(" "));
-		System.out.println("リクエストメソッドは" + requestMethod);
-		return requestMethod;
-	}
-
-	/**
-	 * リクエストURIを返すメソッド
-	 *
-	 * @return リクエストURIを返す
-	 */
-	public String getRequestURI(String requestLine) {
-		String requestURI;
-		int firstEmpty = requestLine.indexOf(" ");
-		String secondSentence = requestLine.substring(firstEmpty + 1,
-				requestLine.indexOf(" ", firstEmpty + 1));
-
-		if (secondSentence.contains("?")) {
-			requestURI = secondSentence.substring(0, secondSentence.indexOf("?"));
-		} else {
-			requestURI = secondSentence;
-		}
-		System.out.print("リクエストURIは" + requestURI);
-
-		return requestURI;
-	}
+    /**
+     * コンストラクタ、set~で各フィールドを初期設定する
+     *
+     * @param inputStream
+     */
+    public HTTPRequest(InputStream inputStream) {
+        this.inputStream = inputStream;
+        this.setRequestLine();
+    }
 
 
-	/**
-	 * 「?」以降の文字列を返す
-	 *
-	 * @param requestLine リクエストライン
-	 * @return ?」以降の文字列
-	 */
-	public String getRequstQuery(String requestLine) {
-		int firstEmpty = requestLine.indexOf(" ");
-		String secondSentence = requestLine.substring(firstEmpty + 1,
-				requestLine.indexOf(" ", firstEmpty + 1));
-		return secondSentence.substring(secondSentence.indexOf("?"), secondSentence.length());
-	}
+    /**
+     * リクエストラインを設定するメソッド
+     */
+    private void setRequestLine() {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.inputStream));
+        String requestLine = null;
+
+        try {
+            this.requestLine = bufferedReader.readLine();
+        } catch (IOException e) {
+            System.err.println("エラー:" + e.getMessage());
+            e.getCause();
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * リクエストラインを返すメソッド
+     *
+     * @return リクエストラインを返す
+     */
+
+    public String getRequestLine() {
+        System.out.println("リクエストラインは" + this.requestLine);
+        return this.requestLine;
+    }
+
+    /**
+     * リクエストメソッドを返すメソッド
+     *
+     * @return リクエストメソッドを返す
+     */
+    public String getRequestMethod(String requestLine) {
+        String requestMethod = requestLine.substring(0, requestLine.indexOf(" "));
+        System.out.println("リクエストメソッドは" + requestMethod);
+        return requestMethod;
+    }
+
+    /**
+     * クエリストリングを返すメソッド
+     *
+     * @param requestMethod リクエストメソッド
+     * @param requestURI    リクエストURI
+     * @return クエリストリング
+     */
+    public String getQueryString(String requestMethod, String requestURI) {
+        String queryString = null;
+
+        if (requestMethod.equals("GET")) {
+            queryString = requestURI.substring(requestURI.indexOf("?"), requestURI.length());
+        } else if (requestMethod.equals("POST")) {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+
+            try {
+                String requestContents = bufferedReader.readLine();
+                StringBuilder stringBuilder = new StringBuilder();
+                int contentLength = 0;
+
+                while (requestContents != null && !requestContents.isEmpty()) {
+                    if (requestContents.startsWith("Content-Length")) {
+                        contentLength = Integer.parseInt(requestContents.split(":")[1].trim());
+                    }
+                    stringBuilder.append(requestContents + "\n");
+                    requestContents = bufferedReader.readLine();
+                }
+
+                if (0 < contentLength) { // ★Content-Length 分取得
+                    char[] c = new char[contentLength];
+                    bufferedReader.read(c);
+                    queryString = new String(c);
+                }
+
+            } catch (IOException e) {
+                System.err.println("エラー:" + e.getMessage());
+                e.getCause();
+                e.printStackTrace();
+
+            }
+        }
+        return queryString;
+    }
 
 
-	/**
-	 * クライアントからのリクエストパラメータを抽出して返すメソッド
-	 *
-	 * @return リクエストパラメータを抽出して返す
-	 */
-	public String getRequestParameter(String name) {
+    /**
+     * リクエストパラメータを設定するメソッド
+     *
+     * @param queryString クエリストリング
+     */
+    public void setRequestParameter(String queryString) {
+        String[] parameter;
+        if (queryString.contains("&")) {
+            parameter = queryString.split("&");
+            for (String param : parameter) {
+                String[] piece = param.split("=");
+                this.requestParameter.put(piece[0], piece[1]);
+            }
+        } else {
+            String[] piece = queryString.split("=");
+            this.requestParameter.put(piece[0], piece[1]);
+        }
+    }
 
-		return this.requestParameter.get(name);
-	}
+
+    /**
+     * クライアントからのリクエストパラメータを抽出して返すメソッド
+     *
+     * @return リクエストパラメータを抽出して返す
+     */
+    public String getRequestParameter(String name) {
+        String value = this.requestParameter.get(name);
+        System.out.println("リクエストパラメータ" + name + "の値は" + value);
+        return value;
+    }
+
+    /**
+     * リクエストURIを返すメソッド
+     *
+     * @return リクエストURIを返す
+     */
+    public String getRequestURI(String requestLine) {
+        String requestURI;
+        int firstEmpty = requestLine.indexOf(" ");
+        String secondSentence = requestLine.substring(firstEmpty + 1,
+                requestLine.indexOf(" ", firstEmpty + 1));
+
+        if (secondSentence.contains("?")) {
+            requestURI = secondSentence.substring(0, secondSentence.indexOf("?"));
+        } else {
+            requestURI = secondSentence;
+        }
+        System.out.print("リクエストURIは" + requestURI);
+
+        return requestURI;
+    }
 
 }

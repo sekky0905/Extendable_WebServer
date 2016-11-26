@@ -10,58 +10,58 @@ import java.io.File;
 public class StaticFileHandler implements Handler {
 
 
-	/**
-	 * リクエストメソッドがGETメソッドの場合の処理
-	 *
-	 * @param httpRequest  HTTPRequestクラスのインスタンス
-	 * @param httpResponse HTTPResponseクラスのインスタンス
-	 */
-	public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) {
+    /**
+     * リクエストメソッドがGETメソッドの場合の処理
+     *
+     * @param httpRequest  HTTPRequestクラスのインスタンス
+     * @param httpResponse HTTPResponseクラスのインスタンス
+     */
+    public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) {
 
-		String requestURI = httpRequest.getRequestURI(httpRequest.getRequestLine());
+        String requestURI = httpRequest.getRequestURI(httpRequest.getRequestLine());
 
-		Files files = new Files();
+        Files files = new Files();
 
-		File file;
-		String requestResource;
+        File file;
+        String requestResource;
 
-		if ((requestURI.substring(requestURI.length() - 1).equals("/"))
-				|| !(requestURI.substring(requestURI.lastIndexOf("/"), requestURI.length()).contains("."))) {
-			requestResource = "src/main/resources" + requestURI + "index.html";
-			file = new File(requestResource);
-		} else {
-			requestResource = "src/main/resources" + requestURI;
-			file = new File(requestResource);
-		}
+        if ((requestURI.substring(requestURI.length() - 1).equals("/"))
+                || !(requestURI.substring(requestURI.lastIndexOf("/"), requestURI.length()).contains("."))) {
+            requestResource = "src/main/resources" + requestURI + "index.html";
+            file = new File(requestResource);
+        } else {
+            requestResource = "src/main/resources" + requestURI;
+            file = new File(requestResource);
+        }
 
-		String fileExtension = requestResource.substring(requestResource.lastIndexOf(".") + 1,
-				requestResource.lastIndexOf(""));
-		httpResponse.setResponseHeader(fileExtension);
+        String fileExtension = requestResource.substring(requestResource.lastIndexOf(".") + 1,
+                requestResource.lastIndexOf(""));
+        httpResponse.setResponseHeader(fileExtension);
 
-		byte[] responseBody = files.readFile(file);
-		httpResponse.setResponseBody(responseBody);
+        byte[] responseBody = files.readFile(file);
+        httpResponse.setResponseBody(responseBody);
 
-		if (file.exists()) {
-			httpResponse.setStatusLine("HTTP/1.1 200 OK");
-		} else {
-			httpResponse.setStatusLine("HTTP/1.1 404 Not Found");
-		}
+        if (file.exists()) {
+            httpResponse.setStatusLine("HTTP/1.1 200 OK");
+        } else {
+            httpResponse.setStatusLine("HTTP/1.1 404 Not Found");
+        }
 
 
-		httpResponse.sendResponse();
+        httpResponse.sendResponse();
 
-	}
+    }
 
-	/**
-	 * リクエストメソッドがPOSTメソッドの場合の処理
-	 *
-	 * @param httpRequest  HTTPRequestクラスのインスタンス
-	 * @param httpResponse HTTPResponseクラスのインスタンス
-	 */
-	public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) {
+    /**
+     * リクエストメソッドがPOSTメソッドの場合の処理
+     *
+     * @param httpRequest  HTTPRequestクラスのインスタンス
+     * @param httpResponse HTTPResponseクラスのインスタンス
+     */
+    public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) {
 
-		// 今後作成予定
+        // 今後作成予定
 
-	}
+    }
 
 }

@@ -11,7 +11,7 @@ public class FormTemplate implements Template {
      *
      * @return HTMLテンプレートをbyte[]にしたもの
      */
-    public byte[] writeHTML(Message message) {
+    public byte[] writeHTML(HTTPRequest httpRequest, HTTPResponse httpResponse) {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("<!DOCTYPE html>");
@@ -21,9 +21,9 @@ public class FormTemplate implements Template {
         stringBuilder.append("<title>Document</title>");
         stringBuilder.append("</head>");
         stringBuilder.append("<body>");
-        stringBuilder.append("<form action=\"/program/board/registered\" method=\"post\">");
+        stringBuilder.append("<form action=\"/program/board/registered\" method=\"post\" accept-charset=\"UTF-8\">");
         stringBuilder.append("<p>");
-        stringBuilder.append("名前：<input type=\"text\" name=\"userName\" size=\"40\" maxlength=\"20\">");
+        stringBuilder.append("名前：<input type=\"text\" name=\"userName\" size=\"40\">");
         stringBuilder.append("</p>");
         stringBuilder.append("<p>");
         stringBuilder.append("<textarea name=\"comment\" rows=\"4\" cols=\"40\">ここにコメントを記入してください</textarea><br>");

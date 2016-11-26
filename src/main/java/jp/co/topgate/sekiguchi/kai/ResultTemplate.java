@@ -11,7 +11,9 @@ public class ResultTemplate implements Template {
      *
      * @return HTMLテンプレートをbyte[]にしたもの
      */
-    public byte[] writeHTML(Message message) {
+    public byte[] writeHTML(HTTPRequest httpRequest, HTTPResponse httpResponse) {
+
+        Message message = (Message) httpRequest.getModel("message");
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("<!DOCTYPE html>");
@@ -23,7 +25,8 @@ public class ResultTemplate implements Template {
         stringBuilder.append("<body>");
         stringBuilder.append("<p>投稿日時:" + message.getAtTime() + "</p>");
         stringBuilder.append("<p>名前:" + message.getUserName() + "</p>");
-        stringBuilder.append("<p>コメント:" + message.getComment() + "</p>");
+        stringBuilder.append("<p>コメント</p>");
+        stringBuilder.append("<p>" + message.getComment() + "</p>");
         stringBuilder.append("</body>");
         stringBuilder.append("</html>");
 

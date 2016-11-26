@@ -21,10 +21,6 @@ public class HTTPRequest {
      */
     private InputStream inputStream;
 
-    /**
-     * リクエストライン
-     */
-    private String requestLine;
 
     /**
      * リクエストパラメーター
@@ -36,15 +32,66 @@ public class HTTPRequest {
      */
     private Map<String, Object> modelMap = new HashMap<>();
 
+    private String requestLine;
+    private String requestHeader;
+    private String requestBody;
+
 
     /**
      * コンストラクタ、set~で各フィールドを初期設定する
      *
-     * @param inputStream
+     * @param inputStream socketのストリーム
      */
     public HTTPRequest(InputStream inputStream) {
         this.inputStream = inputStream;
-        this.setRequestLine();
+        this.setRequestContents();
+    }
+
+
+    /**
+     * リクエストの全文を読み込むメソッド
+     *
+     * @return リクエストの全文
+     */
+    public void setRequestContents() {
+
+
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.inputStream, "UTF-8"));
+
+            String line = bufferedReader.readLine();
+            this.requestLine = line;
+            System.out.print("リクエストラインは" + this.requestLine);
+
+            StringBuilder stringBuilder = new StringBuilder();
+            int contentLength = 0;
+
+            while (line != null && !line.isEmpty()) {
+                if (line.startsWith("Content-Length")) {
+                    contentLength = Integer.parseInt(line.split(":")[1].trim());
+                }
+
+                stringBuilder.append(line + "\n");
+                line = bufferedReader.readLine();
+            }
+
+            this.requestHeader = new String(stringBuilder);
+            System.out.print("リクエストヘッダは" + this.requestHeader);
+
+            if (0 < contentLength) {
+                char[] c = new char[contentLength];
+                bufferedReader.read(c);
+                this.requestBody = new String(c);
+                System.out.print("リクエストボディは" + this.requestBody);
+            }
+
+        } catch (IOException e) {
+            System.err.println("エラー:" + e.getMessage());
+            e.getCause();
+            e.getStackTrace();
+        }
+
+
     }
 
     /**
@@ -52,27 +99,8 @@ public class HTTPRequest {
      *
      * @return リクエストラインを返す
      */
-
     public String getRequestLine() {
-        System.out.println("リクエストラインは" + this.requestLine);
         return this.requestLine;
-    }
-
-
-    /**
-     * リクエストラインを設定するメソッド
-     */
-    private void setRequestLine() {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.inputStream));
-        String requestLine = null;
-
-        try {
-            this.requestLine = bufferedReader.readLine();
-        } catch (IOException e) {
-            System.err.println("エラー:" + e.getMessage());
-            e.getCause();
-            e.printStackTrace();
-        }
     }
 
 
@@ -139,33 +167,7 @@ public class HTTPRequest {
         if (requestMethod.equals("GET")) {
             queryString = requestURI.substring(requestURI.indexOf("?"), requestURI.length());
         } else if (requestMethod.equals("POST")) {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-
-            try {
-                String requestContents = bufferedReader.readLine();
-                StringBuilder stringBuilder = new StringBuilder();
-                int contentLength = 0;
-
-                while (requestContents != null && !requestContents.isEmpty()) {
-                    if (requestContents.startsWith("Content-Length")) {
-                        contentLength = Integer.parseInt(requestContents.split(":")[1].trim());
-                    }
-                    stringBuilder.append(requestContents + "\n");
-                    requestContents = bufferedReader.readLine();
-                }
-
-                if (0 < contentLength) { // ★Content-Length 分取得
-                    char[] c = new char[contentLength];
-                    bufferedReader.read(c);
-                    queryString = new String(c);
-                }
-
-            } catch (IOException e) {
-                System.err.println("エラー:" + e.getMessage());
-                e.getCause();
-                e.printStackTrace();
-
-            }
+            queryString = this.requestBody;
         }
         return queryString;
     }

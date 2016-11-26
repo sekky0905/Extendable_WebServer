@@ -24,82 +24,82 @@ import java.net.Socket;
  */
 public class WebServer {
 
-	/**
-	 * PORT番号
-	 */
-	private static final int PORT = 8080;
+    /**
+     * PORT番号
+     */
+    private static final int PORT = 8080;
 
-	/**
-	 * メインメソッド
-	 */
-	public static void main(String[] args) throws IOException {
-		WebServer webServer = new WebServer();
-		webServer.initialize();
-	}
+    /**
+     * メインメソッド
+     */
+    public static void main(String[] args) throws IOException {
+        WebServer webServer = new WebServer();
+        webServer.initialize();
+    }
 
-	/**
-	 * socketを確立し、HTTPRequestクラスとHTTPResponseクラスをインスタンス化するクラス
-	 */
-	public void initialize() throws IOException {
-		System.out.println("Start the server at http://localhost:8080");
-		ServerSocket serverSocket = null;
-		Socket socket = null;
+    /**
+     * socketを確立し、HTTPRequestクラスとHTTPResponseクラスをインスタンス化するクラス
+     */
+    public void initialize() throws IOException {
+        System.out.println("Start the server at http://localhost:8080");
+        ServerSocket serverSocket = null;
+        Socket socket = null;
 
-		try {
-			serverSocket = new ServerSocket(PORT);
-			while (true) {
-				socket = serverSocket.accept();
-				System.out.println("request incoming...");
+        try {
+            serverSocket = new ServerSocket(PORT);
+            while (true) {
+                socket = serverSocket.accept();
+                System.out.println("request incoming...");
 
-				InputStream inputStream = socket.getInputStream();
-				OutputStream outputStream = socket.getOutputStream();
+                InputStream inputStream = socket.getInputStream();
+                OutputStream outputStream = socket.getOutputStream();
 
-				HTTPRequest httpRequest = new HTTPRequest(inputStream);
-				HTTPResponse httpResponse = new HTTPResponse(outputStream);
+                HTTPRequest httpRequest = new HTTPRequest(inputStream);
+                HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
-				String requestLine = httpRequest.getRequestLine();
-				String requestURI = httpRequest.getRequestURI(requestLine);
+                String requestLine = httpRequest.getRequestLine();
+                String requestURI = httpRequest.getRequestURI(requestLine);
 
-				String requestMethod = httpRequest.getRequestMethod(requestLine);
+                String requestMethod = httpRequest.getRequestMethod(requestLine);
 
 
-				Handler handler;
+                Handler handler;
 
-				if (requestURI.equals("/program/board/")) {
-					handler = new MessageHandler();
-					handler.handleGET(httpRequest, httpResponse);
-				} else if (requestURI.equals("/program/board/registered")) {
-					handler = new MessageHandler();
-					handler.handlePOST(httpRequest, httpResponse);
-				} else {
-					handler = new StaticFileHandler();
-					if (requestMethod.equals("GET")) {
-						handler.handleGET(httpRequest, httpResponse);
-					} else if (requestMethod.equals("POST")) {
-						handler.handlePOST(httpRequest, httpResponse);
-					} else {
-						System.out.println("リクエストメソッドが不正です");
-					}
-				}
+                if (requestURI.equals("/program/board/")) {
+                    handler = new MessageHandler();
+                    handler.handleGET(httpRequest, httpResponse);
+                } else if (requestURI.equals("/program/board/registered")) {
+                    handler = new MessageHandler();
+                    handler.handlePOST(httpRequest, httpResponse);
+                } else {
+                    handler = new StaticFileHandler();
+                    if (requestMethod.equals("GET")) {
+                        handler.handleGET(httpRequest, httpResponse);
+                    } else if (requestMethod.equals("POST")) {
+                        handler.handlePOST(httpRequest, httpResponse);
+                    } else {
+                        System.out.println("リクエストメソッドが不正です");
+                    }
+                }
 
-				if (socket != null) {
-					socket.close();
-				}
+                if (socket != null) {
+                    socket.close();
+                }
 
-			}
+            }
 
-		} catch (IOException e) {
-			System.err.println("エラー" + e.getMessage());
-			System.exit(1);
-		} finally {
-			if (serverSocket != null) {
-				serverSocket.close();
-			}
+        } catch (IOException e) {
+            System.err.println("エラー" + e.getMessage());
+            System.exit(1);
+        } finally {
+            if (serverSocket != null) {
+                serverSocket.close();
+            }
 
-			if (socket != null) {
-				socket.close();
-			}
-		}
+            if (socket != null) {
+                socket.close();
+            }
+        }
 
-	}
+    }
 }

@@ -15,7 +15,7 @@ public class MessageHandler implements Handler {
 
         httpResponse.setResponseHeader("html");
         httpResponse.setStatusLine("HTTP/1.1 200 OK");
-        httpResponse.setResponseBody(formTemplate.writeHTML());
+        httpResponse.setResponseBody(formTemplate.writeHTML(httpRequest, httpResponse));
 
         httpResponse.sendResponse();
 
@@ -37,8 +37,9 @@ public class MessageHandler implements Handler {
         message.setUserName(userName);
         message.setComment(comment);
 
+        httpRequest.setModel("message", message);
 
-        Template template = new FormTemplate();
+        Template template = new ResultTemplate();
 
         httpResponse.setResponseHeader("html");
         httpResponse.setStatusLine("HTTP/1.1 200 OK");

@@ -209,5 +209,13 @@ public class HTTPRequest {
 
     }
 
+    /**
+     * Mapに格納されているJavaBeansのモデルのインスタンス数を返すメソッド
+     *
+     * @return Mapに格納されているJavaBeansのモデルの数
+     */
+    public int countModel() {
+        return this.modelMap.size();
+    }
 
 }

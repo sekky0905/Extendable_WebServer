@@ -37,7 +37,10 @@ public class MessageHandler implements Handler {
         message.setUserName(userName);
         message.setComment(comment);
 
-        httpRequest.setModel("message", message);
+        String modelNumber = String.valueOf(httpRequest.countModel() + 1);
+        System.out.println("MessageHandlerの時のmodelのカウントは" + modelNumber);
+        httpRequest.setModel("message" + modelNumber, message);
+        System.out.println("modelのインスタンス数は" + httpRequest.countModel());
 
         Template template = new ResultTemplate();
 

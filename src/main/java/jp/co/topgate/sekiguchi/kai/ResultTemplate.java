@@ -15,7 +15,8 @@ public class ResultTemplate implements Template {
         StringBuilder stringBuilder = new StringBuilder();
 
 
-        Message message = (Message) httpRequest.getModel("message");
+        System.out.println("ResultTemplateの時のmodelのカウントは" + String.valueOf(httpRequest.countModel()));
+        Message message = (Message) httpRequest.getModel("message" + String.valueOf(httpRequest.countModel()));
 
         stringBuilder.append("<!DOCTYPE html>");
         stringBuilder.append("<html lang=\"en\">");

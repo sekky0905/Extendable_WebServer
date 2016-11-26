@@ -21,6 +21,7 @@ public class ResultTemplate implements Template {
         stringBuilder.append("<title>Document</title>");
         stringBuilder.append("</head>");
         stringBuilder.append("<body>");
+        stringBuilder.append("<p>投稿日時:" + message.getAtTime() + "</p>");
         stringBuilder.append("<p>名前:" + message.getUserName() + "</p>");
         stringBuilder.append("<p>コメント:" + message.getComment() + "</p>");
         stringBuilder.append("</body>");

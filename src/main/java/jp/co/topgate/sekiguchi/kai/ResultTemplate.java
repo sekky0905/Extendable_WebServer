@@ -12,10 +12,11 @@ public class ResultTemplate implements Template {
      * @return HTMLテンプレートをbyte[]にしたもの
      */
     public byte[] writeHTML(HTTPRequest httpRequest, HTTPResponse httpResponse) {
+        StringBuilder stringBuilder = new StringBuilder();
+
 
         Message message = (Message) httpRequest.getModel("message");
 
-        StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("<!DOCTYPE html>");
         stringBuilder.append("<html lang=\"en\">");
         stringBuilder.append("<head>");
@@ -27,11 +28,25 @@ public class ResultTemplate implements Template {
         stringBuilder.append("<p>名前:" + message.getUserName() + "</p>");
         stringBuilder.append("<p>コメント</p>");
         stringBuilder.append("<p>" + message.getComment() + "</p>");
+        stringBuilder.append("<br>");
+
+
+        stringBuilder.append("<form action=\"/program/board/registered\" method=\"post\" accept-charset=\"UTF-8\">");
+        stringBuilder.append("<p>");
+        stringBuilder.append("名前：<input type=\"text\" name=\"userName\" size=\"40\">");
+        stringBuilder.append("</p>");
+        stringBuilder.append("<p>");
+        stringBuilder.append("<textarea name=\"comment\" rows=\"4\" cols=\"40\">ここにコメントを記入してください</textarea><br>");
+        stringBuilder.append("</p>");
+        stringBuilder.append("<p>");
+        stringBuilder.append("<input type=\"submit\" value=\"送信する\">");
+        stringBuilder.append("</p>");
+        stringBuilder.append("</form>");
         stringBuilder.append("</body>");
         stringBuilder.append("</html>");
 
-
         return new String(stringBuilder).getBytes();
+
     }
 }
 

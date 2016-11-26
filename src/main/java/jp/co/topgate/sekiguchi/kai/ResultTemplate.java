@@ -14,23 +14,26 @@ public class ResultTemplate implements Template {
     public byte[] writeHTML(HTTPRequest httpRequest, HTTPResponse httpResponse) {
         StringBuilder stringBuilder = new StringBuilder();
 
-
         System.out.println("ResultTemplateの時のmodelのカウントは" + String.valueOf(httpRequest.countModel()));
         Message message = (Message) httpRequest.getModel("message" + String.valueOf(httpRequest.countModel()));
 
-        stringBuilder.append("<!DOCTYPE html>");
-        stringBuilder.append("<html lang=\"en\">");
-        stringBuilder.append("<head>");
-        stringBuilder.append("<meta charset=\"UTF-8\">");
-        stringBuilder.append("<title>Document</title>");
-        stringBuilder.append("</head>");
-        stringBuilder.append("<body>");
-        stringBuilder.append("<p>投稿日時:" + message.getAtTime() + "</p>");
-        stringBuilder.append("<p>名前:" + message.getUserName() + "</p>");
-        stringBuilder.append("<p>コメント</p>");
-        stringBuilder.append("<p>" + message.getComment() + "</p>");
-        stringBuilder.append("<br>");
+        for (int i = 0; i < httpRequest.countModel(); i++) {
 
+
+            stringBuilder.append("<!DOCTYPE html>");
+            stringBuilder.append("<html lang=\"en\">");
+            stringBuilder.append("<head>");
+            stringBuilder.append("<meta charset=\"UTF-8\">");
+            stringBuilder.append("<title>Document</title>");
+            stringBuilder.append("</head>");
+            stringBuilder.append("<body>");
+            stringBuilder.append("<p>投稿日時:" + message.getAtTime() + "</p>");
+            stringBuilder.append("<p>名前:" + message.getUserName() + "</p>");
+            stringBuilder.append("<p>コメント</p>");
+            stringBuilder.append("<p>" + message.getComment() + "</p>");
+            stringBuilder.append("<br>");
+
+        }
 
         stringBuilder.append("<form action=\"/program/board/registered\" method=\"post\" accept-charset=\"UTF-8\">");
         stringBuilder.append("<p>");

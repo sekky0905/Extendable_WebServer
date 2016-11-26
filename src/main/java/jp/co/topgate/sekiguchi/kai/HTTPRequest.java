@@ -75,6 +75,11 @@ public class HTTPRequest {
         }
     }
 
+
+    public Object getModel(String name) {
+        return this.modelMap.get(name);
+    }
+
     public void setModel(String name, Object obj) {
         this.modelMap.put(name, obj);
     }

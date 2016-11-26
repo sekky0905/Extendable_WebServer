@@ -31,6 +31,11 @@ public class HTTPRequest {
      */
     private Map<String, String> requestParameter = new HashMap<>();
 
+    /**
+     * JavaBeansのオブジェクト保存用
+     */
+    private Map<String, Object> modelMap = new HashMap<>();
+
 
     /**
      * コンストラクタ、set~で各フィールドを初期設定する
@@ -40,6 +45,17 @@ public class HTTPRequest {
     public HTTPRequest(InputStream inputStream) {
         this.inputStream = inputStream;
         this.setRequestLine();
+    }
+
+    /**
+     * リクエストラインを返すメソッド
+     *
+     * @return リクエストラインを返す
+     */
+
+    public String getRequestLine() {
+        System.out.println("リクエストラインは" + this.requestLine);
+        return this.requestLine;
     }
 
 
@@ -59,16 +75,10 @@ public class HTTPRequest {
         }
     }
 
-    /**
-     * リクエストラインを返すメソッド
-     *
-     * @return リクエストラインを返す
-     */
-
-    public String getRequestLine() {
-        System.out.println("リクエストラインは" + this.requestLine);
-        return this.requestLine;
+    public void setModel(String name, Object obj) {
+        this.modelMap.put(name, obj);
     }
+
 
     /**
      * リクエストメソッドを返すメソッド
@@ -79,6 +89,27 @@ public class HTTPRequest {
         String requestMethod = requestLine.substring(0, requestLine.indexOf(" "));
         System.out.println("リクエストメソッドは" + requestMethod);
         return requestMethod;
+    }
+
+    /**
+     * リクエストURIを返すメソッド
+     *
+     * @return リクエストURIを返す
+     */
+    public String getRequestURI(String requestLine) {
+        String requestURI;
+        int firstEmpty = requestLine.indexOf(" ");
+        String secondSentence = requestLine.substring(firstEmpty + 1,
+                requestLine.indexOf(" ", firstEmpty + 1));
+
+        if (secondSentence.contains("?")) {
+            requestURI = secondSentence.substring(0, secondSentence.indexOf("?"));
+        } else {
+            requestURI = secondSentence;
+        }
+        System.out.print("リクエストURIは" + requestURI);
+
+        return requestURI;
     }
 
     /**
@@ -127,6 +158,17 @@ public class HTTPRequest {
 
 
     /**
+     * クライアントからのリクエストパラメータを抽出して返すメソッド
+     *
+     * @return リクエストパラメータを抽出して返す
+     */
+    public String getRequestParameter(String name) {
+        String value = this.requestParameter.get(name);
+        System.out.println("リクエストパラメータ" + name + "の値は" + value);
+        return value;
+    }
+
+    /**
      * リクエストパラメータを設定するメソッド
      *
      * @param queryString クエリストリング
@@ -145,37 +187,5 @@ public class HTTPRequest {
         }
     }
 
-
-    /**
-     * クライアントからのリクエストパラメータを抽出して返すメソッド
-     *
-     * @return リクエストパラメータを抽出して返す
-     */
-    public String getRequestParameter(String name) {
-        String value = this.requestParameter.get(name);
-        System.out.println("リクエストパラメータ" + name + "の値は" + value);
-        return value;
-    }
-
-    /**
-     * リクエストURIを返すメソッド
-     *
-     * @return リクエストURIを返す
-     */
-    public String getRequestURI(String requestLine) {
-        String requestURI;
-        int firstEmpty = requestLine.indexOf(" ");
-        String secondSentence = requestLine.substring(firstEmpty + 1,
-                requestLine.indexOf(" ", firstEmpty + 1));
-
-        if (secondSentence.contains("?")) {
-            requestURI = secondSentence.substring(0, secondSentence.indexOf("?"));
-        } else {
-            requestURI = secondSentence;
-        }
-        System.out.print("リクエストURIは" + requestURI);
-
-        return requestURI;
-    }
 
 }

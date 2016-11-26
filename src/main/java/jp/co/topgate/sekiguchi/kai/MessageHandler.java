@@ -15,7 +15,7 @@ public class MessageHandler implements Handler {
 
         httpResponse.setResponseHeader("html");
         httpResponse.setStatusLine("HTTP/1.1 200 OK");
-        httpResponse.setResponseBody(formTemplate.writeHTML(httpRequest, httpResponse));
+        httpResponse.setResponseBody(formTemplate.writeHTML());
 
         httpResponse.sendResponse();
 

@@ -55,7 +55,7 @@ public class HTTPRequest {
     public void setRequestContents() {
 
         try {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.inputStream, "UTF-8"));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.inputStream));
 
             String line = bufferedReader.readLine();
             this.requestLine = line;

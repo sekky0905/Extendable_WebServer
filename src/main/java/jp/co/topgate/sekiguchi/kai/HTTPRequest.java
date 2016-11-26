@@ -86,6 +86,9 @@ public class HTTPRequest {
         return this.modelMap.get(name);
     }
 
+    /**
+     * JavaBeansのモデルをMapに格納するメソッド
+     */
     public void setModel(String name, Object obj) {
         this.modelMap.put(name, obj);
     }

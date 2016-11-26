@@ -1,11 +1,10 @@
 package jp.co.topgate.sekiguchi.kai;
 
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,7 +53,6 @@ public class HTTPRequest {
      * @return リクエストの全文
      */
     public void setRequestContents() {
-
 
         try {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.inputStream, "UTF-8"));
@@ -190,17 +188,25 @@ public class HTTPRequest {
      * @param queryString クエリストリング
      */
     public void setRequestParameter(String queryString) {
-        String[] parameter;
-        if (queryString.contains("&")) {
-            parameter = queryString.split("&");
-            for (String param : parameter) {
-                String[] piece = param.split("=");
-                this.requestParameter.put(piece[0], piece[1]);
+        try {
+            String[] parameter;
+            if (queryString.contains("&")) {
+                parameter = queryString.split("&");
+                for (String param : parameter) {
+                    String[] piece = param.split("=");
+                    this.requestParameter.put(piece[0], URLDecoder.decode(piece[1], "UTF-8"));
+                }
+            } else {
+                String[] piece = queryString.split("=");
+                this.requestParameter.put(piece[0], URLDecoder.decode(piece[1], "UTF-8"));
             }
-        } else {
-            String[] piece = queryString.split("=");
-            this.requestParameter.put(piece[0], piece[1]);
+
+        } catch (IOException e) {
+            System.err.println("エラー:" + e.getMessage());
+            e.getCause();
+            e.printStackTrace();
         }
+
     }
 
 

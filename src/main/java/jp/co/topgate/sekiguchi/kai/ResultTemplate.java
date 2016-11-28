@@ -51,6 +51,14 @@ public class ResultTemplate implements Template {
         stringBuilder.append("<p>");
         stringBuilder.append("<input type=\"submit\" value=\"送信する\">");
         stringBuilder.append("</p>");
+        stringBuilder.append("<p>");
+        stringBuilder.append("指定したユーザーの書き込みのみ表示させることができます。<br>");
+        stringBuilder.append("下記で、検索したいユーザー名を指定してください<br>");
+        stringBuilder.append("ユーザー名:<input type=\"text\" name=\"search\">");
+        stringBuilder.append("</p>");
+        stringBuilder.append("<p>");
+        stringBuilder.append("<input type=\"submit\" value=\"検索する\">");
+        stringBuilder.append("</p>");
         stringBuilder.append("</form>");
         stringBuilder.append("</body>");
         stringBuilder.append("</html>");

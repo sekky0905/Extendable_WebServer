@@ -26,13 +26,18 @@ public class HTTPRequest {
      */
     private Map<String, String> requestParameter = new HashMap<>();
 
-    /**
-     * JavaBeansのオブジェクト保存用
-     */
-    private Map<String, Object> modelMap = new HashMap<>();
 
+    /**
+     * リクエストライン
+     */
     private String requestLine;
+    /**
+     * リクエストヘッダ
+     */
     private String requestHeader;
+    /**
+     * リクエストボディ
+     */
     private String requestBody;
 
 
@@ -99,24 +104,6 @@ public class HTTPRequest {
      */
     public String getRequestLine() {
         return this.requestLine;
-    }
-
-
-    /**
-     * Mapに格納されているJavaBeansのモデルを返すメソッド
-     *
-     * @param name モデルの名前
-     * @return モデル
-     */
-    public Object getModel(String name) {
-        return this.modelMap.get(name);
-    }
-
-    /**
-     * JavaBeansのモデルをMapに格納するメソッド
-     */
-    public void setModel(String name, Object obj) {
-        this.modelMap.put(name, obj);
     }
 
 
@@ -209,13 +196,5 @@ public class HTTPRequest {
 
     }
 
-    /**
-     * Mapに格納されているJavaBeansのモデルのインスタンス数を返すメソッド
-     *
-     * @return Mapに格納されているJavaBeansのモデルの数
-     */
-    public int countModel() {
-        return this.modelMap.size();
-    }
 
 }

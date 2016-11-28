@@ -11,7 +11,7 @@ public class FormTemplate implements Template {
      *
      * @return HTMLテンプレートをbyte[]にしたもの
      */
-    public byte[] writeHTML(HTTPRequest httpRequest, HTTPResponse httpResponse) {
+    public byte[] writeHTML() {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("<!DOCTYPE html>");

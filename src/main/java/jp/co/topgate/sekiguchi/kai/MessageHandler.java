@@ -1,7 +1,6 @@
 package jp.co.topgate.sekiguchi.kai;
 
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -17,7 +16,7 @@ public class MessageHandler implements Handler {
 
         httpResponse.setResponseHeader("html");
         httpResponse.setStatusLine("HTTP/1.1 200 OK");
-        httpResponse.setResponseBody(formTemplate.writeHTML(httpRequest, httpResponse));
+        httpResponse.setResponseBody(formTemplate.writeHTML());
 
         httpResponse.sendResponse();
 
@@ -27,7 +26,6 @@ public class MessageHandler implements Handler {
 
         String requestLine = httpRequest.getRequestLine();
         httpRequest.setRequestParameter(httpRequest.getQueryString(httpRequest.getRequestMethod(requestLine), httpRequest.getRequestURI(requestLine)));
-
 
 
         String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now());
@@ -40,16 +38,14 @@ public class MessageHandler implements Handler {
         message.setUserName(userName);
         message.setComment(comment);
 
-        String modelNumber = String.valueOf(httpRequest.countModel() + 1);
-        System.out.println("MessageHandlerの時のmodelのカウントは" + modelNumber);
-        httpRequest.setModel("message" + modelNumber, message);
-        System.out.println("modelのインスタンス数は" + httpRequest.countModel());
+        ModelStorage.setModelList(message);
+
 
         Template template = new ResultTemplate();
 
         httpResponse.setResponseHeader("html");
         httpResponse.setStatusLine("HTTP/1.1 200 OK");
-        httpResponse.setResponseBody(template.writeHTML(httpRequest, httpResponse));
+        httpResponse.setResponseBody(template.writeHTML());
 
         httpResponse.sendResponse();
 

@@ -1,5 +1,6 @@
 package jp.co.topgate.sekiguchi.kai;
 
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Date;
 
@@ -18,7 +19,7 @@ public class Message {
     /**
      * 投稿日時
      */
-    private ZonedDateTime atTime;
+    private LocalDateTime atTime;
 
 
     /**
@@ -46,7 +47,7 @@ public class Message {
      *
      * @param atTime
      */
-    public void setAtTime(ZonedDateTime atTime) {
+    public void setAtTime(LocalDateTime atTime) {
         this.atTime = atTime;
     }
 
@@ -75,7 +76,7 @@ public class Message {
      *
      * @return 投稿日時
      */
-    public ZonedDateTime getAtTime() {
+    public LocalDateTime getAtTime() {
         return this.atTime;
 
     }

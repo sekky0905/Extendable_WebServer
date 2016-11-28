@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,7 +31,7 @@ public class HTTPRequest {
     /**
      * JavaBeansのオブジェクト保存用
      */
-    private Map<String, Object> modelMap = new HashMap<>();
+    private List<Object> modelList = new ArrayList<>();
 
     private String requestLine;
     private String requestHeader;
@@ -105,18 +107,18 @@ public class HTTPRequest {
     /**
      * Mapに格納されているJavaBeansのモデルを返すメソッド
      *
-     * @param name モデルの名前
-     * @return モデル
+     * @param index モデルを格納したリストのインデックス
+     * @return モデルのリクストの中から、indexで指定されたモデルを返す
      */
-    public Object getModel(String name) {
-        return this.modelMap.get(name);
+    public Object getModel(int index) {
+        return this.modelList.get(index);
     }
 
     /**
      * JavaBeansのモデルをMapに格納するメソッド
      */
-    public void setModel(String name, Object obj) {
-        this.modelMap.put(name, obj);
+    public void setModel(Object obj) {
+        this.modelList.add(obj);
     }
 
 
@@ -209,13 +211,30 @@ public class HTTPRequest {
 
     }
 
-    /**
-     * Mapに格納されているJavaBeansのモデルのインスタンス数を返すメソッド
-     *
-     * @return Mapに格納されているJavaBeansのモデルの数
-     */
-    public int countModel() {
-        return this.modelMap.size();
+    public String getRequestHeader() {
+        return this.requestHeader;
     }
 
-}
+
+    /**
+     * @return リクエストに付加されているCookieを返す
+     */
+    public Cookie getCookie() {
+        String cookieString = null;
+
+        cookieString = this.requestHeader.substring(requestHeader.indexOf("Cookie:"), requestHeader.indexOf("\n", requestHeader.indexOf("Cookie:")));
+
+        String[] parameter = null;
+
+        if (cookieString.contains(";")) {
+            parameter = cookieString.split(";");
+        } else {
+            parameter[0] =cookieString;
+        }
+
+            Cookie cookie = new Cookie(parameter);
+            return cookie;
+        }
+    }
+
+

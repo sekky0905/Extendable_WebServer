@@ -32,7 +32,8 @@ public class ResultTemplate implements Template {
             stringBuilder.append("<p>" + message.getComment() + "</p>");
             stringBuilder.append("<form action=\"/program/board/registered/afterDelete\" method=\"post\" accept-charset=\"UTF-8\">");
             stringBuilder.append("<p>");
-            stringBuilder.append("<input type=\"submit\" name =\"delete\" value=\" 削除 \"");
+            stringBuilder.append("<input type=\"hidden\" name =\"delete\" value=" + i + ">");
+            stringBuilder.append("<input type=\"submit\"  value=\" 削除 \"");
             stringBuilder.append("</p>");
             stringBuilder.append("</form>");
 

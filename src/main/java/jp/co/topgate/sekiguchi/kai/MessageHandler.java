@@ -28,17 +28,22 @@ public class MessageHandler implements Handler {
         httpRequest.setRequestParameter(httpRequest.getQueryString(httpRequest.getRequestMethod(requestLine), httpRequest.getRequestURI(requestLine)));
 
 
-        String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now());
-        String userName = httpRequest.getRequestParameter("userName");
-        String comment = httpRequest.getRequestParameter("comment");
+        if (httpRequest.getRequestURI(httpRequest.getRequestLine()).equals("/program/board/registered")) {
+            String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now());
+            String userName = httpRequest.getRequestParameter("userName");
+            String comment = httpRequest.getRequestParameter("comment");
 
+            Message message = new Message();
+            message.setAtTime(atTime);
+            message.setUserName(userName);
+            message.setComment(comment);
 
-        Message message = new Message();
-        message.setAtTime(atTime);
-        message.setUserName(userName);
-        message.setComment(comment);
+            ModelStorage.setModelList(message);
 
-        ModelStorage.setModelList(message);
+        } else if (httpRequest.getRequestURI(httpRequest.getRequestLine()).equals("/program/board/registered/afterDelete")) {
+            int objIndex = Integer.parseInt(httpRequest.getRequestParameter("delete"));
+            ModelStorage.removeModel(objIndex);
+        }
 
 
         Template template = new ResultTemplate();

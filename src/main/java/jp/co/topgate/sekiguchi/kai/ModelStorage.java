@@ -36,4 +36,8 @@ public class ModelStorage {
         return modelList.size();
     }
 
+    public  static  void removeModel(int index) {
+        modelList.remove(index);
+    }
+
 }

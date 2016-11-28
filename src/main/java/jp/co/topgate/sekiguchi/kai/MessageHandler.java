@@ -28,39 +28,22 @@ public class MessageHandler implements Handler {
         String requestLine = httpRequest.getRequestLine();
         httpRequest.setRequestParameter(httpRequest.getQueryString(httpRequest.getRequestMethod(requestLine), httpRequest.getRequestURI(requestLine)));
 
+
+
+        String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now());
         String userName = httpRequest.getRequestParameter("userName");
         String comment = httpRequest.getRequestParameter("comment");
 
 
         Message message = new Message();
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime atTime = LocalDateTime.parse(now.getYear() + "/" + now.getMonth() + "/" + now.getDayOfMonth() + " " + now.getHour() + ":" + now.
-                getMinute() + ":" + now.getSecond(), dateTimeFormatter);
         message.setAtTime(atTime);
         message.setUserName(userName);
         message.setComment(comment);
 
-        // ここで、cookieがあれば過去
-        if (httpRequest.getRequestHeader().contains("Cookie:")) {
-            // cookieでvalueを取得
-            // 取得したものをmodelのフィールドに設定
-            // httprequestのmodelListに追加
-
-            for (int i = 0; i <  )
-            Cookie cookie = httpRequest.getCookie();
-            cookie.getValue("userName" + String(i));
-
-
-            PastModel pastModel = new PastModel();
-            pastModel.getMessageList();
-        }
-
-
-
-
-
-        System.out.println("modelのインスタンス数は" + modelNumber2);
+        String modelNumber = String.valueOf(httpRequest.countModel() + 1);
+        System.out.println("MessageHandlerの時のmodelのカウントは" + modelNumber);
+        httpRequest.setModel("message" + modelNumber, message);
+        System.out.println("modelのインスタンス数は" + httpRequest.countModel());
 
         Template template = new ResultTemplate();
 

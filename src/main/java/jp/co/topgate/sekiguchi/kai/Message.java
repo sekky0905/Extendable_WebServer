@@ -19,7 +19,7 @@ public class Message {
     /**
      * 投稿日時
      */
-    private LocalDateTime atTime;
+    private String atTime;
 
 
     /**
@@ -47,7 +47,7 @@ public class Message {
      *
      * @param atTime
      */
-    public void setAtTime(LocalDateTime atTime) {
+    public void setAtTime(String atTime) {
         this.atTime = atTime;
     }
 
@@ -76,7 +76,7 @@ public class Message {
      *
      * @return 投稿日時
      */
-    public LocalDateTime getAtTime() {
+    public String getAtTime() {
         return this.atTime;
 
     }

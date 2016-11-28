@@ -47,39 +47,24 @@ public class HTTPResponse {
         this.statusLine = statusLine;
     }
 
-
-    /**
-     * ファイルの拡張子を受け取りレスポンスヘッダのContent-Typeを設定するメソッド
-     * @param fileExtension ファイルの拡張子
-     * @return Content-Type
-     */
-    public String addContentType(String fileExtension) {
-        String contentType = null;
-        if (fileExtension.equals("html") || fileExtension.equals("css") || fileExtension.equals("js")) {
-            contentType = "Content-Type: text/" + fileExtension;
-        } else if (fileExtension.equals("png") || fileExtension.equals("jpeg") || fileExtension.equals("gif")) {
-            contentType = "Content-Type: image/" + fileExtension;
-        }
-
-        System.out.println("Content-Typeは" + contentType);
-        return contentType;
-    }
-
-    public String addCookie(Cookie cookie) {
-
-    }
-
     /**
      * クライアントへ送信するレスポンスのうち、レスポンスヘッダを設定するメソッド
      *
      * @param requestResource リクエストされたリソース
      * @param file            ファイル
      */
-    public void setResponseHeader() {
+    public void setResponseHeader(String fileExtension) {
 
+        if (fileExtension.equals("html") || fileExtension.equals("css") || fileExtension.equals("js")) {
+            this.responseHeader = "Content-Type: text/" + fileExtension;
+        } else if (fileExtension.equals("png") || fileExtension.equals("jpeg") || fileExtension.equals("gif")) {
+            this.responseHeader = "Content-Type: image/" + fileExtension;
+        }
+
+
+        System.out.println("レスポンスヘッダは" + this.responseHeader);
 
     }
-
 
     /**
      * クライアントへ送信するレスポンスのうち、レスポンスボディを設定するメソッド

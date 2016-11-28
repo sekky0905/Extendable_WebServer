@@ -1,7 +1,5 @@
 package jp.co.topgate.sekiguchi.kai;
 
-import java.util.ArrayList;
-
 /**
  * Created by sekiguchikai on 2016/11/22.
  */
@@ -23,8 +21,8 @@ public class ResultTemplate implements Template {
         stringBuilder.append("</head>");
         stringBuilder.append("<body>");
 
-        for (int i = 0; i < ModelStorage.ConutModel(); i++) {
-            Message message = (Message) ModelStorage.getModelList(i);
+        for (int i = 0; i < MessageStorage.countModel(); i++) {
+            Message message = (Message) MessageStorage.getModelList(i);
 
             stringBuilder.append("<p>投稿日時:" + message.getAtTime() + "</p>");
             stringBuilder.append("<p>名前:" + message.getUserName() + "</p>");
@@ -51,10 +49,12 @@ public class ResultTemplate implements Template {
         stringBuilder.append("<p>");
         stringBuilder.append("<input type=\"submit\" value=\"送信する\">");
         stringBuilder.append("</p>");
+        stringBuilder.append("</form>");
         stringBuilder.append("<p>");
+        stringBuilder.append("<form action=\"/program/board/registered/search\" method=\"post\" accept-charset=\"UTF-8\">");
         stringBuilder.append("指定したユーザーの書き込みのみ表示させることができます。<br>");
         stringBuilder.append("下記で、検索したいユーザー名を指定してください<br>");
-        stringBuilder.append("ユーザー名:<input type=\"text\" name=\"search\">");
+        stringBuilder.append("ユーザー名:<input type=\"text\" name=\"searchName\">");
         stringBuilder.append("</p>");
         stringBuilder.append("<p>");
         stringBuilder.append("<input type=\"submit\" value=\"検索する\">");

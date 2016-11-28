@@ -38,11 +38,14 @@ public class MessageHandler implements Handler {
             message.setUserName(userName);
             message.setComment(comment);
 
-            ModelStorage.setModelList(message);
+            MessageStorage.setModelList(message);
 
         } else if (httpRequest.getRequestURI(httpRequest.getRequestLine()).equals("/program/board/registered/afterDelete")) {
             int objIndex = Integer.parseInt(httpRequest.getRequestParameter("delete"));
-            ModelStorage.removeModel(objIndex);
+            MessageStorage.removeModel(objIndex);
+        } else if (httpRequest.getRequestURI(httpRequest.getRequestLine()).equals("/program/board/registered/search")) {
+            String userName = httpRequest.getRequestParameter("searchName");
+            MessageStorage.searchModel(userName);
         }
 
 

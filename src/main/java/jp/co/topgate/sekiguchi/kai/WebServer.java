@@ -68,7 +68,7 @@ public class WebServer {
                 if (requestURI.equals("/program/board/")) {
                     handler = new MessageHandler();
                     handler.handleGET(httpRequest, httpResponse);
-                } else if (requestURI.equals("/program/board/registered")) {
+                } else if (requestURI.equals("/program/board/registered") || requestURI.equals("/program/board/registered/afterDelete")) {
                     handler = new MessageHandler();
                     handler.handlePOST(httpRequest, httpResponse);
                 } else {

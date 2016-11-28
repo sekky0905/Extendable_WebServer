@@ -30,7 +30,12 @@ public class ResultTemplate implements Template {
             stringBuilder.append("<p>名前:" + message.getUserName() + "</p>");
             stringBuilder.append("<p>コメント</p>");
             stringBuilder.append("<p>" + message.getComment() + "</p>");
-            stringBuilder.append("<br>");
+            stringBuilder.append("<form action=\"/program/board/registered/afterDelete\" method=\"post\" accept-charset=\"UTF-8\">");
+            stringBuilder.append("<p>");
+            stringBuilder.append("<input type=\"submit\" name =\"delete\" value=\" 削除 \"");
+            stringBuilder.append("</p>");
+            stringBuilder.append("</form>");
+
 
         }
 

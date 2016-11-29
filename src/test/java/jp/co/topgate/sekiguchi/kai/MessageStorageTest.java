@@ -40,24 +40,55 @@ public class MessageStorageTest {
 
     }
 
+    /**
+     * countModelメソッドをテストするためのテスト
+     */
     @Test
     public void countModel() {
         LocalDateTime localTimeTest = LocalDateTime.of(2016, 11, 29, 15, 0, 0);
         String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(localTimeTest);
 
         Message message = new Message();
-        message.setAtTime(atTime);
-        message.setUserName("sekky");
-        message.setComment("テスト");
+        Message message1 = new Message();
+        message1.setAtTime(atTime);
+        message1.setUserName("sekky");
+        message1.setComment("テスト");
+        MessageStorage.setModelList(message1);
 
-        MessageStorage.setModelList(message);
-        assertThat(MessageStorage.countModel(), is(1));
+        Message message2 = new Message();
+        message2.setAtTime(atTime);
+        message2.setUserName("sekky2");
+        message2.setComment("テスト2");
+        MessageStorage.setModelList(message2);
+
+
+        assertThat(MessageStorage.countModel(), is(2));
 
 
     }
 
     @Test
     public void removeModel() {
+        LocalDateTime localTimeTest = LocalDateTime.of(2016, 11, 29, 15, 0, 0);
+        String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(localTimeTest);
+
+        Message message1 = new Message();
+        message1.setAtTime(atTime);
+        message1.setUserName("sekky");
+        message1.setComment("テスト");
+        MessageStorage.setModelList(message1);
+
+        Message message2 = new Message();
+        message2.setAtTime(atTime);
+        message2.setUserName("sekky2");
+        message2.setComment("テスト2");
+        MessageStorage.setModelList(message2);
+
+        MessageStorage.removeModel(0);
+
+
+        assertThat(MessageStorage.countModel(), is(1));
+
 
     }
 

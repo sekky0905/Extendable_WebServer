@@ -67,6 +67,9 @@ public class MessageStorageTest {
 
     }
 
+    /**
+     * removeModelメソッドをテストするためのテスト
+     */
     @Test
     public void removeModel() {
         LocalDateTime localTimeTest = LocalDateTime.of(2016, 11, 29, 15, 0, 0);
@@ -92,8 +95,44 @@ public class MessageStorageTest {
 
     }
 
+
+    /**
+     * searchModelメソッドをテストするためのテスト
+     */
     @Test
     public void searchModel() {
+
+        LocalDateTime localTimeTest = LocalDateTime.of(2016, 11, 29, 15, 0, 0);
+        String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(localTimeTest);
+
+        Message message1 = new Message();
+        message1.setAtTime(atTime);
+        message1.setUserName("sekky");
+        message1.setComment("テスト");
+        MessageStorage.setModelList(message1);
+
+        Message message2 = new Message();
+        message2.setAtTime(atTime);
+        message2.setUserName("sekky2");
+        message2.setComment("テスト2");
+        MessageStorage.setModelList(message2);
+
+        Message message3 = new Message();
+        message3.setAtTime(atTime);
+        message3.setUserName("sekky");
+        message3.setComment("テスト3");
+        MessageStorage.setModelList(message3);
+
+        MessageStorage.searchModel("sekky");
+        int instanceNumber = MessageStorage.countModel();
+        assertThat(instanceNumber, is(2));
+
+
+        for (int i = 0; i < instanceNumber; i++) {
+            Message message = (Message) MessageStorage.getModelList(i);
+            assertThat(message.getUserName(), is("sekky"));
+
+        }
 
     }
 

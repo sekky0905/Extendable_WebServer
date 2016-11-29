@@ -44,11 +44,11 @@ public class MessageTest {
      */
     @Test
     public void setAtTime() {
-        LocalDateTime localTimeTest = LocalDateTime.of(2016, 11, 29, 15, 0, 0);
+        LocalDateTime localTimeTest = LocalDateTime.of(2016, 11, 29, 15, 0, 00);
         String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(localTimeTest);
 
         message.setAtTime(atTime);
-        assertThat(message.getAtTime(), is(localTimeTest));
+        assertThat(message.getAtTime(), is(atTime));
     }
 
 

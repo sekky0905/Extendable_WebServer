@@ -29,7 +29,7 @@ public class MessageHandler implements Handler {
         httpRequest.setRequestParameter(queryString);
 
 
-        if (httpRequest.getRequestURI(httpRequest.getRequestLine()).equals("/program/board/registered")) {
+        if (httpRequest.getRequestURI(httpRequest.getSecondSentence(requestLine)).equals("/program/board/registered")) {
             String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now());
             String userName = httpRequest.getRequestParameter("userName");
             String comment = httpRequest.getRequestParameter("comment");
@@ -41,10 +41,10 @@ public class MessageHandler implements Handler {
 
             MessageStorage.setModelList(message);
 
-        } else if (httpRequest.getRequestURI(httpRequest.getRequestLine()).equals("/program/board/registered/afterDelete")) {
+        } else if (httpRequest.getRequestURI(httpRequest.getSecondSentence(requestLine)).equals("/program/board/registered/afterDelete")) {
             int objIndex = Integer.parseInt(httpRequest.getRequestParameter("delete"));
             MessageStorage.removeModel(objIndex);
-        } else if (httpRequest.getRequestURI(httpRequest.getRequestLine()).equals("/program/board/registered/search")) {
+        } else if (httpRequest.getRequestURI(httpRequest.getSecondSentence(requestLine)).equals("/program/board/registered/search")) {
             String userName = httpRequest.getRequestParameter("searchName");
             MessageStorage.searchModel(userName);
         }

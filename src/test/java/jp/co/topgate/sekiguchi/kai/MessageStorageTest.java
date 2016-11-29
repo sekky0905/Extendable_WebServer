@@ -1,6 +1,7 @@
 package jp.co.topgate.sekiguchi.kai;
 
-import org.hamcrest.CoreMatchers;
+
+import org.junit.After;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
@@ -13,6 +14,12 @@ import static org.junit.Assert.*;
  * Created by sekiguchikai on 2016/11/29.
  */
 public class MessageStorageTest {
+
+    @After
+    public void after() {
+        MessageStorage.removeAllModel();
+    }
+
 
     /**
      * setModelListメソッドとgetModelListメソッドをテストするためのテスト
@@ -34,7 +41,7 @@ public class MessageStorageTest {
         String userNameTest = messageTest.getUserName();
         String commentTest = messageTest.getComment();
 
-        assertThat(atTimeTest, is("2016/11/29 15: 0:0"));
+        assertThat(atTimeTest, is("2016/11/29 15:00:00"));
         assertThat(userNameTest, is("sekky"));
         assertThat(commentTest, is("テスト"));
 
@@ -45,7 +52,7 @@ public class MessageStorageTest {
      */
     @Test
     public void countModel() {
-        LocalDateTime localTimeTest = LocalDateTime.of(2016, 11, 29, 15, 0, 0);
+        LocalDateTime localTimeTest = LocalDateTime.of(2016, 11, 29, 15, 0, 00);
         String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(localTimeTest);
 
         Message message = new Message();
@@ -72,7 +79,7 @@ public class MessageStorageTest {
      */
     @Test
     public void removeModel() {
-        LocalDateTime localTimeTest = LocalDateTime.of(2016, 11, 29, 15, 0, 0);
+        LocalDateTime localTimeTest = LocalDateTime.of(2016, 11, 29, 15, 0, 00);
         String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(localTimeTest);
 
         Message message1 = new Message();
@@ -90,6 +97,7 @@ public class MessageStorageTest {
         MessageStorage.removeModel(0);
 
 
+
         assertThat(MessageStorage.countModel(), is(1));
 
 
@@ -102,7 +110,7 @@ public class MessageStorageTest {
     @Test
     public void searchModel() {
 
-        LocalDateTime localTimeTest = LocalDateTime.of(2016, 11, 29, 15, 0, 0);
+        LocalDateTime localTimeTest = LocalDateTime.of(2016, 11, 29, 15, 0, 00);
         String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(localTimeTest);
 
         Message message1 = new Message();
@@ -133,6 +141,8 @@ public class MessageStorageTest {
             assertThat(message.getUserName(), is("sekky"));
 
         }
+
+        MessageStorage.removeAllModel();
 
     }
 

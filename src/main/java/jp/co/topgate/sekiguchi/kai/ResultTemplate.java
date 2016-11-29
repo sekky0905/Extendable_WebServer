@@ -30,7 +30,10 @@ public class ResultTemplate implements Template {
         stringBuilder.append("</head>");
         stringBuilder.append("<body>");
 
-        for (int i = 0; i < MessageStorage.countModel(); i++) {
+        for (int i = 0; i <= MessageStorage.countModel(); i++) {
+            if (i == MessageStorage.countModel()) {
+                break;
+            }
             Message message = (Message) MessageStorage.getModelList(i);
 
             stringBuilder.append("<table>");

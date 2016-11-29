@@ -70,5 +70,14 @@ public class MessageStorage {
         modelList = tempoList;
     }
 
+    /**
+     * 保持している全てのインスタンスを削除するメソッド
+     */
+    public static void removeAllModel() {
+        for (int i = 0; i < modelList.size(); i++) {
+            modelList.remove(i);
+        }
+    }
+
 
 }

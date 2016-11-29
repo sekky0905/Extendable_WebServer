@@ -25,7 +25,8 @@ public class MessageHandler implements Handler {
     public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) {
 
         String requestLine = httpRequest.getRequestLine();
-        httpRequest.setRequestParameter(httpRequest.getQueryString(httpRequest.getRequestMethod(requestLine), httpRequest.getRequestURI(requestLine)));
+        String queryString = httpRequest.getQueryString(httpRequest.getRequestMethod(requestLine), httpRequest.getRequestURI(requestLine));
+        httpRequest.setRequestParameter(queryString);
 
 
         if (httpRequest.getRequestURI(httpRequest.getRequestLine()).equals("/program/board/registered")) {

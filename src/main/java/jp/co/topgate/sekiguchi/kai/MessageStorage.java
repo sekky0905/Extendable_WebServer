@@ -58,12 +58,16 @@ public class MessageStorage {
      * @param userName ユーザーネーム
      */
     public static void searchModel(String userName) {
-
+        // 遠回りだが、必要処理
+        List<Message> tempoList = new ArrayList<>();
         for (int i = 0; i < modelList.size(); i++) {
-            if (!(modelList.get(i).getUserName().equals(userName))) {
-                modelList.remove(i);
+
+            if ((modelList.get(i).getUserName().equals(userName))) {
+                tempoList.add(modelList.get(i));
             }
         }
+
+        modelList = tempoList;
     }
 
 

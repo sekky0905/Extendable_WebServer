@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -180,12 +182,21 @@ public class HTTPRequest {
             if (queryString.contains("&")) {
                 parameter = queryString.split("&");
                 for (String param : parameter) {
-                    String[] piece = param.split("=");
-                    this.requestParameter.put(piece[0], URLDecoder.decode(piece[1], "UTF-8"));
+                    String piece[] = param.split("=");
+                    if (piece.length == 2) {
+                        this.requestParameter.put(piece[0], URLDecoder.decode(piece[1], "UTF-8"));
+                    } else if (piece.length == 1) {
+                        this.requestParameter.put(piece[0], "エラー!文字を入力してください");
+                    }
+
                 }
             } else {
-                String[] piece = queryString.split("=");
-                this.requestParameter.put(piece[0], URLDecoder.decode(piece[1], "UTF-8"));
+                String piece[] = queryString.split("=");
+                if (piece.length == 2) {
+                    this.requestParameter.put(piece[0], URLDecoder.decode(piece[1], "UTF-8"));
+                } else if (piece.length == 1) {
+                    this.requestParameter.put(piece[0], "エラー!文字を入力してください");
+                }
             }
 
         } catch (IOException e) {
@@ -198,3 +209,11 @@ public class HTTPRequest {
 
 
 }
+//
+//    public static boolean checkQueryString(String queryParam) {
+//        String afterEqual = queryParam.substring(queryParam.indexOf("=") +1);
+//        if(afterEqual.equals("") || afterEqual.isEmpty() || afterEqual == null) {
+//            String[] piece = afterEqual.split("=");
+//            piece[1] =
+//
+//        }

@@ -27,6 +27,7 @@ public class MessageHandler implements Handler {
         String requestLine = httpRequest.getRequestLine();
         String queryString = httpRequest.getQueryString(httpRequest.getRequestMethod(requestLine), httpRequest.getRequestURI(requestLine));
         httpRequest.setRequestParameter(queryString);
+        // クエリが
 
 
         if (httpRequest.getRequestURI(httpRequest.getRequestLine()).equals("/program/board/registered")) {

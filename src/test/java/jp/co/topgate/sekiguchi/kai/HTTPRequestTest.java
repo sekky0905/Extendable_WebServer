@@ -142,6 +142,36 @@ public class HTTPRequestTest {
 
 
     /**
+     * getSecondSentenceメソッドをテストするメソッド
+     */
+    @Test
+    public void getSecondSentence() {
+        String expSecondSentence1 = "/next.html";
+        String expSecondSentence2 = "/sample/next.html";
+        String expSecondSentence3 = "/next.html?foo=bar";
+        String expSecondSentence4 = "/sample/next.html?foo=bar";
+        String expSecondSentence5 = "/next.html?foo=bar.com";
+        String expSecondSentence6 = "/sample/next.html?foo=bar.com";
+        String expSecondSentence7 = "/.sample/next.html";
+        String expSecondSentence8 = "/.sample/next.html?foo=bar";
+        String expSecondSentence9 = "/.sample/next.html?foo=bar.com";
+        String expSecondSentence10 = "/next.html";
+
+        String expSecondSentenceLineArray[] = {expSecondSentence1, expSecondSentence2, expSecondSentence3, expSecondSentence4, expSecondSentence5, expSecondSentence6, expSecondSentence7, expSecondSentence8, expSecondSentence9, expSecondSentence10};
+
+
+        for (int i = 0; i < socketContentsArray.length; i++) {
+            InputStream inputStream = new ByteArrayInputStream(socketContentsArray[i].getBytes());
+            HTTPRequest httpRequest = new HTTPRequest(inputStream);
+
+            assertThat(httpRequest.getSecondSentence(httpRequest.getRequestLine()), is(expSecondSentenceLineArray[i]));
+
+        }
+
+    }
+
+
+    /**
      * getRequestURIメソッドをテストするメソッド
      */
     @Test

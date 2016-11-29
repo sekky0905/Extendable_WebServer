@@ -8,6 +8,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.*;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
 /**
@@ -17,7 +18,7 @@ import org.junit.Test;
  */
 public class HTTPRequestTest {
 
-    String socketContents = "GET /next.html HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+    String socketContents1 = "GET /next.html HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
             + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
             + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
             + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
@@ -76,135 +77,148 @@ public class HTTPRequestTest {
             + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
             + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
 
-    String socketContentsArray[] = {socketContents, socketContents2, socketContents3, socketContents4, socketContents5,
-            socketContents6, socketContents7, socketContents8, socketContents9};
+
+    String socketContents10 = "POST /next.html HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+            + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+            + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+            + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+            + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n"
+            + "\n"
+            + "userName=a&comment=a";
+
+
+    String socketContentsArray[] = {socketContents1, socketContents2, socketContents3, socketContents4, socketContents5,
+            socketContents6, socketContents7, socketContents8, socketContents9, socketContents10};
+
+
+    /**
+     * getRequestLineのテストをするメソッド
+     */
+    @Test
+    public void getRequestLine() {
+        String expRequestLine1 = "GET /next.html HTTP/1.1";
+        String expRequestLine2 = "GET /sample/next.html HTTP/1.1";
+        String expRequestLine3 = "GET /next.html?foo=bar HTTP/1.1";
+        String expRequestLine4 = "GET /sample/next.html?foo=bar HTTP/1.1";
+        String expRequestLine5 = "GET /next.html?foo=bar.com HTTP/1.1";
+        String expRequestLine6 = "GET /sample/next.html?foo=bar.com HTTP/1.1";
+        String expRequestLine7 = "GET /.sample/next.html HTTP/1.1";
+        String expRequestLine8 = "GET /.sample/next.html?foo=bar HTTP/1.1";
+        String expRequestLine9 = "GET /.sample/next.html?foo=bar.com HTTP/1.1";
+        String expRequestLine10 = "POST /next.html HTTP/1.1";
+
+
+        String expRequestLineArray[] = {expRequestLine1, expRequestLine2, expRequestLine3, expRequestLine4, expRequestLine5, expRequestLine6, expRequestLine7, expRequestLine8, expRequestLine9, expRequestLine10};
+
+        for (int i = 0; i < socketContentsArray.length; i++) {
+            InputStream inputStream = new ByteArrayInputStream(socketContentsArray[i].getBytes());
+            HTTPRequest httpRequest = new HTTPRequest(inputStream);
+
+            assertThat(httpRequest.getRequestLine(), is(expRequestLineArray[i]));
+
+        }
+    }
+
 
     /**
      * getRequestMethodメソッドをテストするメソッド
      */
     @Test
-    public void GetRequestMethod() {
-        for (String socketContent : socketContentsArray) {
-            InputStream inputStream = new ByteArrayInputStream(socketContent.getBytes());
-            HTTPRequest httpRequest = new HTTPRequest(inputStream);
-
-            assertEquals("GETリクエストを与えると、適切なリクエストメソッドを返すことができるか", "GET", httpRequest.getRequestMethod(httpRequest.getRequestLine(httpRequest.getRequestString())));
-        }
-
-    }
-
-    /**
-     * getRequestStringメソッドをテストするメソッド
-     */
-    @Test
-    public void getRequestString() {
-
-
+    public void getRequestMethod() {
         for (int i = 0; i < socketContentsArray.length; i++) {
             InputStream inputStream = new ByteArrayInputStream(socketContentsArray[i].getBytes());
             HTTPRequest httpRequest = new HTTPRequest(inputStream);
 
-            List requestStringList = httpRequest.getRequestString();
-            StringBuilder stringBuilder = new StringBuilder();
-            for (int j = 0; j < requestStringList.size(); j++) {
-                stringBuilder.append(requestStringList.get(j));
+            httpRequest.getRequestMethod(httpRequest.getRequestLine());
+
+            if (i != 9) {
+                assertThat(httpRequest.getRequestMethod(httpRequest.getRequestLine()), is("GET"));
+            } else if (i == 9) {
+                assertThat(httpRequest.getRequestMethod(httpRequest.getRequestLine()), is("POST"));
             }
-
-            assertThat(new String(stringBuilder), is(socketContentsArray[i]));
-        }
-    }
-
-    @Test
-    public void getRequestLine() {
-        String expectedRequestLine = "GET /next.html HTTP/1.1\n";
-        String expectedRequestLine2 = "GET /sample/next.html HTTP/1.1\n";
-        String expectedRequestLine3 = "GET /next.html?foo=bar HTTP/1.1\n";
-        String expectedRequestLine4 = "GET /sample/next.html?foo=bar HTTP/1.1\n";
-        String expectedRequestLine5 = "GET /next.html?foo=bar.com HTTP/1.1\n";
-        String expectedRequestLine6 = "GET /sample/next.html?foo=bar.com HTTP/1.1\n";
-        String expectedRequestLine7 = "GET /.sample/next.html HTTP/1.1\n";
-        String expectedRequestLine8 = "GET /.sample/next.html?foo=bar HTTP/1.1\n";
-        String expectedRequestLine9 = "GET /.sample/next.html?foo=bar.com HTTP/1.1\n";
-
-        String expectedRequestLineArray[] = {expectedRequestLine, expectedRequestLine2, expectedRequestLine3, expectedRequestLine4, expectedRequestLine5, expectedRequestLine6, expectedRequestLine7, expectedRequestLine8, expectedRequestLine9
-        };
-
-
-        for (int i = 0; i < socketContentsArray.length; i++) {
-            InputStream inputStream = new ByteArrayInputStream(socketContentsArray[i].getBytes());
-            HTTPRequest httpRequest = new HTTPRequest(inputStream);
-
-            List<String> requestString = httpRequest.getRequestString();
-            String requestLine = httpRequest.getRequestLine(requestString);
-            System.out.println("リクエストラインは" + requestLine);
-
-            assertEquals("GETリクエストを与えると、適切なリクエストURIを返すことができるか", expectedRequestLineArray[i], requestLine);
         }
 
-
     }
+
 
     /**
      * getRequestURIメソッドをテストするメソッド
      */
     @Test
-    public void GetRequestURI() {
+    public void getRequestURI() {
 
-        String expectedRequestURI = "/next.html";
-        String expectedRequestURI2 = "/sample/next.html";
-        String expectedRequestURI3 = "/next.html";
-        String expectedRequestURI4 = "/sample/next.html";
-        String expectedRequestURI5 = "/next.html";
-        String expectedRequestURI6 = "/sample/next.html";
-        String expectedRequestURI7 = "/.sample/next.html";
-        String expectedRequestURI8 = "/.sample/next.html";
-        String expectedRequestURI9 = "/.sample/next.html";
-        String expectedRequestURIArray[] = {expectedRequestURI, expectedRequestURI2, expectedRequestURI3,
-                expectedRequestURI4, expectedRequestURI5, expectedRequestURI6, expectedRequestURI7, expectedRequestURI8,
-                expectedRequestURI9};
+        String expRequestURI1 = "/next.html";
+        String expRequestURI2 = "/sample/next.html";
+        String expRequestURI3 = "/next.html";
+        String expRequestURI4 = "/sample/next.html";
+        String expRequestURI5 = "/next.html";
+        String expRequestURI6 = "/sample/next.html";
+        String expRequestURI7 = "/.sample/next.html";
+        String expRequestURI8 = "/.sample/next.html";
+        String expRequestURI9 = "/.sample/next.html";
+        String expRequestURI10 = "/next.html";
+
+        String expRequestURIArray[] = {expRequestURI1, expRequestURI2, expRequestURI3, expRequestURI4, expRequestURI5, expRequestURI6, expRequestURI7, expRequestURI8, expRequestURI9, expRequestURI10};
+
 
         for (int i = 0; i < socketContentsArray.length; i++) {
             InputStream inputStream = new ByteArrayInputStream(socketContentsArray[i].getBytes());
             HTTPRequest httpRequest = new HTTPRequest(inputStream);
 
-            List<String> requestString = httpRequest.getRequestString();
-            String requestURI = httpRequest.getRequestURI(httpRequest.getRequestLine(requestString));
-            System.out.println("リクエストURIは" + requestURI);
 
-            assertEquals("GETリクエストを与えると、適切なリクエストURIを返すことができるか", expectedRequestURIArray[i], requestURI);
+            assertThat(httpRequest.getRequestURI(httpRequest.getSecondSentence(httpRequest.getRequestLine())), is(expRequestURIArray[i]));
+
         }
-
     }
 
     @Test
-    public void getRequestParameter() {
-        String expectedParamName = "key1";
-        String expectedParamName2 = "key2";
-        String expectedParamName3 = "key3";
+    public void getQueryString() {
 
-        String epnArray[] = {expectedParamName, expectedParamName2, expectedParamName3};
-        String expectedParamValue = "value1";
-        String expectedParamValue2 = "value2";
-        String expectedParamValue3 = "value3";
 
-        String epvArray[] = {expectedParamValue, expectedParamValue2, expectedParamValue3};
+        String requestContents1 = "GET /next.html?foo=bar HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
 
-        String targetString1 = "key1=value1";
-        String targetString2 = "key1=value1&key2=value2";
-        String targetString3 = "key1=value1&key2=value2&key3=value3";
 
-        String targetStringArray[] = {targetString1, targetString2, targetString3};
+        String requestContents2 = "GET /next.html?foo=bar.com HTTP/1.1\n" + "Host: localhost:8080\n"
+                + "Connection: keep-alive\n"
+                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
 
-        String socketContentsArray2[] = {socketContents, socketContents2, socketContents3};
 
-        Map<String, String> expectedParamMap = new HashMap<>();
-        for (int i = 0; i < epnArray.length; i++) {
-            InputStream inputStream = new ByteArrayInputStream(socketContentsArray2[i].getBytes());
+        String srequestContents3 = "POST /next.html HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n"
+                + "Content-Length: 20\n"
+                + "\n"
+                + "userName=a&comment=a\n";
+
+        String requestContentsArray[] = {requestContents1, requestContents2, srequestContents3};
+
+        String expQueryString1 = "foo=bar";
+        String expQueryString2 = "foo=bar.com";
+        String expQueryString3 = "userName=a&comment=a";
+
+        String expQueryStringArray[] = {expQueryString1, expQueryString2, expQueryString3};
+
+        for (int i = 0; i < requestContentsArray.length; i++) {
+            InputStream inputStream = new ByteArrayInputStream(requestContentsArray[i].getBytes());
             HTTPRequest httpRequest = new HTTPRequest(inputStream);
-            httpRequest.setRequestParameter(targetStringArray[i]);
-            assertThat(httpRequest.getRequestParameter(epnArray[i]), is(epvArray[i]));
+
+            String requestLine = httpRequest.getRequestLine();
+            assertThat(httpRequest.getQueryString(httpRequest.getRequestMethod(requestLine), httpRequest.getSecondSentence(requestLine)), is(expQueryStringArray[i]));
+
         }
+
+
     }
+
 
 }
 

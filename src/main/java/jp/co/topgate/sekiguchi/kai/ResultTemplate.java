@@ -66,11 +66,11 @@ public class ResultTemplate implements Template {
         stringBuilder.append("<table>");
         stringBuilder.append("<tr>");
         stringBuilder.append("<th>ユーザーネーム:</th>");
-        stringBuilder.append("<td><input type=\"text \" name=\"userName \" size=\"40 \"></td>");
+        stringBuilder.append("<td><input type=\"text\" name=\"userName\" size=\"40\"></td>");
         stringBuilder.append("</tr>");
         stringBuilder.append("<tr>");
         stringBuilder.append("<th>コメント</th>");
-        stringBuilder.append("<td><textarea name=\"comment \" rows=\"4 \" cols=\"40 \">ここにコメントを記入してください</textarea><br></td>");
+        stringBuilder.append("<td><textarea name=\"comment\" rows=\"4\" cols=\"40\">ここにコメントを記入してください</textarea></td>");
         stringBuilder.append("</tr>");
         stringBuilder.append("</table>");
         stringBuilder.append("<p><input type=\"submit\" value=\"送信する\"></p>");

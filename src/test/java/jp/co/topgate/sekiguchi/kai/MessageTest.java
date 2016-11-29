@@ -7,8 +7,10 @@ import static org.junit.Assert.*;
 
 import org.hamcrest.CoreMatchers;
 
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Created by sekiguchikai on 2016/11/24.
@@ -42,9 +44,11 @@ public class MessageTest {
      */
     @Test
     public void setAtTime() {
-        ZonedDateTime zT = ZonedDateTime.of(2016, 11, 24, 15, 15, 15, 15, ZoneId.of("Asia/Tokyo"));
-        message.setAtTime(zT);
-        assertThat(message.getAtTime(), is(zT));
+        LocalDateTime localTimeTest = LocalDateTime.of(2016, 11, 29, 15, 0, 0);
+        String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(localTimeTest);
+
+        message.setAtTime(atTime);
+        assertThat(message.getAtTime(), is(localTimeTest));
     }
 
 

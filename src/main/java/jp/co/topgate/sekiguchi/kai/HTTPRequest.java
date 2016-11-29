@@ -120,16 +120,22 @@ public class HTTPRequest {
         return requestMethod;
     }
 
+    public String getSecondSentence(String requestLine) {
+        int firstEmpty = requestLine.indexOf(" ");
+        String secondSentence = requestLine.substring(firstEmpty + 1,
+                requestLine.indexOf(" ", firstEmpty + 1));
+        return secondSentence;
+
+    }
+
     /**
      * リクエストURIを返すメソッド
      *
      * @return リクエストURIを返す
      */
-    public String getRequestURI(String requestLine) {
+    public String getRequestURI(String secondSentence) {
+
         String requestURI;
-        int firstEmpty = requestLine.indexOf(" ");
-        String secondSentence = requestLine.substring(firstEmpty + 1,
-                requestLine.indexOf(" ", firstEmpty + 1));
 
         if (secondSentence.contains("?")) {
             requestURI = secondSentence.substring(0, secondSentence.indexOf("?"));
@@ -145,14 +151,13 @@ public class HTTPRequest {
      * クエリストリングを返すメソッド
      *
      * @param requestMethod リクエストメソッド
-     * @param requestURI    リクエストURI
      * @return クエリストリング
      */
-    public String getQueryString(String requestMethod, String requestURI) {
+    public String getQueryString(String requestMethod, String secondSentence) {
         String queryString = null;
 
         if (requestMethod.equals("GET")) {
-            queryString = requestURI.substring(requestURI.indexOf("?"), requestURI.length());
+            queryString = secondSentence.substring(secondSentence.indexOf("?") + 1, secondSentence.length());
         } else if (requestMethod.equals("POST")) {
             queryString = this.requestBody;
         }
@@ -209,11 +214,3 @@ public class HTTPRequest {
 
 
 }
-//
-//    public static boolean checkQueryString(String queryParam) {
-//        String afterEqual = queryParam.substring(queryParam.indexOf("=") +1);
-//        if(afterEqual.equals("") || afterEqual.isEmpty() || afterEqual == null) {
-//            String[] piece = afterEqual.split("=");
-//            piece[1] =
-//
-//        }

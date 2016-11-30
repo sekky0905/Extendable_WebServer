@@ -11,7 +11,8 @@ public class ResultTemplate implements Template {
      */
     public byte[] writeHTML() {
         StringBuilder stringBuilder = new StringBuilder();
-
+        String name;
+        String comment;
 
         stringBuilder.append("<!DOCTYPE html>");
         stringBuilder.append("<html lang=\"ja\">");
@@ -36,7 +37,15 @@ public class ResultTemplate implements Template {
             }
             Message message = (Message) ModelStorage.getModelList(i);
 
-            stringBuilder.append("<table>");
+            if (message.getName().equals("エラー!文字を入力してください")) {
+                stringBuilder.append("<table style=\"background-color:red;\">");
+                name = " style=\"color:yellow;\"> ユーザーネームが入力されていません";
+                comment = " style=\"color:yellow;\"> この書き込みを削除してください";
+            } else {
+                stringBuilder.append("<table>");
+                name = ">" + message.getName();
+                comment = ">" + message.getComment();
+            }
             stringBuilder.append("<tr>");
             stringBuilder.append("<th>投稿日時:</th>");
             stringBuilder.append("<td>" + message.getAtTime() + "</td>");
@@ -44,12 +53,12 @@ public class ResultTemplate implements Template {
 
             stringBuilder.append("<tr>");
             stringBuilder.append("<th>ユーザーネーム:</th>");
-            stringBuilder.append("<td>" + message.getName() + "</td>");
+            stringBuilder.append("<td" + name + "</td>");
             stringBuilder.append("</tr>");
 
             stringBuilder.append("<tr>");
             stringBuilder.append("<th>コメント</th>");
-            stringBuilder.append("<td>" + message.getComment() + "</td>");
+            stringBuilder.append("<td" + comment + "</td>");
             stringBuilder.append("</tr>");
             stringBuilder.append("</table>");
 

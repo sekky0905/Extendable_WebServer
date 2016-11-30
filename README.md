@@ -4,30 +4,61 @@
 Simple WebServer.
 
 ## Description
-You can access your resource at localhost server through your browers.
-At this time, you can access following extension's files.
-### Text type Data
+You can use this application in two ways as following.<br>
+### 1.WebSever
+* You can access your resource at localhost server through your browers.<br>
+* At this time, you can access following extension's files.<br>
+
+#### Text type Data
 1. ~.html
 2. ~.css
 3. ~.js
 
-### Binary type Data
+#### Binary type Data
 1. ~.png
 2. ~.jpeg
 3. ~.gif
+
+### 2.Bulletin board
+* You can write your comment.<br>
+
+
 
 ## Requirement
 * java version "1.8.0_92"
 
 
-## Usage 
+## Usage
 
 ### run
 1. clone
 2. Hit the command ```./gradlew run```at Application root directory.
-3. Start your browser.
-4. Visit ```http://localhost:8080/{resource name which you want to access}```
+
+### 1.WebSever
+After run <br>
+
+1. Start your browser.
+2. Visit ```http://localhost:8080/{resource name which you want to access}```<br>
 (```{resource name which you want to access}``` is relative path of resource which you want to access from ```src/main/resources``` directory .)
+
+
+### 　2.Bulletin board
+After run <br>
+
+1. Start your browser.
+2. Visit ```http://localhost:8080/program/board/```.
+
+#### To post your comment
+1. Enter textbox of "ユーザーネーム" and "コメント".
+2. Click "送信する" button.
+
+#### To delete your comment
+1. Click "削除" button under your comment posted.
+
+#### To search particular user's comment
+1. Enter user's name which you want to search into textbox of "ユーザーネーム".
+2. Click "検索する" button under textbox of "ユーザーネーム".
+
 
 ### test
 1. Hit the command ```./gradlew test``` at Application root directory.

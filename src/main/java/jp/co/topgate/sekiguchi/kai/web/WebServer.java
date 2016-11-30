@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai;
+package jp.co.topgate.sekiguchi.kai.web;
 
 //フィルタをかけて流れてくるデータをバッファリングし、量がたまったら、一気に下流に流し込む
 

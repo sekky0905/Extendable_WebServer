@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai;
+package jp.co.topgate.sekiguchi.kai.web;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -51,15 +51,20 @@ public class HTTPResponse {
      *
      * @param fileExtension ファイルの拡張子
      */
-    public void setResponseHeader(String fileExtension) {
+    public boolean setResponseHeader(String fileExtension) {
+        boolean existence;
 
         if (fileExtension.equals("html") || fileExtension.equals("css") || fileExtension.equals("js")) {
             this.responseHeader = "Content-Type: text/" + fileExtension;
+            existence = true;
         } else if (fileExtension.equals("png") || fileExtension.equals("jpeg") || fileExtension.equals("gif")) {
             this.responseHeader = "Content-Type: image/" + fileExtension;
+            existence = true;
+        } else {
+            existence = false;
         }
         System.out.println("レスポンスヘッダは" + this.responseHeader);
-
+        return existence;
     }
 
     /**

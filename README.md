@@ -35,14 +35,16 @@ You can use this application in two ways as following.<br>
 2. Hit the command ```./gradlew run```at Application root directory.
 
 ### 1.WebSever
-After run
+After run <br>
+
 1. Start your browser.
-2. Visit ```http://localhost:8080/{resource name which you want to access}```
+2. Visit ```http://localhost:8080/{resource name which you want to access}```<br>
 (```{resource name which you want to access}``` is relative path of resource which you want to access from ```src/main/resources``` directory .)
 
 
-### 　2.Bulletin board**
-After run
+### 　2.Bulletin board
+After run <br>
+
 1. Start your browser.
 2. Visit ```http://localhost:8080/program/board/```.
 

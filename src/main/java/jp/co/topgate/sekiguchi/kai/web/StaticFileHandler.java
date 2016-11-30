@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai;
+package jp.co.topgate.sekiguchi.kai.web;
 
 import java.io.File;
 
@@ -36,17 +36,21 @@ public class StaticFileHandler implements Handler {
 
         String fileExtension = requestResource.substring(requestResource.lastIndexOf(".") + 1,
                 requestResource.lastIndexOf(""));
-        httpResponse.setResponseHeader(fileExtension);
 
-        byte[] responseBody = files.readFile(file);
-        httpResponse.setResponseBody(responseBody);
+        boolean extensionExistence = httpResponse.setResponseHeader(fileExtension);
 
-        if (file.exists()) {
+
+        if ((extensionExistence) && (file.exists())) {
             httpResponse.setStatusLine("HTTP/1.1 200 OK");
-        } else {
+            httpResponse.setResponseBody(files.readFile(file));
+        } else if (file.exists() == false) {
             httpResponse.setStatusLine("HTTP/1.1 404 Not Found");
-        }
+            httpResponse.setResponseBody("404 Not Found".getBytes());
+        } else if (extensionExistence == false) {
+            httpResponse.setStatusLine("HTTP/1.1 404 Not Found");
+            httpResponse.setResponseBody("404 Not Found".getBytes());
 
+        }
 
         httpResponse.sendResponse();
 

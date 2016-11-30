@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai;
+package jp.co.topgate.sekiguchi.kai.web;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -18,7 +18,7 @@ public class Files {
 
         System.out.println("ファイルの読み込みを始めます");
 
-        if (file.exists()) {
+
             try {
                 System.out.println(file + "ファイルを探します");
                 InputStream inputStream = new FileInputStream(file);
@@ -39,9 +39,7 @@ public class Files {
                 System.err.println("エラー" + e.getMessage());
                 e.printStackTrace();
             }
-        } else {
-            byteContents = "404 Not Found".getBytes();
-        }
+
         System.out.println("レスポンスボディは" + byteContents);
 
         return byteContents;

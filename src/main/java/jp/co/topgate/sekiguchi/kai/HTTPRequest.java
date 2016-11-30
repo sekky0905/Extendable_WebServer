@@ -5,9 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,15 +26,11 @@ public class HTTPRequest {
      */
     private Map<String, String> requestParameter = new HashMap<>();
 
-
     /**
      * リクエストライン
      */
     private String requestLine;
-    /**
-     * リクエストヘッダ
-     */
-    private String requestHeader;
+
     /**
      * リクエストボディ
      */
@@ -56,8 +50,6 @@ public class HTTPRequest {
 
     /**
      * リクエストの全文を読み込むメソッド
-     *
-     * @return リクエストの全文
      */
     public void setRequestContents() {
 
@@ -80,8 +72,8 @@ public class HTTPRequest {
                 line = bufferedReader.readLine();
             }
 
-            this.requestHeader = new String(stringBuilder);
-            System.out.print("リクエストヘッダは" + this.requestHeader);
+            String requestHeader = new String(stringBuilder);
+            System.out.print("リクエストヘッダは" + requestHeader);
 
             if (0 < contentLength) {
                 char[] c = new char[contentLength];
@@ -120,12 +112,14 @@ public class HTTPRequest {
         return requestMethod;
     }
 
+    /**
+     * @param requestLine リクエストライン
+     * @return リクエストURI + クエリストリング
+     */
     public String getSecondSentence(String requestLine) {
         int firstEmpty = requestLine.indexOf(" ");
-        String secondSentence = requestLine.substring(firstEmpty + 1,
+        return requestLine.substring(firstEmpty + 1,
                 requestLine.indexOf(" ", firstEmpty + 1));
-        return secondSentence;
-
     }
 
     /**
@@ -150,7 +144,8 @@ public class HTTPRequest {
     /**
      * クエリストリングを返すメソッド
      *
-     * @param requestMethod リクエストメソッド
+     * @param requestMethod  リクエストメソッド
+     * @param secondSentence リクエストURI + クエリストリング
      * @return クエリストリング
      */
     public String getQueryString(String requestMethod, String secondSentence) {

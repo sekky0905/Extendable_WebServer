@@ -8,26 +8,30 @@ import java.time.format.DateTimeFormatter;
  * Created by sekiguchikai on 2016/11/22.
  */
 public class MessageHandler implements Handler {
+    /**
+     * リクエストGETの際のハンドラ
+     * @param httpRequest リクエスト
+     * @param httpResponse レスポンス
+     */
     public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) {
-
-        // 3.HTMLTemplateにMessage渡す
         FormTemplate formTemplate = new FormTemplate();
-
 
         httpResponse.setResponseHeader("html");
         httpResponse.setStatusLine("HTTP/1.1 200 OK");
         httpResponse.setResponseBody(formTemplate.writeHTML());
 
         httpResponse.sendResponse();
-
     }
 
+    /**
+     * リクエストPOSTの際のハンドラ
+     * @param httpRequest リクエスト
+     * @param httpResponse レスポンス
+     */
     public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) {
-
         String requestLine = httpRequest.getRequestLine();
         String queryString = httpRequest.getQueryString(httpRequest.getRequestMethod(requestLine), httpRequest.getSecondSentence(requestLine));
         httpRequest.setRequestParameter(queryString);
-
 
         if (httpRequest.getRequestURI(httpRequest.getSecondSentence(requestLine)).equals("/program/board/registered")) {
             String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now());
@@ -48,7 +52,6 @@ public class MessageHandler implements Handler {
             String userName = httpRequest.getRequestParameter("searchName");
             MessageStorage.searchModel(userName);
         }
-
 
         Template template = new ResultTemplate();
 

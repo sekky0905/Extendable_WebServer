@@ -1,8 +1,8 @@
 package jp.co.topgate.sekiguchi.kai;
 
-import java.util.ArrayList;
 
 /**
+ * 最初の投稿画面のHTMLを記述するためのクラス
  * Created by sekiguchikai on 2016/11/22.
  */
 public class FormTemplate implements Template {

@@ -23,7 +23,7 @@ public class Files {
                 System.out.println(file + "ファイルを探します");
                 InputStream inputStream = new FileInputStream(file);
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                // 入力ストリームからの読み込み（ファイルの読み込み）
+
                 int len;
                 while ((len = inputStream.read()) != -1) {
                     byteArrayOutputStream.write(len);

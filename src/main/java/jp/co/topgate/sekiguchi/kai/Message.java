@@ -23,63 +23,57 @@ public class Message {
 
 
     /**
-     * ユーザーネームのセッター
+     * ユーザーネームを設定するためのメソッド
      *
-     * @param userName
+     * @param userName 　ユーザーネーム
      */
     public void setUserName(String userName) {
         this.userName = userName;
-
     }
 
     /**
-     * 本文のセッター
+     * コメントを設定するためのメソッド
      *
-     * @param comment
+     * @param comment 　コメント
      */
     public void setComment(String comment) {
         this.comment = comment;
-
     }
 
     /**
-     * 投稿日時のセッター
+     * 投稿日時を設定するためのメソッド
      *
-     * @param atTime
+     * @param atTime 投稿日時
      */
     public void setAtTime(String atTime) {
         this.atTime = atTime;
     }
 
     /**
-     * ユーザーネームのゲッター
+     * ユーザーネームを取得するためのメソッド
      *
      * @return ユーザーネーム
      */
     public String getUserName() {
         return this.userName;
-
     }
 
     /**
-     * 本文のゲッター
+     * コメントを取得するためのメソッド
      *
      * @return 本文
      */
     public String getComment() {
         return this.comment;
-
     }
 
     /**
-     * 投稿日時のゲッター
+     * 投稿日時を取得するためのメソッド
      *
      * @return 投稿日時
      */
     public String getAtTime() {
         return this.atTime;
-
     }
-
 
 }

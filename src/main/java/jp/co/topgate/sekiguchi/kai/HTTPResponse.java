@@ -1,7 +1,6 @@
 package jp.co.topgate.sekiguchi.kai;
 
 import java.io.DataOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -32,26 +31,25 @@ public class HTTPResponse {
     /**
      * コンストラクタ
      *
-     * @param outputStream
+     * @param outputStream アウトプットストリーム
      */
     HTTPResponse(OutputStream outputStream) {
         this.outputStream = outputStream;
     }
 
     /**
-     * クライアントへ送信するレスポンスのうち、ステータスラインを設定するメソッド
+     * ステータスラインを設定するメソッド
      *
-     * @param statusLine ステータス来ん
+     * @param statusLine ステータスライン
      */
     public void setStatusLine(String statusLine) {
         this.statusLine = statusLine;
     }
 
     /**
-     * クライアントへ送信するレスポンスのうち、レスポンスヘッダを設定するメソッド
+     * レスポンスヘッダを設定するメソッド
      *
-     * @param requestResource リクエストされたリソース
-     * @param file            ファイル
+     * @param fileExtension ファイルの拡張子
      */
     public void setResponseHeader(String fileExtension) {
 
@@ -60,8 +58,6 @@ public class HTTPResponse {
         } else if (fileExtension.equals("png") || fileExtension.equals("jpeg") || fileExtension.equals("gif")) {
             this.responseHeader = "Content-Type: image/" + fileExtension;
         }
-
-
         System.out.println("レスポンスヘッダは" + this.responseHeader);
 
     }
@@ -122,15 +118,6 @@ public class HTTPResponse {
      */
     public String getResponseHeader() {
         return this.responseHeader;
-    }
-
-    /**
-     * responseBodyを取得するためのメソッド
-     *
-     * @return responseBody
-     */
-    public byte[] getResponseBody() {
-        return this.responseBody;
     }
 
 }

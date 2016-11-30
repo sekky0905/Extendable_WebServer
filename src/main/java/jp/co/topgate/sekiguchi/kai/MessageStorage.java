@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Messageインスタンスを格納するためのクラス
  * Created by sekiguchikai on 2016/11/28.
  */
 public class MessageStorage {

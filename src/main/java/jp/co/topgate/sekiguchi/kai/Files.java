@@ -48,11 +48,4 @@ public class Files {
 
     }
 
-    /**
-     * 指定された文字列をファイルに書き込む
-     */
-    public void fileWrite(String fileContents) {
-
-    }
-
 }

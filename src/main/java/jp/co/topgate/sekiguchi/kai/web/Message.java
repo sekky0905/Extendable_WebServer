@@ -1,8 +1,4 @@
-package jp.co.topgate.sekiguchi.kai;
-
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
-import java.util.Date;
+package jp.co.topgate.sekiguchi.kai.web;
 
 /**
  * Created by sekiguchikai on 2016/11/22.

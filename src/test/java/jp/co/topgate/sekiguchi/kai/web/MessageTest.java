@@ -1,15 +1,11 @@
-package jp.co.topgate.sekiguchi.kai;
+package jp.co.topgate.sekiguchi.kai.web;
 
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
-import org.hamcrest.CoreMatchers;
-
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**

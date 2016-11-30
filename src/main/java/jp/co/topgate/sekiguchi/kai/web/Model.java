@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai;
+package jp.co.topgate.sekiguchi.kai.web;
 
 /**
  * Modelを定義した抽象クラス

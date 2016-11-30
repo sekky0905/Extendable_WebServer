@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai;
+package jp.co.topgate.sekiguchi.kai.web;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

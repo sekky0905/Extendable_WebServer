@@ -7,21 +7,21 @@ import java.util.List;
  * Messageインスタンスを格納するためのクラス
  * Created by sekiguchikai on 2016/11/28.
  */
-public class MessageStorage {
+public class ModelStorage {
 
     /**
      * モデルを格納するためのリスト
      */
-    private static List<Message> modelList = new ArrayList<>();
+    private static List<Model> modelList = new ArrayList<>();
 
 
     /**
      * モデルを受け取りリストに格納するためのメソッド
      *
-     * @param message リストに格納するモデル
+     * @param model リストに格納するモデル
      */
-    public static void setModelList(Message message) {
-        modelList.add(message);
+    public static void setModelList(Model model) {
+        modelList.add(model);
     }
 
     /**
@@ -30,7 +30,7 @@ public class MessageStorage {
      * @param index リストのインデックス
      * @return インデックスで指定されたモデル
      */
-    public static Object getModelList(int index) {
+    public static Model getModelList(int index) {
         return modelList.get(index);
     }
 
@@ -56,14 +56,14 @@ public class MessageStorage {
     /**
      * 指定されたユーザーネームのモデルのみ格納するListを生成
      *
-     * @param userName ユーザーネーム
+     * @param name ユーザーネーム
      */
-    public static void searchModel(String userName) {
+    public static void searchModel(String name) {
         // 遠回りだが、必要処理
-        List<Message> tempoList = new ArrayList<>();
+        List<Model> tempoList = new ArrayList<>();
         for (int i = 0; i < modelList.size(); i++) {
 
-            if ((modelList.get(i).getUserName().equals(userName))) {
+            if ((modelList.get(i).getName().equals(name))) {
                 tempoList.add(modelList.get(i));
             }
         }

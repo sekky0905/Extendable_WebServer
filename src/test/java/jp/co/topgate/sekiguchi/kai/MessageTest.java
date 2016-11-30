@@ -19,13 +19,13 @@ public class MessageTest {
     Message message = new Message();
 
     /**
-     * setUserNameメソッドをテストするメソッド
-     * ついでにgetUserNameメソッドもテストする
+     * setNameメソッドをテストするメソッド
+     * ついでにgetNameメソッドもテストする
      */
     @Test
-    public void setUserName() {
-        message.setUserName("sekky");
-        assertThat(message.getUserName(), is("sekky"));
+    public void setName() {
+        message.setName("sekky");
+        assertThat(message.getName(), is("sekky"));
     }
 
     /**

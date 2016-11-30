@@ -84,7 +84,7 @@ public class HTTPRequestTest {
             + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
             + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n"
             + "\n"
-            + "userName=a&comment=a";
+            + "name=a&comment=a";
 
 
     String socketContentsArray[] = {socketContents1, socketContents2, socketContents3, socketContents4, socketContents5,
@@ -227,13 +227,13 @@ public class HTTPRequestTest {
                 + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n"
                 + "Content-Length: 20\n"
                 + "\n"
-                + "userName=a&comment=a\n";
+                + "name=a&comment=a\n";
 
         String requestContentsArray[] = {requestContents1, requestContents2, srequestContents3};
 
         String expQueryString1 = "foo=bar";
         String expQueryString2 = "foo=bar.com";
-        String expQueryString3 = "userName=a&comment=a";
+        String expQueryString3 = "name=a&comment=a";
 
         String expQueryStringArray[] = {expQueryString1, expQueryString2, expQueryString3};
 
@@ -257,7 +257,7 @@ public class HTTPRequestTest {
     public void getRequestParameter() {
 
 
-        String requestContents1 = "GET /next.html?userName=a HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+        String requestContents1 = "GET /next.html?name=a HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
                 + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
                 + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
                 + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
@@ -271,7 +271,7 @@ public class HTTPRequestTest {
                 + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n"
                 + "Content-Length: 20\n"
                 + "\n"
-                + "userName=b&comment=a\n";
+                + "name=b&comment=a\n";
 
         String requestContentsArray[] = {requestContents1, requestContents2};
 
@@ -288,7 +288,7 @@ public class HTTPRequestTest {
             String requestLine = httpRequest.getRequestLine();
             httpRequest.setRequestParameter(httpRequest.getQueryString(httpRequest.getRequestMethod(requestLine), httpRequest.getSecondSentence(requestLine)));
 
-            assertThat(httpRequest.getRequestParameter("userName"), is(expRequestParamArray[i]));
+            assertThat(httpRequest.getRequestParameter("name"), is(expRequestParamArray[i]));
 
 
         }

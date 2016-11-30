@@ -7,11 +7,8 @@ import java.util.Date;
 /**
  * Created by sekiguchikai on 2016/11/22.
  */
-public class Message {
-    /**
-     * ユーザーネーム
-     */
-    private String userName;
+public class Message extends Model{
+
     /**
      * 本文
      */
@@ -21,15 +18,6 @@ public class Message {
      */
     private String atTime;
 
-
-    /**
-     * ユーザーネームを設定するためのメソッド
-     *
-     * @param userName 　ユーザーネーム
-     */
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 
     /**
      * コメントを設定するためのメソッド
@@ -49,14 +37,7 @@ public class Message {
         this.atTime = atTime;
     }
 
-    /**
-     * ユーザーネームを取得するためのメソッド
-     *
-     * @return ユーザーネーム
-     */
-    public String getUserName() {
-        return this.userName;
-    }
+
 
     /**
      * コメントを取得するためのメソッド

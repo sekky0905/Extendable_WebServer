@@ -30,11 +30,11 @@ public class ResultTemplate implements Template {
         stringBuilder.append("</head>");
         stringBuilder.append("<body>");
 
-        for (int i = 0; i <= MessageStorage.countModel(); i++) {
-            if (i == MessageStorage.countModel()) {
+        for (int i = 0; i <= ModelStorage.countModel(); i++) {
+            if (i == ModelStorage.countModel()) {
                 break;
             }
-            Message message = (Message) MessageStorage.getModelList(i);
+            Message message = (Message) ModelStorage.getModelList(i);
 
             stringBuilder.append("<table>");
             stringBuilder.append("<tr>");
@@ -44,7 +44,7 @@ public class ResultTemplate implements Template {
 
             stringBuilder.append("<tr>");
             stringBuilder.append("<th>ユーザーネーム:</th>");
-            stringBuilder.append("<td>" + message.getUserName() + "</td>");
+            stringBuilder.append("<td>" + message.getName() + "</td>");
             stringBuilder.append("</tr>");
 
             stringBuilder.append("<tr>");
@@ -69,7 +69,7 @@ public class ResultTemplate implements Template {
         stringBuilder.append("<table>");
         stringBuilder.append("<tr>");
         stringBuilder.append("<th>ユーザーネーム:</th>");
-        stringBuilder.append("<td><input type=\"text\" name=\"userName\" size=\"40\"></td>");
+        stringBuilder.append("<td><input type=\"text\" name=\"name\" size=\"40\"></td>");
         stringBuilder.append("</tr>");
         stringBuilder.append("<tr>");
         stringBuilder.append("<th>コメント</th>");

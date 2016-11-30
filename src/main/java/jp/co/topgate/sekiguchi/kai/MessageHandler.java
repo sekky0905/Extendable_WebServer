@@ -10,7 +10,8 @@ import java.time.format.DateTimeFormatter;
 public class MessageHandler implements Handler {
     /**
      * リクエストGETの際のハンドラ
-     * @param httpRequest リクエスト
+     *
+     * @param httpRequest  リクエスト
      * @param httpResponse レスポンス
      */
     public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) {
@@ -25,7 +26,8 @@ public class MessageHandler implements Handler {
 
     /**
      * リクエストPOSTの際のハンドラ
-     * @param httpRequest リクエスト
+     *
+     * @param httpRequest  リクエスト
      * @param httpResponse レスポンス
      */
     public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) {
@@ -35,22 +37,22 @@ public class MessageHandler implements Handler {
 
         if (httpRequest.getRequestURI(httpRequest.getSecondSentence(requestLine)).equals("/program/board/registered")) {
             String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now());
-            String userName = httpRequest.getRequestParameter("userName");
+            String name = httpRequest.getRequestParameter("name");
             String comment = httpRequest.getRequestParameter("comment");
 
             Message message = new Message();
             message.setAtTime(atTime);
-            message.setUserName(userName);
+            message.setName(name);
             message.setComment(comment);
 
-            MessageStorage.setModelList(message);
+            ModelStorage.setModelList((Model) message);
 
         } else if (httpRequest.getRequestURI(httpRequest.getSecondSentence(requestLine)).equals("/program/board/registered/afterDelete")) {
-            int objIndex = Integer.parseInt(httpRequest.getRequestParameter("delete"));
-            MessageStorage.removeModel(objIndex);
+            int modelIndex = Integer.parseInt(httpRequest.getRequestParameter("delete"));
+            ModelStorage.removeModel(modelIndex);
         } else if (httpRequest.getRequestURI(httpRequest.getSecondSentence(requestLine)).equals("/program/board/registered/search")) {
-            String userName = httpRequest.getRequestParameter("searchName");
-            MessageStorage.searchModel(userName);
+            String name = httpRequest.getRequestParameter("searchName");
+            ModelStorage.searchModel(name);
         }
 
         Template template = new ResultTemplate();

@@ -78,7 +78,7 @@ public class HTTPRequest {
             if (0 < contentLength) {
                 char[] c = new char[contentLength];
                 bufferedReader.read(c);
-                this.requestBody = new String(c);
+                this.requestBody = new String(c) + "\n";
                 System.out.print("リクエストボディは" + this.requestBody);
             }
 
@@ -154,7 +154,7 @@ public class HTTPRequest {
         if (requestMethod.equals("GET")) {
             queryString = secondSentence.substring(secondSentence.indexOf("?") + 1, secondSentence.length());
         } else if (requestMethod.equals("POST")) {
-            queryString = this.requestBody;
+            queryString = this.requestBody.substring(0, requestBody.indexOf("\n"));
         }
         return queryString;
     }

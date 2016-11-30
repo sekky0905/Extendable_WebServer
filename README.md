@@ -5,22 +5,24 @@ Simple WebServer.
 
 ## Description
 You can use this application in two ways as following.<br>
-**　1.WebSever**<br>
+### 1.WebSever
 * You can access your resource at localhost server through your browers.<br>
 * At this time, you can access following extension's files.<br>
 
-**　2.Bulletin board**<br>
-* You can write your comment.<br>
-
-### Text type Data
+#### Text type Data
 1. ~.html
 2. ~.css
 3. ~.js
 
-### Binary type Data
+#### Binary type Data
 1. ~.png
 2. ~.jpeg
 3. ~.gif
+
+### 2.Bulletin board
+* You can write your comment.<br>
+
+
 
 ## Requirement
 * java version "1.8.0_92"

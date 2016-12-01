@@ -99,7 +99,10 @@ public class ModelStorage {
      * modelListに保持している全てのインスタンスを削除するメソッド
      */
     public static void removeAllModel() {
-        for (int i = 0; i < modelList.size(); i++) {
+        for (int i = 0; i <= modelList.size(); i++) {
+            if (i == modelList.size()) {
+                break;
+            }
             modelList.remove(i);
         }
     }
@@ -110,7 +113,10 @@ public class ModelStorage {
      */
     public static void removeAllTempo() {
 
-        for (int i = 0; i < tempoList.size(); i++) {
+        for (int i = 0; i <= tempoList.size(); i++) {
+            if (i == tempoList.size()) {
+                break;
+            }
             tempoList.remove(i);
         }
     }

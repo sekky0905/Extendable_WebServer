@@ -39,9 +39,10 @@ public class FormTemplate implements Template {
         stringBuilder.append("</tr>");
         stringBuilder.append("<tr>");
         stringBuilder.append("<th>コメント</th>");
-        stringBuilder.append("<td><textarea name=\"comment\" rows=\"4\" cols=\"40\">ここにコメントを記入してください</textarea></td>");
+        stringBuilder.append("<td><textarea name=\"comment\" rows=\"4\" cols=\"40\" placeholder=\"ここにコメントを記入してください\"></textarea></td>");
         stringBuilder.append("</tr>");
         stringBuilder.append("</table>");
+        stringBuilder.append("<input type=\"hidden\" name=\"token\" value=\"" + Session.generateToken() + "\">");
         stringBuilder.append("<p><input type=\"submit\" value=\"送信する\"></p>");
         stringBuilder.append("</form>");
         stringBuilder.append("</body>");

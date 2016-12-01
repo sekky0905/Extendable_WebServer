@@ -52,9 +52,10 @@ public class ResultTemplate implements Template {
         stringBuilder.append("</tr>");
         stringBuilder.append("<tr>");
         stringBuilder.append("<th>コメント</th>");
-        stringBuilder.append("<td><textarea name=\"comment\" rows=\"4\" cols=\"40\">ここにコメントを記入してください</textarea></td>");
+        stringBuilder.append("<td><textarea name=\"comment\" rows=\"4\" cols=\"40\" placeholder=\"ここにコメントを記入してください\"></textarea></td>");
         stringBuilder.append("</tr>");
         stringBuilder.append("</table>");
+        stringBuilder.append("<input type=\"hidden\" name=\"token\" value=\"" + Session.getToken() + "\">");
         stringBuilder.append("<p><input type=\"submit\" value=\"送信する\"></p>");
         stringBuilder.append("</form>");
         stringBuilder.append("</body>");
@@ -71,8 +72,18 @@ public class ResultTemplate implements Template {
         stringBuilder.append("<td><input type=\"text\" name=\"searchName\"></td>");
         stringBuilder.append("</tr>");
         stringBuilder.append("</table>");
+        stringBuilder.append("<input type=\"hidden\" name=\"token\" value=\"" + Session.getToken() + "\">");
         stringBuilder.append("<input type=\"submit\" value=\"検索する\">");
         stringBuilder.append("</form>");
+
+        // ここ
+//        stringBuilder.append("<form action=\"/program/board/\" method=\"post\" accept-charset=\"UTF-8\">");
+//        stringBuilder.append("<input type=\"hidden\" name=\"token\" value=\"" + Session.getToken() + "\">");
+//        stringBuilder.append("<p>");
+//        stringBuilder.append("<input type=\"hidden\" name =\"return\" value=\"return\">");
+//        stringBuilder.append("<a href=\"http://localhost:8080/program/board/\">戻る</a> ");
+//        stringBuilder.append("</p>");
+
         stringBuilder.append("</body>");
         stringBuilder.append("</html>");
 
@@ -127,6 +138,7 @@ public class ResultTemplate implements Template {
 
 
             stringBuilder.append("<form action=\"/program/board/registered/afterDelete\" method=\"post\" accept-charset=\"UTF-8\">");
+            stringBuilder.append("<input type=\"hidden\" name=\"token\" value=\"" + Session.getToken() + "\">");
             stringBuilder.append("<p>");
             stringBuilder.append("<input type=\"hidden\" name =\"delete\" value=" + i + ">");
             stringBuilder.append("<input type=\"submit\"  value=\" 削除 \"");

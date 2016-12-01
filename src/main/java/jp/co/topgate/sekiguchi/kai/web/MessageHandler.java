@@ -36,6 +36,7 @@ public class MessageHandler implements Handler {
         httpRequest.setRequestParameter(queryString);
 
         if (httpRequest.getRequestURI(httpRequest.getSecondSentence(requestLine)).equals("/program/board/registered")) {
+            ModelStorage.setSearced(false);
             String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now());
             String name = httpRequest.getRequestParameter("name");
             String comment = httpRequest.getRequestParameter("comment");
@@ -45,12 +46,14 @@ public class MessageHandler implements Handler {
             message.setName(name);
             message.setComment(comment);
 
-            ModelStorage.setModelList((Model) message);
+            ModelStorage.setModelList(message);
 
         } else if (httpRequest.getRequestURI(httpRequest.getSecondSentence(requestLine)).equals("/program/board/registered/afterDelete")) {
+            ModelStorage.setSearced(false);
             int modelIndex = Integer.parseInt(httpRequest.getRequestParameter("delete"));
             ModelStorage.removeModel(modelIndex);
         } else if (httpRequest.getRequestURI(httpRequest.getSecondSentence(requestLine)).equals("/program/board/registered/search")) {
+            ModelStorage.setSearced(true);
             String name = httpRequest.getRequestParameter("searchName");
             ModelStorage.searchModel(name);
         }

@@ -16,59 +16,59 @@ import org.junit.Test;
  */
 public class HTTPRequestTest {
 
-    String socketContents1 = "GET /next.html HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+    String socketContents1 = "GET /../../test/resources/test.html HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
             + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
             + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
             + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
             + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
 
-    String socketContents2 = "GET /sample/next.html HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+    String socketContents2 = "GET /../../test/resources/sample/test.html HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
             + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
             + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
             + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
             + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
 
-    String socketContents3 = "GET /next.html?foo=bar HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+    String socketContents3 = "GET /../../test/resources/test.html?foo=bar HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
             + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
             + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
             + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
             + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
 
-    String socketContents4 = "GET /sample/next.html?foo=bar HTTP/1.1\n" + "Host: localhost:8080\n"
+    String socketContents4 = "GET /../../test/resources/sample/test.html?foo=bar HTTP/1.1\n" + "Host: localhost:8080\n"
             + "Connection: keep-alive\n"
             + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
             + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
             + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
             + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
 
-    String socketContents5 = "GET /next.html?foo=bar.com HTTP/1.1\n" + "Host: localhost:8080\n"
+    String socketContents5 = "GET /../../test/resources/test.html?foo=bar.com HTTP/1.1\n" + "Host: localhost:8080\n"
             + "Connection: keep-alive\n"
             + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
             + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
             + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
             + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
 
-    String socketContents6 = "GET /sample/next.html?foo=bar.com HTTP/1.1\n" + "Host: localhost:8080\n"
+    String socketContents6 = "GET /../../test/resources/sample/test.html?foo=bar.com HTTP/1.1\n" + "Host: localhost:8080\n"
             + "Connection: keep-alive\n"
             + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
             + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
             + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
             + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
 
-    String socketContents7 = "GET /.sample/next.html HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+    String socketContents7 = "GET /../../test/resources/.sample/test.html HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
             + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
             + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
             + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
             + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
 
-    String socketContents8 = "GET /.sample/next.html?foo=bar HTTP/1.1\n" + "Host: localhost:8080\n"
+    String socketContents8 = "GET /../../test/resources/.sample/test.html?foo=bar HTTP/1.1\n" + "Host: localhost:8080\n"
             + "Connection: keep-alive\n"
             + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
             + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
             + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
             + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
 
-    String socketContents9 = "GET /.sample/next.html?foo=bar.com HTTP/1.1\n" + "Host: localhost:8080\n"
+    String socketContents9 = "GET /../../test/resources/.sample/test.html?foo=bar.com HTTP/1.1\n" + "Host: localhost:8080\n"
             + "Connection: keep-alive\n"
             + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
             + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
@@ -76,7 +76,7 @@ public class HTTPRequestTest {
             + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
 
 
-    String socketContents10 = "POST /next.html HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+    String socketContents10 = "POST /../../test/resources/test.html HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
             + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
             + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
             + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
@@ -94,16 +94,16 @@ public class HTTPRequestTest {
      */
     @Test
     public void getRequestLine() {
-        String expRequestLine1 = "GET /next.html HTTP/1.1";
-        String expRequestLine2 = "GET /sample/next.html HTTP/1.1";
-        String expRequestLine3 = "GET /next.html?foo=bar HTTP/1.1";
-        String expRequestLine4 = "GET /sample/next.html?foo=bar HTTP/1.1";
-        String expRequestLine5 = "GET /next.html?foo=bar.com HTTP/1.1";
-        String expRequestLine6 = "GET /sample/next.html?foo=bar.com HTTP/1.1";
-        String expRequestLine7 = "GET /.sample/next.html HTTP/1.1";
-        String expRequestLine8 = "GET /.sample/next.html?foo=bar HTTP/1.1";
-        String expRequestLine9 = "GET /.sample/next.html?foo=bar.com HTTP/1.1";
-        String expRequestLine10 = "POST /next.html HTTP/1.1";
+        String expRequestLine1 = "GET /../../test/resources/test.html HTTP/1.1";
+        String expRequestLine2 = "GET /../../test/resources/sample/test.html HTTP/1.1";
+        String expRequestLine3 = "GET /../../test/resources/test.html?foo=bar HTTP/1.1";
+        String expRequestLine4 = "GET /../../test/resources/sample/test.html?foo=bar HTTP/1.1";
+        String expRequestLine5 = "GET /../../test/resources/test.html?foo=bar.com HTTP/1.1";
+        String expRequestLine6 = "GET /../../test/resources/sample/test.html?foo=bar.com HTTP/1.1";
+        String expRequestLine7 = "GET /../../test/resources/.sample/test.html HTTP/1.1";
+        String expRequestLine8 = "GET /../../test/resources/.sample/test.html?foo=bar HTTP/1.1";
+        String expRequestLine9 = "GET /../../test/resources/.sample/test.html?foo=bar.com HTTP/1.1";
+        String expRequestLine10 = "POST /../../test/resources/test.html HTTP/1.1";
 
 
         String expRequestLineArray[] = {expRequestLine1, expRequestLine2, expRequestLine3, expRequestLine4, expRequestLine5, expRequestLine6, expRequestLine7, expRequestLine8, expRequestLine9, expRequestLine10};
@@ -144,16 +144,16 @@ public class HTTPRequestTest {
      */
     @Test
     public void getSecondSentence() {
-        String expSecondSentence1 = "/next.html";
-        String expSecondSentence2 = "/sample/next.html";
-        String expSecondSentence3 = "/next.html?foo=bar";
-        String expSecondSentence4 = "/sample/next.html?foo=bar";
-        String expSecondSentence5 = "/next.html?foo=bar.com";
-        String expSecondSentence6 = "/sample/next.html?foo=bar.com";
-        String expSecondSentence7 = "/.sample/next.html";
-        String expSecondSentence8 = "/.sample/next.html?foo=bar";
-        String expSecondSentence9 = "/.sample/next.html?foo=bar.com";
-        String expSecondSentence10 = "/next.html";
+        String expSecondSentence1 = "/../../test/resources/test.html";
+        String expSecondSentence2 = "/../../test/resources/sample/test.html";
+        String expSecondSentence3 = "/../../test/resources/test.html?foo=bar";
+        String expSecondSentence4 = "/../../test/resources/sample/test.html?foo=bar";
+        String expSecondSentence5 = "/../../test/resources/test.html?foo=bar.com";
+        String expSecondSentence6 = "/../../test/resources/sample/test.html?foo=bar.com";
+        String expSecondSentence7 = "/../../test/resources/.sample/test.html";
+        String expSecondSentence8 = "/../../test/resources/.sample/test.html?foo=bar";
+        String expSecondSentence9 = "/../../test/resources/.sample/test.html?foo=bar.com";
+        String expSecondSentence10 = "/../../test/resources/test.html";
 
         String expSecondSentenceLineArray[] = {expSecondSentence1, expSecondSentence2, expSecondSentence3, expSecondSentence4, expSecondSentence5, expSecondSentence6, expSecondSentence7, expSecondSentence8, expSecondSentence9, expSecondSentence10};
 
@@ -175,16 +175,16 @@ public class HTTPRequestTest {
     @Test
     public void getRequestURI() {
 
-        String expRequestURI1 = "/next.html";
-        String expRequestURI2 = "/sample/next.html";
-        String expRequestURI3 = "/next.html";
-        String expRequestURI4 = "/sample/next.html";
-        String expRequestURI5 = "/next.html";
-        String expRequestURI6 = "/sample/next.html";
-        String expRequestURI7 = "/.sample/next.html";
-        String expRequestURI8 = "/.sample/next.html";
-        String expRequestURI9 = "/.sample/next.html";
-        String expRequestURI10 = "/next.html";
+        String expRequestURI1 = "/../../test/resources/test.html";
+        String expRequestURI2 = "/../../test/resources/sample/test.html";
+        String expRequestURI3 = "/../../test/resources/test.html";
+        String expRequestURI4 = "/../../test/resources/sample/test.html";
+        String expRequestURI5 = "/../../test/resources/test.html";
+        String expRequestURI6 = "/../../test/resources/sample/test.html";
+        String expRequestURI7 = "/../../test/resources/.sample/test.html";
+        String expRequestURI8 = "/../../test/resources/.sample/test.html";
+        String expRequestURI9 = "/../../test/resources/.sample/test.html";
+        String expRequestURI10 = "/../../test/resources/test.html";
 
         String expRequestURIArray[] = {expRequestURI1, expRequestURI2, expRequestURI3, expRequestURI4, expRequestURI5, expRequestURI6, expRequestURI7, expRequestURI8, expRequestURI9, expRequestURI10};
 
@@ -203,14 +203,14 @@ public class HTTPRequestTest {
     public void getQueryString() {
 
 
-        String requestContents1 = "GET /next.html?foo=bar HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+        String requestContents1 = "GET /../../test/resources/test.html?foo=bar HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
                 + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
                 + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
                 + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
                 + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
 
 
-        String requestContents2 = "GET /next.html?foo=bar.com HTTP/1.1\n" + "Host: localhost:8080\n"
+        String requestContents2 = "GET /../../test/resources/test.html?foo=bar.com HTTP/1.1\n" + "Host: localhost:8080\n"
                 + "Connection: keep-alive\n"
                 + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
                 + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
@@ -218,7 +218,7 @@ public class HTTPRequestTest {
                 + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
 
 
-        String srequestContents3 = "POST /next.html HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+        String srequestContents3 = "POST /../../test/resources/test.html HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
                 + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
                 + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
                 + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
@@ -255,14 +255,14 @@ public class HTTPRequestTest {
     public void getRequestParameter() {
 
 
-        String requestContents1 = "GET /next.html?name=a HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+        String requestContents1 = "GET /../../test/resources/test.html?name=a HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
                 + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
                 + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
                 + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
                 + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
 
 
-        String requestContents2 = "POST /next.html HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+        String requestContents2 = "POST /../../test/resources/test.html HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
                 + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
                 + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
                 + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"

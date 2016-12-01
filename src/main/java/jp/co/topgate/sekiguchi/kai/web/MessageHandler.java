@@ -35,7 +35,9 @@ public class MessageHandler implements Handler {
         String queryString = httpRequest.getQueryString(httpRequest.getRequestMethod(requestLine), httpRequest.getSecondSentence(requestLine));
         httpRequest.setRequestParameter(queryString);
 
-        if (httpRequest.getRequestURI(httpRequest.getSecondSentence(requestLine)).equals("/program/board/registered")) {
+
+        if (httpRequest.getRequestURI(httpRequest.getSecondSentence(requestLine)).equals("/program/board/registered") && Session.confirmToken(httpRequest.getRequestParameter("token"))) {
+
             ModelStorage.setSearced(false);
             String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now());
             String name = httpRequest.getRequestParameter("name");
@@ -46,16 +48,21 @@ public class MessageHandler implements Handler {
             message.setName(name);
             message.setComment(comment);
 
+            Session.generateToken();
             ModelStorage.setModelList(message);
 
-        } else if (httpRequest.getRequestURI(httpRequest.getSecondSentence(requestLine)).equals("/program/board/registered/afterDelete")) {
+        } else if (httpRequest.getRequestURI(httpRequest.getSecondSentence(requestLine)).equals("/program/board/registered/afterDelete") && Session.confirmToken(httpRequest.getRequestParameter("token"))) {
             ModelStorage.setSearced(false);
             int modelIndex = Integer.parseInt(httpRequest.getRequestParameter("delete"));
             ModelStorage.removeModel(modelIndex);
-        } else if (httpRequest.getRequestURI(httpRequest.getSecondSentence(requestLine)).equals("/program/board/registered/search")) {
+            //
+            Session.generateToken();
+        } else if (httpRequest.getRequestURI(httpRequest.getSecondSentence(requestLine)).equals("/program/board/registered/search") && Session.confirmToken(httpRequest.getRequestParameter("token"))) {
             ModelStorage.setSearced(true);
             String name = httpRequest.getRequestParameter("searchName");
             ModelStorage.searchModel(name);
+            //
+            Session.generateToken();
         }
 
         Template template = new ResultTemplate();

@@ -1,5 +1,7 @@
 package jp.co.topgate.sekiguchi.kai.web;
 
+import java.util.List;
+
 /**
  * Created by sekiguchikai on 2016/11/22.
  */
@@ -30,14 +32,15 @@ public class ResultTemplate implements Template {
         stringBuilder.append("</head>");
         stringBuilder.append("<body>");
 
-        for (int i = 0; i <= ModelStorage.countModel(); i++) {
-            if (i == ModelStorage.countModel()) {
-                break;
-            }
-            Message message = (Message) ModelStorage.getModelList(i);
 
-            stringBuilder.append(this.writeRepetition(message, i));
+        int listSize = 0;
 
+        if (ModelStorage.countTempo() == 0) {
+            listSize = ModelStorage.countModel();
+            stringBuilder.append(this.writeRepetition("modelList", listSize));
+        } else {
+            listSize = ModelStorage.countTempo();
+            stringBuilder.append(this.writeRepetition("tempoList", listSize));
         }
 
 
@@ -78,46 +81,61 @@ public class ResultTemplate implements Template {
     }
 
 
-    private String writeRepetition(Message message, int index) {
+    private String writeRepetition(String listName, int listSize) {
         StringBuilder stringBuilder = new StringBuilder();
 
-        String name;
-        String comment;
 
-        if (message.getName().equals("エラー!文字を入力してください")) {
-            stringBuilder.append("<table style=\"background-color:red;\">");
-            name = " style=\"color:yellow;\"> ユーザーネームが入力されていません";
-            comment = " style=\"color:yellow;\"> この書き込みを削除してください";
-        } else {
-            stringBuilder.append("<table>");
-            name = ">" + message.getName();
-            comment = ">" + message.getComment();
+        for (int i = 0; i <= listSize; i++) {
+            if (i == listSize) {
+                break;
+            }
+
+            Message message = null;
+            if (listName.equals("modelList")) {
+                message = (Message) ModelStorage.getModelList(i);
+            } else if (listName.equals("tempoList")) {
+                message = (Message) ModelStorage.getTempoList(i);
+            }
+
+
+            String name;
+            String comment;
+
+            if (message.getName().equals("エラー!文字を入力してください")) {
+                stringBuilder.append("<table style=\"background-color:red;\">");
+                name = " style=\"color:yellow;\"> ユーザーネームが入力されていません";
+                comment = " style=\"color:yellow;\"> この書き込みを削除してください";
+            } else {
+                stringBuilder.append("<table>");
+                name = ">" + message.getName();
+                comment = ">" + message.getComment();
+            }
+            stringBuilder.append("<tr>");
+            stringBuilder.append("<th>投稿日時:</th>");
+            stringBuilder.append("<td>" + message.getAtTime() + "</td>");
+            stringBuilder.append("</tr>");
+
+            stringBuilder.append("<tr>");
+            stringBuilder.append("<th>ユーザーネーム:</th>");
+            stringBuilder.append("<td" + name + "</td>");
+            stringBuilder.append("</tr>");
+
+            stringBuilder.append("<tr>");
+            stringBuilder.append("<th>コメント</th>");
+            stringBuilder.append("<td" + comment + "</td>");
+            stringBuilder.append("</tr>");
+            stringBuilder.append("</table>");
+
+
+            stringBuilder.append("<form action=\"/program/board/registered/afterDelete\" method=\"post\" accept-charset=\"UTF-8\">");
+            stringBuilder.append("<p>");
+            stringBuilder.append("<input type=\"hidden\" name =\"delete\" value=" + i + ">");
+            stringBuilder.append("<input type=\"submit\"  value=\" 削除 \"");
+            stringBuilder.append("</p>");
+            stringBuilder.append("</form>");
+
+
         }
-        stringBuilder.append("<tr>");
-        stringBuilder.append("<th>投稿日時:</th>");
-        stringBuilder.append("<td>" + message.getAtTime() + "</td>");
-        stringBuilder.append("</tr>");
-
-        stringBuilder.append("<tr>");
-        stringBuilder.append("<th>ユーザーネーム:</th>");
-        stringBuilder.append("<td" + name + "</td>");
-        stringBuilder.append("</tr>");
-
-        stringBuilder.append("<tr>");
-        stringBuilder.append("<th>コメント</th>");
-        stringBuilder.append("<td" + comment + "</td>");
-        stringBuilder.append("</tr>");
-        stringBuilder.append("</table>");
-
-
-        stringBuilder.append("<form action=\"/program/board/registered/afterDelete\" method=\"post\" accept-charset=\"UTF-8\">");
-        stringBuilder.append("<p>");
-        stringBuilder.append("<input type=\"hidden\" name =\"delete\" value=" + index + ">");
-        stringBuilder.append("<input type=\"submit\"  value=\" 削除 \"");
-        stringBuilder.append("</p>");
-        stringBuilder.append("</form>");
-
-
         return new String(stringBuilder);
     }
 }

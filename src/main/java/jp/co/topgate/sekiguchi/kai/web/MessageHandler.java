@@ -15,6 +15,18 @@ public class MessageHandler implements Handler {
      * @param httpResponse レスポンス
      */
     public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) {
+
+        // ここ実験的
+//        String requestLine = httpRequest.getRequestLine();
+//        String queryString = httpRequest.getQueryString(httpRequest.getRequestMethod(requestLine), httpRequest.getSecondSentence(requestLine));
+//        httpRequest.setRequestParameter(queryString);
+//        if (httpRequest.getRequestParameter("return").equals("return")) {
+//            ModelStorage.removeAllModel();
+//        } else {
+//            System.out.print("あ");
+//        }
+
+
         FormTemplate formTemplate = new FormTemplate();
 
         httpResponse.setResponseHeader("html");
@@ -22,6 +34,7 @@ public class MessageHandler implements Handler {
         httpResponse.setResponseBody(formTemplate.writeHTML());
 
         httpResponse.sendResponse();
+
     }
 
     /**

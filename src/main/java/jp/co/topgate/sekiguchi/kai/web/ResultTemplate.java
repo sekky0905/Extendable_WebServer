@@ -75,6 +75,15 @@ public class ResultTemplate implements Template {
         stringBuilder.append("<input type=\"hidden\" name=\"token\" value=\"" + Session.getToken() + "\">");
         stringBuilder.append("<input type=\"submit\" value=\"検索する\">");
         stringBuilder.append("</form>");
+
+        // ここ
+//        stringBuilder.append("<form action=\"/program/board/\" method=\"post\" accept-charset=\"UTF-8\">");
+//        stringBuilder.append("<input type=\"hidden\" name=\"token\" value=\"" + Session.getToken() + "\">");
+//        stringBuilder.append("<p>");
+//        stringBuilder.append("<input type=\"hidden\" name =\"return\" value=\"return\">");
+//        stringBuilder.append("<a href=\"http://localhost:8080/program/board/\">戻る</a> ");
+//        stringBuilder.append("</p>");
+
         stringBuilder.append("</body>");
         stringBuilder.append("</html>");
 

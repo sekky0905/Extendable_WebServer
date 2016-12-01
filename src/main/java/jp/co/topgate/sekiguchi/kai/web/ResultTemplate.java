@@ -33,7 +33,7 @@ public class ResultTemplate implements Template {
         stringBuilder.append("<body>");
 
 
-        int listSize = 0;
+        int listSize;
 
         if (ModelStorage.countTempo() == 0) {
             listSize = ModelStorage.countModel();

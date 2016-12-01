@@ -37,15 +37,6 @@ public class ModelStorage {
 
 
     /**
-     * モデルを受け取りリストに格納するためのメソッド
-     *
-     * @param model tempoListに格納するモデル
-     */
-    public static void setTempoList(Model model) {
-        tempoList.add(model);
-    }
-
-    /**
      * インデックスで指定されたtempoListに格納されたモデルを返すメソッド
      *
      * @param index リストのインデックス
@@ -96,17 +87,12 @@ public class ModelStorage {
      * @param name ユーザーネーム
      */
     public static void searchModel(String name) {
-        modelList = tempoList;
-        // 遠回りだが、必要処理
-        List<Model> oneTimeList = new ArrayList<>();
+        removeAllTempo();
         for (int i = 0; i < modelList.size(); i++) {
-
             if ((modelList.get(i).getName().equals(name))) {
-                oneTimeList.add(modelList.get(i));
+                tempoList.add(modelList.get(i));
             }
         }
-
-        modelList = oneTimeList;
     }
 
     /**
@@ -123,6 +109,7 @@ public class ModelStorage {
      * tempoListに保持している全てのインスタンスを削除するメソッド
      */
     public static void removeAllTempo() {
+
         for (int i = 0; i < tempoList.size(); i++) {
             tempoList.remove(i);
         }

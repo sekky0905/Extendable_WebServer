@@ -52,7 +52,7 @@ public class MessageHandler implements Handler {
             ModelStorage.removeModel(modelIndex);
         } else if (httpRequest.getRequestURI(httpRequest.getSecondSentence(requestLine)).equals("/program/board/registered/search")) {
             String name = httpRequest.getRequestParameter("searchName");
-            ModelStorage.setTempoList();// ここ変更した
+
             ModelStorage.searchModel(name);
         }
 

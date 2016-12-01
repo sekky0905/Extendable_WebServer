@@ -34,13 +34,13 @@ public class ResultTemplate implements Template {
 
 
         int listSize;
-
-        if (ModelStorage.countTempo() == 0) {
+        // 繰り返し部分
+        if (!ModelStorage.getSearced()) {
             listSize = ModelStorage.countModel();
-            stringBuilder.append(this.writeRepetition("modelList", listSize));
+            stringBuilder.append(this.writeRepetition(listSize));
         } else {
             listSize = ModelStorage.countTempo();
-            stringBuilder.append(this.writeRepetition("tempoList", listSize));
+            stringBuilder.append(this.writeRepetition(listSize));
         }
 
 
@@ -81,7 +81,7 @@ public class ResultTemplate implements Template {
     }
 
 
-    private String writeRepetition(String listName, int listSize) {
+    private String writeRepetition(int listSize) {
         StringBuilder stringBuilder = new StringBuilder();
 
 
@@ -90,13 +90,12 @@ public class ResultTemplate implements Template {
                 break;
             }
 
-            Message message = null;
-            if (listName.equals("modelList")) {
+            Message message;
+            if (!ModelStorage.getSearced()) {
                 message = (Message) ModelStorage.getModelList(i);
-            } else if (listName.equals("tempoList")) {
+            } else {
                 message = (Message) ModelStorage.getTempoList(i);
             }
-
 
             String name;
             String comment;

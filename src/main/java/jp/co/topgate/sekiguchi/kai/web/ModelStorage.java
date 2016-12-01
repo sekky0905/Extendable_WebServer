@@ -14,6 +14,16 @@ public class ModelStorage {
      */
     private static List<Model> modelList = new ArrayList<>();
     private static List<Model> tempoList = new ArrayList<>();
+    private static boolean searced;
+
+
+    public static void setSearced(boolean searced) {
+        ModelStorage.searced = searced;
+    }
+
+    public static boolean getSearced() {
+        return ModelStorage.searced;
+    }
 
 
     /**
@@ -22,7 +32,7 @@ public class ModelStorage {
      * @param model modelListに格納するモデル
      */
     public static void setModelList(Model model) {
-        modelList.add(model);
+        ModelStorage.modelList.add(model);
     }
 
     /**
@@ -32,7 +42,7 @@ public class ModelStorage {
      * @return インデックスで指定されたモデル
      */
     public static Model getModelList(int index) {
-        return modelList.get(index);
+        return ModelStorage.modelList.get(index);
     }
 
 
@@ -43,7 +53,7 @@ public class ModelStorage {
      * @return インデックスで指定されたモデル
      */
     public static Model getTempoList(int index) {
-        return tempoList.get(index);
+        return ModelStorage.tempoList.get(index);
     }
 
 
@@ -53,7 +63,7 @@ public class ModelStorage {
      * @return modelListのサイズ
      */
     public static int countModel() {
-        return modelList.size();
+        return ModelStorage.modelList.size();
     }
 
 
@@ -63,7 +73,7 @@ public class ModelStorage {
      * @return tempoListのサイズ
      */
     public static int countTempo() {
-        return tempoList.size();
+        return ModelStorage.tempoList.size();
     }
 
 
@@ -73,12 +83,12 @@ public class ModelStorage {
      * @param index リストのインデックス
      */
     public static void removeModel(int index) {
-        modelList.remove(index);
+        ModelStorage.modelList.remove(index);
     }
 
 
     public static void setTempoList() {
-        tempoList = modelList;
+        ModelStorage.tempoList = ModelStorage.modelList;
     }
 
     /**
@@ -87,10 +97,10 @@ public class ModelStorage {
      * @param name ユーザーネーム
      */
     public static void searchModel(String name) {
-        removeAllTempo();
-        for (int i = 0; i < modelList.size(); i++) {
-            if ((modelList.get(i).getName().equals(name))) {
-                tempoList.add(modelList.get(i));
+        ModelStorage.removeAllTempo();
+        for (int i = 0; i < ModelStorage.modelList.size(); i++) {
+            if ((ModelStorage.modelList.get(i).getName().equals(name))) {
+                ModelStorage.tempoList.add(ModelStorage.modelList.get(i));
             }
         }
     }
@@ -99,11 +109,11 @@ public class ModelStorage {
      * modelListに保持している全てのインスタンスを削除するメソッド
      */
     public static void removeAllModel() {
-        for (int i = 0; i <= modelList.size(); i++) {
-            if (i == modelList.size()) {
+        for (int i = 0; i <= ModelStorage.modelList.size(); i++) {
+            if (i == ModelStorage.modelList.size()) {
                 break;
             }
-            modelList.remove(i);
+            ModelStorage.modelList.remove(i);
         }
     }
 
@@ -113,11 +123,11 @@ public class ModelStorage {
      */
     public static void removeAllTempo() {
 
-        for (int i = 0; i <= tempoList.size(); i++) {
-            if (i == tempoList.size()) {
+        for (int i = 0; i <= ModelStorage.tempoList.size(); i++) {
+            if (i == ModelStorage.tempoList.size()) {
                 break;
             }
-            tempoList.remove(i);
+            ModelStorage.tempoList.remove(i);
         }
     }
 

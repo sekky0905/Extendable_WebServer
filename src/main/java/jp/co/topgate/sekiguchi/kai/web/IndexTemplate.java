@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by sekiguchikai on 2016/11/22.
  */
-public class ResultTemplate implements Template {
+public class IndexTemplate implements Template {
     /**
      * HTMLのテンプレートを作成し、それをbyte[]にして返すメソッド
      *
@@ -76,13 +76,14 @@ public class ResultTemplate implements Template {
         stringBuilder.append("<input type=\"submit\" value=\"検索する\">");
         stringBuilder.append("</form>");
 
+
         // ここ
-        stringBuilder.append("<form action=\"/program/board/registered/search\" method=\"post\" accept-charset=\"UTF-8\">");
+        stringBuilder.append("<form action=\"/program/board/registered/showAll\" method=\"post\" accept-charset=\"UTF-8\">");
         stringBuilder.append("<input type=\"hidden\" name=\"token\" value=\"" + Session.getToken() + "\">");
         stringBuilder.append("<p>");
-        stringBuilder.append("<input type=\"hidden\" name =\"showAll\" value=\"true\">");
-        stringBuilder.append("<a href=\"http://localhost:8080/program/board/\">全県表示</a> ");
+        stringBuilder.append("<input type=\"submit\"  value=\" 全件表示 \"");
         stringBuilder.append("</p>");
+        stringBuilder.append("</form>");
 
         stringBuilder.append("</body>");
         stringBuilder.append("</html>");

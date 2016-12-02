@@ -14,15 +14,15 @@ public class ModelStorage {
      */
     private static List<Model> modelList = new ArrayList<>();
     private static List<Model> tempoList = new ArrayList<>();
-    private static boolean searced;
+    private static boolean searched;
 
 
-    public static void setSearched(boolean searced) {
-        ModelStorage.searced = searced;
+    public static void setSearched(boolean searched) {
+        ModelStorage.searched = searched;
     }
 
-    public static boolean getSearced() {
-        return ModelStorage.searced;
+    public static boolean getSearched() {
+        return ModelStorage.searched;
     }
 
 
@@ -87,10 +87,6 @@ public class ModelStorage {
     }
 
 
-    public static void setTempoList() {
-        ModelStorage.tempoList = ModelStorage.modelList;
-    }
-
     /**
      * 指定されたユーザーネームのモデルのみ格納するListを生成
      *
@@ -114,7 +110,6 @@ public class ModelStorage {
     public static void removeAllModel() {
         ModelStorage.modelList.clear();
     }
-
 
     /**
      * tempoListに保持している全てのインスタンスを削除するメソッド

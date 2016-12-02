@@ -35,7 +35,7 @@ public class ResultTemplate implements Template {
 
         int listSize;
         // 繰り返し部分
-        if (!ModelStorage.getSearced()) {
+        if (!ModelStorage.getSearched()) {
             listSize = ModelStorage.countModel();
             stringBuilder.append(this.writeRepetition(listSize));
         } else {
@@ -102,7 +102,7 @@ public class ResultTemplate implements Template {
             }
 
             Message message;
-            if (!ModelStorage.getSearced()) {
+            if (!ModelStorage.getSearched()) {
                 message = (Message) ModelStorage.getModelList(i);
             } else {
                 message = (Message) ModelStorage.getTempoList(i);

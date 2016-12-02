@@ -24,7 +24,7 @@ public class StaticFileHandler implements Handler {
 
         File file;
         String requestResource;
-// かつ「/」連続じゃない&&「.」で終わらない
+
         if ((requestURI.endsWith("/")) || !(requestURI.substring(requestURI.lastIndexOf("/"), requestURI.length()).contains("."))) {
             requestResource = "src/main/resources" + requestURI + "index.html";
             file = new File(requestResource);
@@ -33,14 +33,16 @@ public class StaticFileHandler implements Handler {
             file = new File(requestResource);
         }
 
-        String fileExtension = requestResource.substring(requestResource.lastIndexOf(".") + 1,
+        String extension = requestResource.substring(requestResource.lastIndexOf(".") + 1,
                 requestResource.lastIndexOf(""));
 
-        if ((file.exists())) {
+        if ((file.exists()) && (extension.equals("html") || extension.equals("css") || extension.equals("js") || (extension.equals("png") || extension.equals("jpeg") || extension.equals("gif")))) {
             httpResponse.setStatusLine("HTTP/1.1 200 OK");
+            httpResponse.setResponseHeader(extension);
             httpResponse.setResponseBody(files.readFile(file));
-        } else if (!(file.exists())) {
+        } else {
             httpResponse.setStatusLine("HTTP/1.1 404 Not Found");
+            httpResponse.setResponseHeader("html");
             httpResponse.setResponseBody("404 Not Found".getBytes());
         }
 
@@ -54,10 +56,9 @@ public class StaticFileHandler implements Handler {
      * @param httpRequest  HTTPRequestクラスのインスタンス
      * @param httpResponse HTTPResponseクラスのインスタンス
      */
+
     public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) {
-
-        // 今後作成予定
-
     }
 
 }
+

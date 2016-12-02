@@ -63,6 +63,9 @@ public class HTTPResponse {
         System.out.println("レスポンスヘッダは" + this.responseHeader);
     }
 
+
+
+
     /**
      * クライアントへ送信するレスポンスのうち、レスポンスボディを設定するメソッド
      *
@@ -108,6 +111,7 @@ public class HTTPResponse {
      *
      * @return responseHeader
      */
+
     public String getStatusLine() {
         return this.statusLine;
     }

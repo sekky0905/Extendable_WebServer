@@ -43,64 +43,31 @@ public class WebServer {
     public void initialize() throws IOException {
         System.out.println("Start the server at http://localhost:8080");
         ServerSocket serverSocket = null;
-        Socket socket = null;
 
         try {
             serverSocket = new ServerSocket(PORT);
+            System.out.println("サーバが起動しました");
             while (true) {
-                socket = serverSocket.accept();
-                System.out.println("request incoming...");
-
-                InputStream inputStream = socket.getInputStream();
-                OutputStream outputStream = socket.getOutputStream();
-
-                HTTPRequest httpRequest = new HTTPRequest(inputStream);
-                HTTPResponse httpResponse = new HTTPResponse(outputStream);
-
-                String requestLine = httpRequest.getRequestLine();
-                String secondSentence = httpRequest.getSecondSentence(requestLine);
-                String requestURI = httpRequest.getRequestURI(secondSentence);
-
-                String requestMethod = httpRequest.getRequestMethod(requestLine);
-
-
-                Handler handler;
-
-                if (requestURI.equals("/program/board/")) {
-                    handler = new MessageHandler();
-                    handler.handleGET(httpRequest, httpResponse);
-                } else if (requestURI.equals("/program/board/registered") || requestURI.equals("/program/board/registered/afterDelete") || requestURI.equals("/program/board/registered/search")) {
-                    handler = new MessageHandler();
-                    handler.handlePOST(httpRequest, httpResponse);
-                } else {
-                    handler = new StaticFileHandler();
-                    if (requestMethod.equals("GET")) {
-                        handler.handleGET(httpRequest, httpResponse);
-                    } else if (requestMethod.equals("POST")) {
-                        handler.handlePOST(httpRequest, httpResponse);
-                    } else {
-                        System.out.println("リクエストメソッドが不正です");
-                    }
-                }
-
-                if (socket != null) {
-                    socket.close();
-                }
-
+                Socket socket = serverSocket.accept();
+                new HandlerThread(socket).start();
             }
-
         } catch (IOException e) {
-            System.err.println("エラー" + e.getMessage());
+            System.err.println("エラー:" + e.getMessage());
+            e.printStackTrace();
             System.exit(1);
         } finally {
-            if (serverSocket != null) {
-                serverSocket.close();
-            }
-
-            if (socket != null) {
-                socket.close();
+            try {
+                if (serverSocket != null) {
+                    serverSocket.close();
+                }
+            } catch (IOException e) {
             }
         }
-
     }
 }
+
+
+
+
+
+

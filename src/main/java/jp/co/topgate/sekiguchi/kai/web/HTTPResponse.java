@@ -51,20 +51,16 @@ public class HTTPResponse {
      *
      * @param fileExtension ファイルの拡張子
      */
-    public boolean setResponseHeader(String fileExtension) {
-        boolean existence;
+    public void setResponseHeader(String fileExtension) {
 
         if (fileExtension.equals("html") || fileExtension.equals("css") || fileExtension.equals("js")) {
             this.responseHeader = "Content-Type: text/" + fileExtension;
-            existence = true;
         } else if (fileExtension.equals("png") || fileExtension.equals("jpeg") || fileExtension.equals("gif")) {
             this.responseHeader = "Content-Type: image/" + fileExtension;
-            existence = true;
         } else {
-            existence = false;
+            this.responseHeader = "Content-Type: text/html";
         }
         System.out.println("レスポンスヘッダは" + this.responseHeader);
-        return existence;
     }
 
     /**

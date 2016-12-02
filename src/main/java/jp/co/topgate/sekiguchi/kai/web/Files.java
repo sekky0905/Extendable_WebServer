@@ -19,26 +19,26 @@ public class Files {
         System.out.println("ファイルの読み込みを始めます");
 
 
-            try {
-                System.out.println(file + "ファイルを探します");
-                InputStream inputStream = new FileInputStream(file);
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        try {
+            System.out.println(file + "ファイルを探します");
+            InputStream inputStream = new FileInputStream(file);
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
-                int len;
-                while ((len = inputStream.read()) != -1) {
-                    byteArrayOutputStream.write(len);
-                }
-                if (byteArrayOutputStream != null) {
-                    byteArrayOutputStream.flush();
-                    byteArrayOutputStream.close();
-                }
-                byteContents = byteArrayOutputStream.toByteArray();
-                inputStream.close();
-
-            } catch (IOException e) {
-                System.err.println("エラー" + e.getMessage());
-                e.printStackTrace();
+            int len;
+            while ((len = inputStream.read()) != -1) {
+                byteArrayOutputStream.write(len);
             }
+            if (byteArrayOutputStream != null) {
+                byteArrayOutputStream.flush();
+                byteArrayOutputStream.close();
+            }
+            byteContents = byteArrayOutputStream.toByteArray();
+            inputStream.close();
+
+        } catch (IOException e) {
+            System.err.println("エラー" + e.getMessage());
+            e.printStackTrace();
+        }
 
         System.out.println("レスポンスボディは" + byteContents);
 

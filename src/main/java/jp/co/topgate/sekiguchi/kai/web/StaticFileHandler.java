@@ -42,7 +42,7 @@ public class StaticFileHandler implements Handler {
             httpResponse.setResponseBody(files.readFile(file));
         } else {
             httpResponse.setStatusLine("HTTP/1.1 404 Not Found");
-            httpResponse.setResponseHeader(extension);
+            httpResponse.setResponseHeader("html");
             httpResponse.setResponseBody("404 Not Found".getBytes());
         }
 

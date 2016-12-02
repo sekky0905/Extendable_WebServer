@@ -17,14 +17,17 @@ public class ModelStorage {
     private static boolean searched;
 
 
-    public static void setSearched(boolean searched) {
+    public static void choiceModelList(boolean searched) {
         ModelStorage.searched = searched;
     }
 
-    public static boolean getSearched() {
+    /**
+     * ModelListか、tempoListかを選択するメソッド
+     * @return ModelListを選択するかどうかの真偽値
+     */
+    public static boolean checkModelList() {
         return ModelStorage.searched;
     }
-
 
     /**
      * モデルを受け取りmodelListに格納するためのメソッド

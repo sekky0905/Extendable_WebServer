@@ -14,19 +14,20 @@ public class ModelStorage {
      */
     private static List<Model> modelList = new ArrayList<>();
     private static List<Model> tempoList = new ArrayList<>();
-    private static boolean searched;
+    private static boolean ModelListChose;
 
 
-    public static void choiceModelList(boolean searched) {
-        ModelStorage.searched = searched;
+    public static void choiceModelList(boolean ModelListChose) {
+        ModelStorage.ModelListChose = ModelListChose;
     }
 
     /**
      * ModelListか、tempoListかを選択するメソッド
+     *
      * @return ModelListを選択するかどうかの真偽値
      */
     public static boolean checkModelList() {
-        return ModelStorage.searched;
+        return ModelStorage.ModelListChose;
     }
 
     /**

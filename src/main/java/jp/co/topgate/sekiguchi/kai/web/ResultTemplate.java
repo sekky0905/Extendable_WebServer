@@ -35,7 +35,7 @@ public class ResultTemplate implements Template {
 
         int listSize;
         // 繰り返し部分
-        if (!ModelStorage.checkModelList()) {
+        if (ModelStorage.checkModelList()) {
             listSize = ModelStorage.countModel();
             stringBuilder.append(this.writeRepetition(listSize));
         } else {
@@ -77,12 +77,12 @@ public class ResultTemplate implements Template {
         stringBuilder.append("</form>");
 
         // ここ
-//        stringBuilder.append("<form action=\"/program/board/\" method=\"post\" accept-charset=\"UTF-8\">");
-//        stringBuilder.append("<input type=\"hidden\" name=\"token\" value=\"" + Session.getToken() + "\">");
-//        stringBuilder.append("<p>");
-//        stringBuilder.append("<input type=\"hidden\" name =\"return\" value=\"return\">");
-//        stringBuilder.append("<a href=\"http://localhost:8080/program/board/\">戻る</a> ");
-//        stringBuilder.append("</p>");
+        stringBuilder.append("<form action=\"/program/board/registered/search\" method=\"post\" accept-charset=\"UTF-8\">");
+        stringBuilder.append("<input type=\"hidden\" name=\"token\" value=\"" + Session.getToken() + "\">");
+        stringBuilder.append("<p>");
+        stringBuilder.append("<input type=\"hidden\" name =\"showAll\" value=\"true\">");
+        stringBuilder.append("<a href=\"http://localhost:8080/program/board/\">全県表示</a> ");
+        stringBuilder.append("</p>");
 
         stringBuilder.append("</body>");
         stringBuilder.append("</html>");
@@ -102,7 +102,7 @@ public class ResultTemplate implements Template {
             }
 
             Message message;
-            if (!ModelStorage.checkModelList()) {
+            if (ModelStorage.checkModelList()) {
                 message = (Message) ModelStorage.getModelList(i);
             } else {
                 message = (Message) ModelStorage.getTempoList(i);

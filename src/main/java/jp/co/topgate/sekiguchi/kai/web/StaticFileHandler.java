@@ -25,7 +25,7 @@ public class StaticFileHandler implements Handler {
         File file;
         String requestResource;
 // かつ「/」連続じゃない&&「.」で終わらない
-        if ((requestURI.substring(requestURI.length() - 1).equals("/")) || !(requestURI.substring(requestURI.lastIndexOf("/"), requestURI.length()).contains(".")) && requestURI.endsWith(".")) {
+        if ((requestURI.endsWith("/")) || !(requestURI.substring(requestURI.lastIndexOf("/"), requestURI.length()).contains("."))) {
             requestResource = "src/main/resources" + requestURI + "index.html";
             file = new File(requestResource);
         } else {
@@ -36,19 +36,12 @@ public class StaticFileHandler implements Handler {
         String fileExtension = requestResource.substring(requestResource.lastIndexOf(".") + 1,
                 requestResource.lastIndexOf(""));
 
-        boolean extensionExistence = httpResponse.setResponseHeader(fileExtension);
-
-
-        if ((extensionExistence) && (file.exists())) {
+        if ((file.exists())) {
             httpResponse.setStatusLine("HTTP/1.1 200 OK");
             httpResponse.setResponseBody(files.readFile(file));
         } else if (!(file.exists())) {
             httpResponse.setStatusLine("HTTP/1.1 404 Not Found");
             httpResponse.setResponseBody("404 Not Found".getBytes());
-        } else if (!(extensionExistence)) {
-            httpResponse.setStatusLine("HTTP/1.1 404 Not Found");
-            httpResponse.setResponseBody("404 Not Found".getBytes());
-
         }
 
         httpResponse.sendResponse();

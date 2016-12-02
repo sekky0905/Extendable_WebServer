@@ -17,7 +17,7 @@ public class ModelStorage {
     private static boolean searced;
 
 
-    public static void setSearced(boolean searced) {
+    public static void setSearched(boolean searced) {
         ModelStorage.searced = searced;
     }
 
@@ -98,7 +98,10 @@ public class ModelStorage {
      */
     public static void searchModel(String name) {
         ModelStorage.removeAllTempo();
-        for (int i = 0; i < ModelStorage.modelList.size(); i++) {
+        for (int i = 0; i <= ModelStorage.modelList.size(); i++) {
+            if (i == ModelStorage.modelList.size()) {
+                break;
+            }
             if ((ModelStorage.modelList.get(i).getName().equals(name))) {
                 ModelStorage.tempoList.add(ModelStorage.modelList.get(i));
             }
@@ -109,12 +112,7 @@ public class ModelStorage {
      * modelListに保持している全てのインスタンスを削除するメソッド
      */
     public static void removeAllModel() {
-        for (int i = 0; i <= ModelStorage.modelList.size(); i++) {
-            if (i == ModelStorage.modelList.size()) {
-                break;
-            }
-            ModelStorage.modelList.remove(i);
-        }
+        ModelStorage.modelList.clear();
     }
 
 
@@ -122,13 +120,7 @@ public class ModelStorage {
      * tempoListに保持している全てのインスタンスを削除するメソッド
      */
     public static void removeAllTempo() {
-
-        for (int i = 0; i <= ModelStorage.tempoList.size(); i++) {
-            if (i == ModelStorage.tempoList.size()) {
-                break;
-            }
-            ModelStorage.tempoList.remove(i);
-        }
+        ModelStorage.tempoList.clear();
     }
 
 }

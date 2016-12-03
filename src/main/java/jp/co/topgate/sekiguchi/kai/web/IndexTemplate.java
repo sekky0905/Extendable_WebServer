@@ -44,7 +44,7 @@ public class IndexTemplate implements Template {
         }
 
 
-        stringBuilder.append("<form action=\"/program/board/registered\" method=\"post\" accept-charset=\"UTF-8\">");
+        stringBuilder.append("<form action=\"/program/board/register/\" method=\"post\" accept-charset=\"UTF-8\">");
         stringBuilder.append("<table>");
         stringBuilder.append("<tr>");
         stringBuilder.append("<th>ユーザーネーム:</th>");
@@ -65,7 +65,7 @@ public class IndexTemplate implements Template {
         stringBuilder.append("指定したユーザーの書き込みのみ表示させることができます。<br>");
         stringBuilder.append("下記で、検索したいユーザー名を指定してください<br>");
 
-        stringBuilder.append("<form action=\"/program/board/registered/search\" method=\"post\" accept-charset=\"UTF-8\">");
+        stringBuilder.append("<form action=\"/program/board/search/\" method=\"post\" accept-charset=\"UTF-8\">");
         stringBuilder.append("<table>");
         stringBuilder.append("<tr>");
         stringBuilder.append("<th>ユーザーネーム:</th>");
@@ -78,7 +78,7 @@ public class IndexTemplate implements Template {
 
 
         // ここ
-        stringBuilder.append("<form action=\"/program/board/registered/showAll\" method=\"post\" accept-charset=\"UTF-8\">");
+        stringBuilder.append("<form action=\"/program/board/showAll/\" method=\"post\" accept-charset=\"UTF-8\">");
         stringBuilder.append("<input type=\"hidden\" name=\"token\" value=\"" + Session.getToken() + "\">");
         stringBuilder.append("<p>");
         stringBuilder.append("<input type=\"submit\"  value=\" 全件表示 \"");
@@ -138,7 +138,7 @@ public class IndexTemplate implements Template {
             stringBuilder.append("</table>");
 
 
-            stringBuilder.append("<form action=\"/program/board/registered/afterDelete\" method=\"post\" accept-charset=\"UTF-8\">");
+            stringBuilder.append("<form action=\"/program/board/delete/\" method=\"post\" accept-charset=\"UTF-8\">");
             stringBuilder.append("<input type=\"hidden\" name=\"token\" value=\"" + Session.getToken() + "\">");
             stringBuilder.append("<p>");
             stringBuilder.append("<input type=\"hidden\" name =\"delete\" value=" + i + ">");

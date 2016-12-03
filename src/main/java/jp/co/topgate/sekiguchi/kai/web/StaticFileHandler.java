@@ -7,7 +7,7 @@ import java.io.File;
  *
  * @author sekiguchikai
  */
-public class StaticFileHandler implements Handler {
+public class StaticFileHandler {
 
 
     /**
@@ -16,7 +16,7 @@ public class StaticFileHandler implements Handler {
      * @param httpRequest  HTTPRequestクラスのインスタンス
      * @param httpResponse HTTPResponseクラスのインスタンス
      */
-    public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) {
+    public void ProcessWebServer(HTTPRequest httpRequest, HTTPResponse httpResponse) {
 
         String requestURI = httpRequest.getRequestURI();
 
@@ -50,15 +50,6 @@ public class StaticFileHandler implements Handler {
 
     }
 
-    /**
-     * リクエストメソッドがPOSTメソッドの場合の処理
-     *
-     * @param httpRequest  HTTPRequestクラスのインスタンス
-     * @param httpResponse HTTPResponseクラスのインスタンス
-     */
-
-    public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) {
-    }
 
 }
 

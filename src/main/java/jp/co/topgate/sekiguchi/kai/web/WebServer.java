@@ -3,8 +3,6 @@ package jp.co.topgate.sekiguchi.kai.web;
 //フィルタをかけて流れてくるデータをバッファリングし、量がたまったら、一気に下流に流し込む
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 //TCP サーバーAPI、通常はクライアントソケットからの接続を 受け入れる
 import java.net.ServerSocket;
 //TCP クライアント API、通常はリモートホストに接続するために使用される
@@ -44,12 +42,25 @@ public class WebServer {
         System.out.println("Start the server at http://localhost:8080");
         ServerSocket serverSocket = null;
 
+        // アプリ用の初期設定
+        WebApp bulletinBoard = new WebApp();
+
+        bulletinBoard.setHandlerName("/program/board/", "IndexHandler");
+        bulletinBoard.setHandlerName("/program/board/register/", "ResisterMessageHandler");
+        bulletinBoard.setHandlerName("/program/board/search/", "SearchMessageHandler");
+        bulletinBoard.setHandlerName("/program/board/showAll/", "ShowAllMessageHandler");
+        bulletinBoard.setHandlerName("/program/board/delete/", "DeleteMessageHandler");
+
+        WebAppStorage.setWebAppMap("bulletinBoard", bulletinBoard);
+
+
         try {
             serverSocket = new ServerSocket(PORT);
             System.out.println("サーバが起動しました");
+            // ハンドラインスタンスを使い回せる
             while (true) {
                 Socket socket = serverSocket.accept();
-                new HandlerThread(socket).start();
+                new ServerThread(socket).start();
             }
         } catch (IOException e) {
             System.err.println("エラー:" + e.getMessage());

@@ -1,11 +1,25 @@
 package jp.co.topgate.sekiguchi.kai.web;
 
 /**
- * Handlerクラスのメソッドを定義したインターフェース
- * Created by sekiguchikai on 2016/11/22.
+ * Created by sekiguchikai on 2016/12/03.
  */
-interface Handler {
-    void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse);
+public class Handler {
+    /**
+     * リクエストGETの際のハンドラ
+     *
+     * @param httpRequest  リクエスト
+     * @param httpResponse レスポンス
+     */
+    public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) {
 
-    void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse);
+    }
+
+    /**
+     * リクエストPOSTの際のハンドラ
+     *
+     * @param httpRequest  リクエスト
+     * @param httpResponse レスポンス
+     */
+    public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) {
+    }
 }

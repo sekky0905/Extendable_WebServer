@@ -8,16 +8,17 @@ import java.net.Socket;
 /**
  * Created by sekiguchikai on 2016/12/02.
  */
-public class HandlerThread extends Thread {
+public class ServerThread extends Thread {
     /**
      * socket
      */
     private Socket socket;
 
+
     /**
      * コンストラクタ
      */
-    public HandlerThread(Socket socket) {
+    public ServerThread(Socket socket) {
         this.socket = socket;
         System.out.println("クライアントに接続されました " + socket.getRemoteSocketAddress());
     }
@@ -34,27 +35,35 @@ public class HandlerThread extends Thread {
             HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
             String requestURI = httpRequest.getRequestURI();
-            String requestMethod = httpRequest.getRequestMethod();
+            String queryString = httpRequest.getQueryString(httpRequest.getRequestMethod());
+            httpRequest.setRequestParameter(queryString);
 
-
-            Handler handler;
-
-            if (requestURI.equals("/program/board/")) {
-                handler = new MessageHandler();
-                handler.handleGET(httpRequest, httpResponse);
-            } else if (requestURI.equals("/program/board/registered") || requestURI.equals("/program/board/registered/afterDelete") || requestURI.equals("/program/board/registered/search") || requestURI.equals("/program/board/registered/showAll")) {
-                handler = new MessageHandler();
-                handler.handlePOST(httpRequest, httpResponse);
+            // Webサーバ
+            if (!(WebApp.checkHandlerNameExistence(requestURI))) {
+                StaticFileHandler staticFileHandler = new StaticFileHandler();
+                staticFileHandler.ProcessWebServer(httpRequest, httpResponse);
             } else {
-                handler = new StaticFileHandler();
-                if (requestMethod.equals("GET")) {
+
+                // ハンドラの決定
+                String handlerName = WebApp.getHandlerName(requestURI);
+                WebApp.setHandlerMap();
+                Handler handler = WebApp.getHandlerMap(handlerName);
+                if (httpRequest.getRequestMethod().equals("GET")) {
                     handler.handleGET(httpRequest, httpResponse);
-                } else if (requestMethod.equals("POST")) {
+                } else if ((httpRequest.getRequestMethod().equals("POST")) && (Session.confirmToken(httpRequest.getRequestParameter("token")))) {
                     handler.handlePOST(httpRequest, httpResponse);
-                } else {
-                    System.out.println("リクエストメソッドが不正です");
                 }
+
+                // ここ変更するかも
+                Template template = new IndexTemplate();
+
+                httpResponse.setResponseHeader("html");
+                httpResponse.setStatusLine("HTTP/1.1 200 OK");
+                httpResponse.setResponseBody(template.writeHTML());
+
+                httpResponse.sendResponse();
             }
+
 
         } catch (IOException e) {
             System.err.println("エラー:" + e.getMessage());
@@ -72,5 +81,3 @@ public class HandlerThread extends Thread {
         }
     }
 }
-
-

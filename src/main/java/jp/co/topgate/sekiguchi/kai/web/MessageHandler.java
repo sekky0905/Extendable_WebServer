@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
  * Messageに関するコントローラー
  * Created by sekiguchikai on 2016/11/22.
  */
-public class MessageHandler implements Handler {
+public class MessageHandler extends Handler {
     /**
      * リクエストGETの際のハンドラ
      *
@@ -60,7 +60,7 @@ public class MessageHandler implements Handler {
             ModelStorage.choiceModelList(true);
             int modelIndex = Integer.parseInt(httpRequest.getRequestParameter("delete"));
             ModelStorage.removeModel(modelIndex);
-            //
+
             Session.generateToken();
         } else if (httpRequest.getRequestURI().equals("/program/board/registered/search") && Session.confirmToken(httpRequest.getRequestParameter("token"))) {
             ModelStorage.choiceModelList(false);

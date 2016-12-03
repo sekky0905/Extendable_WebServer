@@ -1,4 +1,7 @@
-package jp.co.topgate.sekiguchi.kai.web;
+package jp.co.topgate.sekiguchi.kai.web.handler;
+
+import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
+import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
 
 /**
  * Created by sekiguchikai on 2016/12/03.

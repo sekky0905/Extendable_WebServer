@@ -6,6 +6,7 @@ import static org.junit.Assert.assertThat;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 
+import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
 import org.junit.Test;
 
 /**

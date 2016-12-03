@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai.web;
+package jp.co.topgate.sekiguchi.kai.web.http;
 
 import java.io.BufferedReader;
 import java.io.IOException;

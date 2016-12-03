@@ -1,5 +1,6 @@
 package jp.co.topgate.sekiguchi.kai.web;
 
+import jp.co.topgate.sekiguchi.kai.web.util.Session;
 import org.junit.Test;
 
 /**

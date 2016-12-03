@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai.web;
+package jp.co.topgate.sekiguchi.kai.web.model;
 
 /**
  * Created by sekiguchikai on 2016/11/22.

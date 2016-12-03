@@ -1,6 +1,6 @@
 package jp.co.topgate.sekiguchi.kai.web.util;
 
-import jp.co.topgate.sekiguchi.kai.web.Model;
+import jp.co.topgate.sekiguchi.kai.web.model.Model;
 
 import java.util.ArrayList;
 import java.util.List;

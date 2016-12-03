@@ -1,9 +1,8 @@
 package jp.co.topgate.sekiguchi.kai.web.handler;
 
 
-import jp.co.topgate.sekiguchi.kai.web.HTTPRequest;
-import jp.co.topgate.sekiguchi.kai.web.HTTPResponse;
-import jp.co.topgate.sekiguchi.kai.web.Handler;
+import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
+import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.util.ModelStorage;
 
 /**

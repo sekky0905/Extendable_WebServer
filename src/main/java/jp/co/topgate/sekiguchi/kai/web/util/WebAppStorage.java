@@ -1,6 +1,6 @@
 package jp.co.topgate.sekiguchi.kai.web.util;
 
-import jp.co.topgate.sekiguchi.kai.web.WebApp;
+import jp.co.topgate.sekiguchi.kai.web.model.WebApp;
 
 import java.util.HashMap;
 import java.util.Map;

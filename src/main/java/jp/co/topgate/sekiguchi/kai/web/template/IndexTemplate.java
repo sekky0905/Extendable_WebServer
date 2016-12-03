@@ -1,6 +1,8 @@
-package jp.co.topgate.sekiguchi.kai.web;
+package jp.co.topgate.sekiguchi.kai.web.template;
 
+import jp.co.topgate.sekiguchi.kai.web.model.Message;
 import jp.co.topgate.sekiguchi.kai.web.util.ModelStorage;
+import jp.co.topgate.sekiguchi.kai.web.util.Session;
 
 /**
  * Created by sekiguchikai on 2016/11/22.

@@ -1,6 +1,7 @@
 package jp.co.topgate.sekiguchi.kai.web;
 
 
+import jp.co.topgate.sekiguchi.kai.web.model.Message;
 import jp.co.topgate.sekiguchi.kai.web.util.ModelStorage;
 import org.junit.After;
 import org.junit.Test;

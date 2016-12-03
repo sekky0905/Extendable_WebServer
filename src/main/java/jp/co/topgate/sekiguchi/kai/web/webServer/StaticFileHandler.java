@@ -1,7 +1,7 @@
 package jp.co.topgate.sekiguchi.kai.web.webServer;
 
-import jp.co.topgate.sekiguchi.kai.web.HTTPRequest;
-import jp.co.topgate.sekiguchi.kai.web.HTTPResponse;
+import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
+import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
 
 import java.io.*;
 

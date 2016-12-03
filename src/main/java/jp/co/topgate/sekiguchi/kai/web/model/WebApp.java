@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai.web;
+package jp.co.topgate.sekiguchi.kai.web.model;
 
 import jp.co.topgate.sekiguchi.kai.web.handler.*;
 

@@ -16,9 +16,7 @@ public class Session {
      * @return
      */
     public static String generateToken() {
-        // 以下実験 のちに治すこと
-//        UUID id = UUID.randomUUID();
-//        System.out.println(id);
+
 
         Session.token = UUID.randomUUID().toString();
         System.out.println(token);

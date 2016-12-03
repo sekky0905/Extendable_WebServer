@@ -29,7 +29,7 @@ public class HTTPRequest {
     /**
      * リクエストライン
      */
-    private String requestLine;
+    private String requestLine[];
 
     /**
      * リクエストボディ
@@ -57,7 +57,7 @@ public class HTTPRequest {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.inputStream));
 
             String line = bufferedReader.readLine();
-            this.requestLine = line;
+            this.requestLine = line.split(" ");
             System.out.println("リクエストラインは" + this.requestLine);
 
             StringBuilder stringBuilder = new StringBuilder();
@@ -91,35 +91,16 @@ public class HTTPRequest {
 
     }
 
-    /**
-     * リクエストラインを返すメソッド
-     *
-     * @return リクエストラインを返す
-     */
-    public String getRequestLine() {
-        return this.requestLine;
-    }
-
 
     /**
      * リクエストメソッドを返すメソッド
      *
      * @return リクエストメソッドを返す
      */
-    public String getRequestMethod(String requestLine) {
-        String requestMethod = requestLine.substring(0, requestLine.indexOf(" "));
+    public String getRequestMethod() {
+        String requestMethod = this.requestLine[0];
         System.out.println("リクエストメソッドは" + requestMethod);
         return requestMethod;
-    }
-
-    /**
-     * @param requestLine リクエストライン
-     * @return リクエストURI + クエリストリング
-     */
-    public String getSecondSentence(String requestLine) {
-        int firstEmpty = requestLine.indexOf(" ");
-        return requestLine.substring(firstEmpty + 1,
-                requestLine.indexOf(" ", firstEmpty + 1));
     }
 
     /**
@@ -127,14 +108,14 @@ public class HTTPRequest {
      *
      * @return リクエストURIを返す
      */
-    public String getRequestURI(String secondSentence) {
+    public String getRequestURI() {
 
         String requestURI;
 
-        if (secondSentence.contains("?")) {
-            requestURI = secondSentence.substring(0, secondSentence.indexOf("?"));
+        if (requestLine[1].contains("?")) {
+            requestURI = requestLine[1].substring(0, requestLine[1].indexOf("?"));
         } else {
-            requestURI = secondSentence;
+            requestURI = requestLine[1];
         }
         System.out.print("リクエストURIは" + requestURI);
 
@@ -144,15 +125,14 @@ public class HTTPRequest {
     /**
      * クエリストリングを返すメソッド
      *
-     * @param requestMethod  リクエストメソッド
-     * @param secondSentence リクエストURI + クエリストリング
+     * @param requestMethod リクエストメソッド
      * @return クエリストリング
      */
-    public String getQueryString(String requestMethod, String secondSentence) {
+    public String getQueryString(String requestMethod) {
         String queryString = null;
 
         if (requestMethod.equals("GET")) {
-            queryString = secondSentence.substring(secondSentence.indexOf("?") + 1, secondSentence.length());
+            queryString = requestLine[1].substring(requestLine[1].indexOf("?") + 1, requestLine[1].length());
         } else if (requestMethod.equals("POST")) {
             queryString = this.requestBody.substring(0, requestBody.indexOf("\n"));
         }

@@ -90,35 +90,6 @@ public class HTTPRequestTest {
 
 
     /**
-     * getRequestLineのテストをするメソッド
-     */
-    @Test
-    public void getRequestLine() {
-        String expRequestLine1 = "GET /../../test/resources/test.html HTTP/1.1";
-        String expRequestLine2 = "GET /../../test/resources/sample/test.html HTTP/1.1";
-        String expRequestLine3 = "GET /../../test/resources/test.html?foo=bar HTTP/1.1";
-        String expRequestLine4 = "GET /../../test/resources/sample/test.html?foo=bar HTTP/1.1";
-        String expRequestLine5 = "GET /../../test/resources/test.html?foo=bar.com HTTP/1.1";
-        String expRequestLine6 = "GET /../../test/resources/sample/test.html?foo=bar.com HTTP/1.1";
-        String expRequestLine7 = "GET /../../test/resources/.sample/test.html HTTP/1.1";
-        String expRequestLine8 = "GET /../../test/resources/.sample/test.html?foo=bar HTTP/1.1";
-        String expRequestLine9 = "GET /../../test/resources/.sample/test.html?foo=bar.com HTTP/1.1";
-        String expRequestLine10 = "POST /../../test/resources/test.html HTTP/1.1";
-
-
-        String expRequestLineArray[] = {expRequestLine1, expRequestLine2, expRequestLine3, expRequestLine4, expRequestLine5, expRequestLine6, expRequestLine7, expRequestLine8, expRequestLine9, expRequestLine10};
-
-        for (int i = 0; i < socketContentsArray.length; i++) {
-            InputStream inputStream = new ByteArrayInputStream(socketContentsArray[i].getBytes());
-            HTTPRequest httpRequest = new HTTPRequest(inputStream);
-
-            assertThat(httpRequest.getRequestLine(), is(expRequestLineArray[i]));
-
-        }
-    }
-
-
-    /**
      * getRequestMethodメソッドをテストするメソッド
      */
     @Test
@@ -127,43 +98,13 @@ public class HTTPRequestTest {
             InputStream inputStream = new ByteArrayInputStream(socketContentsArray[i].getBytes());
             HTTPRequest httpRequest = new HTTPRequest(inputStream);
 
-            httpRequest.getRequestMethod(httpRequest.getRequestLine());
+            httpRequest.getRequestMethod();
 
             if (i != 9) {
-                assertThat(httpRequest.getRequestMethod(httpRequest.getRequestLine()), is("GET"));
-            } else if (i == 9) {
-                assertThat(httpRequest.getRequestMethod(httpRequest.getRequestLine()), is("POST"));
+                assertThat(httpRequest.getRequestMethod(), is("GET"));
+            } else {
+                assertThat(httpRequest.getRequestMethod(), is("POST"));
             }
-        }
-
-    }
-
-
-    /**
-     * getSecondSentenceメソッドをテストするメソッド
-     */
-    @Test
-    public void getSecondSentence() {
-        String expSecondSentence1 = "/../../test/resources/test.html";
-        String expSecondSentence2 = "/../../test/resources/sample/test.html";
-        String expSecondSentence3 = "/../../test/resources/test.html?foo=bar";
-        String expSecondSentence4 = "/../../test/resources/sample/test.html?foo=bar";
-        String expSecondSentence5 = "/../../test/resources/test.html?foo=bar.com";
-        String expSecondSentence6 = "/../../test/resources/sample/test.html?foo=bar.com";
-        String expSecondSentence7 = "/../../test/resources/.sample/test.html";
-        String expSecondSentence8 = "/../../test/resources/.sample/test.html?foo=bar";
-        String expSecondSentence9 = "/../../test/resources/.sample/test.html?foo=bar.com";
-        String expSecondSentence10 = "/../../test/resources/test.html";
-
-        String expSecondSentenceLineArray[] = {expSecondSentence1, expSecondSentence2, expSecondSentence3, expSecondSentence4, expSecondSentence5, expSecondSentence6, expSecondSentence7, expSecondSentence8, expSecondSentence9, expSecondSentence10};
-
-
-        for (int i = 0; i < socketContentsArray.length; i++) {
-            InputStream inputStream = new ByteArrayInputStream(socketContentsArray[i].getBytes());
-            HTTPRequest httpRequest = new HTTPRequest(inputStream);
-
-            assertThat(httpRequest.getSecondSentence(httpRequest.getRequestLine()), is(expSecondSentenceLineArray[i]));
-
         }
 
     }
@@ -194,7 +135,7 @@ public class HTTPRequestTest {
             HTTPRequest httpRequest = new HTTPRequest(inputStream);
 
 
-            assertThat(httpRequest.getRequestURI(httpRequest.getSecondSentence(httpRequest.getRequestLine())), is(expRequestURIArray[i]));
+            assertThat(httpRequest.getRequestURI(), is(expRequestURIArray[i]));
 
         }
     }
@@ -239,8 +180,7 @@ public class HTTPRequestTest {
             InputStream inputStream = new ByteArrayInputStream(requestContentsArray[i].getBytes());
             HTTPRequest httpRequest = new HTTPRequest(inputStream);
 
-            String requestLine = httpRequest.getRequestLine();
-            assertThat(httpRequest.getQueryString(httpRequest.getRequestMethod(requestLine), httpRequest.getSecondSentence(requestLine)), is(expQueryStringArray[i]));
+            assertThat(httpRequest.getQueryString(httpRequest.getRequestMethod()), is(expQueryStringArray[i]));
 
         }
 
@@ -283,8 +223,7 @@ public class HTTPRequestTest {
             InputStream inputStream = new ByteArrayInputStream(requestContentsArray[i].getBytes());
             HTTPRequest httpRequest = new HTTPRequest(inputStream);
 
-            String requestLine = httpRequest.getRequestLine();
-            httpRequest.setRequestParameter(httpRequest.getQueryString(httpRequest.getRequestMethod(requestLine), httpRequest.getSecondSentence(requestLine)));
+            httpRequest.setRequestParameter(httpRequest.getQueryString(httpRequest.getRequestMethod()));
 
             assertThat(httpRequest.getRequestParameter("name"), is(expRequestParamArray[i]));
 

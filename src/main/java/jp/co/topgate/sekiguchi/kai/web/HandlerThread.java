@@ -33,11 +33,8 @@ public class HandlerThread extends Thread {
             HTTPRequest httpRequest = new HTTPRequest(inputStream);
             HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
-            String requestLine = httpRequest.getRequestLine();
-            String secondSentence = httpRequest.getSecondSentence(requestLine);
-            String requestURI = httpRequest.getRequestURI(secondSentence);
-
-            String requestMethod = httpRequest.getRequestMethod(requestLine);
+            String requestURI = httpRequest.getRequestURI();
+            String requestMethod = httpRequest.getRequestMethod();
 
 
             Handler handler;

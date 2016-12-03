@@ -3,6 +3,8 @@ package jp.co.topgate.sekiguchi.kai.web;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * クライアントへ送信するHTTPレスポンスに関する責務を持つクラス
@@ -53,6 +55,23 @@ public class HTTPResponse {
      */
     public void setResponseHeader(String fileExtension) {
 
+        Map<String, String> contentTypeMap = new HashMap<>();
+        contentTypeMap.put("html", "Content-Type: text/html");
+        contentTypeMap.put("css", "Content-Type: text/css");
+        contentTypeMap.put("js", "Content-Type: text/js");
+        contentTypeMap.put("jpeg", "Content-Type: image/jpeg");
+        contentTypeMap.put("html", "Content-Type: image/png");
+        contentTypeMap.put("html", "Content-Type: image/gif");
+
+        String contentType = contentTypeMap.get(fileExtension);
+
+        if (contentType == null) {
+            this.responseHeader = "Content-Type: text/html";
+        } else {
+            this.responseHeader = contentType;
+        }
+
+
         if (fileExtension.equals("html") || fileExtension.equals("css") || fileExtension.equals("js")) {
             this.responseHeader = "Content-Type: text/" + fileExtension;
         } else if (fileExtension.equals("png") || fileExtension.equals("jpeg") || fileExtension.equals("gif")) {
@@ -62,8 +81,6 @@ public class HTTPResponse {
         }
         System.out.println("レスポンスヘッダは" + this.responseHeader);
     }
-
-
 
 
     /**

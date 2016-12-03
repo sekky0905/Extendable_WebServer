@@ -35,7 +35,7 @@ public class HTTPResponse {
      *
      * @param outputStream アウトプットストリーム
      */
-    HTTPResponse(OutputStream outputStream) {
+    public HTTPResponse(OutputStream outputStream) {
         this.outputStream = outputStream;
     }
 

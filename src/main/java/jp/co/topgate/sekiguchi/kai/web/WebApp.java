@@ -1,5 +1,7 @@
 package jp.co.topgate.sekiguchi.kai.web;
 
+import jp.co.topgate.sekiguchi.kai.web.handler.*;
+
 import java.util.HashMap;
 import java.util.Map;
 

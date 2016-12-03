@@ -1,6 +1,6 @@
 package jp.co.topgate.sekiguchi.kai.web;
 
-import java.util.List;
+import jp.co.topgate.sekiguchi.kai.web.util.ModelStorage;
 
 /**
  * Created by sekiguchikai on 2016/11/22.

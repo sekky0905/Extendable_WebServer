@@ -1,4 +1,7 @@
-package jp.co.topgate.sekiguchi.kai.web;
+package jp.co.topgate.sekiguchi.kai.web.handler;
+
+import jp.co.topgate.sekiguchi.kai.web.*;
+import jp.co.topgate.sekiguchi.kai.web.util.ModelStorage;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -6,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Created by sekiguchikai on 2016/12/04.
  */
-public class ResisterMessageHandler extends Handler{
+public class ResisterMessageHandler extends Handler {
     /**
      * リクエストPOSTの際のハンドラ
      *

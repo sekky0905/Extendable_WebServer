@@ -1,6 +1,9 @@
-package jp.co.topgate.sekiguchi.kai.web;
+package jp.co.topgate.sekiguchi.kai.web.webServer;
 
 //フィルタをかけて流れてくるデータをバッファリングし、量がたまったら、一気に下流に流し込む
+
+import jp.co.topgate.sekiguchi.kai.web.WebApp;
+import jp.co.topgate.sekiguchi.kai.web.util.WebAppStorage;
 
 import java.io.IOException;
 //TCP サーバーAPI、通常はクライアントソケットからの接続を 受け入れる

@@ -16,11 +16,14 @@ public class MessageHandler implements Handler {
      */
     public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) {
 
-        FormTemplate formTemplate = new FormTemplate();
+        IndexTemplate indexTemplate = new IndexTemplate();
+
+        Session.generateToken();
 
         httpResponse.setResponseHeader("html");
         httpResponse.setStatusLine("HTTP/1.1 200 OK");
-        httpResponse.setResponseBody(formTemplate.writeHTML());
+        httpResponse.setResponseBody(indexTemplate.writeHTML());
+
 
         httpResponse.sendResponse();
 
@@ -63,11 +66,16 @@ public class MessageHandler implements Handler {
             ModelStorage.choiceModelList(false);
             String name = httpRequest.getRequestParameter("searchName");
             ModelStorage.searchModel(name);
-            //
+
             Session.generateToken();
+        } else if (httpRequest.getRequestURI(httpRequest.getSecondSentence(requestLine)).equals("/program/board/registered/showAll") && Session.confirmToken(httpRequest.getRequestParameter("token"))) {
+            ModelStorage.choiceModelList(true);
+            Session.generateToken();
+        } else {
+            System.out.println("不正なリクエスト");
         }
 
-        Template template = new ResultTemplate();
+        Template template = new IndexTemplate();
 
         httpResponse.setResponseHeader("html");
         httpResponse.setStatusLine("HTTP/1.1 200 OK");

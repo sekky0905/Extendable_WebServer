@@ -45,7 +45,7 @@ public class HandlerThread extends Thread {
             if (requestURI.equals("/program/board/")) {
                 handler = new MessageHandler();
                 handler.handleGET(httpRequest, httpResponse);
-            } else if (requestURI.equals("/program/board/registered") || requestURI.equals("/program/board/registered/afterDelete") || requestURI.equals("/program/board/registered/search")) {
+            } else if (requestURI.equals("/program/board/registered") || requestURI.equals("/program/board/registered/afterDelete") || requestURI.equals("/program/board/registered/search") || requestURI.equals("/program/board/registered/showAll")) {
                 handler = new MessageHandler();
                 handler.handlePOST(httpRequest, httpResponse);
             } else {

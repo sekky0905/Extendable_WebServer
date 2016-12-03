@@ -58,7 +58,7 @@ public class HTTPRequest {
 
             String line = bufferedReader.readLine();
             this.requestLine = line;
-            System.out.print("リクエストラインは" + this.requestLine);
+            System.out.println("リクエストラインは" + this.requestLine);
 
             StringBuilder stringBuilder = new StringBuilder();
             int contentLength = 0;
@@ -116,7 +116,8 @@ public class HTTPRequest {
      * @param requestLine リクエストライン
      * @return リクエストURI + クエリストリング
      */
-    public String getSecondSentence(String requestLine) {int firstEmpty = requestLine.indexOf(" ");
+    public String getSecondSentence(String requestLine) {
+        int firstEmpty = requestLine.indexOf(" ");
         return requestLine.substring(firstEmpty + 1,
                 requestLine.indexOf(" ", firstEmpty + 1));
     }

@@ -18,7 +18,7 @@ public class StaticFileHandler implements Handler {
      */
     public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) {
 
-        String requestURI = httpRequest.getRequestURI(httpRequest.getSecondSentence(httpRequest.getRequestLine()));
+        String requestURI = httpRequest.getRequestURI();
 
         Files files = new Files();
 

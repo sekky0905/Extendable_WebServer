@@ -1,4 +1,6 @@
-package jp.co.topgate.sekiguchi.kai.web;
+package jp.co.topgate.sekiguchi.kai.web.webServer;
+
+import jp.co.topgate.sekiguchi.kai.web.*;
 
 import java.io.IOException;
 import java.io.InputStream;

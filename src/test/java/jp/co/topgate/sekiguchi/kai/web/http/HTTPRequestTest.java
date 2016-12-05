@@ -250,7 +250,6 @@ public class HTTPRequestTest {
 
         String requestURI1 = "/test.html";
         String requestURI2 = "/sample/test.html";
-
         String requestURI3 = "/.sample/test.html";
 
         String requestURIArray[] = {requestURI1, requestURI2, requestURI3};
@@ -265,6 +264,33 @@ public class HTTPRequestTest {
         String requestURIArray2[] = {requestURI4, requestURI5, requestURI6};
         for (String reqURI2 : requestURIArray2) {
             assertThat(httpRequest.getRequestResource(reqURI2), is("src/main/resources" + reqURI2 + "index.html"));
+
+        }
+
+
+    }
+
+    /**
+     * getRequestResourceExtensionメソッドをテストするメソッド
+     */
+    @Test
+    public void getRequestResourceExtension() {
+        String requestContents = "GET /../../test/resources/test.html?name=a HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
+        InputStream inputStream = new ByteArrayInputStream(requestContents.getBytes());
+        HTTPRequest httpRequest = new HTTPRequest(inputStream);
+
+
+        String requestResource1 = "/test.html";
+        String requestResource2 = "/sample/test.html";
+        String requestResource3 = "/.sample/test.html";
+
+        String requestResourceArray[] = {requestResource1, requestResource2, requestResource3};
+        for (String reqResource : requestResourceArray) {
+            assertThat(httpRequest.getRequestResourceExtension(reqResource), is("html"));
 
         }
 

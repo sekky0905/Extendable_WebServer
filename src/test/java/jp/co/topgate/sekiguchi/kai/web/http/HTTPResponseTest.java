@@ -75,139 +75,139 @@ public class HTTPResponseTest {
         }
 
     }
-//
-//    /**
-//     * SetResponseHeaderメソッドをテストするクラス¥
-//     */
-//    @Test
-//    public void testSendResponse() {
-//        // リクエストのための処理
-//        String socketContents = "GET /next.html HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
-//                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
-//                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
-//                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
-//                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
-//
-//        String socketContents2 = "GET /next.html?foo=bar HTTP/1.1\n" + "Host: localhost:8080\n"
-//                + "Connection: keep-alive\n"
-//                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
-//                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
-//                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
-//                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
-//
-//        String socketContents3 = "GET /next.html?foo=bar.com HTTP/1.1\n" + "Host: localhost:8080\n"
-//                + "Connection: keep-alive\n"
-//                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
-//                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
-//                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
-//                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
-//
-//        String socketContents4 = "GET /sample/next.html HTTP/1.1\n" + "Host: localhost:8080\n"
-//                + "Connection: keep-alive\n"
-//                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
-//                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
-//                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
-//                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
-//
-//        String socketContents5 = "GET /sample/next.html?foo=bar HTTP/1.1\n" + "Host: localhost:8080\n"
-//                + "Connection: keep-alive\n"
-//                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
-//                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
-//                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
-//                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
-//
-//        String socketContents6 = "GET /sample/next.html?foo=bar.com HTTP/1.1\n" + "Host: localhost:8080\n"
-//                + "Connection: keep-alive\n"
-//                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
-//                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
-//                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
-//                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
-//
-//        String socketContents7 = "GET /.sample/next.html HTTP/1.1\n" + "Host: localhost:8080\n"
-//                + "Connection: keep-alive\n"
-//                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
-//                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
-//                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
-//                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
-//
-//        String socketContents8 = "GET /.sample/next.html?foo=bar HTTP/1.1\n" + "Host: localhost:8080\n"
-//                + "Connection: keep-alive\n"
-//                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
-//                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
-//                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
-//                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
-//
-//        String socketContents9 = "GET /.sample/next.html?foo=bar.com HTTP/1.1\n" + "Host: localhost:8080\n"
-//                + "Connection: keep-alive\n"
-//                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
-//                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
-//                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
-//                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
-//
-//        String socketContentsArray[] = { socketContents, socketContents2, socketContents3, socketContents4,
-//                socketContents5, socketContents6, socketContents7, socketContents8, socketContents9 };
-//
-//        for (int i = 0; i < socketContentsArray.length; i++) {
-//
-//            InputStream inputStream = new ByteArrayInputStream(socketContentsArray[i].getBytes());
-//            HTTPRequest httpRequest = new HTTPRequest(inputStream);
-//
-//            OutputStream outputStream = new ByteArrayOutputStream();
-//            HTTPResponse httpResponse = new HTTPResponse(outputStream);
-//
-//            httpResponse.setStatusLine("HTTP/1.1 200 OK");
-//
-//            String requestURI = httpRequest.getRequestURI();
-//
-//            StaticFileHandler staticFileHandler = new StaticFileHandler();
-//
-//
-//
-//
-//
-//
-//
-//
-//            httpResponse.setResponseHeader(fileExtension);
-//
-//            byte[] responseBody = staticFileHandler.readFile(file);
-//            httpResponse.setResponseBody(responseBody);
-//
-//            if (file.exists()) {
-//                httpResponse.setStatusLine("HTTP/1.1 200 OK");
-//            } else {
-//                httpResponse.setStatusLine("HTTP/1.1 404 Not Found");
-//            }
-//
-//            httpResponse.sendResponse();
-//
-//            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(
-//                    ((ByteArrayOutputStream) outputStream).toByteArray());
-//
-//            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(byteArrayInputStream));
-//
-//            StringBuilder stringBuilder = new StringBuilder();
-//            String result = null;
-//
-//            try {
-//                result = bufferedReader.readLine();
-//
-//                while (result != null) {
-//                    System.out.println(result);
-//                    stringBuilder.append(result);
-//                    result = bufferedReader.readLine();
-//                }
-//                System.out.println(stringBuilder);
-//            } catch (IOException e) {
-//                System.err.println("エラー" + e.getMessage());
-//                e.printStackTrace();
-//            }
-//
-//            assertEquals("リクエストURIを与えると、適切なファイルを読み込むか", "HTTP/1.1 200 OKContent-Type: text/htmlやる気",
-//                    new String(stringBuilder));
-//
-//        }
-//    }
+
+    /**
+     * SetResponseHeaderメソッドをテストするクラス¥
+     */
+    @Test
+    public void testSendResponse() {
+        // リクエストのための処理
+        String socketContents = "GET /next.html HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
+
+        String socketContents2 = "GET /next.html?foo=bar HTTP/1.1\n" + "Host: localhost:8080\n"
+                + "Connection: keep-alive\n"
+                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
+
+        String socketContents3 = "GET /next.html?foo=bar.com HTTP/1.1\n" + "Host: localhost:8080\n"
+                + "Connection: keep-alive\n"
+                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
+
+        String socketContents4 = "GET /sample/next.html HTTP/1.1\n" + "Host: localhost:8080\n"
+                + "Connection: keep-alive\n"
+                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
+
+        String socketContents5 = "GET /sample/next.html?foo=bar HTTP/1.1\n" + "Host: localhost:8080\n"
+                + "Connection: keep-alive\n"
+                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
+
+        String socketContents6 = "GET /sample/next.html?foo=bar.com HTTP/1.1\n" + "Host: localhost:8080\n"
+                + "Connection: keep-alive\n"
+                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
+
+        String socketContents7 = "GET /.sample/next.html HTTP/1.1\n" + "Host: localhost:8080\n"
+                + "Connection: keep-alive\n"
+                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
+
+        String socketContents8 = "GET /.sample/next.html?foo=bar HTTP/1.1\n" + "Host: localhost:8080\n"
+                + "Connection: keep-alive\n"
+                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
+
+        String socketContents9 = "GET /.sample/next.html?foo=bar.com HTTP/1.1\n" + "Host: localhost:8080\n"
+                + "Connection: keep-alive\n"
+                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
+
+        String socketContentsArray[] = { socketContents, socketContents2, socketContents3, socketContents4,
+                socketContents5, socketContents6, socketContents7, socketContents8, socketContents9 };
+
+        for (int i = 0; i < socketContentsArray.length; i++) {
+
+            InputStream inputStream = new ByteArrayInputStream(socketContentsArray[i].getBytes());
+            HTTPRequest httpRequest = new HTTPRequest(inputStream);
+
+            OutputStream outputStream = new ByteArrayOutputStream();
+            HTTPResponse httpResponse = new HTTPResponse(outputStream);
+
+            httpResponse.setStatusLine("HTTP/1.1 200 OK");
+
+            String requestURI = httpRequest.getRequestURI();
+
+            StaticFileHandler staticFileHandler = new StaticFileHandler();
+
+
+
+
+
+
+
+
+            httpResponse.setResponseHeader(fileExtension);
+
+            byte[] responseBody = staticFileHandler.readFile(file);
+            httpResponse.setResponseBody(responseBody);
+
+            if (file.exists()) {
+                httpResponse.setStatusLine("HTTP/1.1 200 OK");
+            } else {
+                httpResponse.setStatusLine("HTTP/1.1 404 Not Found");
+            }
+
+            httpResponse.sendResponse();
+
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(
+                    ((ByteArrayOutputStream) outputStream).toByteArray());
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(byteArrayInputStream));
+
+            StringBuilder stringBuilder = new StringBuilder();
+            String result = null;
+
+            try {
+                result = bufferedReader.readLine();
+
+                while (result != null) {
+                    System.out.println(result);
+                    stringBuilder.append(result);
+                    result = bufferedReader.readLine();
+                }
+                System.out.println(stringBuilder);
+            } catch (IOException e) {
+                System.err.println("エラー" + e.getMessage());
+                e.printStackTrace();
+            }
+
+            assertEquals("リクエストURIを与えると、適切なファイルを読み込むか", "HTTP/1.1 200 OKContent-Type: text/htmlやる気",
+                    new String(stringBuilder));
+
+        }
+    }
 
 
 }

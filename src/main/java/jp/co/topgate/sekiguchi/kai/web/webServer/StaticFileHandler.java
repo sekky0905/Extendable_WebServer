@@ -23,19 +23,11 @@ public class StaticFileHandler {
 
         String requestURI = httpRequest.getRequestURI();
 
-        File file;
-        String requestResource;
+        String requestResource = httpRequest.getRequestResource(requestURI);
 
-        if ((requestURI.endsWith("/")) || !(requestURI.substring(requestURI.lastIndexOf("/"), requestURI.length()).contains("."))) {
-            requestResource = "src/main/resources" + requestURI + "index.html";
-            file = new File(requestResource);
-        } else {
-            requestResource = "src/main/resources" + requestURI;
-            file = new File(requestResource);
-        }
+        String extension = httpRequest.getRequestResourceExtension(requestResource);
 
-        String extension = requestResource.substring(requestResource.lastIndexOf(".") + 1,
-                requestResource.lastIndexOf(""));
+        File file = new File(requestResource);
 
         if ((file.exists()) && (extension.equals("html") || extension.equals("css") || extension.equals("js") || (extension.equals("png") || extension.equals("jpeg") || extension.equals("gif")))) {
             httpResponse.setStatusLine("HTTP/1.1 200 OK");

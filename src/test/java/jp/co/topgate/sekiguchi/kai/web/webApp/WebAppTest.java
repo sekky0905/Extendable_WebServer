@@ -1,5 +1,6 @@
 package jp.co.topgate.sekiguchi.kai.web.webApp;
 
+import jp.co.topgate.sekiguchi.kai.web.handler.Handler;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
@@ -18,8 +19,39 @@ public class WebAppTest {
         WebApp bulletinBoard = new WebApp();
         bulletinBoard.setHandlerName("/program/board/", "IndexHandler");
 
-        assertThat(bulletinBoard.getHandlerMap("/program/board/"), is("IndexHandler"));
+        assertThat(WebApp.getHandlerName("/program/board/"), is("IndexHandler"));
 
     }
+
+    /**
+     * setHandlerMapメソッドとcheckHandlerNameExistenceメソッドをテストするためのメソッド
+     */
+    @Test
+    public void setHandlerMap() {
+        WebApp bulletinBoard = new WebApp();
+        bulletinBoard.setHandlerName("/program/board/", "IndexHandler");
+        WebApp.setHandlerMap();
+        assertThat(WebApp.checkHandlerNameExistence("/program/board/"), is(true));
+    }
+
+
+    /**
+     * getHandlerMapメソッドをテストするためのメソッド
+     */
+    @Test
+    public void getHandlerMap() {
+        WebApp bulletinBoard = new WebApp();
+        bulletinBoard.setHandlerName("/program/board/", "IndexHandler");
+
+        WebApp.setHandlerMap();
+
+        Handler handler = WebApp.getHandlerMap("IndexHandler");
+        Class handlerClass = handler.getClass();
+
+        assertThat(handlerClass.getName(), is("jp.co.topgate.sekiguchi.kai.web.handler.IndexHandler"));
+
+
+    }
+
 
 }

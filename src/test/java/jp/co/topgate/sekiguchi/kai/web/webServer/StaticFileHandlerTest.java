@@ -12,8 +12,12 @@ import static org.junit.Assert.*;
  * Created by sekiguchikai on 2016/12/05.
  */
 public class StaticFileHandlerTest {
+
+    /**
+     * readFileメソッドをテストするためのメソッド
+     */
     @Test
-    public void FileReader() {
+    public void ileReader() {
         String requestResource = ("src/test/resources/test.html");
         String requestResource2 = ("src/test/resources/sample/test.html");
         String requestResource3 = ("src/test/resources/.sample/test.html");

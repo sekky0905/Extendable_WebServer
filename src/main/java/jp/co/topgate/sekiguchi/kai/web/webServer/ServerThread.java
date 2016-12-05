@@ -57,19 +57,24 @@ public class ServerThread extends Thread {
                 String handlerName = WebApp.getHandlerName(requestURI);
                 WebApp.setHandlerMap();
                 Handler handler = WebApp.getHandlerMap(handlerName);
-                if (httpRequest.getRequestMethod().equals("GET")) {
+
+
+                if (requestURI.equals("/program/board/")) {
                     handler.handleGET(httpRequest, httpResponse);
+                } else if (httpRequest.getRequestMethod().equals("GET") && (WebApp.checkHandlerNameExistence(requestURI))) {
+                    httpResponse.sendResponse("HTTP/1.1 404 Not Found", ResponseHeaderMaker.makeContentType("html"), "404 Not Found".getBytes());
                 } else if ((httpRequest.getRequestMethod().equals("POST")) && (Session.confirmToken(httpRequest.getRequestParameter("token")))) {
                     handler.handlePOST(httpRequest, httpResponse);
-                    // レスポンスの処理
-                    Template template = new IndexTemplate();
 
+                    Template template = new IndexTemplate();
+                    httpResponse.sendResponse("HTTP/1.1 200 OK", ResponseHeaderMaker.makeContentType("html"), template.writeHTML());
+                } else {
+                    Template template = new IndexTemplate();
                     httpResponse.sendResponse("HTTP/1.1 200 OK", ResponseHeaderMaker.makeContentType("html"), template.writeHTML());
                 }
 
 
             }
-
 
         } catch (IOException e) {
             System.err.println("エラー:" + e.getMessage());

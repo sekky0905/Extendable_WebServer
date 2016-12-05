@@ -151,8 +151,39 @@ public class ModelStorageTest {
         assertThat(instanceNumber, is(2));
 
     }
-//        ModelStorage.removeAllModel();
-//
-//    }
+
+    /**
+     * removeAllModelメソッドをテストするためのメソッド
+     */
+    @Test
+    public void removeAllModel() {
+        LocalDateTime localTimeTest = LocalDateTime.of(2016, 11, 29, 15, 0, 00);
+        String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(localTimeTest);
+
+        ModelStorage.removeAllModel();
+
+        Message message1 = new Message();
+        message1.setAtTime(atTime);
+        message1.setName("sekky");
+        message1.setComment("テスト");
+        ModelStorage.setModelList(message1);
+
+
+        Message message2 = new Message();
+        message2.setAtTime(atTime);
+        message2.setName("sekky");
+        message2.setComment("テスト3");
+        ModelStorage.setModelList(message2);
+
+        ModelStorage.searchModel("sekky");
+        int instanceNumber = ModelStorage.countTempo();
+        assertThat(instanceNumber, is(2));
+
+        ModelStorage.removeAllModel();
+        int instanceNumber2 = ModelStorage.countTempo();
+        assertThat(instanceNumber2, is(2));
+
+
+    }
 
 }

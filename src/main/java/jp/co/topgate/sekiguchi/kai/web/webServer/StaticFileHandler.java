@@ -30,16 +30,12 @@ public class StaticFileHandler {
         File file = new File(requestResource);
 
         if ((file.exists()) && (extension.equals("html") || extension.equals("css") || extension.equals("js") || (extension.equals("png") || extension.equals("jpeg") || extension.equals("gif")))) {
-            httpResponse.setStatusLine("HTTP/1.1 200 OK");
-            httpResponse.setResponseHeader(ResponseHeaderMaker.makeContentType(extension));
-            httpResponse.setResponseBody(this.readFile(file));
+            httpResponse.sendResponse("HTTP/1.1 200 OK", ResponseHeaderMaker.makeContentType(extension), this.readFile(file));
+
         } else {
-            httpResponse.setStatusLine("HTTP/1.1 404 Not Found");
-            httpResponse.setResponseHeader("html");
-            httpResponse.setResponseBody("404 Not Found".getBytes());
+            httpResponse.sendResponse("HTTP/1.1 404 Not Found", ResponseHeaderMaker.makeContentType("html"), "404 Not Found".getBytes());
         }
 
-        httpResponse.sendResponse();
 
     }
 
@@ -83,4 +79,3 @@ public class StaticFileHandler {
 
 
 }
-

@@ -64,11 +64,7 @@ public class ServerThread extends Thread {
                     // レスポンスの処理
                     Template template = new IndexTemplate();
 
-                    httpResponse.setResponseHeader(ResponseHeaderMaker.makeContentType("html"));
-                    httpResponse.setStatusLine("HTTP/1.1 200 OK");
-                    httpResponse.setResponseBody(template.writeHTML());
-
-                    httpResponse.sendResponse();
+                    httpResponse.sendResponse("HTTP/1.1 200 OK", ResponseHeaderMaker.makeContentType("html"), template.writeHTML());
                 }
 
 

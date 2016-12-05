@@ -19,18 +19,7 @@ public class HTTPResponse {
      * クライアントとのsocketを格納したOutputStream
      */
     private OutputStream outputStream;
-    /**
-     * クライアントへのレスポンスライン
-     */
-    private String statusLine;
-    /**
-     * クライアントへのレスポンスヘッダ
-     */
-    private List<String> responseHeaderList = new ArrayList<>();
-    /**
-     * クライアントへのレスポンスボディ
-     */
-    private byte[] responseBody;
+
 
     /**
      * コンストラクタ
@@ -41,53 +30,26 @@ public class HTTPResponse {
         this.outputStream = outputStream;
     }
 
-    /**
-     * ステータスラインを設定するメソッド
-     *
-     * @param statusLine ステータスライン
-     */
-    public void setStatusLine(String statusLine) {
-        this.statusLine = statusLine;
-    }
-
-    /**
-     * レスポンスヘッダを設定するメソッド
-     *
-     * @param headerParts headerの各項目
-     */
-    public void setResponseHeader(String headerParts) {
-        responseHeaderList.add(headerParts);
-    }
-
-
-    /**
-     * クライアントへ送信するレスポンスのうち、レスポンスボディを設定するメソッド
-     *
-     * @param responseBody リクエストボディ
-     */
-    public void setResponseBody(byte[] responseBody) {
-        this.responseBody = responseBody;
-    }
 
     /**
      * クライアントにレスポンスを送信するためのメソッド
      */
-    public void sendResponse() {
+    public void sendResponse(String statusLine, String requestHeader, byte[] responseBody) {
         try {
             System.out.println("クライアントに送信を開始します");
             DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
 
             // 引数で受け取ったステータスラインとレスポンスヘッダを結合
-            byte[] responseHead = (this.statusLine + "\n" + this.getResponseHeader() + "\n").getBytes();
+            byte[] responseHead = (statusLine + "\n" + requestHeader + "\n").getBytes();
 
 
-            byte[] responseContents = new byte[responseHead.length + this.responseBody.length];
+            byte[] responseContents = new byte[responseHead.length + responseBody.length];
             // ResponseContentsにbyteResponseHeadを追加
             System.arraycopy(responseHead, 0, responseContents, 0, responseHead.length);
             // ResponseContentsにresponseBodyを追加
-            System.arraycopy(this.responseBody, 0, responseContents, responseHead.length, this.responseBody.length);
+            System.arraycopy(responseBody, 0, responseContents, responseHead.length, responseBody.length);
 
-            if (this.responseBody != null) {
+            if (responseBody != null) {
                 dataOutputStream.write(responseContents, 0, responseContents.length);
                 dataOutputStream.flush();
                 dataOutputStream.close();
@@ -99,32 +61,5 @@ public class HTTPResponse {
         }
     }
 
-    // 以下、テスト用の仕掛け
-
-    /**
-     * statusLineを取得するためのメソッド
-     *
-     * @return responseHeader
-     */
-
-    public String getStatusLine() {
-        return this.statusLine;
-    }
-
-    /**
-     * responseHeaderを取得するためのメソッド
-     *
-     * @return responseHeader
-     */
-    public String getResponseHeader() {
-        String headers;
-        StringBuilder stringBuilder = new StringBuilder();
-
-        this.responseHeaderList.forEach(headerParts -> stringBuilder.append(headerParts + "\n"));
-        headers = new String(stringBuilder);
-        System.out.println("ヘッダーは" + headers);
-        return headers;
-    }
 
 }
-

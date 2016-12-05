@@ -160,7 +160,7 @@ public class HTTPRequestTest {
                 + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
 
 
-        String srequestContents3 = "POST /../../test/resources/test.html HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+        String requestContents3 = "POST /../../test/resources/test.html HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
                 + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
                 + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
                 + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
@@ -169,7 +169,7 @@ public class HTTPRequestTest {
                 + "\n"
                 + "name=a&comment=a\n";
 
-        String requestContentsArray[] = {requestContents1, requestContents2, srequestContents3};
+        String requestContentsArray[] = {requestContents1, requestContents2, requestContents3};
 
         String expQueryString1 = "foo=bar";
         String expQueryString2 = "foo=bar.com";
@@ -228,6 +228,43 @@ public class HTTPRequestTest {
 
             assertThat(httpRequest.getRequestParameter("name"), is(expRequestParamArray[i]));
 
+
+        }
+
+
+    }
+
+
+    /**
+     * getRequestResourceメソッドをテストするためのメソッド
+     */
+    @Test
+    public void getRequestResource() {
+        String requestContents = "GET /../../test/resources/test.html?name=a HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
+        InputStream inputStream = new ByteArrayInputStream(requestContents.getBytes());
+        HTTPRequest httpRequest = new HTTPRequest(inputStream);
+
+        String requestURI1 = "/test.html";
+        String requestURI2 = "/sample/test.html";
+
+        String requestURI3 = "/.sample/test.html";
+
+        String requestURIArray[] = {requestURI1, requestURI2, requestURI3};
+        for (String reqURI : requestURIArray) {
+            assertThat(httpRequest.getRequestResource(reqURI), is("src/main/resources" + reqURI));
+
+        }
+
+        String requestURI4 = "/";
+        String requestURI5 = "//";
+        String requestURI6 = "/.sample/";
+        String requestURIArray2[] = {requestURI4, requestURI5, requestURI6};
+        for (String reqURI2 : requestURIArray2) {
+            assertThat(httpRequest.getRequestResource(reqURI2), is("src/main/resources" + reqURI2 + "index.html"));
 
         }
 

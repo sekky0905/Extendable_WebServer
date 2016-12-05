@@ -6,6 +6,7 @@ import jp.co.topgate.sekiguchi.kai.web.template.IndexTemplate;
 import jp.co.topgate.sekiguchi.kai.web.util.Session;
 
 /**
+ * "/program/board/"に紐づくHandlerを表すクラス
  * Created by sekiguchikai on 2016/12/03.
  */
 public class IndexHandler extends Handler {

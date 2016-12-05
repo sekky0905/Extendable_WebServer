@@ -1,8 +1,8 @@
-package jp.co.topgate.sekiguchi.kai.web;
+package jp.co.topgate.sekiguchi.kai.web.model;
 
 
 import jp.co.topgate.sekiguchi.kai.web.model.Message;
-import jp.co.topgate.sekiguchi.kai.web.util.ModelStorage;
+import jp.co.topgate.sekiguchi.kai.web.model.ModelStorage;
 import org.junit.After;
 import org.junit.Test;
 

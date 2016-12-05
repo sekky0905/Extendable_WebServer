@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai.web;
+package jp.co.topgate.sekiguchi.kai.web.util;
 
 import jp.co.topgate.sekiguchi.kai.web.util.Session;
 import org.junit.Test;

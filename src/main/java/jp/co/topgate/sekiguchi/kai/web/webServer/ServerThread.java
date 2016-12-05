@@ -3,7 +3,7 @@ package jp.co.topgate.sekiguchi.kai.web.webServer;
 import jp.co.topgate.sekiguchi.kai.web.handler.Handler;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
-import jp.co.topgate.sekiguchi.kai.web.model.WebApp;
+import jp.co.topgate.sekiguchi.kai.web.webApp.WebApp;
 import jp.co.topgate.sekiguchi.kai.web.template.IndexTemplate;
 import jp.co.topgate.sekiguchi.kai.web.template.Template;
 import jp.co.topgate.sekiguchi.kai.web.util.Session;
@@ -14,6 +14,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 /**
+ * 1つのスレッドを表すクラス
  * Created by sekiguchikai on 2016/12/02.
  */
 public class ServerThread extends Thread {
@@ -21,7 +22,6 @@ public class ServerThread extends Thread {
      * socket
      */
     private Socket socket;
-
 
     /**
      * コンストラクタ
@@ -62,7 +62,7 @@ public class ServerThread extends Thread {
                     handler.handlePOST(httpRequest, httpResponse);
                 }
 
-                // ここ変更するかも
+                // レスポンスの処理
                 Template template = new IndexTemplate();
 
                 httpResponse.setResponseHeader("html");

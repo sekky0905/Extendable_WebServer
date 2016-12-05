@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai.web;
+package jp.co.topgate.sekiguchi.kai.web.webServer;
 
 import static org.junit.Assert.assertEquals;
 

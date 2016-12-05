@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai.web;
+package jp.co.topgate.sekiguchi.kai.web.http;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;

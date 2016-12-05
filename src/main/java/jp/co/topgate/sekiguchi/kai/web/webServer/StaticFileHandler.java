@@ -6,16 +6,13 @@ import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
 import java.io.*;
 
 /**
- * 全体のプログラムを制御するクラス
+ * 静的なファイルの処理の責任を持つクラス
  *
  * @author sekiguchikai
  */
 public class StaticFileHandler {
-
-
     /**
-     * リクエストメソッドがGETメソッドの場合の処理
-     *
+     * 静的なファイルの処理を行うメソッド
      * @param httpRequest  HTTPRequestクラスのインスタンス
      * @param httpResponse HTTPResponseクラスのインスタンス
      */

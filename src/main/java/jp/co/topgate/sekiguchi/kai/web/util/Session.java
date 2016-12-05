@@ -3,6 +3,7 @@ package jp.co.topgate.sekiguchi.kai.web.util;
 import java.util.UUID;
 
 /**
+ * Sessionに関する責任を持つクラス
  * Created by sekiguchikai on 2016/12/01.
  */
 public class Session {
@@ -13,11 +14,11 @@ public class Session {
     private static String token;
 
     /**
-     * @return
+     * tokenを発生させるためのメソッド
+     *
+     * @return ワンタイムトークン
      */
     public static String generateToken() {
-
-
         Session.token = UUID.randomUUID().toString();
         System.out.println(token);
 
@@ -35,9 +36,9 @@ public class Session {
     }
 
     /**
-     * 引数で渡されたtokenが発行したtokenと同じものであるか確認する
+     * 引数で渡されたtokenが発行したtokenと同じものであるか確認するためのメソッド
      *
-     * @param acceptToken fotmでHTMLから受け取ったtoken
+     * @param acceptToken formでHTMLから受け取ったtoken
      * @return 受け取ったtokenが、以前発行したtokenと同じものであるかの真偽値
      */
     public static boolean confirmToken(String acceptToken) {
@@ -47,8 +48,6 @@ public class Session {
         } else {
             same = false;
         }
-
         return same;
     }
-
 }

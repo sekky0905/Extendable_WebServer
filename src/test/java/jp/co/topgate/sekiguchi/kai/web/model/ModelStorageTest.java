@@ -24,6 +24,18 @@ public class ModelStorageTest {
 
 
     /**
+     * chooseModelListメソッドをテストするメソッド
+     * checkModelListメソッドのテストも兼ねている
+     */
+    @Test
+    public void chooseModelList() {
+        ModelStorage.chooseModelList(true);
+        assertThat(ModelStorage.checkModelList(), is(true));
+
+    }
+
+
+    /**
      * setModelListメソッドとgetModelListメソッドをテストするためのテスト
      */
     @Test

@@ -18,8 +18,26 @@ public class WebAppTest {
         WebApp bulletinBoard = new WebApp();
         bulletinBoard.setHandlerName("/program/board/", "IndexHandler");
 
-        assertThat(bulletinBoard.getHandlerMap("/program/board/"), is("IndexHandler"));
+        assertThat(WebApp.getHandlerMap("/program/board/"), is("IndexHandler"));
 
     }
+
+    /**
+     * setHandlerMapメソッドとcheckHandlerNameExistenceメソッドをテストするためのメソッド
+     */
+    @Test
+    public void setHandlerMap() {
+        WebApp bulletinBoard = new WebApp();
+        bulletinBoard.setHandlerName("/program/board/", "IndexHandler");
+
+        WebApp.setHandlerMap();
+        assertThat(WebApp.checkHandlerNameExistence("IndexHandler"), is(true));
+    }
+
+
+//    public void getHandlerMap(String handlerName) {
+//
+//    }
+
 
 }

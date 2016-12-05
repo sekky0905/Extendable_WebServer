@@ -3,7 +3,9 @@ package jp.co.topgate.sekiguchi.kai.web.http;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,7 +26,7 @@ public class HTTPResponse {
     /**
      * クライアントへのレスポンスヘッダ
      */
-    private String responseHeader;
+    private List<String> responseHeaderList = new ArrayList<>();
     /**
      * クライアントへのレスポンスボディ
      */
@@ -51,35 +53,10 @@ public class HTTPResponse {
     /**
      * レスポンスヘッダを設定するメソッド
      *
-     * @param fileExtension ファイルの拡張子
+     * @param headerParts headerの各項目
      */
-    public void setResponseHeader(String fileExtension) {
-
-        Map<String, String> contentTypeMap = new HashMap<>();
-        contentTypeMap.put("html", "Content-Type: text/html");
-        contentTypeMap.put("css", "Content-Type: text/css");
-        contentTypeMap.put("js", "Content-Type: text/js");
-        contentTypeMap.put("jpeg", "Content-Type: image/jpeg");
-        contentTypeMap.put("html", "Content-Type: image/png");
-        contentTypeMap.put("html", "Content-Type: image/gif");
-
-        String contentType = contentTypeMap.get(fileExtension);
-
-        if (contentType == null) {
-            this.responseHeader = "Content-Type: text/html";
-        } else {
-            this.responseHeader = contentType;
-        }
-
-
-        if (fileExtension.equals("html") || fileExtension.equals("css") || fileExtension.equals("js")) {
-            this.responseHeader = "Content-Type: text/" + fileExtension;
-        } else if (fileExtension.equals("png") || fileExtension.equals("jpeg") || fileExtension.equals("gif")) {
-            this.responseHeader = "Content-Type: image/" + fileExtension;
-        } else {
-            this.responseHeader = "Content-Type: text/html";
-        }
-        System.out.println("レスポンスヘッダは" + this.responseHeader);
+    public void setResponseHeader(String headerParts) {
+        responseHeaderList.add(headerParts);
     }
 
 
@@ -101,8 +78,9 @@ public class HTTPResponse {
             DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
 
             // 引数で受け取ったステータスラインとレスポンスヘッダを結合
+            byte[] responseHead = (this.statusLine + "\n" + this.getResponseHeader() + "\n").getBytes();
 
-            byte[] responseHead = (this.statusLine + "\n" + this.responseHeader + "\n" + "\n").getBytes();
+
             byte[] responseContents = new byte[responseHead.length + this.responseBody.length];
             // ResponseContentsにbyteResponseHeadを追加
             System.arraycopy(responseHead, 0, responseContents, 0, responseHead.length);
@@ -139,7 +117,14 @@ public class HTTPResponse {
      * @return responseHeader
      */
     public String getResponseHeader() {
-        return this.responseHeader;
+        String headers;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        this.responseHeaderList.forEach(headerParts -> stringBuilder.append(headerParts + "\n"));
+        headers = new String(stringBuilder);
+        System.out.println("ヘッダーは" + headers);
+        return headers;
     }
 
 }
+

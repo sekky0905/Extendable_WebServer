@@ -3,6 +3,7 @@ package jp.co.topgate.sekiguchi.kai.web.handler;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.template.IndexTemplate;
+import jp.co.topgate.sekiguchi.kai.web.util.ResponseHeaderMaker;
 import jp.co.topgate.sekiguchi.kai.web.util.Session;
 
 /**
@@ -22,7 +23,7 @@ public class IndexHandler extends Handler {
 
         Session.generateToken();
 
-        httpResponse.setResponseHeader("html");
+        httpResponse.setResponseHeader(ResponseHeaderMaker.makeContentType("html"));
         httpResponse.setStatusLine("HTTP/1.1 200 OK");
         httpResponse.setResponseBody(indexTemplate.writeHTML());
 

@@ -2,6 +2,8 @@ package jp.co.topgate.sekiguchi.kai.web.webServer;
 
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
+import jp.co.topgate.sekiguchi.kai.web.util.ResponseHeaderMaker;
+
 
 import java.io.*;
 
@@ -13,6 +15,7 @@ import java.io.*;
 public class StaticFileHandler {
     /**
      * 静的なファイルの処理を行うメソッド
+     *
      * @param httpRequest  HTTPRequestクラスのインスタンス
      * @param httpResponse HTTPResponseクラスのインスタンス
      */
@@ -36,7 +39,7 @@ public class StaticFileHandler {
 
         if ((file.exists()) && (extension.equals("html") || extension.equals("css") || extension.equals("js") || (extension.equals("png") || extension.equals("jpeg") || extension.equals("gif")))) {
             httpResponse.setStatusLine("HTTP/1.1 200 OK");
-            httpResponse.setResponseHeader(extension);
+            httpResponse.setResponseHeader(ResponseHeaderMaker.makeContentType(extension));
             httpResponse.setResponseBody(this.readFile(file));
         } else {
             httpResponse.setStatusLine("HTTP/1.1 404 Not Found");

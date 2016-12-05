@@ -36,7 +36,7 @@ public class WebServer {
     public static void main(String[] args) throws IOException {
         WebServer webServer = new WebServer();
         try {
-        webServer.initialize();
+            webServer.initialize();
         } catch (IOException e) {
             System.err.println("エラー:" + e.getMessage());
             e.printStackTrace();

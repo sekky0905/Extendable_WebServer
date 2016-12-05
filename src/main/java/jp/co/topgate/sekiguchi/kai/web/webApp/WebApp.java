@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai.web.model;
+package jp.co.topgate.sekiguchi.kai.web.webApp;
 
 import jp.co.topgate.sekiguchi.kai.web.handler.*;
 
@@ -6,21 +6,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 1つのアプリケーションを表すクラス
  * Created by sekiguchikai on 2016/12/03.
  */
 public class WebApp {
     /**
-     * Handlerのインスタンスが格納されているMap
+     * Handlerのパスとそれに紐づくHandlerの名前を格納するためのMap
      */
     private static Map<String, String> handlerNameMap = new HashMap<>();
-
+    /**
+     * Handlerの名前とそれに紐づくHandlerのインスタンスを格納するためのMap
+     */
     private static Map<String, Handler> handlerMap = new HashMap<>();
 
     /**
      * handlerMapに指定された名前で、Handlerクラスのインスタンスを格納するためのメソッド
      *
+     * @param path Handlerに紐づけるパス
      * @param handlerName handlerMapに格納するHandlerクラスのインスタンスの名前
-     * @param handler     Handlerクラスのインスタンス
      */
     public void setHandlerName(String path, String handlerName) {
         handlerNameMap.put(path, handlerName);
@@ -30,23 +33,25 @@ public class WebApp {
     /**
      * パスで指定されたHandlerクラスのインスタンスを返す
      *
-     * @param handlerName Handlerクラスの名前
-     * @return Handlerのインスタンス
+     * @param path Handlerに紐づけられたパス
+     * @return Handlerクラスのインスタンスの名前
      */
     public static String getHandlerName(String path) {
         return handlerNameMap.get(path);
     }
 
     /**
-     * 指定された名前のハンドラがHashMapうちに入っているかどうかの確認
-     *
-     * @param handkerName ハンドラの名前
-     * @return ハンドラが存在しているか
+     * 指定された名前のHandlerがHashMapうちに入っているかどうかの確認
+     * @param handlerName Handlerの名前
+     * @return Handlerが存在しているか
      */
     public static boolean checkHandlerNameExistence(String handlerName) {
         return handlerNameMap.containsKey(handlerName);
     }
 
+    /**
+     * Handlerの初期設定を行うメソッド
+     */
     public static void setHandlerMap() {
         IndexHandler indexHandler = new IndexHandler();
         ResisterMessageHandler resisterMessageHandler = new ResisterMessageHandler();
@@ -62,6 +67,11 @@ public class WebApp {
 
     }
 
+    /**
+     * ハンドラの名前をしているするとその名前に紐づけられたHandlerインスタンスを返すメソッド
+     * @param handlerName Handlerの名前
+     * @return Handlerインスタンス
+     */
     public static Handler getHandlerMap(String handlerName) {
         return WebApp.handlerMap.get(handlerName);
 

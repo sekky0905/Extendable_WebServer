@@ -3,7 +3,7 @@ package jp.co.topgate.sekiguchi.kai.web.model;
 /**
  * Created by sekiguchikai on 2016/11/22.
  */
-public class Message extends Model{
+public class Message extends Model {
 
     /**
      * 本文
@@ -32,7 +32,6 @@ public class Message extends Model{
     public void setAtTime(String atTime) {
         this.atTime = atTime;
     }
-
 
 
     /**

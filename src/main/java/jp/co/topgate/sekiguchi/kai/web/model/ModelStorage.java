@@ -1,6 +1,4 @@
-package jp.co.topgate.sekiguchi.kai.web.util;
-
-import jp.co.topgate.sekiguchi.kai.web.model.Model;
+package jp.co.topgate.sekiguchi.kai.web.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +17,7 @@ public class ModelStorage {
     private static boolean modelListChose;
 
 
-    public static void choiceModelList(boolean modelListChose) {
+    public static void chooseModelList(boolean modelListChose) {
         ModelStorage.modelListChose = modelListChose;
     }
 

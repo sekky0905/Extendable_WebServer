@@ -1,6 +1,5 @@
-package jp.co.topgate.sekiguchi.kai.web;
+package jp.co.topgate.sekiguchi.kai.web.model;
 
-import jp.co.topgate.sekiguchi.kai.web.model.Message;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.*;

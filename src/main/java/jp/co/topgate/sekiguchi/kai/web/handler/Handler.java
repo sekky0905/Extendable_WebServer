@@ -4,6 +4,7 @@ import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
 
 /**
+ * Handlerの継承元クラス
  * Created by sekiguchikai on 2016/12/03.
  */
 public class Handler {

@@ -3,9 +3,11 @@ package jp.co.topgate.sekiguchi.kai.web.handler;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.template.IndexTemplate;
+import jp.co.topgate.sekiguchi.kai.web.util.ResponseHeaderMaker;
 import jp.co.topgate.sekiguchi.kai.web.util.Session;
 
 /**
+ * "/program/board/"に紐づくHandlerを表すクラス
  * Created by sekiguchikai on 2016/12/03.
  */
 public class IndexHandler extends Handler {
@@ -21,12 +23,7 @@ public class IndexHandler extends Handler {
 
         Session.generateToken();
 
-        httpResponse.setResponseHeader("html");
-        httpResponse.setStatusLine("HTTP/1.1 200 OK");
-        httpResponse.setResponseBody(indexTemplate.writeHTML());
-
-
-        httpResponse.sendResponse();
+        httpResponse.sendResponse("HTTP/1.1 200 OK", ResponseHeaderMaker.makeContentType("html"), indexTemplate.writeHTML());
 
     }
 }

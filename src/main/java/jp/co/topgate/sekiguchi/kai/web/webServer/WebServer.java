@@ -2,8 +2,8 @@ package jp.co.topgate.sekiguchi.kai.web.webServer;
 
 //フィルタをかけて流れてくるデータをバッファリングし、量がたまったら、一気に下流に流し込む
 
-import jp.co.topgate.sekiguchi.kai.web.model.WebApp;
-import jp.co.topgate.sekiguchi.kai.web.util.WebAppStorage;
+import jp.co.topgate.sekiguchi.kai.web.webApp.WebApp;
+import jp.co.topgate.sekiguchi.kai.web.webApp.WebAppStorage;
 
 import java.io.IOException;
 //TCP サーバーAPI、通常はクライアントソケットからの接続を 受け入れる
@@ -35,7 +35,14 @@ public class WebServer {
      */
     public static void main(String[] args) throws IOException {
         WebServer webServer = new WebServer();
-        webServer.initialize();
+        try {
+            webServer.initialize();
+        } catch (IOException e) {
+            System.err.println("エラー:" + e.getMessage());
+            e.printStackTrace();
+            e.getCause();
+        }
+
     }
 
     /**
@@ -49,7 +56,7 @@ public class WebServer {
         WebApp bulletinBoard = new WebApp();
 
         bulletinBoard.setHandlerName("/program/board/", "IndexHandler");
-        bulletinBoard.setHandlerName("/program/board/register/", "ResisterMessageHandler");
+        bulletinBoard.setHandlerName("/program/board/resister/", "ResisterMessageHandler");
         bulletinBoard.setHandlerName("/program/board/search/", "SearchMessageHandler");
         bulletinBoard.setHandlerName("/program/board/showAll/", "ShowAllMessageHandler");
         bulletinBoard.setHandlerName("/program/board/delete/", "DeleteMessageHandler");

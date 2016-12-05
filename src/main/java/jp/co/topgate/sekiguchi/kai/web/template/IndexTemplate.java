@@ -1,7 +1,7 @@
 package jp.co.topgate.sekiguchi.kai.web.template;
 
 import jp.co.topgate.sekiguchi.kai.web.model.Message;
-import jp.co.topgate.sekiguchi.kai.web.util.ModelStorage;
+import jp.co.topgate.sekiguchi.kai.web.model.ModelStorage;
 import jp.co.topgate.sekiguchi.kai.web.util.Session;
 
 /**
@@ -46,7 +46,7 @@ public class IndexTemplate implements Template {
         }
 
 
-        stringBuilder.append("<form action=\"/program/board/register/\" method=\"post\" accept-charset=\"UTF-8\">");
+        stringBuilder.append("<form action=\"/program/board/resister/\" method=\"post\" accept-charset=\"UTF-8\">");
         stringBuilder.append("<table>");
         stringBuilder.append("<tr>");
         stringBuilder.append("<th>ユーザーネーム:</th>");

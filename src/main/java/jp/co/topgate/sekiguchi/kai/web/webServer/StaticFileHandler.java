@@ -2,19 +2,19 @@ package jp.co.topgate.sekiguchi.kai.web.webServer;
 
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
+import jp.co.topgate.sekiguchi.kai.web.util.ResponseHeaderMaker;
+
 
 import java.io.*;
 
 /**
- * 全体のプログラムを制御するクラス
+ * 静的なファイルの処理の責任を持つクラス
  *
  * @author sekiguchikai
  */
 public class StaticFileHandler {
-
-
     /**
-     * リクエストメソッドがGETメソッドの場合の処理
+     * 静的なファイルの処理を行うメソッド
      *
      * @param httpRequest  HTTPRequestクラスのインスタンス
      * @param httpResponse HTTPResponseクラスのインスタンス
@@ -23,31 +23,19 @@ public class StaticFileHandler {
 
         String requestURI = httpRequest.getRequestURI();
 
-        File file;
-        String requestResource;
+        String requestResource = httpRequest.getRequestResource(requestURI);
 
-        if ((requestURI.endsWith("/")) || !(requestURI.substring(requestURI.lastIndexOf("/"), requestURI.length()).contains("."))) {
-            requestResource = "src/main/resources" + requestURI + "index.html";
-            file = new File(requestResource);
-        } else {
-            requestResource = "src/main/resources" + requestURI;
-            file = new File(requestResource);
-        }
+        String extension = httpRequest.getRequestResourceExtension(requestResource);
 
-        String extension = requestResource.substring(requestResource.lastIndexOf(".") + 1,
-                requestResource.lastIndexOf(""));
+        File file = new File(requestResource);
 
         if ((file.exists()) && (extension.equals("html") || extension.equals("css") || extension.equals("js") || (extension.equals("png") || extension.equals("jpeg") || extension.equals("gif")))) {
-            httpResponse.setStatusLine("HTTP/1.1 200 OK");
-            httpResponse.setResponseHeader(extension);
-            httpResponse.setResponseBody(this.readFile(file));
+            httpResponse.sendResponse("HTTP/1.1 200 OK", ResponseHeaderMaker.makeContentType(extension), this.readFile(file));
+
         } else {
-            httpResponse.setStatusLine("HTTP/1.1 404 Not Found");
-            httpResponse.setResponseHeader("html");
-            httpResponse.setResponseBody("404 Not Found".getBytes());
+            httpResponse.sendResponse("HTTP/1.1 404 Not Found", ResponseHeaderMaker.makeContentType("html"), "404 Not Found".getBytes());
         }
 
-        httpResponse.sendResponse();
 
     }
 
@@ -91,4 +79,3 @@ public class StaticFileHandler {
 
 
 }
-

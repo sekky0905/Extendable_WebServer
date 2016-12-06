@@ -189,10 +189,11 @@ public class HTTPRequest {
 
     /**
      * リクエストURIから要求されているファイルを返すメソッド
+     *
      * @param requestURI リクエストURI
      * @return 要求されているファイル
      */
-    public String getRequestResource(String requestURI){
+    public String getRequestResource(String requestURI) {
         String requestResource;
         if ((requestURI.endsWith("/")) || !(requestURI.substring(requestURI.lastIndexOf("/"), requestURI.length()).contains("."))) {
             requestResource = "src/main/resources" + requestURI + "index.html";
@@ -207,9 +208,11 @@ public class HTTPRequest {
 
     /**
      * 指定されたファイルの拡張子を返すメソッド
+     *
      * @return 指定されたファイルの拡張子
      */
-    public String getRequestResourceExtension(String requestResource){
+    public String getRequestResourceExtension(String requestResource) {
+
         String extension = requestResource.substring(requestResource.lastIndexOf(".") + 1,
                 requestResource.lastIndexOf(""));
         System.out.println("ファイルの拡張子は" + extension);

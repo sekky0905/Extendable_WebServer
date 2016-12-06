@@ -5,8 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URLDecoder;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * クライアントからのTTPリクエストに関する責務を持つクラス
@@ -158,25 +157,21 @@ public class HTTPRequest {
      */
     public void setRequestParameter(String queryString) {
         try {
-            String[] parameter;
+            List<String> paramList = new ArrayList<>();
             if (queryString.contains("&")) {
-                parameter = queryString.split("&");
-                for (String param : parameter) {
-                    String piece[] = param.split("=");
-                    if (piece.length == 2) {
-                        this.requestParameter.put(piece[0], URLDecoder.decode(piece[1], "UTF-8"));
-                    } else if (piece.length == 1) {
-                        this.requestParameter.put(piece[0], "");
-                    }
-
-                }
+                paramList = Arrays.asList(queryString.split("&"));
             } else {
-                String piece[] = queryString.split("=");
+                paramList.add(queryString);
+            }
+
+            for (String param : paramList) {
+                String piece[] = param.split("=");
                 if (piece.length == 2) {
                     this.requestParameter.put(piece[0], URLDecoder.decode(piece[1], "UTF-8"));
-                } else if (piece.length == 1) {
+                } else if (piece.length == 1 || piece.length == 0) {
                     this.requestParameter.put(piece[0], "");
                 }
+
             }
 
         } catch (IOException e) {

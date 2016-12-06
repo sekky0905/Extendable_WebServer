@@ -166,7 +166,7 @@ public class HTTPRequest {
                     if (piece.length == 2) {
                         this.requestParameter.put(piece[0], URLDecoder.decode(piece[1], "UTF-8"));
                     } else if (piece.length == 1) {
-                        this.requestParameter.put(piece[0], "エラー!文字を入力してください");
+                        this.requestParameter.put(piece[0], "");
                     }
 
                 }
@@ -175,7 +175,7 @@ public class HTTPRequest {
                 if (piece.length == 2) {
                     this.requestParameter.put(piece[0], URLDecoder.decode(piece[1], "UTF-8"));
                 } else if (piece.length == 1) {
-                    this.requestParameter.put(piece[0], "エラー!文字を入力してください");
+                    this.requestParameter.put(piece[0], "");
                 }
             }
 

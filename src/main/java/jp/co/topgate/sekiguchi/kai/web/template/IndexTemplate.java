@@ -80,7 +80,6 @@ public class IndexTemplate implements Template {
         stringBuilder.append("</form>");
 
 
-        // ここ
         stringBuilder.append("<form action=\"/program/board/showAll/\" method=\"post\" accept-charset=\"UTF-8\">");
         stringBuilder.append("<input type=\"hidden\" name=\"token\" value=\"" + Session.getToken() + "\">");
         stringBuilder.append("<p>");
@@ -115,39 +114,35 @@ public class IndexTemplate implements Template {
             String name;
             String comment;
 
-            if (message.getName().equals("エラー!文字を入力してください")) {
+            if (message.getName().equals("") || message.getComment().equals("")) {
                 stringBuilder.append("<table style=\"background-color:red;\">");
                 name = " style=\"color:yellow;\"> ユーザーネームが入力されていません";
                 comment = " style=\"color:yellow;\"> この書き込みを削除してください";
             } else {
                 stringBuilder.append("<table>");
-                name = ">" + XSSMeasure.sanitize(message.getName());
-                comment = ">" + XSSMeasure.sanitize(message.getComment());
+                stringBuilder.append("<tr>");
+                stringBuilder.append("<th>投稿日時:</th>");
+                stringBuilder.append("<td>" + message.getAtTime() + "</td>");
+                stringBuilder.append("</tr>");
+
+                stringBuilder.append("<tr>");
+                stringBuilder.append("<th>ユーザーネーム:</th>");
+                stringBuilder.append("<td>" + XSSMeasure.sanitize(message.getName()) + "</td>");
+                stringBuilder.append("</tr>");
+
+                stringBuilder.append("<tr>");
+                stringBuilder.append("<th>コメント</th>");
+                stringBuilder.append("<td>" + XSSMeasure.sanitize(message.getComment()) + "</td>");
+                stringBuilder.append("</tr>");
+                stringBuilder.append("</table>");
+                stringBuilder.append("<form action=\"/program/board/delete/\" method=\"post\" accept-charset=\"UTF-8\">");
+                stringBuilder.append("<input type=\"hidden\" name=\"token\" value=\"" + Session.getToken() + "\">");
+                stringBuilder.append("<p>");
+                stringBuilder.append("<input type=\"hidden\" name =\"delete\" value=" + i + ">");
+                stringBuilder.append("<input type=\"submit\"  value=\" 削除 \"");
+                stringBuilder.append("</p>");
+                stringBuilder.append("</form>");
             }
-            stringBuilder.append("<tr>");
-            stringBuilder.append("<th>投稿日時:</th>");
-            stringBuilder.append("<td>" + message.getAtTime() + "</td>");
-            stringBuilder.append("</tr>");
-
-            stringBuilder.append("<tr>");
-            stringBuilder.append("<th>ユーザーネーム:</th>");
-            stringBuilder.append("<td" + name + "</td>");
-            stringBuilder.append("</tr>");
-
-            stringBuilder.append("<tr>");
-            stringBuilder.append("<th>コメント</th>");
-            stringBuilder.append("<td" + comment + "</td>");
-            stringBuilder.append("</tr>");
-            stringBuilder.append("</table>");
-
-
-            stringBuilder.append("<form action=\"/program/board/delete/\" method=\"post\" accept-charset=\"UTF-8\">");
-            stringBuilder.append("<input type=\"hidden\" name=\"token\" value=\"" + Session.getToken() + "\">");
-            stringBuilder.append("<p>");
-            stringBuilder.append("<input type=\"hidden\" name =\"delete\" value=" + i + ">");
-            stringBuilder.append("<input type=\"submit\"  value=\" 削除 \"");
-            stringBuilder.append("</p>");
-            stringBuilder.append("</form>");
 
 
         }

@@ -27,7 +27,7 @@ public class ResponseHeaderMaker {
         String contentType = contentTypeMap.get(fileExtension);
 
         if (contentType == null) {
-            contentType = "Content-Type: text/html" + "\n";
+            contentType = "Content-Type: multipart/form-data" + "\n";
         }
 
         System.out.println("レスポンスヘッダは" + contentType);

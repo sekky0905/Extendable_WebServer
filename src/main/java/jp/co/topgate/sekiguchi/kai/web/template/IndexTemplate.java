@@ -51,11 +51,11 @@ public class IndexTemplate implements Template {
         stringBuilder.append("<table>");
         stringBuilder.append("<tr>");
         stringBuilder.append("<th>ユーザーネーム:</th>");
-        stringBuilder.append("<td><input type=\"text\" name=\"name\" size=\"40\"></td>");
+        stringBuilder.append("<td><input type=\"text\" name=\"name\" maxlength=\"20\" size=\"40\"></td>");
         stringBuilder.append("</tr>");
         stringBuilder.append("<tr>");
         stringBuilder.append("<th>コメント</th>");
-        stringBuilder.append("<td><textarea name=\"comment\" rows=\"4\" cols=\"40\" placeholder=\"ここにコメントを記入してください\"></textarea></td>");
+        stringBuilder.append("<td><textarea name=\"comment\" rows=\"4\" cols=\"40\" maxlength=\"1000\" placeholder=\"ここにコメントを記入してください\"></textarea></td>");
         stringBuilder.append("</tr>");
         stringBuilder.append("</table>");
         stringBuilder.append("<input type=\"hidden\" name=\"token\" value=\"" + Session.getToken() + "\">");

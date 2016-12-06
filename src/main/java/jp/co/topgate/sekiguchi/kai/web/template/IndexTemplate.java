@@ -111,14 +111,9 @@ public class IndexTemplate implements Template {
                 message = (Message) ModelStorage.getTempoList(i);
             }
 
-            String name;
-            String comment;
 
-            if (message.getName().equals("") || message.getComment().equals("")) {
-                stringBuilder.append("<table style=\"background-color:red;\">");
-                name = " style=\"color:yellow;\"> ユーザーネームが入力されていません";
-                comment = " style=\"color:yellow;\"> この書き込みを削除してください";
-            } else {
+            if (!(message.getName().equals("") || message.getComment().equals(""))) {
+
                 stringBuilder.append("<table>");
                 stringBuilder.append("<tr>");
                 stringBuilder.append("<th>投稿日時:</th>");

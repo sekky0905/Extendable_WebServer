@@ -3,6 +3,7 @@ package jp.co.topgate.sekiguchi.kai.web.template;
 import jp.co.topgate.sekiguchi.kai.web.model.Message;
 import jp.co.topgate.sekiguchi.kai.web.model.ModelStorage;
 import jp.co.topgate.sekiguchi.kai.web.util.Session;
+import jp.co.topgate.sekiguchi.kai.web.util.XSSMeasure;
 
 /**
  * Created by sekiguchikai on 2016/11/22.
@@ -120,8 +121,8 @@ public class IndexTemplate implements Template {
                 comment = " style=\"color:yellow;\"> この書き込みを削除してください";
             } else {
                 stringBuilder.append("<table>");
-                name = ">" + message.getName();
-                comment = ">" + message.getComment();
+                name = ">" + XSSMeasure.sanitize(message.getName());
+                comment = ">" + XSSMeasure.sanitize(message.getComment());
             }
             stringBuilder.append("<tr>");
             stringBuilder.append("<th>投稿日時:</th>");

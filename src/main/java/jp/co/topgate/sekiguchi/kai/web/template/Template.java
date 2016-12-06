@@ -6,4 +6,5 @@ package jp.co.topgate.sekiguchi.kai.web.template;
 public interface Template {
 
     byte[] writeHTML();
+
 }

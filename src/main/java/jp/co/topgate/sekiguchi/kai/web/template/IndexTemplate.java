@@ -50,11 +50,11 @@ public class IndexTemplate implements Template {
         stringBuilder.append("<form action=\"/program/board/resister/\" method=\"post\" accept-charset=\"UTF-8\">");
         stringBuilder.append("<table>");
         stringBuilder.append("<tr>");
-        stringBuilder.append("<th>ユーザーネーム:</th>");
+        stringBuilder.append("<th>ユーザーネーム(20文字まで):</th>");
         stringBuilder.append("<td><input type=\"text\" name=\"name\" maxlength=\"20\" size=\"40\"></td>");
         stringBuilder.append("</tr>");
         stringBuilder.append("<tr>");
-        stringBuilder.append("<th>コメント</th>");
+        stringBuilder.append("<th>コメント(1000文字まで)</th>");
         stringBuilder.append("<td><textarea name=\"comment\" rows=\"4\" cols=\"40\" maxlength=\"1000\" placeholder=\"ここにコメントを記入してください\"></textarea></td>");
         stringBuilder.append("</tr>");
         stringBuilder.append("</table>");

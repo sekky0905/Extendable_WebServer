@@ -3,6 +3,7 @@ package jp.co.topgate.sekiguchi.kai.web.webServer;
 import jp.co.topgate.sekiguchi.kai.web.handler.Handler;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
+import jp.co.topgate.sekiguchi.kai.web.template.ErrorTemplate;
 import jp.co.topgate.sekiguchi.kai.web.util.ResponseHeaderMaker;
 import jp.co.topgate.sekiguchi.kai.web.webApp.WebApp;
 import jp.co.topgate.sekiguchi.kai.web.template.IndexTemplate;
@@ -71,7 +72,8 @@ public class ServerThread extends Thread {
                     handler.handleGET(httpRequest, httpResponse);
                 } else if (httpRequest.getRequestMethod().equals("GET") && (WebApp.checkHandlerNameExistence(requestURI))) {
                     httpResponse.setStatusLine(HTTPResponse.SC_NOT_FOUND);
-                    httpResponse.sendResponse(ResponseHeaderMaker.makeContentType("html"), "404 Not Found".getBytes());
+                    Template template = new ErrorTemplate();
+                    httpResponse.sendResponse(ResponseHeaderMaker.makeContentType("html"), template.writeHTML());
                 } else if ((httpRequest.getRequestMethod().equals("POST")) && (Session.confirmToken(httpRequest.getRequestParameter("token")))) {
                     handler.handlePOST(httpRequest, httpResponse);
 

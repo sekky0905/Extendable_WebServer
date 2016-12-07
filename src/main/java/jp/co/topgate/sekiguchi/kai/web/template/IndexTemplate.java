@@ -72,7 +72,7 @@ public class IndexTemplate implements Template {
         stringBuilder.append("<table>");
         stringBuilder.append("<tr>");
         stringBuilder.append("<th>ユーザーネーム:</th>");
-        stringBuilder.append("<td><input type=\"text\" name=\"searchName\"></td>");
+        stringBuilder.append("<td><input type=\"text\" name=\"searchName\" maxlength=\"20\"></td>");
         stringBuilder.append("</tr>");
         stringBuilder.append("</table>");
         stringBuilder.append("<input type=\"hidden\" name=\"token\" value=\"" + Session.getToken() + "\">");

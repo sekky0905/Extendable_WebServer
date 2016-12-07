@@ -21,14 +21,29 @@ import org.junit.Test;
 public class HTTPResponseTest {
 
     /**
-     * SetResponseHeaderメソッドをテストするクラス¥
+     * setStatusLineメソッドとgetStatusLineメソッドをテストするメソッド
+     */
+    @Test
+    public void setStatusLine() {
+        OutputStream outputStream = new ByteArrayOutputStream();
+        HTTPResponse httpResponse = new HTTPResponse(outputStream);
+        httpResponse.setStatusLine(HTTPResponse.SC_OK);
+        assertThat(HTTPResponse.getStatusLine(), is("HTTP/1.1 200 OK"));
+
+
+    }
+
+    /**
+     * SetResponseHeaderメソッドをテストするメソッド
      */
     @Test
     public void testSendResponse() {
         OutputStream outputStream = new ByteArrayOutputStream();
         HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
-        httpResponse.sendResponse("HTTP/1.1 200 OK", "Content-Type: text/html", "テスト".getBytes());
+
+        httpResponse.setStatusLine(HTTPResponse.SC_OK);
+        httpResponse.sendResponse("Content-Type: text/html", "テスト".getBytes());
 
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(
                 ((ByteArrayOutputStream) outputStream).toByteArray());
@@ -57,6 +72,4 @@ public class HTTPResponseTest {
 
 
 }
-
-
 

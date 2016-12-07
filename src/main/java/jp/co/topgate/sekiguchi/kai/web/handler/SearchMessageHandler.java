@@ -18,9 +18,6 @@ public class SearchMessageHandler extends Handler {
      * @param httpResponse レスポンス
      */
     public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) {
-        String queryString = httpRequest.getQueryString(httpRequest.getRequestMethod());
-        httpRequest.setRequestParameter(queryString);
-
         ModelStorage.chooseModelList(false);
         String name = httpRequest.getRequestParameter("searchName");
         ModelStorage.searchModel(name);

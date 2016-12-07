@@ -17,10 +17,6 @@ public class DeleteMessageHandler extends Handler {
      * @param httpResponse レスポンス
      */
     public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) {
-
-        String queryString = httpRequest.getQueryString(httpRequest.getRequestMethod());
-        httpRequest.setRequestParameter(queryString);
-
         ModelStorage.chooseModelList(true);
         int modelIndex = Integer.parseInt(httpRequest.getRequestParameter("delete"));
         ModelStorage.removeModel(modelIndex);

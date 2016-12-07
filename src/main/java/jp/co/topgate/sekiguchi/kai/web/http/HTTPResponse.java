@@ -1,12 +1,9 @@
 package jp.co.topgate.sekiguchi.kai.web.http;
 
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * クライアントへ送信するHTTPレスポンスに関する責務を持つクラス
@@ -22,6 +19,26 @@ public class HTTPResponse {
 
 
     /**
+     * リクエストが正常に成功したことを示すステータスコード (200)
+     */
+    public static final String SC_OK = "HTTP/1.1 200 OK";
+
+    /**
+     * リクエストされたリソースが利用可能でないことを示すステータスコード
+     */
+    public static final String SC_NOT_FOUND = "HTTP/1.1 404 Not Found";
+
+    /**
+     * ステータスライン
+     */
+    private static String statusLine;
+
+    /**
+     * HTTP サーバの内部エラーを示すステータスコード (500)
+     */
+    public static final String SC_INTERNAL_SERVER_ERROR = "HTTP/1.1 500 Internal Server Error";
+
+    /**
      * コンストラクタ
      *
      * @param outputStream アウトプットストリーム
@@ -30,17 +47,35 @@ public class HTTPResponse {
         this.outputStream = outputStream;
     }
 
+    /**
+     * ステータスコードを引数にステータスラインを設定するメソッド
+     *
+     * @param statusCode ステータスコード
+     */
+    public void setStatusLine(String statusCode) {
+        HTTPResponse.statusLine = statusCode;
+    }
+
+    /**
+     * ステータスコードを引数にステータスラインを設定するメソッド
+     *
+     * @return ステータスライン
+     */
+    public static String getStatusLine() {
+        return HTTPResponse.statusLine;
+    }
+
 
     /**
      * クライアントにレスポンスを送信するためのメソッド
      */
-    public void sendResponse(String statusLine, String requestHeader, byte[] responseBody) {
+    public void sendResponse(String requestHeader, byte[] responseBody) {
         try {
             System.out.println("クライアントに送信を開始します");
             DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
 
             // 引数で受け取ったステータスラインとレスポンスヘッダを結合
-            byte[] responseHead = (statusLine + "\n" + requestHeader + "\n").getBytes();
+            byte[] responseHead = (this.statusLine + "\n" + requestHeader + "\n").getBytes();
 
 
             byte[] responseContents = new byte[responseHead.length + responseBody.length];

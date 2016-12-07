@@ -45,7 +45,15 @@ public class ServerThread extends Thread {
 
             String requestURI = httpRequest.getRequestURI();
             String queryString = httpRequest.getQueryString(httpRequest.getRequestMethod());
-            httpRequest.setRequestParameter(queryString);
+
+            try {
+                httpRequest.setRequestParameter(queryString);
+            } catch (IOException e) {
+                System.err.println("エラー:" + e.getMessage());
+                e.getCause();
+                e.printStackTrace();
+            }
+
 
             // Webサーバ
             if (!(WebApp.checkHandlerNameExistence(requestURI))) {
@@ -62,15 +70,18 @@ public class ServerThread extends Thread {
                 if (requestURI.equals("/program/board/")) {
                     handler.handleGET(httpRequest, httpResponse);
                 } else if (httpRequest.getRequestMethod().equals("GET") && (WebApp.checkHandlerNameExistence(requestURI))) {
-                    httpResponse.sendResponse("HTTP/1.1 404 Not Found", ResponseHeaderMaker.makeContentType("html"), "404 Not Found".getBytes());
+                    httpResponse.setStatusLine(HTTPResponse.SC_NOT_FOUND);
+                    httpResponse.sendResponse(ResponseHeaderMaker.makeContentType("html"), "404 Not Found".getBytes());
                 } else if ((httpRequest.getRequestMethod().equals("POST")) && (Session.confirmToken(httpRequest.getRequestParameter("token")))) {
                     handler.handlePOST(httpRequest, httpResponse);
 
                     Template template = new IndexTemplate();
-                    httpResponse.sendResponse("HTTP/1.1 200 OK", ResponseHeaderMaker.makeContentType("html"), template.writeHTML());
+                    httpResponse.setStatusLine(HTTPResponse.SC_OK);
+                    httpResponse.sendResponse(ResponseHeaderMaker.makeContentType("html"), template.writeHTML());
                 } else {
                     Template template = new IndexTemplate();
-                    httpResponse.sendResponse("HTTP/1.1 200 OK", ResponseHeaderMaker.makeContentType("html"), template.writeHTML());
+                    httpResponse.setStatusLine(HTTPResponse.SC_OK);
+                    httpResponse.sendResponse(ResponseHeaderMaker.makeContentType("html"), template.writeHTML());
                 }
 
 

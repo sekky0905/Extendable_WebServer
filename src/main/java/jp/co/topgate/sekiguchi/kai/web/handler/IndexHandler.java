@@ -23,7 +23,8 @@ public class IndexHandler extends Handler {
 
         Session.generateToken();
 
-        httpResponse.sendResponse("HTTP/1.1 200 OK", ResponseHeaderMaker.makeContentType("html"), indexTemplate.writeHTML());
+        httpResponse.setStatusLine(HTTPResponse.SC_OK);
+        httpResponse.sendResponse(ResponseHeaderMaker.makeContentType("html"), indexTemplate.writeHTML());
 
     }
 }

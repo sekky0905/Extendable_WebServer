@@ -3,6 +3,7 @@ package jp.co.topgate.sekiguchi.kai.web.webServer;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import static org.junit.Assert.*;
@@ -30,9 +31,14 @@ public class StaticFileHandlerTest {
             String fileContents = null;
             try {
                 fileContents = new String(staticFileHandler.readFile(file), "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                System.err.println("エラー:" + e.getMessage());
-                e.printStackTrace();
+            } catch (UnsupportedEncodingException uee) {
+                System.err.println("エラー:" + uee.getMessage());
+                uee.getCause();
+                uee.printStackTrace();
+            } catch (IOException ie) {
+                System.err.println("エラー:" + ie.getMessage());
+                ie.getCause();
+                ie.printStackTrace();
             }
 
             System.out.println(fileContents);

@@ -1,9 +1,6 @@
 package jp.co.topgate.sekiguchi.kai.web.http;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URLDecoder;
 import java.util.*;
 
@@ -116,6 +113,15 @@ public class HTTPRequest {
         } else {
             requestURI = requestLine[1];
         }
+
+        try {
+            requestURI = URLDecoder.decode(requestURI, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            System.err.println("エラー:" + e.getMessage());
+            e.getCause();
+            e.printStackTrace();
+        }
+
         System.out.print("リクエストURIは" + requestURI);
 
         return requestURI;

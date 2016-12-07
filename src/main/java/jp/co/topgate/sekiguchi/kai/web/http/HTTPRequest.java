@@ -104,7 +104,7 @@ public class HTTPRequest {
      *
      * @return リクエストURIを返す
      */
-    public String getRequestURI() {
+    public String getRequestURI() throws UnsupportedEncodingException {
 
         String requestURI;
 
@@ -114,13 +114,8 @@ public class HTTPRequest {
             requestURI = requestLine[1];
         }
 
-        try {
-            requestURI = URLDecoder.decode(requestURI, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            System.err.println("エラー:" + e.getMessage());
-            e.getCause();
-            e.printStackTrace();
-        }
+        requestURI = URLDecoder.decode(requestURI, "UTF-8");
+
 
         System.out.print("リクエストURIは" + requestURI);
 
@@ -161,31 +156,24 @@ public class HTTPRequest {
      *
      * @param queryString クエリストリング
      */
-    public void setRequestParameter(String queryString) {
-        try {
-            List<String> paramList = new ArrayList<>();
-            if (queryString.contains("&")) {
-                paramList = Arrays.asList(queryString.split("&"));
-            } else {
-                paramList.add(queryString);
-            }
+    public void setRequestParameter(String queryString) throws IOException {
 
-            for (String param : paramList) {
-                String piece[] = param.split("=");
-                if (piece.length == 2) {
-                    this.requestParameter.put(piece[0], URLDecoder.decode(piece[1], "UTF-8"));
-                } else if (piece.length == 1 || piece.length == 0) {
-                    this.requestParameter.put(piece[0], "");
-                }
-
-            }
-
-        } catch (IOException e) {
-            System.err.println("エラー:" + e.getMessage());
-            e.getCause();
-            e.printStackTrace();
+        List<String> paramList = new ArrayList<>();
+        if (queryString.contains("&")) {
+            paramList = Arrays.asList(queryString.split("&"));
+        } else {
+            paramList.add(queryString);
         }
 
+        for (String param : paramList) {
+            String piece[] = param.split("=");
+            if (piece.length == 2) {
+                this.requestParameter.put(piece[0], URLDecoder.decode(piece[1], "UTF-8"));
+            } else if (piece.length == 1 || piece.length == 0) {
+                this.requestParameter.put(piece[0], "");
+            }
+
+        }
     }
 
     /**

@@ -21,9 +21,6 @@ public class ResisterMessageHandler extends Handler {
      * @param httpResponse レスポンス
      */
     public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) {
-        String queryString = httpRequest.getQueryString(httpRequest.getRequestMethod());
-        httpRequest.setRequestParameter(queryString);
-
         ModelStorage.chooseModelList(true);
         String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now());
         String name = httpRequest.getRequestParameter("name");

@@ -5,7 +5,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import org.junit.Test;
@@ -135,8 +137,14 @@ public class HTTPRequestTest {
             InputStream inputStream = new ByteArrayInputStream(socketContentsArray[i].getBytes());
             HTTPRequest httpRequest = new HTTPRequest(inputStream);
 
+            try {
+                assertThat(httpRequest.getRequestURI(), is(expRequestURIArray[i]));
+            } catch (UnsupportedEncodingException e) {
+                System.err.println("エラー:" + e.getMessage());
+                e.getCause();
+                e.printStackTrace();
+            }
 
-            assertThat(httpRequest.getRequestURI(), is(expRequestURIArray[i]));
 
         }
     }
@@ -224,7 +232,13 @@ public class HTTPRequestTest {
             InputStream inputStream = new ByteArrayInputStream(requestContentsArray[i].getBytes());
             HTTPRequest httpRequest = new HTTPRequest(inputStream);
 
-            httpRequest.setRequestParameter(httpRequest.getQueryString(httpRequest.getRequestMethod()));
+            try {
+                httpRequest.setRequestParameter(httpRequest.getQueryString(httpRequest.getRequestMethod()));
+            } catch (IOException e) {
+                System.err.println("エラー:" + e.getMessage());
+                e.getCause();
+                e.printStackTrace();
+            }
 
             assertThat(httpRequest.getRequestParameter("name"), is(expRequestParamArray[i]));
 

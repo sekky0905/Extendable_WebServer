@@ -42,11 +42,6 @@ public class Session {
      * @return 受け取ったtokenが、以前発行したtokenと同じものであるかの真偽値
      */
     public static boolean confirmToken(String acceptToken) {
-        boolean same;
-        if (acceptToken.equals(Session.token)) {
-            return same = true;
-        } else {
-            return same = false;
-        }
+        return acceptToken.equals(Session.token);
     }
 }

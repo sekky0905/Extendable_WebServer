@@ -19,7 +19,7 @@ class ServerThread extends Thread {
     /**
      * socket
      */
-    private Socket socket;
+    private final Socket socket;
 
     /**
      * コンストラクタ

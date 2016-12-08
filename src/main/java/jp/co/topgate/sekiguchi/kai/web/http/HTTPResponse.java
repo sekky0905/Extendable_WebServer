@@ -75,7 +75,7 @@ public class HTTPResponse {
             DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
 
             // 引数で受け取ったステータスラインとレスポンスヘッダを結合
-            byte[] responseHead = (this.statusLine + "\n" + requestHeader + "\n").getBytes();
+            byte[] responseHead = (statusLine + "\n" + requestHeader + "\n").getBytes();
 
 
             byte[] responseContents = new byte[responseHead.length + responseBody.length];

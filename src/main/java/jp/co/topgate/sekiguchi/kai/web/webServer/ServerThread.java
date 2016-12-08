@@ -19,7 +19,7 @@ import java.net.Socket;
  * 1つのスレッドを表すクラス
  * Created by sekiguchikai on 2016/12/02.
  */
-public class ServerThread extends Thread {
+class ServerThread extends Thread {
     /**
      * socket
      */
@@ -28,7 +28,7 @@ public class ServerThread extends Thread {
     /**
      * コンストラクタ
      */
-    public ServerThread(Socket socket) {
+    ServerThread(Socket socket) {
         this.socket = socket;
         System.out.println("クライアントに接続されました " + socket.getRemoteSocketAddress());
     }
@@ -99,6 +99,8 @@ public class ServerThread extends Thread {
                     this.socket.close();
                 }
             } catch (IOException e) {
+                System.err.println("エラー:" + e.getMessage());
+                e.printStackTrace();
             }
             System.out.println("クライアントとの通信を切断しました "
                     + socket.getRemoteSocketAddress());

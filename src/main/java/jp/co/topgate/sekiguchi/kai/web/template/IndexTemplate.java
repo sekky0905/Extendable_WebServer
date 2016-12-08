@@ -6,6 +6,7 @@ import jp.co.topgate.sekiguchi.kai.web.util.Session;
 import jp.co.topgate.sekiguchi.kai.web.util.XSSMeasure;
 
 /**
+ * 正常な時のTemplateを表すクラス
  * Created by sekiguchikai on 2016/11/22.
  */
 public class IndexTemplate implements Template {

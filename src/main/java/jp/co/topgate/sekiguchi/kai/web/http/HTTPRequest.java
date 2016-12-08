@@ -40,50 +40,46 @@ public class HTTPRequest {
      */
     public HTTPRequest(InputStream inputStream) {
         this.inputStream = inputStream;
-        this.setRequestContents();
+        try {
+            this.setRequestContents();
+        } catch (IOException e) {
+            System.err.println("エラー:" + e.getMessage());
+            e.getCause();
+            e.getStackTrace();
+        }
     }
 
 
     /**
      * リクエストの全文を読み込むメソッド
      */
-    public void setRequestContents() {
+    public void setRequestContents() throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.inputStream));
 
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.inputStream));
+        String line = bufferedReader.readLine();
+        this.requestLine = line.split(" ");
 
-            String line = bufferedReader.readLine();
-            this.requestLine = line.split(" ");
-            System.out.println("リクエストラインは" + this.requestLine);
+        StringBuilder stringBuilder = new StringBuilder();
+        int contentLength = 0;
 
-            StringBuilder stringBuilder = new StringBuilder();
-            int contentLength = 0;
-
-            while (line != null && !line.isEmpty()) {
-                if (line.startsWith("Content-Length")) {
-                    contentLength = Integer.parseInt(line.split(":")[1].trim());
-                }
-
-                stringBuilder.append(line + "\n");
-                line = bufferedReader.readLine();
+        while (line != null && !line.isEmpty()) {
+            if (line.startsWith("Content-Length")) {
+                contentLength = Integer.parseInt(line.split(":")[1].trim());
             }
 
-            String requestHeader = new String(stringBuilder);
-            System.out.print("リクエストヘッダは" + requestHeader);
-
-            if (0 < contentLength) {
-                char[] c = new char[contentLength];
-                bufferedReader.read(c);
-                this.requestBody = new String(c) + "\n";
-                System.out.print("リクエストボディは" + this.requestBody);
-            }
-
-        } catch (IOException e) {
-            System.err.println("エラー:" + e.getMessage());
-            e.getCause();
-            e.getStackTrace();
+            stringBuilder.append(line + "\n");
+            line = bufferedReader.readLine();
         }
 
+        String requestHeader = new String(stringBuilder);
+        System.out.print("リクエストヘッダは" + requestHeader);
+
+        if (0 < contentLength) {
+            char[] c = new char[contentLength];
+            bufferedReader.read(c);
+            this.requestBody = new String(c) + "\n";
+            System.out.print("リクエストボディは" + this.requestBody);
+        }
 
     }
 

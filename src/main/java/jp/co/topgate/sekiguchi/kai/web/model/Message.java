@@ -1,6 +1,7 @@
 package jp.co.topgate.sekiguchi.kai.web.model;
 
 /**
+ * 1つのMessageを表すクラス
  * Created by sekiguchikai on 2016/11/22.
  */
 public class Message extends Model {

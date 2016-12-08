@@ -3,6 +3,7 @@ package jp.co.topgate.sekiguchi.kai.web.template;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
 
 /**
+ * エラーの際のTemplateを表すクラス
  * Created by sekiguchikai on 2016/12/07.
  */
 public class ErrorTemplate implements Template {

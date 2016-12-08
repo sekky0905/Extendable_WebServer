@@ -21,7 +21,7 @@ public class StaticFileHandler {
      * @param httpRequest  HTTPRequestクラスのインスタンス
      * @param httpResponse HTTPResponseクラスのインスタンス
      */
-    public void ProcessWebServer(HTTPRequest httpRequest, HTTPResponse httpResponse) {
+    void ProcessWebServer(HTTPRequest httpRequest, HTTPResponse httpResponse) {
         String requestURI = null;
         try {
             requestURI = httpRequest.getRequestURI();
@@ -67,7 +67,7 @@ public class StaticFileHandler {
      *
      * @return 読み込んだファイルのバイナリデータ
      */
-    public byte[] readFile(File file) throws IOException {
+    byte[] readFile(File file) throws IOException {
 
         System.out.println("ファイルの読み込みを始めます");
 
@@ -85,9 +85,6 @@ public class StaticFileHandler {
         }
         byte[] byteContents = byteArrayOutputStream.toByteArray();
         inputStream.close();
-
-
-        System.out.println("レスポンスボディは" + byteContents);
 
         return byteContents;
 

@@ -111,14 +111,14 @@ public class ModelStorage {
     /**
      * modelListに保持している全てのインスタンスを削除するメソッド
      */
-    public static void removeAllModel() {
+    static void removeAllModel() {
         ModelStorage.modelList.clear();
     }
 
     /**
      * tempoListに保持している全てのインスタンスを削除するメソッド
      */
-    public static void removeAllTempo() {
+    private static void removeAllTempo() {
         ModelStorage.tempoList.clear();
     }
 

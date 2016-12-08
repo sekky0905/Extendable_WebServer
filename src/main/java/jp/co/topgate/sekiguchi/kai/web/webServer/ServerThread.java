@@ -1,14 +1,10 @@
 package jp.co.topgate.sekiguchi.kai.web.webServer;
 
-import jp.co.topgate.sekiguchi.kai.web.handler.Handler;
-import jp.co.topgate.sekiguchi.kai.web.handler.StaticFileHandler;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
-import jp.co.topgate.sekiguchi.kai.web.template.ErrorTemplate;
 import jp.co.topgate.sekiguchi.kai.web.util.ResponseHeaderMaker;
 import jp.co.topgate.sekiguchi.kai.web.webApp.WebApp;
-import jp.co.topgate.sekiguchi.kai.web.template.IndexTemplate;
-import jp.co.topgate.sekiguchi.kai.web.template.Template;
+import jp.co.topgate.sekiguchi.kai.web.webApp.bulletin_board.IndexTemplate;
 import jp.co.topgate.sekiguchi.kai.web.util.Session;
 
 import java.io.IOException;
@@ -74,17 +70,17 @@ class ServerThread extends Thread {
                 } else if (httpRequest.getRequestMethod().equals("GET") && (WebApp.checkHandlerNameExistence(requestURI))) {
                     httpResponse.setStatusLine(HTTPResponse.SC_NOT_FOUND);
                     Template template = new ErrorTemplate();
-                    httpResponse.sendResponse(ResponseHeaderMaker.makeContentType("html"), template.writeHTML());
+                    httpResponse.sendResponse("html", template.writeHTML());
                 } else if ((httpRequest.getRequestMethod().equals("POST")) && (Session.confirmToken(httpRequest.getRequestParameter("token")))) {
                     handler.handlePOST(httpRequest, httpResponse);
 
                     Template template = new IndexTemplate();
                     httpResponse.setStatusLine(HTTPResponse.SC_OK);
-                    httpResponse.sendResponse(ResponseHeaderMaker.makeContentType("html"), template.writeHTML());
+                    httpResponse.sendResponse("html", template.writeHTML());
                 } else {
                     Template template = new IndexTemplate();
                     httpResponse.setStatusLine(HTTPResponse.SC_OK);
-                    httpResponse.sendResponse(ResponseHeaderMaker.makeContentType("html"), template.writeHTML());
+                    httpResponse.sendResponse("html", template.writeHTML());
                 }
 
 

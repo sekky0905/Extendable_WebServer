@@ -1,10 +1,11 @@
-package jp.co.topgate.sekiguchi.kai.web.handler;
+package jp.co.topgate.sekiguchi.kai.web.webApp.bulletin_board.handler;
 
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
 
-import jp.co.topgate.sekiguchi.kai.web.model.MessageStorage;
+import jp.co.topgate.sekiguchi.kai.web.webApp.bulletin_board.model.MessageStorage;
 import jp.co.topgate.sekiguchi.kai.web.util.Session;
+import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
 
 /**
  * "/program/board/delete/"に紐づくHandlerを表すクラス

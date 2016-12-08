@@ -4,6 +4,8 @@ package jp.co.topgate.sekiguchi.kai.web.http;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * クライアントへ送信するHTTPレスポンスに関する責務を持つクラス
@@ -65,17 +67,44 @@ public class HTTPResponse {
         return HTTPResponse.statusLine;
     }
 
+    /**
+     * レスポンスヘッダのContent-Typeを設定するメソッド
+     *
+     * @param fileExt ファイルの拡張子
+     */
+    public static String makeContentType(String fileExt) {
+
+        Map<String, String> contentTypeMap = new HashMap<>();
+        contentTypeMap.put("html", "Content-Type: text/html" + "\n");
+        contentTypeMap.put("css", "Content-Type: text/css" + "\n");
+        contentTypeMap.put("js", "Content-Type: text/js" + "\n");
+        contentTypeMap.put("jpeg", "Content-Type: image/jpeg" + "\n");
+        contentTypeMap.put("png", "Content-Type: image/png" + "\n");
+        contentTypeMap.put("gif", "Content-Type: image/gif" + "\n");
+
+        String contentType = contentTypeMap.get(fileExt);
+
+        if (contentType == null) {
+            contentType = "Content-Type: multipart/form-data" + "\n";
+        }
+
+        System.out.println("レスポンスヘッダは" + contentType);
+        return contentType;
+
+    }
+
 
     /**
      * クライアントにレスポンスを送信するためのメソッド
      */
-    public void sendResponse(String requestHeader, byte[] responseBody) {
+    public void sendResponse(String fileExt, byte[] responseBody) {
         try {
             System.out.println("クライアントに送信を開始します");
             DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
 
+
             // 引数で受け取ったステータスラインとレスポンスヘッダを結合
-            byte[] responseHead = (statusLine + "\n" + requestHeader + "\n").getBytes();
+            byte[] responseHead = (statusLine + "\n" + this.makeContentType(fileExt) + "\n").getBytes();
 
 
             byte[] responseContents = new byte[responseHead.length + responseBody.length];

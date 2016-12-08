@@ -1,6 +1,7 @@
-package jp.co.topgate.sekiguchi.kai.web.template;
+package jp.co.topgate.sekiguchi.kai.web.webServer;
 
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
+import jp.co.topgate.sekiguchi.kai.web.webServer.Template;
 
 /**
  * エラーの際のTemplateを表すクラス

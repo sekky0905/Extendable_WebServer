@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai.web.template;
+package jp.co.topgate.sekiguchi.kai.web.webServer;
 
 /**
  * Templateクラスの継承元のインターフェース

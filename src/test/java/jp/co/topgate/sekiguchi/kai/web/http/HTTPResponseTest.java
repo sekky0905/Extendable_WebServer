@@ -28,17 +28,35 @@ public class HTTPResponseTest {
 
     }
 
+
     /**
-     * SetResponseHeaderメソッドをテストするメソッド
+     * makeContentTypeメソッドをテストするメソッド
      */
     @Test
-    public void testSendResponse() {
+    public void makeContentType() {
+        OutputStream outputStream = new ByteArrayOutputStream();
+        HTTPResponse httpResponse = new HTTPResponse(outputStream);
+        String fileExt[] = {"html", "css", "js", "jpeg", "png", "gif"};
+        String expectedContents[] = {"Content-Type: text/html\n", "Content-Type: text/css\n", "Content-Type: text/js\n", "Content-Type: image/jpeg\n", "Content-Type: image/png\n", "Content-Type: image/gif\n"};
+
+        for (int i = 0; i < fileExt.length; i++) {
+            assertThat(httpResponse.makeContentType(fileExt[i]), is(expectedContents[i]));
+        }
+
+    }
+
+
+    /**
+     * ResponseHeaderメソッドをテストするメソッド
+     */
+    @Test
+    public void sendResponse() {
         OutputStream outputStream = new ByteArrayOutputStream();
         HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
 
         httpResponse.setStatusLine(HTTPResponse.SC_OK);
-        httpResponse.sendResponse("Content-Type: text/html", "テスト".getBytes());
+        httpResponse.sendResponse("html", "テスト".getBytes());
 
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(
                 ((ByteArrayOutputStream) outputStream).toByteArray());

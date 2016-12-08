@@ -1,9 +1,9 @@
 package jp.co.topgate.sekiguchi.kai.web.webServer;
 
-//フィルタをかけて流れてくるデータをバッファリングし、量がたまったら、一気に下流に流し込む
+// フィルタをかけて流れてくるデータをバッファリングし、量がたまったら、一気に下流に流し込む
 
-import jp.co.topgate.sekiguchi.kai.web.webApp.WebApp;
-import jp.co.topgate.sekiguchi.kai.web.webApp.WebAppStorage;
+import jp.co.topgate.sekiguchi.kai.web.web_app.WebApp;
+import jp.co.topgate.sekiguchi.kai.web.web_app.WebAppStorage;
 
 import java.io.IOException;
 //TCP サーバーAPI、通常はクライアントソケットからの接続を 受け入れる
@@ -11,12 +11,12 @@ import java.net.ServerSocket;
 //TCP クライアント API、通常はリモートホストに接続するために使用される
 import java.net.Socket;
 
-//socketはットワーク上のマシン間で通信リンクを確立するための手段
-//=>TCPを用いているので、ポート番号を用いて、IPが運んできたデータがどの上位プロトコルのものか識別する
-//=>socketは、コンピュータの特定のポート番号と関連付けれられる
-//例えば、8080ポートだったら、IPが運んできたデータはHTTPプロトコルのものと認識する
-//sever socketは、acceptメソッドで、クライアントからの接続を待ち受け、クライアントからアクセスがあったら、
-//socketを返す（これでクライアントは、接続する）
+// socketはットワーク上のマシン間で通信リンクを確立するための手段
+// =>TCPを用いているので、ポート番号を用いて、IPが運んできたデータがどの上位プロトコルのものか識別する
+// =>socketは、コンピュータの特定のポート番号と関連付けれられる
+// 例えば、8080ポートだったら、IPが運んできたデータはHTTPプロトコルのものと認識する
+// sever socketは、acceptメソッドで、クライアントからの接続を待ち受け、クライアントからアクセスがあったら、
+// socketを返す（これでクライアントは、接続する）
 
 /**
  * socketの確立とControlerクラスを呼び出す責務を持ったクラス
@@ -40,7 +40,6 @@ public class WebServer {
         } catch (IOException e) {
             System.err.println("エラー:" + e.getMessage());
             e.printStackTrace();
-            e.getCause();
         }
 
     }

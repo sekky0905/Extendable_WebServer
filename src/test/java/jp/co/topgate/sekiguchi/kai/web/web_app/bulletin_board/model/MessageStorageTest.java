@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai.web.webApp.bulletin_board.model;
+package jp.co.topgate.sekiguchi.kai.web.web_app.bulletin_board.model;
 
 
 import org.junit.After;

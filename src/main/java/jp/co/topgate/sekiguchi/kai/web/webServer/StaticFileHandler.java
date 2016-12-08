@@ -2,10 +2,6 @@ package jp.co.topgate.sekiguchi.kai.web.webServer;
 
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
-import jp.co.topgate.sekiguchi.kai.web.webServer.ErrorTemplate;
-import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
-import jp.co.topgate.sekiguchi.kai.web.webServer.Template;
-import jp.co.topgate.sekiguchi.kai.web.util.ResponseHeaderMaker;
 
 
 import java.io.*;
@@ -28,7 +24,6 @@ public class StaticFileHandler extends Handler {
             requestURI = httpRequest.getRequestURI();
         } catch (UnsupportedEncodingException e) {
             System.err.println("エラー:" + e.getMessage());
-            e.getCause();
             e.printStackTrace();
         }
 

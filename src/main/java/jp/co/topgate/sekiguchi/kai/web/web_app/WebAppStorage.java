@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai.web.webApp;
+package jp.co.topgate.sekiguchi.kai.web.web_app;
 
 
 import java.util.HashMap;

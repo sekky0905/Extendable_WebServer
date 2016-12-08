@@ -33,11 +33,9 @@ public class StaticFileHandlerTest {
                 fileContents = new String(staticFileHandler.readFile(file), "UTF-8");
             } catch (UnsupportedEncodingException uee) {
                 System.err.println("エラー:" + uee.getMessage());
-                uee.getCause();
                 uee.printStackTrace();
             } catch (IOException ie) {
                 System.err.println("エラー:" + ie.getMessage());
-                ie.getCause();
                 ie.printStackTrace();
             }
 

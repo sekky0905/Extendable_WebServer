@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai.web.webApp;
+package jp.co.topgate.sekiguchi.kai.web.web_app;
 
 import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
 import org.junit.Test;
@@ -24,14 +24,14 @@ public class WebAppTest {
     }
 
     /**
-     * setHandlerMapメソッドとcheckHandlerNameExistenceメソッドをテストするためのメソッド
+     * setHandlerMapメソッドとhandlerNameIsExistメソッドをテストするためのメソッド
      */
     @Test
     public void setHandlerMap() {
         WebApp bulletinBoard = new WebApp();
         bulletinBoard.setHandlerName("/program/board/", "IndexHandler");
         WebApp.setHandlerMap();
-        assertThat(WebApp.checkHandlerNameExistence("/program/board/"), is(true));
+        assertThat(WebApp.handlerNameIsExist("/program/board/"), is(true));
     }
 
 
@@ -48,7 +48,7 @@ public class WebAppTest {
         Handler handler = WebApp.getHandlerMap("IndexHandler");
         Class handlerClass = handler.getClass();
 
-        assertThat(handlerClass.getName(), is("jp.co.topgate.sekiguchi.kai.web.webApp.bulletin_board.handler.IndexHandler"));
+        assertThat(handlerClass.getName(), is("jp.co.topgate.sekiguchi.kai.web.web_app.bulletin_board.handler.IndexHandler"));
 
 
     }

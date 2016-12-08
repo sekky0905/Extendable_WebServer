@@ -44,7 +44,6 @@ public class HTTPRequest {
             this.setRequestContents();
         } catch (IOException e) {
             System.err.println("エラー:" + e.getMessage());
-            e.getCause();
             e.getStackTrace();
         }
     }

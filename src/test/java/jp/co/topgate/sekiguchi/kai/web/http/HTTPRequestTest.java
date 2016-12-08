@@ -141,7 +141,6 @@ public class HTTPRequestTest {
                 assertThat(httpRequest.getRequestURI(), is(expRequestURIArray[i]));
             } catch (UnsupportedEncodingException e) {
                 System.err.println("エラー:" + e.getMessage());
-                e.getCause();
                 e.printStackTrace();
             }
 
@@ -236,7 +235,6 @@ public class HTTPRequestTest {
                 httpRequest.setRequestParameter(httpRequest.getQueryString(httpRequest.getRequestMethod()));
             } catch (IOException e) {
                 System.err.println("エラー:" + e.getMessage());
-                e.getCause();
                 e.printStackTrace();
             }
 

@@ -2,8 +2,8 @@ package jp.co.topgate.sekiguchi.kai.web.webServer;
 
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
-import jp.co.topgate.sekiguchi.kai.web.webApp.WebApp;
-import jp.co.topgate.sekiguchi.kai.web.webApp.bulletin_board.IndexTemplate;
+import jp.co.topgate.sekiguchi.kai.web.web_app.WebApp;
+import jp.co.topgate.sekiguchi.kai.web.web_app.bulletin_board.IndexTemplate;
 import jp.co.topgate.sekiguchi.kai.web.util.Session;
 
 import java.io.IOException;
@@ -47,13 +47,12 @@ class ServerThread extends Thread {
                 httpRequest.setRequestParameter(queryString);
             } catch (IOException e) {
                 System.err.println("エラー:" + e.getMessage());
-                e.getCause();
                 e.printStackTrace();
             }
 
 
             // Webサーバ
-            if (!(WebApp.checkHandlerNameExistence(requestURI))) {
+            if (!(WebApp.handlerNameIsExist(requestURI))) {
                 StaticFileHandler staticFileHandler = new StaticFileHandler();
                 staticFileHandler.handleGET(httpRequest, httpResponse);
             } else {
@@ -66,7 +65,7 @@ class ServerThread extends Thread {
 
                 if (requestURI.equals("/program/board/")) {
                     handler.handleGET(httpRequest, httpResponse);
-                } else if (httpRequest.getRequestMethod().equals("GET") && (WebApp.checkHandlerNameExistence(requestURI))) {
+                } else if (httpRequest.getRequestMethod().equals("GET") && (WebApp.handlerNameIsExist(requestURI))) {
                     httpResponse.setStatusLine(HTTPResponse.SC_NOT_FOUND);
                     Template template = new ErrorTemplate();
                     httpResponse.sendResponse("html", template.writeHTML());

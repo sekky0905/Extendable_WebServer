@@ -1,17 +1,17 @@
-package jp.co.topgate.sekiguchi.kai.web.webApp.bulletin_board.handler;
+package jp.co.topgate.sekiguchi.kai.web.web_app.bulletin_board.handler;
 
 
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
-import jp.co.topgate.sekiguchi.kai.web.webApp.bulletin_board.model.MessageStorage;
-import jp.co.topgate.sekiguchi.kai.web.util.Session;
+import jp.co.topgate.sekiguchi.kai.web.web_app.bulletin_board.model.MessageStorage;
 import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
 
 /**
- * "/program/board/showAll/"に紐づくHandlerを表すクラス
+ * "/program/board/search/"に紐づくHandlerを表すクラス
  * Created by sekiguchikai on 2016/12/04.
  */
-public class ShowAllMessageHandler extends Handler {
+public class SearchMessageHandler extends Handler {
+
     /**
      * リクエストPOSTの際のハンドラ
      *
@@ -19,8 +19,9 @@ public class ShowAllMessageHandler extends Handler {
      * @param httpResponse レスポンス
      */
     public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) {
-        MessageStorage.chooseMessageList(true);
-        Session.generateToken();
+        MessageStorage.chooseMessageList(false);
+        String name = httpRequest.getRequestParameter("searchName");
+        MessageStorage.searchMessage(name);
 
     }
 }

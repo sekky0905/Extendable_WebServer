@@ -24,7 +24,6 @@ public class StaticFileHandler extends Handler {
             requestURI = httpRequest.getRequestURI();
         } catch (UnsupportedEncodingException e) {
             System.err.println("エラー:" + e.getMessage());
-            e.getCause();
             e.printStackTrace();
         }
 

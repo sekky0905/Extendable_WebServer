@@ -1,6 +1,6 @@
-package jp.co.topgate.sekiguchi.kai.web.webApp;
+package jp.co.topgate.sekiguchi.kai.web.web_app;
 
-import jp.co.topgate.sekiguchi.kai.web.webApp.bulletin_board.handler.*;
+import jp.co.topgate.sekiguchi.kai.web.web_app.bulletin_board.handler.*;
 import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
 
 import java.util.HashMap;
@@ -46,7 +46,7 @@ public class WebApp {
      * @param handlerName Handlerの名前
      * @return Handlerが存在しているか
      */
-    public static boolean checkHandlerNameExistence(String handlerName) {
+    public static boolean handlerNameIsExist(String handlerName) {
         return handlerNameMap.containsKey(handlerName);
     }
 

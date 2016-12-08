@@ -44,7 +44,7 @@ public class IndexTemplate implements Template {
             listSize = MessageStorage.countMessage();
             stringBuilder.append(this.writeRepetition(listSize));
         } else {
-            listSize = MessageStorage.countTempo();
+            listSize = MessageStorage.countTemp();
             stringBuilder.append(this.writeRepetition(listSize));
         }
 
@@ -110,7 +110,7 @@ public class IndexTemplate implements Template {
             if (MessageStorage.checkMessageList()) {
                 message = (Message) MessageStorage.getMessageList(i);
             } else {
-                message = (Message) MessageStorage.getTempoList(i);
+                message = (Message) MessageStorage.getTempList(i);
             }
 
 

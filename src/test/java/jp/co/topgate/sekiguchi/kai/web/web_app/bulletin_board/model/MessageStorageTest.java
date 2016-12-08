@@ -145,7 +145,7 @@ public class MessageStorageTest {
         MessageStorage.setMessageList(message3);
 
         MessageStorage.searchMessage("sekky");
-        int instanceNumber = MessageStorage.countTempo();
+        int instanceNumber = MessageStorage.countTemp();
         assertThat(instanceNumber, is(2));
 
     }
@@ -174,11 +174,11 @@ public class MessageStorageTest {
         MessageStorage.setMessageList(message2);
 
         MessageStorage.searchMessage("sekky");
-        int instanceNumber = MessageStorage.countTempo();
+        int instanceNumber = MessageStorage.countTemp();
         assertThat(instanceNumber, is(2));
 
         MessageStorage.removeAllMessage();
-        int instanceNumber2 = MessageStorage.countTempo();
+        int instanceNumber2 = MessageStorage.countTemp();
         assertThat(instanceNumber2, is(2));
 
 

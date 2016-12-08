@@ -12,7 +12,7 @@ public class MessageStorage {
      * モデルを格納するためのリスト
      */
     private static List<Message> modelList = new ArrayList<>();
-    private static List<Message> tempoList = new ArrayList<>();
+    private static List<Message> tempList = new ArrayList<>();
     private static boolean modelListChose;
 
 
@@ -21,7 +21,7 @@ public class MessageStorage {
     }
 
     /**
-     * ModelListか、tempoListかを選択するメソッド
+     * ModelListか、tempListかを選択するメソッド
      *
      * @return ModelListを選択するかどうかの真偽値
      */
@@ -50,13 +50,13 @@ public class MessageStorage {
 
 
     /**
-     * インデックスで指定されたtempoListに格納されたモデルを返すメソッド
+     * インデックスで指定されたtempListに格納されたモデルを返すメソッド
      *
      * @param index リストのインデックス
      * @return インデックスで指定されたモデル
      */
-    public static Message getTempoList(int index) {
-        return MessageStorage.tempoList.get(index);
+    public static Message getTempList(int index) {
+        return MessageStorage.tempList.get(index);
     }
 
 
@@ -71,12 +71,12 @@ public class MessageStorage {
 
 
     /**
-     * tempoListのサイズを返すメソッド
+     * tempListのサイズを返すメソッド
      *
-     * @return tempoListのサイズ
+     * @return tempListのサイズ
      */
-    public static int countTempo() {
-        return MessageStorage.tempoList.size();
+    public static int countTemp() {
+        return MessageStorage.tempList.size();
     }
 
 
@@ -96,13 +96,13 @@ public class MessageStorage {
      * @param name ユーザーネーム
      */
     public static void searchMessage(String name) {
-        MessageStorage.removeAllTempo();
+        MessageStorage.removeAllTemp();
         for (int i = 0; i <= MessageStorage.modelList.size(); i++) {
             if (i == MessageStorage.modelList.size()) {
                 break;
             }
             if ((MessageStorage.modelList.get(i).getName().equals(name))) {
-                MessageStorage.tempoList.add(MessageStorage.modelList.get(i));
+                MessageStorage.tempList.add(MessageStorage.modelList.get(i));
             }
         }
     }
@@ -115,10 +115,10 @@ public class MessageStorage {
     }
 
     /**
-     * tempoListに保持している全てのインスタンスを削除するメソッド
+     * tempListに保持している全てのインスタンスを削除するメソッド
      */
-    public static void removeAllTempo() {
-        MessageStorage.tempoList.clear();
+    public static void removeAllTemp() {
+        MessageStorage.tempList.clear();
     }
 
 }

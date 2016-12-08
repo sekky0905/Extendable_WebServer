@@ -41,10 +41,10 @@ class ServerThread extends Thread {
             HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
             String requestURI = httpRequest.getRequestURI();
-            String queryString = httpRequest.getQueryString(httpRequest.getRequestMethod());
+            String queryString = httpRequest.getQueryString();
 
             try {
-                httpRequest.setRequestParameter(queryString);
+                httpRequest.setRequestParameter();
             } catch (IOException e) {
                 System.err.println("エラー:" + e.getMessage());
                 e.printStackTrace();

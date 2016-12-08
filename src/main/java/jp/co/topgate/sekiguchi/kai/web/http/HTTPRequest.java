@@ -99,14 +99,21 @@ public class HTTPRequest {
      *
      * @return リクエストURIを返す
      */
-    public String getRequestURI() throws UnsupportedEncodingException {
+    public String getRequestURI() {
         String requestURI;
-        if (requestLine[1].contains("?")) {
-            requestURI = requestLine[1].substring(0, requestLine[1].indexOf("?"));
+        if (this.requestLine[1].contains("?")) {
+            requestURI = this.requestLine[1].substring(0, this.requestLine[1].indexOf("?"));
         } else {
-            requestURI = requestLine[1];
+            requestURI = this.requestLine[1];
         }
-        requestURI = URLDecoder.decode(requestURI, "UTF-8");
+        try {
+            requestURI = URLDecoder.decode(requestURI, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            System.err.println("エラー:" + e.getMessage());
+            e.printStackTrace();
+        }
+
+
         System.out.print("リクエストURIは" + requestURI);
 
         return requestURI;
@@ -115,16 +122,15 @@ public class HTTPRequest {
     /**
      * クエリストリングを返すメソッド
      *
-     * @param requestMethod リクエストメソッド
      * @return クエリストリング
      */
-    public String getQueryString(String requestMethod) {
+    public String getQueryString() {
         String queryString = null;
 
-        if (requestMethod.equals("GET")) {
-            queryString = requestLine[1].substring(requestLine[1].indexOf("?") + 1, requestLine[1].length());
-        } else if (requestMethod.equals("POST")) {
-            queryString = this.requestBody.substring(0, requestBody.indexOf("\n"));
+        if (this.getRequestMethod().equals("GET")) {
+            queryString = this.requestLine[1].substring(this.requestLine[1].indexOf("?") + 1, this.requestLine[1].length());
+        } else if (this.getRequestMethod().equals("POST")) {
+            queryString = this.requestBody.substring(0, this.requestBody.indexOf("\n"));
         }
         return queryString;
     }
@@ -143,18 +149,15 @@ public class HTTPRequest {
 
     /**
      * リクエストパラメータを設定するメソッド
-     *
-     * @param queryString クエリストリング
      */
-    public void setRequestParameter(String queryString) throws IOException {
+    public void setRequestParameter() throws IOException {
 
         List<String> paramList = new ArrayList<>();
-        if (queryString.contains("&")) {
-            paramList = Arrays.asList(queryString.split("&"));
+        if (this.getQueryString().contains("&")) {
+            paramList = Arrays.asList(this.getQueryString().split("&"));
         } else {
-            paramList.add(queryString);
+            paramList.add(this.getQueryString());
         }
-
         for (String param : paramList) {
             String piece[] = param.split("=");
             if (piece.length == 2) {
@@ -169,17 +172,15 @@ public class HTTPRequest {
     /**
      * リクエストURIから要求されているファイルを返すメソッド
      *
-     * @param requestURI リクエストURI
      * @return 要求されているファイル
      */
-    public String getRequestResource(String requestURI) {
+    public String getRequestResource() {
         String requestResource;
-        if ((requestURI.endsWith("/")) || !(requestURI.substring(requestURI.lastIndexOf("/"), requestURI.length()).contains("."))) {
-            requestResource = "src/main/resources" + requestURI + "index.html";
+        if ((this.getRequestURI().endsWith("/")) || !(this.getRequestURI().substring(this.getRequestURI().lastIndexOf("/"), this.getRequestURI().length()).contains("."))) {
+            requestResource = "src/main/resources" + this.getRequestURI() + "index.html";
         } else {
-            requestResource = "src/main/resources" + requestURI;
+            requestResource = "src/main/resources" + this.getRequestURI();
         }
-
         System.out.println("要求されているファイルは" + requestResource);
         return requestResource;
 
@@ -191,7 +192,6 @@ public class HTTPRequest {
      * @return 指定されたファイルの拡張子
      */
     public String getRequestResourceExtension(String requestResource) {
-
         String extension = requestResource.substring(requestResource.lastIndexOf(".") + 1,
                 requestResource.lastIndexOf(""));
         System.out.println("ファイルの拡張子は" + extension);

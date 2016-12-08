@@ -137,21 +137,12 @@ public class HTTPRequestTest {
             InputStream inputStream = new ByteArrayInputStream(socketContentsArray[i].getBytes());
             HTTPRequest httpRequest = new HTTPRequest(inputStream);
 
-            try {
-                assertThat(httpRequest.getRequestURI(), is(expRequestURIArray[i]));
-            } catch (UnsupportedEncodingException e) {
-                System.err.println("エラー:" + e.getMessage());
-                e.printStackTrace();
-            }
-
-
+            assertThat(httpRequest.getRequestURI(), is(expRequestURIArray[i]));
         }
     }
 
     @Test
     public void getQueryString() {
-
-
         String requestContents1 = "GET /../../test/resources/test.html?foo=bar HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
                 + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
                 + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
@@ -188,7 +179,7 @@ public class HTTPRequestTest {
             InputStream inputStream = new ByteArrayInputStream(requestContentsArray[i].getBytes());
             HTTPRequest httpRequest = new HTTPRequest(inputStream);
 
-            assertThat(httpRequest.getQueryString(httpRequest.getRequestMethod()), is(expQueryStringArray[i]));
+            assertThat(httpRequest.getQueryString(), is(expQueryStringArray[i]));
 
         }
 
@@ -232,7 +223,7 @@ public class HTTPRequestTest {
             HTTPRequest httpRequest = new HTTPRequest(inputStream);
 
             try {
-                httpRequest.setRequestParameter(httpRequest.getQueryString(httpRequest.getRequestMethod()));
+                httpRequest.setRequestParameter();
             } catch (IOException e) {
                 System.err.println("エラー:" + e.getMessage());
                 e.printStackTrace();
@@ -252,31 +243,70 @@ public class HTTPRequestTest {
      */
     @Test
     public void getRequestResource() {
-        String requestContents = "GET /../../test/resources/test.html?name=a HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+        String requestContents1 = "GET /test.html?name=a HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
                 + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
                 + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
                 + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
                 + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
-        InputStream inputStream = new ByteArrayInputStream(requestContents.getBytes());
-        HTTPRequest httpRequest = new HTTPRequest(inputStream);
 
-        String requestURI1 = "/test.html";
-        String requestURI2 = "/sample/test.html";
-        String requestURI3 = "/.sample/test.html";
+        String requestContents2 = "GET /sample/test.html?name=a HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
 
-        String requestURIArray[] = {requestURI1, requestURI2, requestURI3};
-        for (String reqURI : requestURIArray) {
-            assertThat(httpRequest.getRequestResource(reqURI), is("src/main/resources" + reqURI));
+        String requestContents3 = "GET /.sample/test.html?name=a HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
 
+
+        String reqContentsArray[] = {requestContents1, requestContents2, requestContents3};
+
+        String resource1 = "src/main/resources/test.html";
+        String resource2 = "src/main/resources/sample/test.html";
+        String resource3 = "src/main/resources/.sample/test.html";
+
+        String expectedResourceArray[] = {resource1, resource2, resource3};
+
+        for (int i = 0; i < reqContentsArray.length; i++) {
+            InputStream inputStream = new ByteArrayInputStream(reqContentsArray[i].getBytes());
+            HTTPRequest httpRequest = new HTTPRequest(inputStream);
+            assertThat(httpRequest.getRequestResource(), is(expectedResourceArray[i]));
         }
 
-        String requestURI4 = "/";
-        String requestURI5 = "//";
-        String requestURI6 = "/.sample/";
-        String requestURIArray2[] = {requestURI4, requestURI5, requestURI6};
-        for (String reqURI2 : requestURIArray2) {
-            assertThat(httpRequest.getRequestResource(reqURI2), is("src/main/resources" + reqURI2 + "index.html"));
+        String requestContents4 = "GET /?name=a HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
 
+        String requestContents5 = "GET /sample//?name=a HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
+
+        String requestContents6 = "GET /.sample/?name=a HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
+                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
+                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
+                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
+
+
+        String reqContentsArray2[] = {requestContents1, requestContents2, requestContents3};
+
+        String resource4 = "src/main/resources/test.html";
+        String resource5 = "src/main/resources/sample/test.html";
+        String resource6 = "src/main/resources/.sample/test.html";
+
+        String expectedResourceArray2[] = {resource4, resource5, resource6};
+
+        for (int i = 0; i < reqContentsArray.length; i++) {
+            InputStream inputStream = new ByteArrayInputStream(reqContentsArray2[i].getBytes());
+            HTTPRequest httpRequest = new HTTPRequest(inputStream);
+            assertThat(httpRequest.getRequestResource(), is(expectedResourceArray2[i]));
         }
 
 

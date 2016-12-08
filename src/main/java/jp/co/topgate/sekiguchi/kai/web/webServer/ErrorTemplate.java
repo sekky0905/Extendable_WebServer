@@ -20,7 +20,7 @@ public class ErrorTemplate implements Template {
         stringBuilder.append("<html lang=\"ja\">");
         stringBuilder.append("<head>");
         stringBuilder.append("<meta charset=\"UTF-8\">");
-        stringBuilder.append("<title>掲示板</title>");
+        stringBuilder.append("<title>エラー</title>");
         stringBuilder.append("</head>");
         stringBuilder.append("<body>");
         stringBuilder.append("<p>" + HTTPResponse.getStatusLine() + "</p>");

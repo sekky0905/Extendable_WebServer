@@ -20,18 +20,10 @@ public class StaticFileHandler extends Handler {
      */
     public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) {
         String requestURI = null;
-        try {
-            requestURI = httpRequest.getRequestURI();
-        } catch (UnsupportedEncodingException e) {
-            System.err.println("エラー:" + e.getMessage());
-            e.printStackTrace();
-        }
+        requestURI = httpRequest.getRequestURI();
 
-
-        String requestResource = httpRequest.getRequestResource(requestURI);
-
+        String requestResource = httpRequest.getRequestResource();
         String extension = httpRequest.getRequestResourceExtension(requestResource);
-
         File file = new File(requestResource);
 
         Template errTemplate = new ErrorTemplate();

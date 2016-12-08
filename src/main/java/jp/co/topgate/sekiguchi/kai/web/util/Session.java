@@ -38,15 +38,10 @@ public class Session {
     /**
      * 引数で渡されたtokenが発行したtokenと同じものであるか確認するためのメソッド
      *
-     * @param acceptToken formでHTMLから受け取ったtoken
+     * @param target formでHTMLから受け取ったtoken
      * @return 受け取ったtokenが、以前発行したtokenと同じものであるかの真偽値
      */
-    public static boolean confirmToken(String acceptToken) {
-        boolean same;
-        if (acceptToken.equals(Session.token)) {
-            return same = true;
-        } else {
-            return same = false;
-        }
+    public static boolean confirmToken(String target) {
+        return target.equals(Session.token);
     }
 }

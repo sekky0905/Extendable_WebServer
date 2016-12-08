@@ -1,8 +1,6 @@
 package jp.co.topgate.sekiguchi.kai.web.model;
 
 
-import jp.co.topgate.sekiguchi.kai.web.model.Message;
-import jp.co.topgate.sekiguchi.kai.web.model.ModelStorage;
 import org.junit.After;
 import org.junit.Test;
 
@@ -15,31 +13,31 @@ import static org.junit.Assert.*;
 /**
  * Created by sekiguchikai on 2016/11/29.
  */
-public class ModelStorageTest {
+public class MessageStorageTest {
 
     @After
     public void after() {
-        ModelStorage.removeAllModel();
+        MessageStorage.removeAllMessage();
     }
 
 
     /**
-     * chooseModelListメソッドをテストするメソッド
-     * checkModelListメソッドのテストも兼ねている
+     * chooseMessageListメソッドをテストするメソッド
+     * checkMessageListメソッドのテストも兼ねている
      */
     @Test
-    public void chooseModelList() {
-        ModelStorage.chooseModelList(true);
-        assertThat(ModelStorage.checkModelList(), is(true));
+    public void chooseMessageList() {
+        MessageStorage.chooseMessageList(true);
+        assertThat(MessageStorage.checkMessageList(), is(true));
 
     }
 
 
     /**
-     * setModelListメソッドとgetModelListメソッドをテストするためのテスト
+     * setMessageListメソッドとgetMessageListメソッドをテストするためのテスト
      */
     @Test
-    public void getModelList() {
+    public void getMessageList() {
         LocalDateTime localTimeTest = LocalDateTime.of(2016, 11, 29, 15, 0, 0);
         String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(localTimeTest);
 
@@ -48,9 +46,9 @@ public class ModelStorageTest {
         message.setName("sekky");
         message.setComment("テスト");
 
-        ModelStorage.setModelList(message);
+        MessageStorage.setMessageList(message);
 
-        Message messageTest = (Message) ModelStorage.getModelList(0);
+        Message messageTest = (Message) MessageStorage.getMessageList(0);
         String atTimeTest = messageTest.getAtTime();
         String nameTest = messageTest.getName();
         String commentTest = messageTest.getComment();
@@ -62,10 +60,10 @@ public class ModelStorageTest {
     }
 
     /**
-     * countModelメソッドをテストするためのテスト
+     * countMessageメソッドをテストするためのテスト
      */
     @Test
-    public void countModel() {
+    public void countMessage() {
         LocalDateTime localTimeTest = LocalDateTime.of(2016, 11, 29, 15, 0, 00);
         String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(localTimeTest);
 
@@ -74,25 +72,25 @@ public class ModelStorageTest {
         message1.setAtTime(atTime);
         message1.setName("sekky");
         message1.setComment("テスト");
-        ModelStorage.setModelList(message1);
+        MessageStorage.setMessageList(message1);
 
         Message message2 = new Message();
         message2.setAtTime(atTime);
         message2.setName("sekky2");
         message2.setComment("テスト2");
-        ModelStorage.setModelList(message2);
+        MessageStorage.setMessageList(message2);
 
 
-        assertThat(ModelStorage.countModel(), is(2));
+        assertThat(MessageStorage.countMessage(), is(2));
 
 
     }
 
     /**
-     * removeModelメソッドをテストするためのテスト
+     * removeMessageメソッドをテストするためのテスト
      */
     @Test
-    public void removeModel() {
+    public void removeMessage() {
         LocalDateTime localTimeTest = LocalDateTime.of(2016, 11, 29, 15, 0, 00);
         String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(localTimeTest);
 
@@ -100,87 +98,87 @@ public class ModelStorageTest {
         message1.setAtTime(atTime);
         message1.setName("sekky");
         message1.setComment("テスト");
-        ModelStorage.setModelList(message1);
+        MessageStorage.setMessageList(message1);
 
         Message message2 = new Message();
         message2.setAtTime(atTime);
         message2.setName("sekky2");
         message2.setComment("テスト2");
-        ModelStorage.setModelList(message2);
+        MessageStorage.setMessageList(message2);
 
-        ModelStorage.removeModel(0);
+        MessageStorage.removeMessage(0);
 
 
-        assertThat(ModelStorage.countModel(), is(1));
+        assertThat(MessageStorage.countMessage(), is(1));
 
 
     }
 
 
     /**
-     * searchModelメソッドをテストするためのテスト
+     * searchMessageメソッドをテストするためのテスト
      */
     @Test
-    public void searchModel() {
+    public void searchMessage() {
 
         LocalDateTime localTimeTest = LocalDateTime.of(2016, 11, 29, 15, 0, 00);
         String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(localTimeTest);
 
-        ModelStorage.removeAllModel();
+        MessageStorage.removeAllMessage();
 
         Message message1 = new Message();
         message1.setAtTime(atTime);
         message1.setName("sekky");
         message1.setComment("テスト");
-        ModelStorage.setModelList(message1);
+        MessageStorage.setMessageList(message1);
 
         Message message2 = new Message();
         message2.setAtTime(atTime);
         message2.setName("sekky2");
         message2.setComment("テスト2");
-        ModelStorage.setModelList(message2);
+        MessageStorage.setMessageList(message2);
 
         Message message3 = new Message();
         message3.setAtTime(atTime);
         message3.setName("sekky");
         message3.setComment("テスト3");
-        ModelStorage.setModelList(message3);
+        MessageStorage.setMessageList(message3);
 
-        ModelStorage.searchModel("sekky");
-        int instanceNumber = ModelStorage.countTempo();
+        MessageStorage.searchMessage("sekky");
+        int instanceNumber = MessageStorage.countTempo();
         assertThat(instanceNumber, is(2));
 
     }
 
     /**
-     * removeAllModelメソッドをテストするためのメソッド
+     * removeAllMessageメソッドをテストするためのメソッド
      */
     @Test
-    public void removeAllModel() {
+    public void removeAllMessage() {
         LocalDateTime localTimeTest = LocalDateTime.of(2016, 11, 29, 15, 0, 00);
         String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(localTimeTest);
 
-        ModelStorage.removeAllModel();
+        MessageStorage.removeAllMessage();
 
         Message message1 = new Message();
         message1.setAtTime(atTime);
         message1.setName("sekky");
         message1.setComment("テスト");
-        ModelStorage.setModelList(message1);
+        MessageStorage.setMessageList(message1);
 
 
         Message message2 = new Message();
         message2.setAtTime(atTime);
         message2.setName("sekky");
         message2.setComment("テスト3");
-        ModelStorage.setModelList(message2);
+        MessageStorage.setMessageList(message2);
 
-        ModelStorage.searchModel("sekky");
-        int instanceNumber = ModelStorage.countTempo();
+        MessageStorage.searchMessage("sekky");
+        int instanceNumber = MessageStorage.countTempo();
         assertThat(instanceNumber, is(2));
 
-        ModelStorage.removeAllModel();
-        int instanceNumber2 = ModelStorage.countTempo();
+        MessageStorage.removeAllMessage();
+        int instanceNumber2 = MessageStorage.countTempo();
         assertThat(instanceNumber2, is(2));
 
 

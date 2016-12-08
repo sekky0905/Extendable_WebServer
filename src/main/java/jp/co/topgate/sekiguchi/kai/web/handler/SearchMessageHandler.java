@@ -3,7 +3,7 @@ package jp.co.topgate.sekiguchi.kai.web.handler;
 
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
-import jp.co.topgate.sekiguchi.kai.web.model.ModelStorage;
+import jp.co.topgate.sekiguchi.kai.web.model.MessageStorage;
 
 /**
  * "/program/board/search/"に紐づくHandlerを表すクラス
@@ -18,9 +18,9 @@ public class SearchMessageHandler extends Handler {
      * @param httpResponse レスポンス
      */
     public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) {
-        ModelStorage.chooseModelList(false);
+        MessageStorage.chooseMessageList(false);
         String name = httpRequest.getRequestParameter("searchName");
-        ModelStorage.searchModel(name);
+        MessageStorage.searchMessage(name);
 
     }
 }

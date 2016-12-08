@@ -2,7 +2,8 @@ package jp.co.topgate.sekiguchi.kai.web.handler;
 
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
-import jp.co.topgate.sekiguchi.kai.web.model.ModelStorage;
+
+import jp.co.topgate.sekiguchi.kai.web.model.MessageStorage;
 import jp.co.topgate.sekiguchi.kai.web.util.Session;
 
 /**
@@ -17,9 +18,9 @@ public class DeleteMessageHandler extends Handler {
      * @param httpResponse レスポンス
      */
     public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) {
-        ModelStorage.chooseModelList(true);
-        int modelIndex = Integer.parseInt(httpRequest.getRequestParameter("delete"));
-        ModelStorage.removeModel(modelIndex);
+        MessageStorage.chooseMessageList(true);
+        int MessageIndex = Integer.parseInt(httpRequest.getRequestParameter("delete"));
+        MessageStorage.removeMessage(MessageIndex);
 
         Session.generateToken();
 

@@ -101,18 +101,13 @@ public class HTTPRequest {
      * @return リクエストURIを返す
      */
     public String getRequestURI() throws UnsupportedEncodingException {
-
         String requestURI;
-
         if (requestLine[1].contains("?")) {
             requestURI = requestLine[1].substring(0, requestLine[1].indexOf("?"));
         } else {
             requestURI = requestLine[1];
         }
-
         requestURI = URLDecoder.decode(requestURI, "UTF-8");
-
-
         System.out.print("リクエストURIは" + requestURI);
 
         return requestURI;

@@ -1,7 +1,7 @@
 package jp.co.topgate.sekiguchi.kai.web.template;
 
 import jp.co.topgate.sekiguchi.kai.web.model.Message;
-import jp.co.topgate.sekiguchi.kai.web.model.ModelStorage;
+import jp.co.topgate.sekiguchi.kai.web.model.MessageStorage;
 import jp.co.topgate.sekiguchi.kai.web.util.Session;
 import jp.co.topgate.sekiguchi.kai.web.util.XSSMeasure;
 
@@ -39,11 +39,11 @@ public class IndexTemplate implements Template {
 
         int listSize;
         // 繰り返し部分
-        if (ModelStorage.checkModelList()) {
-            listSize = ModelStorage.countModel();
+        if (MessageStorage.checkMessageList()) {
+            listSize = MessageStorage.countMessage();
             stringBuilder.append(this.writeRepetition(listSize));
         } else {
-            listSize = ModelStorage.countTempo();
+            listSize = MessageStorage.countTempo();
             stringBuilder.append(this.writeRepetition(listSize));
         }
 
@@ -106,10 +106,10 @@ public class IndexTemplate implements Template {
             }
 
             Message message;
-            if (ModelStorage.checkModelList()) {
-                message = (Message) ModelStorage.getModelList(i);
+            if (MessageStorage.checkMessageList()) {
+                message = (Message) MessageStorage.getMessageList(i);
             } else {
-                message = (Message) ModelStorage.getTempoList(i);
+                message = (Message) MessageStorage.getTempoList(i);
             }
 
 

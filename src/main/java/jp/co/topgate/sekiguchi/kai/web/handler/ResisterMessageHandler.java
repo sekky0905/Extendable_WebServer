@@ -3,7 +3,7 @@ package jp.co.topgate.sekiguchi.kai.web.handler;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.model.Message;
-import jp.co.topgate.sekiguchi.kai.web.model.ModelStorage;
+import jp.co.topgate.sekiguchi.kai.web.model.MessageStorage;
 import jp.co.topgate.sekiguchi.kai.web.util.Session;
 
 import java.time.LocalDateTime;
@@ -21,7 +21,7 @@ public class ResisterMessageHandler extends Handler {
      * @param httpResponse レスポンス
      */
     public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) {
-        ModelStorage.chooseModelList(true);
+        MessageStorage.chooseMessageList(true);
         String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now());
         String name = httpRequest.getRequestParameter("name");
         String comment = httpRequest.getRequestParameter("comment");
@@ -32,7 +32,7 @@ public class ResisterMessageHandler extends Handler {
         message.setComment(comment);
 
         Session.generateToken();
-        ModelStorage.setModelList(message);
+        MessageStorage.setMessageList(message);
 
 
 

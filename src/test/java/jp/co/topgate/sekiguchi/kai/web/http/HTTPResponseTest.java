@@ -5,12 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import java.io.*;
-import java.nio.file.Files;
 
-import jp.co.topgate.sekiguchi.kai.web.handler.ResisterMessageHandler;
-import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
-import jp.co.topgate.sekiguchi.kai.web.util.ResponseHeaderMaker;
-import jp.co.topgate.sekiguchi.kai.web.webServer.StaticFileHandler;
 import org.junit.Test;
 
 /**

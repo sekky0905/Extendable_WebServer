@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai.web.webServer;
+package jp.co.topgate.sekiguchi.kai.web.handler;
 
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
@@ -14,14 +14,14 @@ import java.io.*;
  *
  * @author sekiguchikai
  */
-public class StaticFileHandler {
+public class StaticFileHandler extends Handler {
     /**
      * 静的なファイルの処理を行うメソッド
      *
      * @param httpRequest  HTTPRequestクラスのインスタンス
      * @param httpResponse HTTPResponseクラスのインスタンス
      */
-    void ProcessWebServer(HTTPRequest httpRequest, HTTPResponse httpResponse) {
+    public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) {
         String requestURI = null;
         try {
             requestURI = httpRequest.getRequestURI();
@@ -67,7 +67,7 @@ public class StaticFileHandler {
      *
      * @return 読み込んだファイルのバイナリデータ
      */
-    byte[] readFile(File file) throws IOException {
+    public byte[] readFile(File file) throws IOException {
 
         System.out.println("ファイルの読み込みを始めます");
 

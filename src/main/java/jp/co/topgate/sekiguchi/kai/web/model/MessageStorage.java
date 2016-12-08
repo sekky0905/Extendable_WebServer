@@ -7,18 +7,17 @@ import java.util.List;
  * Messageインスタンスを格納するためのクラス
  * Created by sekiguchikai on 2016/11/28.
  */
-public class ModelStorage {
-
+public class MessageStorage {
     /**
      * モデルを格納するためのリスト
      */
-    private static List<Model> modelList = new ArrayList<>();
-    private static List<Model> tempoList = new ArrayList<>();
+    private static List<Message> modelList = new ArrayList<>();
+    private static List<Message> tempoList = new ArrayList<>();
     private static boolean modelListChose;
 
 
-    public static void chooseModelList(boolean modelListChose) {
-        ModelStorage.modelListChose = modelListChose;
+    public static void chooseMessageList(boolean modelListChose) {
+        MessageStorage.modelListChose = modelListChose;
     }
 
     /**
@@ -26,8 +25,8 @@ public class ModelStorage {
      *
      * @return ModelListを選択するかどうかの真偽値
      */
-    public static boolean checkModelList() {
-        return ModelStorage.modelListChose;
+    public static boolean checkMessageList() {
+        return MessageStorage.modelListChose;
     }
 
     /**
@@ -35,8 +34,8 @@ public class ModelStorage {
      *
      * @param model modelListに格納するモデル
      */
-    public static void setModelList(Model model) {
-        ModelStorage.modelList.add(model);
+    public static void setMessageList(Message model) {
+        MessageStorage.modelList.add(model);
     }
 
     /**
@@ -45,8 +44,8 @@ public class ModelStorage {
      * @param index リストのインデックス
      * @return インデックスで指定されたモデル
      */
-    public static Model getModelList(int index) {
-        return ModelStorage.modelList.get(index);
+    public static Message getMessageList(int index) {
+        return MessageStorage.modelList.get(index);
     }
 
 
@@ -56,8 +55,8 @@ public class ModelStorage {
      * @param index リストのインデックス
      * @return インデックスで指定されたモデル
      */
-    public static Model getTempoList(int index) {
-        return ModelStorage.tempoList.get(index);
+    public static Message getTempoList(int index) {
+        return MessageStorage.tempoList.get(index);
     }
 
 
@@ -66,8 +65,8 @@ public class ModelStorage {
      *
      * @return modelListのサイズ
      */
-    public static int countModel() {
-        return ModelStorage.modelList.size();
+    public static int countMessage() {
+        return MessageStorage.modelList.size();
     }
 
 
@@ -77,7 +76,7 @@ public class ModelStorage {
      * @return tempoListのサイズ
      */
     public static int countTempo() {
-        return ModelStorage.tempoList.size();
+        return MessageStorage.tempoList.size();
     }
 
 
@@ -86,8 +85,8 @@ public class ModelStorage {
      *
      * @param index リストのインデックス
      */
-    public static void removeModel(int index) {
-        ModelStorage.modelList.remove(index);
+    public static void removeMessage(int index) {
+        MessageStorage.modelList.remove(index);
     }
 
 
@@ -96,14 +95,14 @@ public class ModelStorage {
      *
      * @param name ユーザーネーム
      */
-    public static void searchModel(String name) {
-        ModelStorage.removeAllTempo();
-        for (int i = 0; i <= ModelStorage.modelList.size(); i++) {
-            if (i == ModelStorage.modelList.size()) {
+    public static void searchMessage(String name) {
+        MessageStorage.removeAllTempo();
+        for (int i = 0; i <= MessageStorage.modelList.size(); i++) {
+            if (i == MessageStorage.modelList.size()) {
                 break;
             }
-            if ((ModelStorage.modelList.get(i).getName().equals(name))) {
-                ModelStorage.tempoList.add(ModelStorage.modelList.get(i));
+            if ((MessageStorage.modelList.get(i).getName().equals(name))) {
+                MessageStorage.tempoList.add(MessageStorage.modelList.get(i));
             }
         }
     }
@@ -111,15 +110,17 @@ public class ModelStorage {
     /**
      * modelListに保持している全てのインスタンスを削除するメソッド
      */
-    static void removeAllModel() {
-        ModelStorage.modelList.clear();
+    public static void removeAllMessage() {
+        MessageStorage.modelList.clear();
     }
 
     /**
      * tempoListに保持している全てのインスタンスを削除するメソッド
      */
-    private static void removeAllTempo() {
-        ModelStorage.tempoList.clear();
+    public static void removeAllTempo() {
+        MessageStorage.tempoList.clear();
     }
 
 }
+
+

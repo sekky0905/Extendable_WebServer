@@ -1,6 +1,7 @@
 package jp.co.topgate.sekiguchi.kai.web.webServer;
 
 import jp.co.topgate.sekiguchi.kai.web.handler.Handler;
+import jp.co.topgate.sekiguchi.kai.web.handler.StaticFileHandler;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.template.ErrorTemplate;
@@ -59,7 +60,7 @@ class ServerThread extends Thread {
             // Webサーバ
             if (!(WebApp.checkHandlerNameExistence(requestURI))) {
                 StaticFileHandler staticFileHandler = new StaticFileHandler();
-                staticFileHandler.ProcessWebServer(httpRequest, httpResponse);
+                staticFileHandler.handleGET(httpRequest, httpResponse);
             } else {
 
                 // ハンドラの決定

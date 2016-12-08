@@ -3,7 +3,7 @@ package jp.co.topgate.sekiguchi.kai.web.handler;
 
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
-import jp.co.topgate.sekiguchi.kai.web.model.ModelStorage;
+import jp.co.topgate.sekiguchi.kai.web.model.MessageStorage;
 import jp.co.topgate.sekiguchi.kai.web.util.Session;
 
 /**
@@ -18,7 +18,7 @@ public class ShowAllMessageHandler extends Handler {
      * @param httpResponse レスポンス
      */
     public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) {
-        ModelStorage.chooseModelList(true);
+        MessageStorage.chooseMessageList(true);
         Session.generateToken();
 
     }

@@ -1,5 +1,6 @@
 package jp.co.topgate.sekiguchi.kai.web.webServer;
 
+import jp.co.topgate.sekiguchi.kai.web.handler.StaticFileHandler;
 import org.junit.Test;
 
 import java.io.File;

@@ -7,3 +7,4 @@ settings.gradle
 .project 
 .settings/
 practiceHTML/
+.DS_Store

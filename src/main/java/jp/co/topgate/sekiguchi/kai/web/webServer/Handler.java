@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai.web.handler;
+package jp.co.topgate.sekiguchi.kai.web.webServer;
 
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;

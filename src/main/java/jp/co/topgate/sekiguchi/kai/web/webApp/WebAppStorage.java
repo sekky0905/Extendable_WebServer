@@ -1,6 +1,5 @@
 package jp.co.topgate.sekiguchi.kai.web.webApp;
 
-import jp.co.topgate.sekiguchi.kai.web.webApp.WebApp;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,11 +17,12 @@ public class WebAppStorage {
 
 
     /**
-     *  webAppの名前とインスタンスをwebAppMapに追加するメソッド
+     * webAppの名前とインスタンスをwebAppMapに追加するメソッド
+     *
      * @param appName webAppMapに格納するwebApp(アプリケーションの名前)
      * @param webApp  webAppMapに格納するwebAppのインスタンス
      */
-    public static void setWebAppMap(String appName, WebApp webApp){
+    public static void setWebAppMap(String appName, WebApp webApp) {
         webAppMap.put(appName, webApp);
     }
 }

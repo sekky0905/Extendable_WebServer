@@ -48,7 +48,7 @@ public class WebServer {
     /**
      * socketを確立し、HTTPRequestクラスとHTTPResponseクラスをインスタンス化するクラス
      */
-    public void initialize() throws IOException {
+    void initialize() throws IOException {
         System.out.println("Start the server at http://localhost:8080");
         ServerSocket serverSocket = null;
 
@@ -82,6 +82,8 @@ public class WebServer {
                     serverSocket.close();
                 }
             } catch (IOException e) {
+                System.err.println("エラー:" + e.getMessage());
+                e.printStackTrace();
             }
         }
     }

@@ -1,11 +1,13 @@
-package jp.co.topgate.sekiguchi.kai.web.template;
+package jp.co.topgate.sekiguchi.kai.web.webApp.bulletin_board;
 
-import jp.co.topgate.sekiguchi.kai.web.model.Message;
-import jp.co.topgate.sekiguchi.kai.web.model.ModelStorage;
+import jp.co.topgate.sekiguchi.kai.web.webServer.Template;
+import jp.co.topgate.sekiguchi.kai.web.webApp.bulletin_board.model.Message;
+import jp.co.topgate.sekiguchi.kai.web.webApp.bulletin_board.model.MessageStorage;
 import jp.co.topgate.sekiguchi.kai.web.util.Session;
 import jp.co.topgate.sekiguchi.kai.web.util.XSSMeasure;
 
 /**
+ * 正常な時のTemplateを表すクラス
  * Created by sekiguchikai on 2016/11/22.
  */
 public class IndexTemplate implements Template {
@@ -38,11 +40,11 @@ public class IndexTemplate implements Template {
 
         int listSize;
         // 繰り返し部分
-        if (ModelStorage.checkModelList()) {
-            listSize = ModelStorage.countModel();
+        if (MessageStorage.checkMessageList()) {
+            listSize = MessageStorage.countMessage();
             stringBuilder.append(this.writeRepetition(listSize));
         } else {
-            listSize = ModelStorage.countTempo();
+            listSize = MessageStorage.countTempo();
             stringBuilder.append(this.writeRepetition(listSize));
         }
 
@@ -105,10 +107,10 @@ public class IndexTemplate implements Template {
             }
 
             Message message;
-            if (ModelStorage.checkModelList()) {
-                message = (Message) ModelStorage.getModelList(i);
+            if (MessageStorage.checkMessageList()) {
+                message = (Message) MessageStorage.getMessageList(i);
             } else {
-                message = (Message) ModelStorage.getTempoList(i);
+                message = (Message) MessageStorage.getTempoList(i);
             }
 
 

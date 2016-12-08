@@ -1,9 +1,15 @@
-package jp.co.topgate.sekiguchi.kai.web.model;
+package jp.co.topgate.sekiguchi.kai.web.webApp.bulletin_board.model;
 
 /**
+ * 1つのMessageを表すクラス
  * Created by sekiguchikai on 2016/11/22.
  */
-public class Message extends Model {
+public class Message {
+    /**
+     * ユーザーネーム
+     */
+    private String name;
+
 
     /**
      * 本文
@@ -13,6 +19,24 @@ public class Message extends Model {
      * 投稿日時
      */
     private String atTime;
+
+    /**
+     * ユーザーネームを取得するためのメソッド
+     *
+     * @return ユーザーネーム
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * ユーザーネームを設定するためのメソッド
+     *
+     * @param name 　ユーザーネーム
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
 
     /**

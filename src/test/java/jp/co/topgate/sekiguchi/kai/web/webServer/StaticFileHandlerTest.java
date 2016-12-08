@@ -18,7 +18,7 @@ public class StaticFileHandlerTest {
      * readFileメソッドをテストするためのメソッド
      */
     @Test
-    public void ileReader() {
+    public void fileReader() {
         String requestResource = ("src/test/resources/test.html");
         String requestResource2 = ("src/test/resources/sample/test.html");
         String requestResource3 = ("src/test/resources/.sample/test.html");

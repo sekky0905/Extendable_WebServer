@@ -44,10 +44,9 @@ public class Session {
     public static boolean confirmToken(String acceptToken) {
         boolean same;
         if (acceptToken.equals(Session.token)) {
-            same = true;
+            return same = true;
         } else {
-            same = false;
+            return same = false;
         }
-        return same;
     }
 }

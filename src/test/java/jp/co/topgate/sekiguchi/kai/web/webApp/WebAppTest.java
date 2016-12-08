@@ -1,6 +1,6 @@
 package jp.co.topgate.sekiguchi.kai.web.webApp;
 
-import jp.co.topgate.sekiguchi.kai.web.handler.Handler;
+import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
@@ -48,7 +48,7 @@ public class WebAppTest {
         Handler handler = WebApp.getHandlerMap("IndexHandler");
         Class handlerClass = handler.getClass();
 
-        assertThat(handlerClass.getName(), is("jp.co.topgate.sekiguchi.kai.web.handler.IndexHandler"));
+        assertThat(handlerClass.getName(), is("jp.co.topgate.sekiguchi.kai.web.webApp.bulletin_board.handler.IndexHandler"));
 
 
     }

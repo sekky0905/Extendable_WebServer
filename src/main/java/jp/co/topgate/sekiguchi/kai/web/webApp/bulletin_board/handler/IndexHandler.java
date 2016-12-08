@@ -1,10 +1,11 @@
-package jp.co.topgate.sekiguchi.kai.web.handler;
+package jp.co.topgate.sekiguchi.kai.web.webApp.bulletin_board.handler;
 
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
-import jp.co.topgate.sekiguchi.kai.web.template.IndexTemplate;
+import jp.co.topgate.sekiguchi.kai.web.webApp.bulletin_board.IndexTemplate;
 import jp.co.topgate.sekiguchi.kai.web.util.ResponseHeaderMaker;
 import jp.co.topgate.sekiguchi.kai.web.util.Session;
+import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
 
 /**
  * "/program/board/"に紐づくHandlerを表すクラス
@@ -24,7 +25,7 @@ public class IndexHandler extends Handler {
         Session.generateToken();
 
         httpResponse.setStatusLine(HTTPResponse.SC_OK);
-        httpResponse.sendResponse(ResponseHeaderMaker.makeContentType("html"), indexTemplate.writeHTML());
+        httpResponse.sendResponse("html", indexTemplate.writeHTML());
 
     }
 }

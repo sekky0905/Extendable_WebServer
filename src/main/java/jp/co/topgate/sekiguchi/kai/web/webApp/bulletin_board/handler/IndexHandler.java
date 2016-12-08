@@ -3,7 +3,6 @@ package jp.co.topgate.sekiguchi.kai.web.webApp.bulletin_board.handler;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.webApp.bulletin_board.IndexTemplate;
-import jp.co.topgate.sekiguchi.kai.web.util.ResponseHeaderMaker;
 import jp.co.topgate.sekiguchi.kai.web.util.Session;
 import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
 

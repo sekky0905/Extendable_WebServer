@@ -1,10 +1,14 @@
 package jp.co.topgate.sekiguchi.kai.web.web_app.bulletin_board;
 
+import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
+import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.webServer.Template;
 import jp.co.topgate.sekiguchi.kai.web.web_app.bulletin_board.model.Message;
 import jp.co.topgate.sekiguchi.kai.web.web_app.bulletin_board.model.MessageStorage;
 import jp.co.topgate.sekiguchi.kai.web.util.Session;
 import jp.co.topgate.sekiguchi.kai.web.util.XSSMeasure;
+
+import java.io.IOException;
 
 /**
  * 正常な時のTemplateを表すクラス
@@ -16,7 +20,7 @@ public class IndexTemplate implements Template {
      *
      * @return HTMLテンプレートをbyte[]にしたもの
      */
-    public byte[] writeHTML() {
+    public void writeHTML(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException{
         StringBuilder stringBuilder = new StringBuilder();
 
 
@@ -92,7 +96,9 @@ public class IndexTemplate implements Template {
         stringBuilder.append("</body>");
         stringBuilder.append("</html>");
 
-        return new String(stringBuilder).getBytes();
+
+        httpResponse.sendResponse("html", new String(stringBuilder).getBytes());
+
 
     }
 
@@ -140,7 +146,7 @@ public class IndexTemplate implements Template {
                 stringBuilder.append("</p>");
                 stringBuilder.append("</form>");
             }
-            
+
         }
         return new String(stringBuilder);
     }

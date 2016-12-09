@@ -60,18 +60,18 @@ class ServerThread extends Thread {
                 } else if (httpRequest.getRequestMethod().equals("GET") && (WebApp.handlerNameIsExist(requestURI))) {
                     httpResponse.setStatusLine(HTTPResponse.SC_NOT_FOUND);
                     Template template = new ErrorTemplate();
-                    httpResponse.sendResponse("html", template.writeHTML());
+                    template.writeHTML(httpRequest, httpResponse);
 
                 } else if ((httpRequest.getRequestMethod().equals("POST")) && (Session.confirmToken(httpRequest.getRequestParameter("token")))) {
                     handler.handlePOST(httpRequest, httpResponse);
 
                     Template template = new IndexTemplate();
                     httpResponse.setStatusLine(HTTPResponse.SC_OK);
-                    httpResponse.sendResponse("html", template.writeHTML());
+                    template.writeHTML(httpRequest, httpResponse);
                 } else {
                     Template template = new IndexTemplate();
                     httpResponse.setStatusLine(HTTPResponse.SC_OK);
-                    httpResponse.sendResponse("html", template.writeHTML());
+                    template.writeHTML(httpRequest, httpResponse);
                 }
             }
 

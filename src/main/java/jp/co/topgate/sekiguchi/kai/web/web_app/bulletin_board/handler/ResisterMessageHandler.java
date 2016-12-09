@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class ResisterMessageHandler extends Handler {
     /**
-     * リクエストPOSTの際のハンドラ
+     * POSTの際のハンドラ
      *
      * @param httpRequest  リクエスト
      * @param httpResponse レスポンス

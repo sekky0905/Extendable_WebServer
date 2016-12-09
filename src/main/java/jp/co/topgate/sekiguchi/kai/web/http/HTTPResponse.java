@@ -19,7 +19,6 @@ public class HTTPResponse {
      */
     private OutputStream outputStream;
 
-
     /**
      * リクエストが正常に成功したことを示すステータスコード (200)
      */
@@ -72,7 +71,7 @@ public class HTTPResponse {
      *
      * @param fileExt ファイルの拡張子
      */
-    public static String makeContentType(String fileExt) {
+    private String makeContentType(String fileExt) {
 
         Map<String, String> contentTypeMap = new HashMap<>();
         contentTypeMap.put("html", "Content-Type: text/html" + "\n");
@@ -96,33 +95,33 @@ public class HTTPResponse {
 
     /**
      * クライアントにレスポンスを送信するためのメソッド
+     *
+     * @param fileExt      ファイルの拡張子
+     * @param responseBody レスポンスボディ
+     * @throws java.io.IOException クライアントへのHTTPレスポンスの送信に失敗しました
      */
-    public void sendResponse(String fileExt, byte[] responseBody) {
-        try {
-            System.out.println("クライアントに送信を開始します");
-            DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
+    public void sendResponse(String fileExt, byte[] responseBody) throws IOException {
+
+        System.out.println("クライアントに送信を開始します");
+        DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
 
 
-            // 引数で受け取ったステータスラインとレスポンスヘッダを結合
-            byte[] responseHead = (statusLine + "\n" + this.makeContentType(fileExt) + "\n").getBytes();
+        // 引数で受け取ったステータスラインとレスポンスヘッダを結合
+        byte[] responseHead = (statusLine + "\n" + this.makeContentType(fileExt) + "\n").getBytes();
 
 
-            byte[] responseContents = new byte[responseHead.length + responseBody.length];
-            // ResponseContentsにbyteResponseHeadを追加
-            System.arraycopy(responseHead, 0, responseContents, 0, responseHead.length);
-            // ResponseContentsにresponseBodyを追加
-            System.arraycopy(responseBody, 0, responseContents, responseHead.length, responseBody.length);
+        byte[] responseContents = new byte[responseHead.length + responseBody.length];
+        // ResponseContentsにbyteResponseHeadを追加
+        System.arraycopy(responseHead, 0, responseContents, 0, responseHead.length);
+        // ResponseContentsにresponseBodyを追加
+        System.arraycopy(responseBody, 0, responseContents, responseHead.length, responseBody.length);
 
-            if (responseBody != null) {
-                dataOutputStream.write(responseContents, 0, responseContents.length);
-                dataOutputStream.flush();
-                dataOutputStream.close();
-            }
-
-        } catch (IOException e) {
-            System.err.println("エラー" + e.getMessage());
-            e.printStackTrace();
+        if (responseBody != null) {
+            dataOutputStream.write(responseContents, 0, responseContents.length);
+            dataOutputStream.flush();
+            dataOutputStream.close();
         }
+
     }
 
 

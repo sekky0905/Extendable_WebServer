@@ -41,15 +41,7 @@ class ServerThread extends Thread {
             HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
             String requestURI = httpRequest.getRequestURI();
-            String queryString = httpRequest.getQueryString();
-
-            try {
-                httpRequest.setRequestParameter();
-            } catch (IOException e) {
-                System.err.println("エラー:" + e.getMessage());
-                e.printStackTrace();
-            }
-
+            httpRequest.setRequestParameter();
 
             // Webサーバ
             if (!(WebApp.handlerNameIsExist(requestURI))) {
@@ -69,6 +61,7 @@ class ServerThread extends Thread {
                     httpResponse.setStatusLine(HTTPResponse.SC_NOT_FOUND);
                     Template template = new ErrorTemplate();
                     httpResponse.sendResponse("html", template.writeHTML());
+
                 } else if ((httpRequest.getRequestMethod().equals("POST")) && (Session.confirmToken(httpRequest.getRequestParameter("token")))) {
                     handler.handlePOST(httpRequest, httpResponse);
 
@@ -80,8 +73,6 @@ class ServerThread extends Thread {
                     httpResponse.setStatusLine(HTTPResponse.SC_OK);
                     httpResponse.sendResponse("html", template.writeHTML());
                 }
-
-
             }
 
         } catch (IOException e) {
@@ -97,8 +88,7 @@ class ServerThread extends Thread {
                 System.err.println("エラー:" + e.getMessage());
                 e.printStackTrace();
             }
-            System.out.println("クライアントとの通信を切断しました "
-                    + socket.getRemoteSocketAddress());
+
         }
     }
 }

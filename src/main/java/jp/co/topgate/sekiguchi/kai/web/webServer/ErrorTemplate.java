@@ -1,13 +1,12 @@
 package jp.co.topgate.sekiguchi.kai.web.webServer;
 
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
-import jp.co.topgate.sekiguchi.kai.web.webServer.Template;
 
 /**
  * エラーの際のTemplateを表すクラス
  * Created by sekiguchikai on 2016/12/07.
  */
-public class ErrorTemplate implements Template {
+class ErrorTemplate implements Template {
     /**
      * エラーの際のHTMLのテンプレートを作成し、それをbyte[]にして返すメソッド
      *

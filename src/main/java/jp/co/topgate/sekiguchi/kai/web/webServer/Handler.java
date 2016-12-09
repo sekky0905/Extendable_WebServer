@@ -3,6 +3,8 @@ package jp.co.topgate.sekiguchi.kai.web.webServer;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
 
+import java.io.IOException;
+
 /**
  * Handlerの継承元クラス
  * Created by sekiguchikai on 2016/12/03.
@@ -14,7 +16,7 @@ public class Handler {
      * @param httpRequest  リクエスト
      * @param httpResponse レスポンス
      */
-    public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) {
+    public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException{
 
     }
 

@@ -10,19 +10,19 @@ public class XSSMeasure {
     /**
      * 特殊文字列をサニタイジングするためのメソッド
      *
-     * @param specialChar サニタイジング対象の特殊文字列
+     * @param target サニタイジング対象の特殊文字列
      * @return 特殊文字列をサニタイジングした後の一般文字列
      */
-    public static String sanitize(String specialChar) {
+    public static String sanitize(String target) {
 
-        specialChar = specialChar.replaceAll("&", "&amp;");
-        specialChar = specialChar.replaceAll("<", "&lt;");
-        specialChar = specialChar.replaceAll(">", "&gt;");
-        specialChar = specialChar.replaceAll("\"", "&quot;");
-        specialChar = specialChar.replaceAll("'", "&#x27;");
-        specialChar = specialChar.replaceAll("/", "&#x2F;");
+        target = target.replaceAll("&", "&amp;");
+        target = target.replaceAll("<", "&lt;");
+        target = target.replaceAll(">", "&gt;");
+        target = target.replaceAll("\"", "&quot;");
+        target = target.replaceAll("'", "&#x27;");
+        target = target.replaceAll("/", "&#x2F;");
 
-        return specialChar;
+        return target;
 
     }
 

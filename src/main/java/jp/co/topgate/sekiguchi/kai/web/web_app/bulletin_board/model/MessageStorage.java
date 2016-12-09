@@ -1,5 +1,6 @@
 package jp.co.topgate.sekiguchi.kai.web.web_app.bulletin_board.model;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,43 +10,56 @@ import java.util.List;
  */
 public class MessageStorage {
     /**
-     * モデルを格納するためのリスト
+     * Messageを格納するためのリスト
      */
-    private static List<Message> modelList = new ArrayList<>();
+    private static List<Message> messageList = new ArrayList<>();
+
+    /**
+     * 一時的にmessageListの一部を退避するために格納するためのリスト
+     */
     private static List<Message> tempList = new ArrayList<>();
-    private static boolean modelListChose;
+
+    /**
+     * messageListが選択された状態かどうかの真偽値
+     */
+    private static boolean messageListChose;
 
 
-    public static void chooseMessageList(boolean modelListChose) {
-        MessageStorage.modelListChose = modelListChose;
+    /**
+     * messageListか、tempListかを選択するためのメソッド
+     *
+     * @param messageListChose messageListを選択するかどうかの真偽値
+     */
+    public static void chooseMessageList(boolean messageListChose) {
+        MessageStorage.messageListChose = messageListChose;
     }
 
     /**
-     * ModelListか、tempListかを選択するメソッド
+     * messageListが選択されているかどうかの真偽値を確認するためのメソッド
      *
-     * @return ModelListを選択するかどうかの真偽値
+     * @return messageListが選択されているかどうかの真偽値
      */
     public static boolean checkMessageList() {
-        return MessageStorage.modelListChose;
+        return MessageStorage.messageListChose;
     }
 
     /**
-     * モデルを受け取りmodelListに格納するためのメソッド
+     * Messageを受け取りmessageListに格納するためのメソッド
      *
-     * @param model modelListに格納するモデル
+     * @param message messageListに格納するモデル
      */
-    public static void setMessageList(Message model) {
-        MessageStorage.modelList.add(model);
+    public static void setMessageList(Message message) {
+        MessageStorage.messageList.add(message);
     }
 
     /**
-     * インデックスで指定されたmodelListに格納されたモデルを返すメソッド
+     * インデックスで指定されたmessageListに格納されたモデルを返すメソッド
      *
      * @param index リストのインデックス
      * @return インデックスで指定されたモデル
      */
     public static Message getMessageList(int index) {
-        return MessageStorage.modelList.get(index);
+        return MessageStorage.messageList.get(index);
     }
 
 
@@ -61,12 +75,12 @@ public class MessageStorage {
 
 
     /**
-     * modelListのサイズを返すメソッド
+     * messageListのサイズを返すメソッド
      *
-     * @return modelListのサイズ
+     * @return messageListのサイズ
      */
     public static int countMessage() {
-        return MessageStorage.modelList.size();
+        return MessageStorage.messageList.size();
     }
 
 
@@ -86,7 +100,7 @@ public class MessageStorage {
      * @param index リストのインデックス
      */
     public static void removeMessage(int index) {
-        MessageStorage.modelList.remove(index);
+        MessageStorage.messageList.remove(index);
     }
 
 
@@ -97,27 +111,27 @@ public class MessageStorage {
      */
     public static void searchMessage(String name) {
         MessageStorage.removeAllTemp();
-        for (int i = 0; i <= MessageStorage.modelList.size(); i++) {
-            if (i == MessageStorage.modelList.size()) {
+        for (int i = 0; i <= MessageStorage.messageList.size(); i++) {
+            if (i == MessageStorage.messageList.size()) {
                 break;
             }
-            if ((MessageStorage.modelList.get(i).getName().equals(name))) {
-                MessageStorage.tempList.add(MessageStorage.modelList.get(i));
+            if ((MessageStorage.messageList.get(i).getName().equals(name))) {
+                MessageStorage.tempList.add(MessageStorage.messageList.get(i));
             }
         }
     }
 
     /**
-     * modelListに保持している全てのインスタンスを削除するメソッド
+     * messageListに保持している全てのインスタンスを削除するメソッド
      */
-    public static void removeAllMessage() {
-        MessageStorage.modelList.clear();
+    static void removeAllMessage() {
+        MessageStorage.messageList.clear();
     }
 
     /**
      * tempListに保持している全てのインスタンスを削除するメソッド
      */
-    public static void removeAllTemp() {
+    private static void removeAllTemp() {
         MessageStorage.tempList.clear();
     }
 

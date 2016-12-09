@@ -33,21 +33,15 @@ public class WebServer {
     /**
      * メインメソッド
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         WebServer webServer = new WebServer();
-        try {
-            webServer.initialize();
-        } catch (IOException e) {
-            System.err.println("エラー:" + e.getMessage());
-            e.printStackTrace();
-        }
-
+        webServer.initialize();
     }
 
     /**
      * socketを確立し、HTTPRequestクラスとHTTPResponseクラスをインスタンス化するクラス
      */
-    void initialize() throws IOException {
+    private void initialize() {
         System.out.println("Start the server at http://localhost:8080");
         ServerSocket serverSocket = null;
 
@@ -65,6 +59,7 @@ public class WebServer {
 
         try {
             serverSocket = new ServerSocket(PORT);
+
             System.out.println("サーバが起動しました");
             // ハンドラインスタンスを使い回せる
             while (true) {

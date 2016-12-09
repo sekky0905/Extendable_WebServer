@@ -11,17 +11,14 @@ import java.io.*;
  *
  * @author sekiguchikai
  */
-public class StaticFileHandler extends Handler {
+class StaticFileHandler extends Handler {
     /**
      * 静的なファイルの処理を行うメソッド
      *
      * @param httpRequest  HTTPRequestクラスのインスタンス
      * @param httpResponse HTTPResponseクラスのインスタンス
      */
-    public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) {
-        String requestURI = null;
-        requestURI = httpRequest.getRequestURI();
-
+    public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException{
         String requestResource = httpRequest.getRequestResource();
         String extension = httpRequest.getRequestResourceExtension(requestResource);
         File file = new File(requestResource);
@@ -55,7 +52,7 @@ public class StaticFileHandler extends Handler {
      *
      * @return 読み込んだファイルのバイナリデータ
      */
-    public byte[] readFile(File file) throws IOException {
+byte[] readFile(File file) throws IOException {
 
         System.out.println("ファイルの読み込みを始めます");
 

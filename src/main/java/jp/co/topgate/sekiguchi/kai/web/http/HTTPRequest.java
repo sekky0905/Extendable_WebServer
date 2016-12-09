@@ -51,10 +51,11 @@ public class HTTPRequest {
 
     /**
      * リクエストの全文を読み込むメソッド
+     *
+     * @throws java.io.IOException リクエストの中身を読み込めません
      */
-    public void setRequestContents() throws IOException {
+    private void setRequestContents() throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.inputStream));
-
         String line = bufferedReader.readLine();
         this.requestLine = line.split(" ");
 
@@ -80,6 +81,7 @@ public class HTTPRequest {
             System.out.print("リクエストボディは" + this.requestBody);
         }
 
+
     }
 
 
@@ -98,6 +100,7 @@ public class HTTPRequest {
      * リクエストURIを返すメソッド
      *
      * @return リクエストURIを返す
+     * @throws java.io.UnsupportedEncodingException 文字のエンコーディングがサポートされていません
      */
     public String getRequestURI() {
         String requestURI;
@@ -110,15 +113,14 @@ public class HTTPRequest {
             requestURI = URLDecoder.decode(requestURI, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             System.err.println("エラー:" + e.getMessage());
+            // 以下の方法でも良いかもしれない
+            // System.exit(1);
             e.printStackTrace();
             // utf-8がサポートされていないということはないので、UnsupportedEncodingExceptionの場合は、非チェック例外である
             // RuntimeException()を無理やり生成して強制終了
             throw new RuntimeException();
         }
-
-
         System.out.print("リクエストURIは" + requestURI);
-
         return requestURI;
     }
 
@@ -127,7 +129,7 @@ public class HTTPRequest {
      *
      * @return クエリストリング
      */
-    public String getQueryString() {
+    private String getQueryString() {
         String queryString = null;
 
         if (this.getRequestMethod().equals("GET")) {

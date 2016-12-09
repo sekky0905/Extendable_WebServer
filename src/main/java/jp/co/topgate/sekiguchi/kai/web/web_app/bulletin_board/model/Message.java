@@ -10,15 +10,24 @@ public class Message {
      */
     private String name;
 
-
     /**
-     * 本文
+     * コメント
      */
     private String comment;
     /**
      * 投稿日時
      */
     private String atTime;
+
+
+    /**
+     * ユーザーネームを設定するためのメソッド
+     *
+     * @param name ユーザーネーム
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
     /**
      * ユーザーネームを取得するためのメソッド
@@ -29,23 +38,23 @@ public class Message {
         return this.name;
     }
 
-    /**
-     * ユーザーネームを設定するためのメソッド
-     *
-     * @param name 　ユーザーネーム
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
 
     /**
      * コメントを設定するためのメソッド
      *
-     * @param comment 　コメント
+     * @param comment コメント
      */
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    /**
+     * コメントを取得するためのメソッド
+     *
+     * @return コメント
+     */
+    public String getComment() {
+        return this.comment;
     }
 
     /**
@@ -57,15 +66,6 @@ public class Message {
         this.atTime = atTime;
     }
 
-
-    /**
-     * コメントを取得するためのメソッド
-     *
-     * @return 本文
-     */
-    public String getComment() {
-        return this.comment;
-    }
 
     /**
      * 投稿日時を取得するためのメソッド

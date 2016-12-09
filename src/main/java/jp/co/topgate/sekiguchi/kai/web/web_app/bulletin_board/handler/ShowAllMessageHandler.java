@@ -13,7 +13,7 @@ import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
  */
 public class ShowAllMessageHandler extends Handler {
     /**
-     * リクエストPOSTの際のハンドラ
+     * POSTの際のハンドラ
      *
      * @param httpRequest  リクエスト
      * @param httpResponse レスポンス

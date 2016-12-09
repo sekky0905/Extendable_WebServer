@@ -6,18 +6,21 @@ import jp.co.topgate.sekiguchi.kai.web.web_app.bulletin_board.IndexTemplate;
 import jp.co.topgate.sekiguchi.kai.web.util.Session;
 import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
 
+import java.io.IOException;
+
 /**
  * "/program/board/"に紐づくHandlerを表すクラス
  * Created by sekiguchikai on 2016/12/03.
  */
 public class IndexHandler extends Handler {
     /**
-     * リクエストGETの際のハンドラ
+     * GETの際のハンドラ
      *
      * @param httpRequest  リクエスト
      * @param httpResponse レスポンス
+     * @throws java.io.IOException クライアントへのレスポンスの送信に失敗しました
      */
-    public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) {
+    public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException {
 
         IndexTemplate indexTemplate = new IndexTemplate();
 

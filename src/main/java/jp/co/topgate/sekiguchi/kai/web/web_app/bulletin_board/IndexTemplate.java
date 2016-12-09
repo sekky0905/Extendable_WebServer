@@ -108,9 +108,9 @@ public class IndexTemplate implements Template {
 
             Message message;
             if (MessageStorage.checkMessageList()) {
-                message = (Message) MessageStorage.getMessageList(i);
+                message = MessageStorage.getMessageList(i);
             } else {
-                message = (Message) MessageStorage.getTempList(i);
+                message = MessageStorage.getTempList(i);
             }
 
 
@@ -140,8 +140,7 @@ public class IndexTemplate implements Template {
                 stringBuilder.append("</p>");
                 stringBuilder.append("</form>");
             }
-
-
+            
         }
         return new String(stringBuilder);
     }

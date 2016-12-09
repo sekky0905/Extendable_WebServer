@@ -32,7 +32,7 @@ public class WebApp {
 
 
     /**
-     * パスで指定されたHandlerクラスのインスタンスを返す
+     * パスで指定されたHandlerクラスのインスタンスを返ためのメソッド
      *
      * @param path Handlerに紐づけられたパス
      * @return Handlerクラスのインスタンスの名前
@@ -42,9 +42,9 @@ public class WebApp {
     }
 
     /**
-     * 指定された名前のHandlerがHashMapうちに入っているかどうかの確認
+     * 指定された名前のHandlerがHashMapうちに入っているかどうかの確認するためのメソッド
      * @param handlerName Handlerの名前
-     * @return Handlerが存在しているか
+     * @return Handlerが存在しているかどうかの真偽値
      */
     public static boolean handlerNameIsExist(String handlerName) {
         return handlerNameMap.containsKey(handlerName);
@@ -69,13 +69,12 @@ public class WebApp {
     }
 
     /**
-     * ハンドラの名前をしているするとその名前に紐づけられたHandlerインスタンスを返すメソッド
+     * ハンドラの名前を指定するとその名前に紐づけられたHandlerインスタンスを返すメソッド
      * @param handlerName Handlerの名前
      * @return Handlerインスタンス
      */
     public static Handler getHandlerMap(String handlerName) {
         return WebApp.handlerMap.get(handlerName);
-
     }
 }
 

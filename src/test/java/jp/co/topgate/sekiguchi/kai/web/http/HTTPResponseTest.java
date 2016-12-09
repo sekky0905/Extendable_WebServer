@@ -5,7 +5,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
+import org.hamcrest.generator.qdox.model.Member;
 import org.junit.Test;
 
 /**
@@ -15,17 +18,16 @@ import org.junit.Test;
  */
 public class HTTPResponseTest {
 
+    private OutputStream outputStream = new ByteArrayOutputStream();
+    private HTTPResponse httpResponse = new HTTPResponse(outputStream);
+
     /**
      * setStatusLineメソッドとgetStatusLineメソッドをテストするメソッド
      */
     @Test
     public void setStatusLine() {
-        OutputStream outputStream = new ByteArrayOutputStream();
-        HTTPResponse httpResponse = new HTTPResponse(outputStream);
         httpResponse.setStatusLine(HTTPResponse.SC_OK);
         assertThat(HTTPResponse.getStatusLine(), is("HTTP/1.1 200 OK"));
-
-
     }
 
 
@@ -34,15 +36,31 @@ public class HTTPResponseTest {
      */
     @Test
     public void makeContentType() {
-        OutputStream outputStream = new ByteArrayOutputStream();
-        HTTPResponse httpResponse = new HTTPResponse(outputStream);
         String fileExt[] = {"html", "css", "js", "jpeg", "png", "gif"};
         String expectedContents[] = {"Content-Type: text/html\n", "Content-Type: text/css\n", "Content-Type: text/js\n", "Content-Type: image/jpeg\n", "Content-Type: image/png\n", "Content-Type: image/gif\n"};
+        Method makeContentType = null;
 
-        for (int i = 0; i < fileExt.length; i++) {
-            assertThat(httpResponse.makeContentType(fileExt[i]), is(expectedContents[i]));
+        try {
+            makeContentType = HTTPResponse.class.getDeclaredMethod("makeContentType", String.class);
+            makeContentType.setAccessible(true);
+        } catch (NoSuchMethodException e) {
+            System.err.println("エラー:" + e.getMessage());
+            e.printStackTrace();
         }
 
+
+        for (int i = 0; i < fileExt.length; i++) {
+            try {
+                assertThat(makeContentType.invoke(httpResponse, fileExt[i]), is(expectedContents[i]));
+            } catch (InvocationTargetException ite) {
+                System.err.println("エラー:" + ite.getMessage());
+                ite.printStackTrace();
+            } catch (IllegalAccessException iae) {
+                System.err.println("エラー:" + iae.getMessage());
+                iae.printStackTrace();
+            }
+
+        }
     }
 
 
@@ -56,7 +74,14 @@ public class HTTPResponseTest {
 
 
         httpResponse.setStatusLine(HTTPResponse.SC_OK);
-        httpResponse.sendResponse("html", "テスト".getBytes());
+        try {
+            httpResponse.sendResponse("html", "テスト".getBytes());
+        } catch (IOException e) {
+            System.err.println("エラー:" + e.getMessage());
+            e.printStackTrace();
+
+        }
+
 
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(
                 ((ByteArrayOutputStream) outputStream).toByteArray());
@@ -85,4 +110,3 @@ public class HTTPResponseTest {
 
 
 }
-

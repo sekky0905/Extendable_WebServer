@@ -9,7 +9,7 @@ import java.io.IOException;
  * エラーの際のTemplateを表すクラス
  * Created by sekiguchikai on 2016/12/07.
  */
-class ErrorTemplate implements Template{
+class ErrorTemplate implements Template {
     /**
      * エラーの際のHTMLのテンプレートを作成し、それをbyte[]にして返すメソッド
      *
@@ -29,6 +29,9 @@ class ErrorTemplate implements Template{
         stringBuilder.append("<p>" + HTTPResponse.getStatusLine() + "</p>");
         stringBuilder.append("</body>");
 
-        httpResponse.sendResponse("html", new String(stringBuilder).getBytes());
+
+        httpResponse.setDynamicBody(new String(stringBuilder).getBytes());
+
+        httpResponse.sendResponse("html");
     }
 }

@@ -1,14 +1,12 @@
 package jp.co.topgate.sekiguchi.kai.web.http;
 
 import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import org.hamcrest.generator.qdox.model.Member;
 import org.junit.Test;
 
 /**
@@ -69,13 +67,10 @@ public class HTTPResponseTest {
      */
     @Test
     public void sendResponse() {
-        OutputStream outputStream = new ByteArrayOutputStream();
-        HTTPResponse httpResponse = new HTTPResponse(outputStream);
-
-
         httpResponse.setStatusLine(HTTPResponse.SC_OK);
         try {
-            httpResponse.sendResponse("html", "テスト".getBytes());
+            httpResponse.setStaticBody(new File("src/test/resources/test.html"));
+            httpResponse.sendResponse("html");
         } catch (IOException e) {
             System.err.println("エラー:" + e.getMessage());
             e.printStackTrace();

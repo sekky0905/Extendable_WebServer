@@ -297,36 +297,6 @@ public class HTTPRequestTest {
             assertThat(this.instantiate(reqContentsArray[i]).getRequestURI(), is(expectedResourceArray[i]));
         }
 
-        String requestContents4 = "GET /?name=a HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
-                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
-                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
-                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
-                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
-
-        String requestContents5 = "GET /sample//?name=a HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
-                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
-                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
-                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
-                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
-
-        String requestContents6 = "GET /.sample/?name=a HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
-                + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
-                + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
-                + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
-                + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
-
-
-        String reqContentsArray2[] = {requestContents1, requestContents2, requestContents3};
-
-        String resource4 = "/test.html";
-        String resource5 = "/sample/test.html";
-        String resource6 = "/.sample/test.html";
-
-        String expectedResourceArray2[] = {resource4, resource5, resource6};
-
-        for (int i = 0; i < reqContentsArray2.length; i++) {
-            assertThat((this.instantiate(reqContentsArray2[i]).getRequestURI()), is(expectedResourceArray2[i]));
-        }
     }
 
     /**

@@ -1,10 +1,10 @@
 package jp.co.topgate.sekiguchi.kai.web.http;
 
 
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * @author sekiguchikai
  */
-public class HTTPResponse {
+public class HTTPResponse<E> {
 
     /**
      * クライアントとのsocketを格納したOutputStream
@@ -33,6 +33,37 @@ public class HTTPResponse {
      * ステータスライン
      */
     private static String statusLine;
+
+
+    /**
+     * 動的なレスポンスボディ
+     */
+    private byte[] dynamicBody;
+
+    /**
+     * 静的なレスポンスボディ
+     */
+    private File staticBody;
+
+
+    /**
+     * 動的なレスポンスボディを設定するメソッド
+     *
+     * @param dynamicBody 　動的なレスポンスボディ
+     */
+    public void setDynamicBody(byte[] dynamicBody) {
+        this.dynamicBody = dynamicBody;
+    }
+
+    /**
+     * 静的なレスポンスボディを設定するメソッド
+     *
+     * @param staticBody 静的なレスポンスボディ
+     */
+    public void setStaticBody(File staticBody) {
+        this.staticBody = staticBody;
+    }
+
 
     /**
      * HTTP サーバの内部エラーを示すステータスコード (500)
@@ -56,6 +87,7 @@ public class HTTPResponse {
     public void setStatusLine(String statusCode) {
         HTTPResponse.statusLine = statusCode;
     }
+
 
     /**
      * ステータスコードを引数にステータスラインを設定するメソッド
@@ -96,31 +128,42 @@ public class HTTPResponse {
     /**
      * クライアントにレスポンスを送信するためのメソッド
      *
-     * @param fileExt      ファイルの拡張子
-     * @param responseBody レスポンスボディ
+     * @param fileExt ファイルの拡張子
      * @throws java.io.IOException クライアントへのHTTPレスポンスの送信に失敗しました
      */
-    public void sendResponse(String fileExt, byte[] responseBody) throws IOException {
-
+    public void sendResponse(String fileExt) throws IOException {
         System.out.println("クライアントに送信を開始します");
-        DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
 
+        try (DataOutputStream dataOutputStream = new DataOutputStream(outputStream)) {
 
-        // 引数で受け取ったステータスラインとレスポンスヘッダを結合
-        byte[] responseHead = (statusLine + "\n" + this.makeContentType(fileExt) + "\n").getBytes();
+            byte[] responseHead = (statusLine + "\n" + this.makeContentType(fileExt) + "\n").getBytes();
+            dataOutputStream.write(responseHead);
 
+            if (this.dynamicBody != null) {
+                dataOutputStream.write(this.dynamicBody);
+            } else {
+                BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(staticBody));
 
-        byte[] responseContents = new byte[responseHead.length + responseBody.length];
-        // ResponseContentsにbyteResponseHeadを追加
-        System.arraycopy(responseHead, 0, responseContents, 0, responseHead.length);
-        // ResponseContentsにresponseBodyを追加
-        System.arraycopy(responseBody, 0, responseContents, responseHead.length, responseBody.length);
+                List<Integer> fileContentsList = new ArrayList<>();
 
-        if (responseBody != null) {
-            dataOutputStream.write(responseContents, 0, responseContents.length);
-            dataOutputStream.flush();
-            dataOutputStream.close();
+                int len;
+                while ((len = bufferedInputStream.read()) != -1) {
+                    fileContentsList.add(len);
+                }
+                for (Integer index : fileContentsList)
+                    dataOutputStream.write(fileContentsList.get(index));
+            }
+
+        } catch (
+                IOException e)
+
+        {
+            System.err.println("エラー:" + e.getMessage());
+            e.printStackTrace();
+            // closeは必ず実行したいので、try()内に記述し、意図的にIOExceptionを生成
+            throw new IOException();
         }
+
 
     }
 

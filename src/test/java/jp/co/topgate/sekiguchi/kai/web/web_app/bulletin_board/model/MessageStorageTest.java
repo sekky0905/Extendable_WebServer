@@ -11,6 +11,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 /**
+ * Messageを保存しておくためのクラス
  * Created by sekiguchikai on 2016/11/29.
  */
 public class MessageStorageTest {

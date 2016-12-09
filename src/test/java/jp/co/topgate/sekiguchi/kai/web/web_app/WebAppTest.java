@@ -7,6 +7,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
 /**
+ * WebAppTestをテストするクラス
  * Created by sekiguchikai on 2016/12/05.
  */
 public class WebAppTest {

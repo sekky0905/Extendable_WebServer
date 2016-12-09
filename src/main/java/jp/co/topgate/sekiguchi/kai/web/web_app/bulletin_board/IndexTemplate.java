@@ -20,7 +20,7 @@ public class IndexTemplate implements Template {
      *
      * @return HTMLテンプレートをbyte[]にしたもの
      */
-    public void writeHTML(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException{
+    public void writeHTML(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
 
 
@@ -97,7 +97,9 @@ public class IndexTemplate implements Template {
         stringBuilder.append("</html>");
 
 
-        httpResponse.sendResponse("html", new String(stringBuilder).getBytes());
+        httpResponse.setDynamicBody(new String(stringBuilder).getBytes());
+
+        httpResponse.sendResponse("html");
 
 
     }

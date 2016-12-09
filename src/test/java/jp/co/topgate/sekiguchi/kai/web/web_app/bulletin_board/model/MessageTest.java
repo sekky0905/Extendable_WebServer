@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
  * Created by sekiguchikai on 2016/11/24.
  */
 public class MessageTest {
-    Message message = new Message();
+    private Message message = new Message();
 
     /**
      * setNameメソッドをテストするメソッド

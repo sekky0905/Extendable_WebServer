@@ -57,6 +57,7 @@ public class HTTPRequest {
     private void setRequestContents() throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.inputStream));
         String line = bufferedReader.readLine();
+
         this.requestLine = line.split(" ");
 
         StringBuilder stringBuilder = new StringBuilder();

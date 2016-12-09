@@ -1,6 +1,5 @@
 package jp.co.topgate.sekiguchi.kai.web.util;
 
-import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.*;

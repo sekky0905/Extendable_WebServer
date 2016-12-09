@@ -18,7 +18,7 @@ class StaticFileHandler extends Handler {
      * @param httpRequest  HTTPRequestクラスのインスタンス
      * @param httpResponse HTTPResponseクラスのインスタンス
      */
-    public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException{
+    public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException {
         String requestResource = httpRequest.getRequestResource();
         String extension = httpRequest.getRequestResourceExtension(requestResource);
         File file = new File(requestResource);
@@ -27,7 +27,7 @@ class StaticFileHandler extends Handler {
 
         if (file.isDirectory()) {
             httpResponse.setStatusLine(HTTPResponse.SC_NOT_FOUND);
-            httpResponse.sendResponse("html", errTemplate.writeHTML());
+            errTemplate.writeHTML(httpRequest, httpResponse);
         } else if ((file.exists())) {
             try {
                 httpResponse.setStatusLine(HTTPResponse.SC_OK);
@@ -36,12 +36,12 @@ class StaticFileHandler extends Handler {
                 System.err.println("エラー" + e.getMessage());
                 e.printStackTrace();
                 httpResponse.setStatusLine(HTTPResponse.SC_INTERNAL_SERVER_ERROR);
-                httpResponse.sendResponse(extension, errTemplate.writeHTML());
+                errTemplate.writeHTML(httpRequest, httpResponse);
             }
 
         } else {
             httpResponse.setStatusLine(HTTPResponse.SC_NOT_FOUND);
-            httpResponse.sendResponse("html", errTemplate.writeHTML());
+            errTemplate.writeHTML(httpRequest, httpResponse);
         }
 
 
@@ -52,7 +52,7 @@ class StaticFileHandler extends Handler {
      *
      * @return 読み込んだファイルのバイナリデータ
      */
-byte[] readFile(File file) throws IOException {
+    byte[] readFile(File file) throws IOException {
 
         System.out.println("ファイルの読み込みを始めます");
 

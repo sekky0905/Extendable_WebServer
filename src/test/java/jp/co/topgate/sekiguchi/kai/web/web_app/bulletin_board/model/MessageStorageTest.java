@@ -15,6 +15,9 @@ import static org.junit.Assert.*;
  */
 public class MessageStorageTest {
 
+    /**
+     * 各メソッド実行後に自動で行う処理
+     */
     @After
     public void after() {
         MessageStorage.removeAllMessage();

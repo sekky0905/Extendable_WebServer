@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
+ * Messageクラスをテストするためのメソッド
  * Created by sekiguchikai on 2016/11/24.
  */
 public class MessageTest {

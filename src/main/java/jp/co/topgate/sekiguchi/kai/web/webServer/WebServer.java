@@ -19,7 +19,7 @@ import java.net.Socket;
 // socketを返す（これでクライアントは、接続する）
 
 /**
- * socketの確立とControlerクラスを呼び出す責務を持ったクラス
+ * socketの確立とControllerクラスを呼び出す責務を持ったクラス
  *
  * @author sekiguchikai
  */

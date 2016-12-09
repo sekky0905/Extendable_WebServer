@@ -1,18 +1,15 @@
 package jp.co.topgate.sekiguchi.kai.web.http;
 
 import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.assertEquals;
+
 import static org.junit.Assert.assertThat;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import com.sun.istack.internal.Nullable;
-import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import org.junit.Test;
 
 /**

@@ -133,7 +133,6 @@ public class HTTPResponse<E> {
      */
     public void sendResponse(String fileExt) throws IOException {
         System.out.println("クライアントに送信を開始します");
-
         try (DataOutputStream dataOutputStream = new DataOutputStream(outputStream)) {
 
             byte[] responseHead = (statusLine + "\n" + this.makeContentType(fileExt) + "\n").getBytes();
@@ -150,10 +149,10 @@ public class HTTPResponse<E> {
                 while ((len = bufferedInputStream.read()) != -1) {
                     fileContentsList.add(len);
                 }
-                for (Integer index : fileContentsList)
-                    dataOutputStream.write(fileContentsList.get(index));
+                for (int i = 0; i < fileContentsList.size(); i++) {
+                    dataOutputStream.write(fileContentsList.get(i));
+                }
             }
-
         } catch (
                 IOException e)
 

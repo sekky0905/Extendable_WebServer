@@ -322,7 +322,6 @@ public class HTTPRequestTest {
 
         for (String reqResource : requestResourceArray) {
             assertThat(httpRequest.getRequestResourceExtension(reqResource), is("html"));
-
         }
 
 

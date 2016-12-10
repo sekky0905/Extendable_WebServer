@@ -19,15 +19,15 @@ class ErrorTemplate implements Template {
     public void writeHTML(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
 
-        stringBuilder.append("<!DOCTYPE html>");
-        stringBuilder.append("<html lang=\"ja\">");
-        stringBuilder.append("<head>");
-        stringBuilder.append("<meta charset=\"UTF-8\">");
-        stringBuilder.append("<title>エラー</title>");
-        stringBuilder.append("</head>");
-        stringBuilder.append("<body>");
-        stringBuilder.append("<p>" + HTTPResponse.getStatusLine() + "</p>");
-        stringBuilder.append("</body>");
+        stringBuilder.append("<!DOCTYPE html>")
+        .append("<html lang=\"ja\">")
+        .append("<head>")
+        .append("<meta charset=\"UTF-8\">")
+        .append("<title>エラー</title>")
+        .append("</head>")
+        .append("<body>")
+        .append("<p>" + HTTPResponse.getStatusLine() + "</p>")
+        .append("</body>");
 
 
         httpResponse.setDynamicBody(new String(stringBuilder).getBytes());

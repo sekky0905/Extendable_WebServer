@@ -20,18 +20,16 @@ class ErrorTemplate implements Template {
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append("<!DOCTYPE html>")
-        .append("<html lang=\"ja\">")
-        .append("<head>")
-        .append("<meta charset=\"UTF-8\">")
-        .append("<title>エラー</title>")
-        .append("</head>")
-        .append("<body>")
-        .append("<p>" + HTTPResponse.getStatusLine() + "</p>")
-        .append("</body>");
+                .append("<html lang=\"ja\">")
+                .append("<head>")
+                .append("<meta charset=\"UTF-8\">")
+                .append("<title>エラー</title>")
+                .append("</head>")
+                .append("<body>")
+                .append("<p>" + HTTPResponse.getStatusLine() + "</p>")
+                .append("</body>");
 
 
-        httpResponse.setDynamicBody(new String(stringBuilder).getBytes());
-
-        httpResponse.sendResponse("html");
+        httpResponse.sendResponse("html", new String(stringBuilder).getBytes());
     }
 }

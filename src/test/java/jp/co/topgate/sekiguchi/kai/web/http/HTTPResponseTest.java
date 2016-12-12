@@ -67,10 +67,13 @@ public class HTTPResponseTest {
      */
     @Test
     public void sendResponse() {
+        OutputStream outputStream = new ByteArrayOutputStream();
+        HTTPResponse httpResponse = new HTTPResponse(outputStream);
+
+
         httpResponse.setStatusLine(HTTPResponse.SC_OK);
         try {
-            httpResponse.setStaticBody(new File("src/test/resources/test.html"));
-            httpResponse.sendResponse("html");
+            httpResponse.sendResponse("html", "テスト".getBytes());
         } catch (IOException e) {
             System.err.println("エラー:" + e.getMessage());
             e.printStackTrace();

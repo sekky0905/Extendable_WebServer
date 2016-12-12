@@ -96,9 +96,7 @@ public class IndexTemplate implements Template {
                 .append("</html>");
 
 
-        httpResponse.setDynamicBody(new String(stringBuilder).getBytes());
-
-        httpResponse.sendResponse("html");
+        httpResponse.sendResponse("html", new String(stringBuilder).getBytes());
 
 
     }

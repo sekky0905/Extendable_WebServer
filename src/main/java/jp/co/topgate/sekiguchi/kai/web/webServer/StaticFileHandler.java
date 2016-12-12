@@ -31,10 +31,7 @@ class StaticFileHandler extends Handler {
         } else if ((file.exists())) {
             try {
                 httpResponse.setStatusLine(HTTPResponse.SC_OK);
-                httpResponse.setStaticBody(file);
-                httpResponse.sendResponse(extension);
-
-
+                httpResponse.sendResponse(extension, this.readFile(file));
             } catch (IOException e) {
                 System.err.println("エラー" + e.getMessage());
                 e.printStackTrace();
@@ -50,6 +47,33 @@ class StaticFileHandler extends Handler {
 
     }
 
+    /**
+     * 指定されたファイルを読み込んで、そのバイナリデータを返す
+     *
+     * @return 読み込んだファイルのバイナリデータ
+     */
+    byte[] readFile(File file) throws IOException {
+
+        System.out.println("ファイルの読み込みを始めます");
+
+        System.out.println(file + "ファイルを探します");
+        InputStream inputStream = new FileInputStream(file);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+        int len;
+        while ((len = inputStream.read()) != -1) {
+            byteArrayOutputStream.write(len);
+        }
+        if (byteArrayOutputStream != null) {
+            byteArrayOutputStream.flush();
+            byteArrayOutputStream.close();
+        }
+        byte[] byteContents = byteArrayOutputStream.toByteArray();
+        inputStream.close();
+
+        return byteContents;
+
+    }
 
 
 }

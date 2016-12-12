@@ -23,7 +23,6 @@ public class IndexTemplate implements Template {
     public void writeHTML(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
 
-
         stringBuilder.append("<!DOCTYPE html>")
                 .append("<html lang=\"ja\">")
                 .append("<head>")
@@ -31,12 +30,12 @@ public class IndexTemplate implements Template {
                 .append("<title>掲示板</title>")
                 .append("<style>")
                 .append("table {")
-                .append("border-collapse: collapse")
+                .append("border-collapse: collapse;")
                 .append(" }")
                 .append("td,")
                 .append("th {")
-                .append("border: solid 1px")
-                .append("padding: 0.5em")
+                .append("border: solid 1px;")
+                .append("padding: 0.5em;")
                 .append("</style>")
                 .append("</head>")
                 .append("<body>");

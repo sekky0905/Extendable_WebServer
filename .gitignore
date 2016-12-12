@@ -8,3 +8,4 @@ settings.gradle
 .settings/
 practiceHTML/
 .DS_Store
+.python-version

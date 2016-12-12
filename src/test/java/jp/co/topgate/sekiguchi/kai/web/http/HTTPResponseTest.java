@@ -72,8 +72,9 @@ public class HTTPResponseTest {
 
 
         httpResponse.setStatusLine(HTTPResponse.SC_OK);
+        httpResponse.setResponseBody("テスト".getBytes());
         try {
-            httpResponse.sendResponse("html", "テスト".getBytes());
+            httpResponse.sendResponse("html");
         } catch (IOException e) {
             System.err.println("エラー:" + e.getMessage());
             e.printStackTrace();

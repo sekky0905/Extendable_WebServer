@@ -31,7 +31,8 @@ class StaticFileHandler extends Handler {
         } else if ((file.exists())) {
             try {
                 httpResponse.setStatusLine(HTTPResponse.SC_OK);
-                httpResponse.sendResponse(extension, this.readFile(file));
+                httpResponse.setResponseBody(this.readFile(file));
+                httpResponse.sendResponse(extension);
             } catch (IOException e) {
                 System.err.println("エラー" + e.getMessage());
                 e.printStackTrace();

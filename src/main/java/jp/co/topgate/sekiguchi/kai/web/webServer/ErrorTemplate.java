@@ -30,6 +30,7 @@ class ErrorTemplate implements Template {
                 .append("</body>");
 
 
-        httpResponse.sendResponse("html", new String(stringBuilder).getBytes());
+        httpResponse.setResponseBody(new String(stringBuilder).getBytes());
+        httpResponse.sendResponse("html");
     }
 }

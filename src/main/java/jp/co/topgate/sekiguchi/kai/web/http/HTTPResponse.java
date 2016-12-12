@@ -35,6 +35,11 @@ public class HTTPResponse {
     private static String statusLine;
 
     /**
+     * レスポンスボディ
+     */
+    private byte[] responseBody;
+
+    /**
      * HTTP サーバの内部エラーを示すステータスコード (500)
      */
     public static final String SC_INTERNAL_SERVER_ERROR = "HTTP/1.1 500 Internal Server Error";
@@ -67,6 +72,16 @@ public class HTTPResponse {
     }
 
     /**
+     * レスポンスボディを設定するメソッド
+     *
+     * @param responseBody ステータスコード
+     */
+    public void setResponseBody(byte[] responseBody) {
+        this.responseBody = responseBody;
+    }
+
+
+    /**
      * レスポンスヘッダのContent-Typeを設定するメソッド
      *
      * @param fileExt ファイルの拡張子
@@ -96,11 +111,10 @@ public class HTTPResponse {
     /**
      * クライアントにレスポンスを送信するためのメソッド
      *
-     * @param fileExt      ファイルの拡張子
-     * @param responseBody レスポンスボディ
+     * @param fileExt ファイルの拡張子
      * @throws java.io.IOException クライアントへのHTTPレスポンスの送信に失敗しました
      */
-    public void sendResponse(String fileExt, byte[] responseBody) throws IOException {
+    public void sendResponse(String fileExt) throws IOException {
 
         System.out.println("クライアントに送信を開始します");
         DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
@@ -110,13 +124,13 @@ public class HTTPResponse {
         byte[] responseHead = (statusLine + "\n" + this.makeContentType(fileExt) + "\n").getBytes();
 
 
-        byte[] responseContents = new byte[responseHead.length + responseBody.length];
+        byte[] responseContents = new byte[responseHead.length + this.responseBody.length];
         // ResponseContentsにbyteResponseHeadを追加
         System.arraycopy(responseHead, 0, responseContents, 0, responseHead.length);
         // ResponseContentsにresponseBodyを追加
-        System.arraycopy(responseBody, 0, responseContents, responseHead.length, responseBody.length);
+        System.arraycopy(this.responseBody, 0, responseContents, responseHead.length, this.responseBody.length);
 
-        if (responseBody != null) {
+        if (this.responseBody != null) {
             dataOutputStream.write(responseContents, 0, responseContents.length);
             dataOutputStream.flush();
             dataOutputStream.close();

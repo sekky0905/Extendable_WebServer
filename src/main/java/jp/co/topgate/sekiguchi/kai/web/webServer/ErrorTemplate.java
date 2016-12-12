@@ -11,9 +11,9 @@ import java.io.IOException;
  */
 class ErrorTemplate implements Template {
     /**
-     * エラーの際のHTMLのテンプレートを作成し、それをbyte[]にして返すメソッド
-     *
-     * @return HTMLテンプレートをbyte[]にしたもの
+     * エラーの際のHTMLのテンプレートをするメソッド
+     * @param httpRequest  httpRequestのインスタンス
+     * @param httpResponse httpResponseのインスタンス
      */
 
     public void writeHTML(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException {

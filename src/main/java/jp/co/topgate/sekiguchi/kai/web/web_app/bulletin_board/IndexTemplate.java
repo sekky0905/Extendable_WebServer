@@ -16,9 +16,10 @@ import java.io.IOException;
  */
 public class IndexTemplate implements Template {
     /**
-     * HTMLのテンプレートを作成し、それをbyte[]にして返すメソッド
+     * HTMLのテンプレートを作成するメソッド
      *
-     * @return HTMLテンプレートをbyte[]にしたもの
+     * @param httpRequest  httpRequestのインスタンス
+     * @param httpResponse httpResponseのインスタンス
      */
     public void writeHTML(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
@@ -100,6 +101,11 @@ public class IndexTemplate implements Template {
 
     }
 
+    /**
+     * 指定された回数、繰り返し部分のHTMLを作成し、返すメソッド
+     * @param listSize modelListのsize
+     * @return 繰り返し部分のHTML
+     */
 
     private String writeRepetition(int listSize) {
         StringBuilder stringBuilder = new StringBuilder();

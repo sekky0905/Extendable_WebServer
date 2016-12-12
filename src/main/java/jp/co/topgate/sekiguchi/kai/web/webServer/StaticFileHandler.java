@@ -50,7 +50,7 @@ class StaticFileHandler extends Handler {
 
     /**
      * 指定されたファイルを読み込んで、そのバイナリデータを返す
-     *
+     * @param file Fileクラスのインスタンス
      * @return 読み込んだファイルのバイナリデータ
      */
     byte[] readFile(File file) throws IOException {

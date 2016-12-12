@@ -41,7 +41,6 @@ class ServerThread extends Thread {
             HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
             String requestURI = httpRequest.getRequestURI();
-            httpRequest.setRequestParameter();
 
             // Webサーバ
             if (!(WebApp.handlerNameIsExist(requestURI))) {

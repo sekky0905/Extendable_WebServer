@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai.web.web_app.bulletin_board.model;
+package jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.model;
 
 
 import java.util.ArrayList;

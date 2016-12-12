@@ -55,21 +55,24 @@ class StaticFileHandler extends Handler {
     byte[] readFile(File file) throws IOException {
 
         System.out.println("ファイルの読み込みを始めます");
-
         System.out.println(file + "ファイルを探します");
-        InputStream inputStream = new FileInputStream(file);
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
-        int len;
-        while ((len = inputStream.read()) != -1) {
-            byteArrayOutputStream.write(len);
+        byte[] byteContents;
+        try (InputStream inputStream = new FileInputStream(file);
+             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
+
+            int len;
+            while ((len = inputStream.read()) != -1) {
+                byteArrayOutputStream.write(len);
+            }
+            if (byteArrayOutputStream != null) {
+                byteArrayOutputStream.flush();
+                byteArrayOutputStream.close();
+            }
+            byteContents = byteArrayOutputStream.toByteArray();
+        } catch (IOException e) {
+            throw new IOException();
         }
-        if (byteArrayOutputStream != null) {
-            byteArrayOutputStream.flush();
-            byteArrayOutputStream.close();
-        }
-        byte[] byteContents = byteArrayOutputStream.toByteArray();
-        inputStream.close();
 
         return byteContents;
 

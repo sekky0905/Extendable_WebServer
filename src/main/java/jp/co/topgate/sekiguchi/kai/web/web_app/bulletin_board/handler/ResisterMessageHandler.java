@@ -18,8 +18,8 @@ public class ResisterMessageHandler extends Handler {
     /**
      * POSTの際のハンドラ
      *
-     * @param httpRequest  リクエスト
-     * @param httpResponse レスポンス
+     * @param httpRequest  httpRequestクラスのインスタンス
+     * @param httpResponse httpResponseクラスのインスタンス
      */
     public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) {
         MessageStorage.chooseMessageList(true);

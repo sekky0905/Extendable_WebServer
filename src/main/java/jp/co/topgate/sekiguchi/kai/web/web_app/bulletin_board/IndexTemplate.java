@@ -18,7 +18,8 @@ public class IndexTemplate implements Template {
     /**
      * HTMLのテンプレートを作成し、それをbyte[]にして返すメソッド
      *
-     * @return HTMLテンプレートをbyte[]にしたもの
+     * @param httpRequest  httpRequestクラスのインスタンス
+     * @param httpResponse httpResponseクラスのインスタンス
      */
     public void writeHTML(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
@@ -101,6 +102,12 @@ public class IndexTemplate implements Template {
     }
 
 
+    /**
+     * 繰り返し部分のHTMLをMessageListに格納されたMessageインスタンスの数だけ生成するメソッド
+     *
+     * @param listSize MessageListのsize
+     * @return 繰り返し部分のHTML
+     */
     private String writeRepetition(int listSize) {
         StringBuilder stringBuilder = new StringBuilder();
 

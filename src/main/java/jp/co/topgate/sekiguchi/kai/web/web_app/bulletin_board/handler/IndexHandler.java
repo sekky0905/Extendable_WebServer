@@ -16,8 +16,8 @@ public class IndexHandler extends Handler {
     /**
      * GETの際のハンドラ
      *
-     * @param httpRequest  リクエスト
-     * @param httpResponse レスポンス
+     * @param httpRequest  httpRequestクラスのインスタンス
+     * @param httpResponse httpResponseクラスのインスタンス
      * @throws java.io.IOException クライアントへのレスポンスの送信に失敗しました
      */
     public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException {

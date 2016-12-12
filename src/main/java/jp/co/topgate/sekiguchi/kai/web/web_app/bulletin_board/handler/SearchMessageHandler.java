@@ -15,8 +15,8 @@ public class SearchMessageHandler extends Handler {
     /**
      * POSTの際のハンドラ
      *
-     * @param httpRequest  リクエスト
-     * @param httpResponse レスポンス
+     * @param httpRequest  httpRequestのインスタンス
+     * @param httpResponse httpResponseのインスタンス
      */
     public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) {
         MessageStorage.chooseMessageList(false);

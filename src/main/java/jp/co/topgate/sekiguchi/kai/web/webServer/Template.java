@@ -11,6 +11,11 @@ import java.io.IOException;
  */
 public interface Template {
 
+    /**
+     * HTMLのテンプレートを作成するメソッド
+     * @param httpRequest  httpRequestのインスタンス
+     * @param httpResponse httpResponseのインスタンス
+     */
     void writeHTML(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException;
 
 }

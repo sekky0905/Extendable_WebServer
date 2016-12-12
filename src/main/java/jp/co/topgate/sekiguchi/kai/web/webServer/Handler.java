@@ -13,8 +13,8 @@ public class Handler {
     /**
      * リクエストGETの際のハンドラ
      *
-     * @param httpRequest  リクエスト
-     * @param httpResponse レスポンス
+     * @param httpRequest  httpRequestのインスタンス
+     * @param httpResponse httpResponseのインスタンス
      */
     public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException{
 
@@ -23,8 +23,8 @@ public class Handler {
     /**
      * リクエストPOSTの際のハンドラ
      *
-     * @param httpRequest  リクエスト
-     * @param httpResponse レスポンス
+     * @param httpRequest  httpRequestのインスタンス
+     * @param httpResponse httpResponseのインスタンス
      */
     public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) {
     }

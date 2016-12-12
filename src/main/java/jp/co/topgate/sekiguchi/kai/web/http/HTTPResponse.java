@@ -46,7 +46,6 @@ public class HTTPResponse {
 
     /**
      * コンストラクタ
-     *
      * @param outputStream アウトプットストリーム
      */
     public HTTPResponse(OutputStream outputStream) {

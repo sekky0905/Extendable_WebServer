@@ -49,7 +49,7 @@ public class WebAppTest {
         Handler handler = WebApp.getHandlerMap("IndexHandler");
         Class handlerClass = handler.getClass();
 
-        assertThat(handlerClass.getName(), is("jp.co.topgate.sekiguchi.kai.web.web_app.bulletin_board.handler.IndexHandler"));
+        assertThat(handlerClass.getName(), is("jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.handler.IndexHandler"));
 
 
     }

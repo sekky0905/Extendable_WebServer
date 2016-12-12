@@ -3,7 +3,7 @@ package jp.co.topgate.sekiguchi.kai.web.webServer;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.web_app.WebApp;
-import jp.co.topgate.sekiguchi.kai.web.web_app.bulletin_board.IndexTemplate;
+import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.IndexTemplate;
 import jp.co.topgate.sekiguchi.kai.web.util.Session;
 
 import java.io.IOException;

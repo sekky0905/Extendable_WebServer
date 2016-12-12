@@ -14,10 +14,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * "/program/board/resister/"に紐づくHandlerを表すクラス
+ * "/program/board/register/"に紐づくHandlerを表すクラス
  * Created by sekiguchikai on 2016/12/04.
  */
-public class ResisterMessageHandler extends Handler {
+public class RegisterMessageHandler extends Handler {
     /**
      * POSTの際のハンドラ
      *
@@ -42,7 +42,6 @@ public class ResisterMessageHandler extends Handler {
         Template template = new IndexTemplate();
         httpResponse.setStatusLine(HTTPResponse.SC_OK);
         template.writeHTML(httpRequest, httpResponse);
-
 
 
     }

@@ -149,6 +149,7 @@ public class HTTPResponse<E> {
                 while ((len = bufferedInputStream.read()) != -1) {
                     fileContentsList.add(len);
                 }
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 for (int i = 0; i < fileContentsList.size(); i++) {
                     dataOutputStream.write(fileContentsList.get(i));
                 }

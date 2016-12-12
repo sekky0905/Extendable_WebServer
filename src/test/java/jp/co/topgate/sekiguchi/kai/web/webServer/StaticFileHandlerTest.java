@@ -1,5 +1,6 @@
 package jp.co.topgate.sekiguchi.kai.web.webServer;
 
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
@@ -42,7 +43,7 @@ public class StaticFileHandlerTest {
 
             System.out.println(fileContents);
 
-            assertEquals("指定したファイルを適切に読み込めるかのテスト", "テスト", fileContents);
+            assertThat(fileContents, is("テスト"));
 
         }
 

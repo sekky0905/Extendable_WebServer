@@ -16,7 +16,7 @@ public class Handler {
      * @param httpRequest  httpRequestのインスタンス
      * @param httpResponse httpResponseのインスタンス
      */
-    public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException{
+    public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException {
 
     }
 
@@ -26,6 +26,6 @@ public class Handler {
      * @param httpRequest  httpRequestのインスタンス
      * @param httpResponse httpResponseのインスタンス
      */
-    public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) {
+    public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException {
     }
 }

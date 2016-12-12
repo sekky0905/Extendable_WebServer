@@ -12,6 +12,7 @@ public class WebAppStorage {
 
     /**
      * WebAppを格納するためのMap
+     * ここに格納するWebAppは、アプリケーションのルートディレクトリのみ
      */
     private static Map<String, WebApp> webAppMap = new HashMap<>();
 
@@ -24,5 +25,26 @@ public class WebAppStorage {
      */
     public static void setWebAppMap(String appName, WebApp webApp) {
         webAppMap.put(appName, webApp);
+    }
+
+    /**
+     * 名前で指定されたwebAppのインスタンスをwebAppMapから取得するメソッド
+     *
+     * @param appName webAppMapに格納するwebApp(アプリケーションの名前)
+     * @return webAppのインスタンス
+     */
+    public static WebApp getWebAppMap(String appName) {
+        return webAppMap.get(appName);
+    }
+
+
+    /**
+     * 名前で指定したアプリケーションがwebAppMapに格納されているかどうか確認するためのメソッド
+     *
+     * @param appName 確認するアプリケーションの名前
+     * @return 名前で指定したアプリケーションがwebAppMapに格納されているかどうかどうかの真偽値
+     */
+    public static boolean AppIsExist(String appName) {
+        return webAppMap.containsKey(appName);
     }
 }

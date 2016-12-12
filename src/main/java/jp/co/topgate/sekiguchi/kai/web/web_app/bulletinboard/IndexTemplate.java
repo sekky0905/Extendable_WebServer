@@ -53,7 +53,7 @@ public class IndexTemplate implements Template {
         }
 
 
-        stringBuilder.append("<form action=\"/program/board/resister/\" method=\"post\" accept-charset=\"UTF-8\">")
+        stringBuilder.append("<form action=\"/program/board/register/\" method=\"post\" accept-charset=\"UTF-8\">")
                 .append("<table>")
                 .append("<tr>")
                 .append("<th>ユーザーネーム(20文字まで):</th>")

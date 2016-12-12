@@ -4,6 +4,7 @@ package jp.co.topgate.sekiguchi.kai.web.webServer;
 
 import jp.co.topgate.sekiguchi.kai.web.web_app.WebApp;
 import jp.co.topgate.sekiguchi.kai.web.web_app.WebAppStorage;
+import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.handler.*;
 
 import java.io.IOException;
 //TCP サーバーAPI、通常はクライアントソケットからの接続を 受け入れる
@@ -48,11 +49,21 @@ public class WebServer {
         // アプリ用の初期設定
         WebApp bulletinBoard = new WebApp();
 
-        bulletinBoard.setHandlerName("/program/board/", "IndexHandler");
-        bulletinBoard.setHandlerName("/program/board/resister/", "ResisterMessageHandler");
-        bulletinBoard.setHandlerName("/program/board/search/", "SearchMessageHandler");
-        bulletinBoard.setHandlerName("/program/board/showAll/", "ShowAllMessageHandler");
-        bulletinBoard.setHandlerName("/program/board/delete/", "DeleteMessageHandler");
+
+        // ここでハンドラ初期化
+        IndexHandler indexHandler = new IndexHandler();
+        RegisterMessageHandler registerMessageHandler = new RegisterMessageHandler();
+        SearchMessageHandler searchMessageHandler = new SearchMessageHandler();
+        DeleteMessageHandler deleteMessageHandler = new DeleteMessageHandler();
+        ShowAllMessageHandler showAllMessageHandler = new ShowAllMessageHandler();
+
+
+        // ここでバンドル
+        bulletinBoard.setHandler("/program/board/", indexHandler);
+        bulletinBoard.setHandler("/program/board/register/", registerMessageHandler);
+        bulletinBoard.setHandler("/program/board/search/", searchMessageHandler);
+        bulletinBoard.setHandler("/program/board/delete/", deleteMessageHandler);
+        bulletinBoard.setHandler("/program/board/showAll/", showAllMessageHandler);
 
         WebAppStorage.setWebAppMap("bulletinBoard", bulletinBoard);
 
@@ -69,7 +80,6 @@ public class WebServer {
         } catch (IOException e) {
             System.err.println("エラー:" + e.getMessage());
             e.printStackTrace();
-            System.exit(1);
         } finally {
             try {
                 if (serverSocket != null) {

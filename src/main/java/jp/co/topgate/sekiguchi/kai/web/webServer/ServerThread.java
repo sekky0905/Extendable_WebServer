@@ -3,12 +3,14 @@ package jp.co.topgate.sekiguchi.kai.web.webServer;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.web_app.WebApp;
+import jp.co.topgate.sekiguchi.kai.web.web_app.WebAppStorage;
 import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.IndexTemplate;
 import jp.co.topgate.sekiguchi.kai.web.util.Session;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Method;
 import java.net.Socket;
 
 /**
@@ -45,39 +47,32 @@ class ServerThread extends Thread {
             httpRequest.setRequestParameter();
 
             // Webサーバ
-            if (!(WebApp.handlerNameIsExist(requestURI))) {
+            if (!(WebApp.handlerIsExist(requestURI))) {
+
                 StaticFileHandler staticFileHandler = new StaticFileHandler();
                 staticFileHandler.handleGET(httpRequest, httpResponse);
-            } else {
 
-                // ハンドラの決定
-                String handlerName = WebApp.getHandlerName(requestURI);
-                WebApp.setHandlerMap();
-                Handler handler = WebApp.getHandlerMap(handlerName);
+            } else if (httpRequest.getRequestMethod().equals("GET")) {
 
+                Handler handler = WebApp.getHandlerMap(requestURI);
+                handler.handleGET(httpRequest, httpResponse);
 
-                if (requestURI.equals("/program/board/")) {
-                    handler.handleGET(httpRequest, httpResponse);
-                } else if (httpRequest.getRequestMethod().equals("GET") && (WebApp.handlerNameIsExist(requestURI))) {
-                    httpResponse.setStatusLine(HTTPResponse.SC_NOT_FOUND);
-                    Template template = new ErrorTemplate();
-                    template.writeHTML(httpRequest, httpResponse);
+            } else if ((httpRequest.getRequestMethod().equals("POST")) && (Session.confirmToken(httpRequest.getRequestParameter("token")))) {// ココ変更すること
 
-                } else if ((httpRequest.getRequestMethod().equals("POST")) && (Session.confirmToken(httpRequest.getRequestParameter("token")))) {
-                    handler.handlePOST(httpRequest, httpResponse);
-
-                } else {
-                    Template template = new IndexTemplate();
-                    httpResponse.setStatusLine(HTTPResponse.SC_OK);
-                    template.writeHTML(httpRequest, httpResponse);
-                }
+                Handler handler = WebApp.getHandlerMap(requestURI);
+                handler.handlePOST(httpRequest, httpResponse);
             }
 
-        } catch (IOException e) {
+
+        } catch (
+                IOException e)
+
+        {
             System.err.println("エラー:" + e.getMessage());
             e.printStackTrace();
-            System.exit(1);
-        } finally {
+        } finally
+
+        {
             try {
                 if (this.socket != null) {
                     this.socket.close();

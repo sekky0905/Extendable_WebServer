@@ -9,15 +9,18 @@ import java.io.IOException;
  * Handlerの継承元クラス
  * Created by sekiguchikai on 2016/12/03.
  */
-public class Handler {
+public abstract class Handler {
     /**
      * リクエストGETの際のハンドラ
      *
      * @param httpRequest  httpRequestのインスタンス
      * @param httpResponse httpResponseのインスタンス
      */
-    public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException{
-
+    public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException {
+        // オーバーライドしない場合は、404を返す
+        httpResponse.setStatusLine(HTTPResponse.SC_NOT_FOUND);
+        Template template = new ErrorTemplate();
+        template.writeHTML(httpRequest, httpResponse);
     }
 
     /**
@@ -26,6 +29,10 @@ public class Handler {
      * @param httpRequest  httpRequestのインスタンス
      * @param httpResponse httpResponseのインスタンス
      */
-    public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) {
+    public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException {
+        // オーバーライドしない場合は、404を返す
+        httpResponse.setStatusLine(HTTPResponse.SC_NOT_FOUND);
+        Template template = new ErrorTemplate();
+        template.writeHTML(httpRequest, httpResponse);
     }
 }

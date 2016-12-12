@@ -3,9 +3,13 @@ package jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.handler;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
 
+import jp.co.topgate.sekiguchi.kai.web.webServer.Template;
+import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.IndexTemplate;
 import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.model.MessageStorage;
 import jp.co.topgate.sekiguchi.kai.web.util.Session;
 import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
+
+import java.io.IOException;
 
 /**
  * "/program/board/delete/"に紐づくHandlerを表すクラス
@@ -18,12 +22,17 @@ public class DeleteMessageHandler extends Handler {
      * @param httpRequest  httpRequestのインスタンス
      * @param httpResponse httpResponseのインスタンス
      */
-    public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) {
+    public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException{
         MessageStorage.chooseMessageList(true);
         int MessageIndex = Integer.parseInt(httpRequest.getRequestParameter("delete"));
         MessageStorage.removeMessage(MessageIndex);
 
         Session.generateToken();
+
+
+        Template template = new IndexTemplate();
+        httpResponse.setStatusLine(HTTPResponse.SC_OK);
+        template.writeHTML(httpRequest, httpResponse);
 
 
     }

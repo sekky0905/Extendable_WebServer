@@ -66,9 +66,6 @@ class ServerThread extends Thread {
                 } else if ((httpRequest.getRequestMethod().equals("POST")) && (Session.confirmToken(httpRequest.getRequestParameter("token")))) {
                     handler.handlePOST(httpRequest, httpResponse);
 
-                    Template template = new IndexTemplate();
-                    httpResponse.setStatusLine(HTTPResponse.SC_OK);
-                    template.writeHTML(httpRequest, httpResponse);
                 } else {
                     Template template = new IndexTemplate();
                     httpResponse.setStatusLine(HTTPResponse.SC_OK);

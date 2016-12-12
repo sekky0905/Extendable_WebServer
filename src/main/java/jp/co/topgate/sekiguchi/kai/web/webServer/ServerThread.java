@@ -23,6 +23,7 @@ class ServerThread extends Thread {
 
     /**
      * コンストラクタ
+     * socketのインスタンスを受け取り、本クラスのsocketフィールドに設定する
      */
     ServerThread(Socket socket) {
         this.socket = socket;
@@ -41,6 +42,7 @@ class ServerThread extends Thread {
             HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
             String requestURI = httpRequest.getRequestURI();
+            httpRequest.setRequestParameter();
 
             // Webサーバ
             if (!(WebApp.handlerNameIsExist(requestURI))) {

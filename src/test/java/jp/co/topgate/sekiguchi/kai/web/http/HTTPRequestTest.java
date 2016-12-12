@@ -1,9 +1,13 @@
+
 package jp.co.topgate.sekiguchi.kai.web.http;
 
 import static org.hamcrest.CoreMatchers.*;
+
 import static org.junit.Assert.assertThat;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -245,6 +249,9 @@ public class HTTPRequestTest {
 
         for (int i = 0; i < requestContentsArray.length; i++) {
             HTTPRequest httpRequest = this.instantiate(requestContentsArray[i]);
+
+            httpRequest.setRequestParameter();
+
             assertThat(httpRequest.getRequestParameter(targetArray[i]), is(expRequestParamArray[i]));
         }
 
@@ -320,4 +327,3 @@ public class HTTPRequestTest {
 
 
 }
-

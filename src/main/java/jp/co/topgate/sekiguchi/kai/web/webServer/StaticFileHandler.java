@@ -17,6 +17,7 @@ class StaticFileHandler extends Handler {
      *
      * @param httpRequest  HTTPRequestクラスのインスタンス
      * @param httpResponse HTTPResponseクラスのインスタンス
+     * @throws java.io.IOException HTTPレスポンスの送信に失敗しました
      */
     public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException {
         String requestResource = httpRequest.getRequestResource();
@@ -51,6 +52,7 @@ class StaticFileHandler extends Handler {
     /**
      * 指定されたファイルを読み込んで、そのバイナリデータを返す
      *
+     * @param file Fileクラスのインスタンス
      * @return 読み込んだファイルのバイナリデータ
      */
     byte[] readFile(File file) throws IOException {

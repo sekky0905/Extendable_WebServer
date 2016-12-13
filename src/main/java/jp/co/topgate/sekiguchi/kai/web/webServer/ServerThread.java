@@ -42,7 +42,7 @@ class ServerThread extends Thread {
             HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
             String requestURI = httpRequest.getRequestURI();
-            httpRequest.setRequestParameter();// これをHTTPRequest内部でやること
+            // これをHTTPRequest内部でやること
 
             WebApp webApp = WebAppStorage.getWebApp(requestURI);
             Handler handler = webApp.getHandler(requestURI);

@@ -247,8 +247,7 @@ public class HTTPRequestTest {
 
         for (int i = 0; i < requestContentsArray.length; i++) {
             HTTPRequest httpRequest = this.instantiate(requestContentsArray[i]);
-
-            httpRequest.setRequestParameter();
+            
 
             assertThat(httpRequest.getRequestParameter(targetArray[i]), is(expRequestParamArray[i]));
         }

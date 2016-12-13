@@ -18,11 +18,6 @@ public class HTTPRequest {
 
 
     /**
-     * リクエストパラメーター
-     */
-    private Map<String, String> requestParameter = new HashMap<>();
-
-    /**
      * リクエストライン
      */
     private String requestLine[];
@@ -147,15 +142,7 @@ public class HTTPRequest {
      * @return リクエストパラメータを抽出して返す
      */
     public String getRequestParameter(String name) {
-        String value = this.requestParameter.get(name);
-        System.out.println("リクエストパラメータ" + name + "の値は" + value);
-        return value;
-    }
-
-    /**
-     * リクエストパラメータを設定するメソッド
-     */
-    public void setRequestParameter() {
+        Map<String, String> requestParameter = new HashMap<>();
 
         List<String> paramList = new ArrayList<>();
         if (this.getQueryString().contains("&")) {
@@ -167,7 +154,7 @@ public class HTTPRequest {
             String piece[] = param.split("=");
             if (piece.length == 2) {
                 try {
-                    this.requestParameter.put(piece[0], URLDecoder.decode(piece[1], "UTF-8"));
+                    requestParameter.put(piece[0], URLDecoder.decode(piece[1], "UTF-8"));
                 } catch (UnsupportedEncodingException e) {
                     System.err.println("エラー:" + e.getMessage());
                     e.printStackTrace();
@@ -176,11 +163,16 @@ public class HTTPRequest {
                     throw new RuntimeException();
                 }
             } else if (piece.length == 1 || piece.length == 0) {
-                this.requestParameter.put(piece[0], "");
+                requestParameter.put(piece[0], "");
             }
 
         }
+
+        String value = requestParameter.get(name);
+        System.out.println("リクエストパラメータ" + name + "の値は" + value);
+        return value;
     }
+
 
     /**
      * リクエストURIから要求されているファイルを返すメソッド

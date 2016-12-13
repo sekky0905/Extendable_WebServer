@@ -29,7 +29,7 @@ public class SearchMessageHandler extends Handler {
 
 
         Template template = new IndexTemplate();
-        httpResponse.setStatusLine(HTTPResponse.SC_OK);
+        httpResponse.addStatusLine(HTTPResponse.SC_OK);
         template.writeHTML(httpRequest, httpResponse);
 
     }

@@ -18,11 +18,10 @@ public class Handler {
      */
     public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException {
         // オーバーライドしない場合は、404を返す
-        httpResponse.setStatusLine(HTTPResponse.SC_NOT_FOUND);
+        httpResponse.addStatusLine(HTTPResponse.SC_NOT_FOUND);
         Template template = new ErrorTemplate();
         template.writeHTML(httpRequest, httpResponse);
     }
-
     /**
      * リクエストPOSTの際のハンドラ
      *
@@ -31,7 +30,7 @@ public class Handler {
      */
     public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException {
         // オーバーライドしない場合は、404を返す
-        httpResponse.setStatusLine(HTTPResponse.SC_NOT_FOUND);
+        httpResponse.addStatusLine(HTTPResponse.SC_NOT_FOUND);
         Template template = new ErrorTemplate();
         template.writeHTML(httpRequest, httpResponse);
     }

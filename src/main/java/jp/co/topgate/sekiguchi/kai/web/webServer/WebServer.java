@@ -49,7 +49,7 @@ public class WebServer {
         // アプリ用の初期設定
         WebAppStorage.initializeApp();
 
-        // ここでハンドラ初期化
+        // ハンドラ初期化
         WebAppStorage.getWebApp("/").initializeHandler();
         WebAppStorage.getWebApp("/program/board/").initializeHandler();
 

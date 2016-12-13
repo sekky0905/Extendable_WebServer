@@ -13,9 +13,10 @@ public interface Template {
 
     /**
      * HTMLのテンプレートを作成するメソッド
+     *
      * @param httpRequest  httpRequestのインスタンス
      * @param httpResponse httpResponseのインスタンス
      */
-    public void writeHTML(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException;
+    void writeHTML(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException;
 
 }

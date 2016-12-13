@@ -1,9 +1,7 @@
 package jp.co.topgate.sekiguchi.kai.web.web_app;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,13 +12,13 @@ public class WebAppStorage {
 
     /**
      * WebAppを格納するためのMap
-     * ここに格納するWebAppは、アプリケーションのルートディレクトリのみ
+     * key: webAppのルートパス value: WebAppのインスタンスという形で保存される
      */
     private static Map<String, WebApp> webAppMap = new HashMap<>();
 
 
     /**
-     * アプリケーションをインスタンス化して、ルートURIに紐付けるメソッド
+     * アプリケーションをインスタンス化して、ルートパスに紐付けるためのメソッド
      */
     public static void initializeApp() {
         WebApp staticWebServerApp = new StaticWebServerApp();
@@ -33,7 +31,7 @@ public class WebAppStorage {
 
 
     /**
-     * pathで指定したWebAppのインスタンスを取得するメソッド
+     * pathで指定したWebAppのインスタンスを取得するためのメソッド
      *
      * @param path 取得したい WebAppのパス
      * @return WebAppのインスタンス
@@ -47,31 +45,9 @@ public class WebAppStorage {
         // webサーバの時
         if (!webAppMap.containsKey(appPath) || path.equals("/")) {
             return WebAppStorage.webAppMap.get("/");
-
         } else {
             return WebAppStorage.webAppMap.get(appPath);
         }
     }
 
-
-    /**
-     * 名前で指定されたwebAppのインスタンスをwebAppMapから取得するメソッド
-     *
-     * @param appName webAppMapに格納するwebApp(アプリケーションの名前)
-     * @return webAppのインスタンス
-     */
-    public static WebApp getWebAppMap(String appName) {
-        return webAppMap.get(appName);
-    }
-
-
-    /**
-     * 名前で指定したアプリケーションがwebAppMapに格納されているかどうか確認するためのメソッド
-     *
-     * @param appName 確認するアプリケーションの名前
-     * @return 名前で指定したアプリケーションがwebAppMapに格納されているかどうかどうかの真偽値
-     */
-    public static boolean AppIsExist(String appName) {
-        return webAppMap.containsKey(appName);
-    }
 }

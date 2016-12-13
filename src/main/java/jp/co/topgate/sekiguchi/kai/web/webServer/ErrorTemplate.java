@@ -9,9 +9,10 @@ import java.io.IOException;
  * エラーの際のTemplateを表すクラス
  * Created by sekiguchikai on 2016/12/07.
  */
-public class ErrorTemplate implements Template {
+class ErrorTemplate implements Template {
     /**
      * エラーの際のHTMLのテンプレートをするメソッド
+     *
      * @param httpRequest  httpRequestのインスタンス
      * @param httpResponse httpResponseのインスタンス
      */
@@ -26,7 +27,7 @@ public class ErrorTemplate implements Template {
                 .append("<title>エラー</title>")
                 .append("</head>")
                 .append("<body>")
-                .append("<p>" + HTTPResponse.getStatusLine() + "</p>")
+                .append("<p>" + httpResponse.getStatusLine() + "</p>")
                 .append("</body>");
 
 

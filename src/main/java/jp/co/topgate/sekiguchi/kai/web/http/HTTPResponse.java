@@ -22,52 +22,69 @@ public class HTTPResponse {
     /**
      * リクエストが正常に成功したことを示すステータスコード (200)
      */
-    public static final String SC_OK = "HTTP/1.1 200 OK";
+    public static final int SC_OK = 200;
 
     /**
-     * リクエストされたリソースが利用可能でないことを示すステータスコード
+     * リクエストされたリソースが利用可能でないことを示すステータスコード(400)
      */
-    public static final String SC_NOT_FOUND = "HTTP/1.1 404 Not Found";
+    public static final int SC_NOT_FOUND = 400;
+
+    /**
+     * HTTP サーバの内部エラーを示すステータスコード (500)
+     */
+    public static final int SC_INTERNAL_SERVER_ERROR = 500;
+
+
+    /**
+     * ステータスコードとステータスラインを紐付けるためのMap
+     * key: ステータスコード、value: ステータスライン
+     */
+    private Map<Integer, String> statusMap = new HashMap<>();
 
     /**
      * ステータスライン
      */
-    private static String statusLine;
+    private String statusLine;
 
     /**
      * レスポンスボディ
      */
     private byte[] responseBody;
 
-    /**
-     * HTTP サーバの内部エラーを示すステータスコード (500)
-     */
-    public static final String SC_INTERNAL_SERVER_ERROR = "HTTP/1.1 500 Internal Server Error";
 
     /**
      * コンストラクタ
+     *
      * @param outputStream アウトプットストリーム
      */
     public HTTPResponse(OutputStream outputStream) {
         this.outputStream = outputStream;
+        this.setStatusMap();
     }
 
     /**
-     * ステータスコードを引数にステータスラインを設定するメソッド
+     * ステータスコードとステータスラインをMap内で紐付けるためのメソッド
+     */
+    private void setStatusMap() {
+        this.statusMap.put(SC_OK, "HTTP/1.1 200 OK");
+        this.statusMap.put(SC_NOT_FOUND, "HTTP/1.1 404 Not Found");
+        this.statusMap.put(SC_INTERNAL_SERVER_ERROR, "HTTP/1.1 500 Internal Server Error");
+    }
+
+    /**
+     * クライアントへのレスポンスに指定したステータスラインを加える
      *
      * @param statusCode ステータスコード
      */
-    public void setStatusLine(String statusCode) {
-        HTTPResponse.statusLine = statusCode;
+    public void addStatusLine(int statusCode) {
+        this.statusLine = this.statusMap.get(statusCode);
     }
 
     /**
-     * ステータスコードを引数にステータスラインを設定するメソッド
-     *
-     * @return ステータスライン
+     * ステータスラインを返すためのgetter
      */
-    public static String getStatusLine() {
-        return HTTPResponse.statusLine;
+    public String getStatusLine() {
+        return this.statusLine;
     }
 
     /**

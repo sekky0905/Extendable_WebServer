@@ -19,6 +19,7 @@ public class Handler {
         Template template = new ErrorTemplate();
         template.writeHTML(httpRequest, httpResponse);
     }
+
     /**
      * リクエストPOSTの際のハンドラ
      *

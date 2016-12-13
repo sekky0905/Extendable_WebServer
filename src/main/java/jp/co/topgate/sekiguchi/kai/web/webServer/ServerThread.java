@@ -42,7 +42,6 @@ class ServerThread extends Thread {
             HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
             String requestURI = httpRequest.getRequestURI();
-            httpRequest.setRequestParameter();// これをHTTPRequest内部でやること
 
             WebApp webApp = WebAppStorage.getWebApp(requestURI);
             Handler handler = webApp.getHandler(requestURI);
@@ -50,7 +49,7 @@ class ServerThread extends Thread {
             if (httpRequest.getRequestMethod().equals("GET")) {
                 handler.handleGET(httpRequest, httpResponse);
 
-            } else if ((httpRequest.getRequestMethod().equals("POST")) && (Token.confirmToken(httpRequest.getRequestParameter("token")))) {// ココ変更すること
+            } else if ((httpRequest.getRequestMethod().equals("POST")) && (Token.confirmToken(httpRequest.getRequestParameter("token")))) {
                 handler.handlePOST(httpRequest, httpResponse);
             }
 

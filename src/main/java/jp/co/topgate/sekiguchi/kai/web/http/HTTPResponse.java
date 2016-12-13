@@ -1,7 +1,10 @@
 package jp.co.topgate.sekiguchi.kai.web.http;
 
 
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
@@ -47,9 +50,14 @@ public class HTTPResponse {
     private String statusLine;
 
     /**
-     * レスポンスボディ
+     * 動的なレスポンスボディ
      */
-    private byte[] responseBody;
+    private byte[] dynamicResponseBody;
+
+    /**
+     * 静的なレスポンスボディ
+     */
+    private File staticResponseBody;
 
 
     /**
@@ -93,7 +101,7 @@ public class HTTPResponse {
      * @param responseBody ステータスコード
      */
     public void setResponseBody(byte[] responseBody) {
-        this.responseBody = responseBody;
+        this.dynamicResponseBody = responseBody;
     }
 
 
@@ -135,23 +143,24 @@ public class HTTPResponse {
         System.out.println("クライアントに送信を開始します");
         DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
 
-
-        // 引数で受け取ったステータスラインとレスポンスヘッダを結合
-        byte[] responseHead = (statusLine + "\n" + this.makeContentType(fileExt) + "\n").getBytes();
-
-
-        byte[] responseContents = new byte[responseHead.length + this.responseBody.length];
-        // ResponseContentsにbyteResponseHeadを追加
-        System.arraycopy(responseHead, 0, responseContents, 0, responseHead.length);
-        // ResponseContentsにresponseBodyを追加
-        System.arraycopy(this.responseBody, 0, responseContents, responseHead.length, this.responseBody.length);
-
-        if (this.responseBody != null) {
-            dataOutputStream.write(responseContents, 0, responseContents.length);
+        if (this.dynamicResponseBody != null) {
+            // 引数で受け取ったステータスラインとレスポンスヘッダを結合
+            byte[] responseHead = (statusLine + "\n" + this.makeContentType(fileExt) + "\n").getBytes();
+            dataOutputStream.write(responseHead);
+            dataOutputStream.write(this.dynamicResponseBody);
             dataOutputStream.flush();
             dataOutputStream.close();
+        } else {
+            FileDataSource fileDataSource = new FileDataSource(this.staticResponseBody);
+            DataHandler dataHandler = new javax.activation.DataHandler(fileDataSource);
+            dataHandler.writeTo(dataOutputStream);
+
         }
 
+    }
+
+    public void setStaticResponseBody(File file) {
+        this.staticResponseBody = file;
     }
 
 

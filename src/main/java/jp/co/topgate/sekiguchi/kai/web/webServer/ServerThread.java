@@ -1,7 +1,8 @@
 package jp.co.topgate.sekiguchi.kai.web.webServer;
 
-import jp.co.topgate.sekiguchi.kai.web.web_app.WebApp;
+
 import jp.co.topgate.sekiguchi.kai.web.util.Token;
+import jp.co.topgate.sekiguchi.kai.web.web_app.WebApp;
 import jp.co.topgate.sekiguchi.kai.web.web_app.WebAppStorage;
 
 import java.io.IOException;
@@ -32,9 +33,11 @@ class ServerThread extends Thread {
      * Thread実行のためのrunメソッド
      */
     public void run() {
+
         try {
             InputStream inputStream = this.socket.getInputStream();
             OutputStream outputStream = this.socket.getOutputStream();
+
 
             HTTPRequest httpRequest = new HTTPRequest(inputStream);
             HTTPResponse httpResponse = new HTTPResponse(outputStream);
@@ -45,12 +48,22 @@ class ServerThread extends Thread {
             Handler handler = webApp.getHandler(requestURI);
 
             if (httpRequest.getRequestMethod().equals("GET")) {
-                handler.handleGET(httpRequest, httpResponse);
+                try {
+                    handler.handleGET(httpRequest, httpResponse);
+                } catch (IOException e) {
+                    System.err.println("エラー:" + e.getMessage());
+                    e.printStackTrace();
+                }
+
 
             } else if ((httpRequest.getRequestMethod().equals("POST")) && (Token.confirmToken(httpRequest.getRequestParameter("token")))) {
-                handler.handlePOST(httpRequest, httpResponse);
+                try {
+                    handler.handlePOST(httpRequest, httpResponse);
+                } catch (IOException e) {
+                    System.err.println("エラー:" + e.getMessage());
+                    e.printStackTrace();
+                }
             }
-
 
         } catch (IOException e) {
             System.err.println("エラー:" + e.getMessage());
@@ -64,7 +77,6 @@ class ServerThread extends Thread {
                 System.err.println("エラー:" + e.getMessage());
                 e.printStackTrace();
             }
-
         }
     }
 }

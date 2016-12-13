@@ -52,7 +52,7 @@ public class MessageStorageTest {
 
         MessageStorage.setMessageList(message);
 
-        Message messageTest = (Message) MessageStorage.getMessageList(0);
+        Message messageTest = MessageStorage.getMessageList(0);
         String atTimeTest = messageTest.getAtTime();
         String nameTest = messageTest.getName();
         String commentTest = messageTest.getComment();

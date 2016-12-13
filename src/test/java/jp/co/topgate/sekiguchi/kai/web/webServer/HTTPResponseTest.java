@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai.web.http;
+package jp.co.topgate.sekiguchi.kai.web.webServer;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
@@ -7,6 +7,7 @@ import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import jp.co.topgate.sekiguchi.kai.web.webServer.HTTPResponse;
 import org.junit.Test;
 
 /**
@@ -73,7 +74,7 @@ public class HTTPResponseTest {
 
 
         httpResponse.addStatusLine(HTTPResponse.SC_OK);
-        httpResponse.setResponseBody("テスト".getBytes());
+        httpResponse.setDynamicResponseBody("テスト".getBytes());
         try {
             httpResponse.sendResponse("html");
         } catch (IOException e) {

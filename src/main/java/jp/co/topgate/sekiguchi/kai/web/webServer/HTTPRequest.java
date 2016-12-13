@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai.web.http;
+package jp.co.topgate.sekiguchi.kai.web.webServer;
 
 import java.io.*;
 import java.net.URLDecoder;
@@ -175,9 +175,9 @@ public class HTTPRequest {
 
 
     /**
-     * リクエストURIから要求されているファイルを返すメソッド
+     * リクエストURIで要求されているファイルを返すメソッド
      *
-     * @return 要求されているファイル
+     * @return 要求されているファイル名
      */
     public String getRequestResource() {
         String requestResource;
@@ -195,8 +195,9 @@ public class HTTPRequest {
     /**
      * 指定されたファイルの拡張子を返すメソッド
      *
+     * @param  requestResource リクエストリソース
      * @return 指定されたファイルの拡張子
-     * @ requestResource リクエストリソース
+     *
      */
     public String getRequestResourceExtension(String requestResource) {
 

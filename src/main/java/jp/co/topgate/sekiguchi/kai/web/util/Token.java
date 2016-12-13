@@ -3,7 +3,7 @@ package jp.co.topgate.sekiguchi.kai.web.util;
 import java.util.UUID;
 
 /**
- * Sessionに関する責任を持つクラス
+ * Tokenに関する責任を持つクラス
  * Created by sekiguchikai on 2016/12/01.
  */
 public class Token {

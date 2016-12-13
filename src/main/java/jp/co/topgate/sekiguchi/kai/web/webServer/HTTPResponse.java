@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai.web.http;
+package jp.co.topgate.sekiguchi.kai.web.webServer;
 
 
 import javax.activation.DataHandler;
@@ -89,7 +89,8 @@ public class HTTPResponse {
     }
 
     /**
-     * ステータスラインを返すためのgetter
+     * ステータスラインを取得し、返すためのメソッド
+     * @return ステータスライン
      */
     public String getStatusLine() {
         return this.statusLine;
@@ -98,10 +99,19 @@ public class HTTPResponse {
     /**
      * レスポンスボディを設定するメソッド
      *
-     * @param responseBody ステータスコード
+     * @param responseBody レスポンスボディ
      */
-    public void setResponseBody(byte[] responseBody) {
+    public void setDynamicResponseBody(byte[] responseBody) {
         this.dynamicResponseBody = responseBody;
+    }
+
+    /**
+     * レスポンスボディを設定するメソッド
+     *
+     * @param file レスポンスボディに設定するためのFileインスタンス
+     */
+    public void setStaticResponseBody(File file) {
+        this.staticResponseBody = file;
     }
 
 
@@ -109,6 +119,7 @@ public class HTTPResponse {
      * レスポンスヘッダのContent-Typeを設定するメソッド
      *
      * @param fileExt ファイルの拡張子
+     * @return Content-Type
      */
     private String makeContentType(String fileExt) {
 
@@ -158,10 +169,5 @@ public class HTTPResponse {
         }
 
     }
-
-    public void setStaticResponseBody(File file) {
-        this.staticResponseBody = file;
-    }
-
 
 }

@@ -1,7 +1,5 @@
 package jp.co.topgate.sekiguchi.kai.web.webServer;
 
-import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
-import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.web_app.WebApp;
 import jp.co.topgate.sekiguchi.kai.web.util.Token;
 import jp.co.topgate.sekiguchi.kai.web.web_app.WebAppStorage;

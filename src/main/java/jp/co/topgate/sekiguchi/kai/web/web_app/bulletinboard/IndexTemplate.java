@@ -1,7 +1,7 @@
 package jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard;
 
-import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
-import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
+import jp.co.topgate.sekiguchi.kai.web.webServer.HTTPRequest;
+import jp.co.topgate.sekiguchi.kai.web.webServer.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.webServer.Template;
 import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.model.Message;
 import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.model.MessageStorage;
@@ -96,7 +96,7 @@ public class IndexTemplate implements Template {
                 .append("</body>")
                 .append("</html>");
 
-        httpResponse.setResponseBody(new String(stringBuilder).getBytes());
+        httpResponse.setDynamicResponseBody(new String(stringBuilder).getBytes());
         httpResponse.sendResponse("html");
 
     }

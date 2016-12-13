@@ -7,9 +7,9 @@ import jp.co.topgate.sekiguchi.kai.web.web_app.WebAppStorage;
 
 
 import java.io.IOException;
-//TCP サーバーAPI、通常はクライアントソケットからの接続を 受け入れる
+// TCP サーバーAPI、通常はクライアントソケットからの接続を 受け入れる
 import java.net.ServerSocket;
-//TCP クライアント API、通常はリモートホストに接続するために使用される
+// TCP クライアント API、通常はリモートホストに接続するために使用される
 import java.net.Socket;
 
 // socketはットワーク上のマシン間で通信リンクを確立するための手段

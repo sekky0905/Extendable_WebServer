@@ -87,7 +87,7 @@ public class HTTPRequest {
      *
      * @return リクエストメソッドを返す
      */
-    public String getRequestMethod() {
+    String getRequestMethod() {
         String requestMethod = this.requestLine[0];
         System.out.println("リクエストメソッドは" + requestMethod);
         return requestMethod;
@@ -98,7 +98,7 @@ public class HTTPRequest {
      *
      * @return リクエストURIを返す
      */
-    public String getRequestURI() {
+    String getRequestURI() {
         String requestURI;
         if (this.requestLine[1].contains("?")) {
             requestURI = this.requestLine[1].substring(0, this.requestLine[1].indexOf("?"));
@@ -195,9 +195,8 @@ public class HTTPRequest {
     /**
      * 指定されたファイルの拡張子を返すメソッド
      *
-     * @param  requestResource リクエストリソース
+     * @param requestResource リクエストリソース
      * @return 指定されたファイルの拡張子
-     *
      */
     public String getRequestResourceExtension(String requestResource) {
 

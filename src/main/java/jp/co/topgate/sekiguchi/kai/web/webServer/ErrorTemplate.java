@@ -1,15 +1,12 @@
 package jp.co.topgate.sekiguchi.kai.web.webServer;
 
-import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
-import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
-
 import java.io.IOException;
 
 /**
  * エラーの際のTemplateを表すクラス
  * Created by sekiguchikai on 2016/12/07.
  */
-class ErrorTemplate implements Template {
+public class ErrorTemplate implements Template {
     /**
      * エラーの際のHTMLのテンプレートをするメソッド
      *
@@ -31,7 +28,7 @@ class ErrorTemplate implements Template {
                 .append("</body>");
 
 
-        httpResponse.setResponseBody(new String(stringBuilder).getBytes());
+        httpResponse.setDynamicResponseBody(new String(stringBuilder).getBytes());
         httpResponse.sendResponse("html");
     }
 }

@@ -1,14 +1,15 @@
-package jp.co.topgate.sekiguchi.kai.web.web_app;
+package jp.co.topgate.sekiguchi.kai.web.web_app.staticwebserver;
 
 import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
-import jp.co.topgate.sekiguchi.kai.web.webServer.StaticFileHandler;
+import jp.co.topgate.sekiguchi.kai.web.web_app.WebApp;
+import jp.co.topgate.sekiguchi.kai.web.web_app.staticwebserver.StaticFileHandler;
 
 
 /**
  * StaticWebServerアプリケーションを表すクラス
  * Created by sekiguchikai on 2016/12/13.
  */
-class StaticWebServerApp extends WebApp {
+public class StaticWebServerApp extends WebApp {
 
     /**
      * WebAppクラスを継承した各クラスに必要なHandlerクラスをインスタンス化し、パスを紐付けるメソッド

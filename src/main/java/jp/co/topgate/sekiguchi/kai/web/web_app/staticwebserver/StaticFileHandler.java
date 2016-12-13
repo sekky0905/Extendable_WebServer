@@ -1,7 +1,10 @@
-package jp.co.topgate.sekiguchi.kai.web.webServer;
+package jp.co.topgate.sekiguchi.kai.web.web_app.staticwebserver;
 
-import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
-import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
+import jp.co.topgate.sekiguchi.kai.web.webServer.HTTPRequest;
+import jp.co.topgate.sekiguchi.kai.web.webServer.HTTPResponse;
+import jp.co.topgate.sekiguchi.kai.web.webServer.ErrorTemplate;
+import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
+import jp.co.topgate.sekiguchi.kai.web.webServer.Template;
 
 
 import java.io.*;

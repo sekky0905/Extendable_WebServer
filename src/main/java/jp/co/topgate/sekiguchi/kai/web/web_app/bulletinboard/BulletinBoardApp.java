@@ -1,6 +1,7 @@
-package jp.co.topgate.sekiguchi.kai.web.web_app;
+package jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard;
 
 import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
+import jp.co.topgate.sekiguchi.kai.web.web_app.WebApp;
 import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.handler.*;
 
 
@@ -8,7 +9,10 @@ import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.handler.*;
  * BulletinBoardアプリケーションを表すクラス
  * Created by sekiguchikai on 2016/12/13.
  */
-class BulletinBoardApp extends WebApp {
+public class BulletinBoardApp extends WebApp {
+    public BulletinBoardApp() {
+        super();
+    }
 
 
     /**

@@ -1,4 +1,5 @@
-package jp.co.topgate.sekiguchi.kai.web.http;
+package jp.co.topgate.sekiguchi.kai.web.webServer;
+
 
 import static org.hamcrest.CoreMatchers.*;
 

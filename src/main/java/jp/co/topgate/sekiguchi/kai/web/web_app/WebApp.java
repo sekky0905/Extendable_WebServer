@@ -14,13 +14,13 @@ public abstract class WebApp {
     /**
      * Handlerの名前とそれに紐づくHandlerのインスタンスを格納するためのMap
      */
-    Map<String, Handler> handlerMap = new HashMap<>();
+   protected Map<String, Handler> handlerMap = new HashMap<>();
 
     /**
      * コンストラクタ
      * エラーの際のHandlerを設定する
      */
-    WebApp() {
+    protected WebApp() {
         Handler errHandler = new Handler();
         handlerMap.put("err", errHandler);
     }

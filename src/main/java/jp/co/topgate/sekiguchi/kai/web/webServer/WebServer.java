@@ -47,25 +47,11 @@ public class WebServer {
         ServerSocket serverSocket = null;
 
         // アプリ用の初期設定
-        WebApp bulletinBoard = new WebApp();
-
+        WebAppStorage.initializeApp();
 
         // ここでハンドラ初期化
-        IndexHandler indexHandler = new IndexHandler();
-        RegisterMessageHandler registerMessageHandler = new RegisterMessageHandler();
-        SearchMessageHandler searchMessageHandler = new SearchMessageHandler();
-        DeleteMessageHandler deleteMessageHandler = new DeleteMessageHandler();
-        ShowAllMessageHandler showAllMessageHandler = new ShowAllMessageHandler();
-
-
-        // ここでバンドル
-        bulletinBoard.setHandler("/program/board/", indexHandler);
-        bulletinBoard.setHandler("/program/board/register/", registerMessageHandler);
-        bulletinBoard.setHandler("/program/board/search/", searchMessageHandler);
-        bulletinBoard.setHandler("/program/board/delete/", deleteMessageHandler);
-        bulletinBoard.setHandler("/program/board/showAll/", showAllMessageHandler);
-
-        WebAppStorage.setWebAppMap("bulletinBoard", bulletinBoard);
+        WebAppStorage.getWebApp("/").initializeHandler();
+        WebAppStorage.getWebApp("/program/board/").initializeHandler();
 
 
         try {

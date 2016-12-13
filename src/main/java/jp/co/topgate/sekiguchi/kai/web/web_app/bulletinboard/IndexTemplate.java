@@ -5,7 +5,7 @@ import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.webServer.Template;
 import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.model.Message;
 import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.model.MessageStorage;
-import jp.co.topgate.sekiguchi.kai.web.util.Session;
+import jp.co.topgate.sekiguchi.kai.web.util.Token;
 import jp.co.topgate.sekiguchi.kai.web.util.XSSMeasure;
 
 import java.io.IOException;
@@ -64,7 +64,7 @@ public class IndexTemplate implements Template {
                 .append("<td><textarea name=\"comment\" rows=\"4\" cols=\"40\" maxlength=\"1000\" placeholder=\"ここにコメントを記入してください\"></textarea></td>")
                 .append("</tr>")
                 .append("</table>")
-                .append("<input type=\"hidden\" name=\"token\" value=\"" + Session.getToken() + "\">")
+                .append("<input type=\"hidden\" name=\"token\" value=\"" + Token.getToken() + "\">")
                 .append("<p><input type=\"submit\" value=\"送信する\"></p>")
                 .append("</form>")
                 .append("</body>")
@@ -81,13 +81,13 @@ public class IndexTemplate implements Template {
                 .append("<td><input type=\"text\" name=\"searchName\" maxlength=\"20\"></td>")
                 .append("</tr>")
                 .append("</table>")
-                .append("<input type=\"hidden\" name=\"token\" value=\"" + Session.getToken() + "\">")
+                .append("<input type=\"hidden\" name=\"token\" value=\"" + Token.getToken() + "\">")
                 .append("<input type=\"submit\" value=\"検索する\">")
                 .append("</form>")
 
 
                 .append("<form action=\"/program/board/showAll/\" method=\"post\" accept-charset=\"UTF-8\">")
-                .append("<input type=\"hidden\" name=\"token\" value=\"" + Session.getToken() + "\">")
+                .append("<input type=\"hidden\" name=\"token\" value=\"" + Token.getToken() + "\">")
                 .append("<p>")
                 .append("<input type=\"submit\"  value=\" 全件表示 \"")
                 .append("</p>")
@@ -143,7 +143,7 @@ public class IndexTemplate implements Template {
                         .append("</tr>")
                         .append("</table>")
                         .append("<form action=\"/program/board/delete/\" method=\"post\" accept-charset=\"UTF-8\">")
-                        .append("<input type=\"hidden\" name=\"token\" value=\"" + Session.getToken() + "\">")
+                        .append("<input type=\"hidden\" name=\"token\" value=\"" + Token.getToken() + "\">")
                         .append("<p>")
                         .append("<input type=\"hidden\" name =\"delete\" value=" + i + ">")
                         .append("<input type=\"submit\"  value=\" 削除 \"")

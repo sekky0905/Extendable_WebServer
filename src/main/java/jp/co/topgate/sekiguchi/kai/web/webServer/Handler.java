@@ -9,7 +9,7 @@ import java.io.IOException;
  * Handlerの継承元クラス
  * Created by sekiguchikai on 2016/12/03.
  */
-public abstract class Handler {
+public class Handler {
     /**
      * リクエストGETの際のハンドラ
      *

@@ -11,7 +11,7 @@ import java.io.*;
  *
  * @author sekiguchikai
  */
-class StaticFileHandler extends Handler {
+public class StaticFileHandler extends Handler {
     /**
      * 静的なファイルの処理を行うメソッド
      *

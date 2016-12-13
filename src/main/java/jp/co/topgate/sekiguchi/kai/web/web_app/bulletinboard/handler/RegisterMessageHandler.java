@@ -6,7 +6,7 @@ import jp.co.topgate.sekiguchi.kai.web.webServer.Template;
 import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.IndexTemplate;
 import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.model.Message;
 import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.model.MessageStorage;
-import jp.co.topgate.sekiguchi.kai.web.util.Session;
+import jp.co.topgate.sekiguchi.kai.web.util.Token;
 import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
 
 import java.io.IOException;
@@ -25,6 +25,7 @@ public class RegisterMessageHandler extends Handler {
      * @param httpResponse httpResponseのインスタンス
      */
     public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException {
+        System.out.println("RegisterMessageHandlerのhandlePOSTg呼び出されました");
         MessageStorage.chooseMessageList(true);
         String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now());
         String name = httpRequest.getRequestParameter("name");
@@ -35,7 +36,7 @@ public class RegisterMessageHandler extends Handler {
         message.setName(name);
         message.setComment(comment);
 
-        Session.generateToken();
+        Token.generateToken();
         MessageStorage.setMessageList(message);
 
 

@@ -16,6 +16,6 @@ public interface Template {
      * @param httpRequest  httpRequestのインスタンス
      * @param httpResponse httpResponseのインスタンス
      */
-    void writeHTML(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException;
+    public void writeHTML(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException;
 
 }

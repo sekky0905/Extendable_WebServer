@@ -6,7 +6,7 @@ import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.webServer.Template;
 import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.IndexTemplate;
 import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.model.MessageStorage;
-import jp.co.topgate.sekiguchi.kai.web.util.Session;
+import jp.co.topgate.sekiguchi.kai.web.util.Token;
 import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
 
 import java.io.IOException;
@@ -27,7 +27,7 @@ public class DeleteMessageHandler extends Handler {
         int MessageIndex = Integer.parseInt(httpRequest.getRequestParameter("delete"));
         MessageStorage.removeMessage(MessageIndex);
 
-        Session.generateToken();
+        Token.generateToken();
 
 
         Template template = new IndexTemplate();

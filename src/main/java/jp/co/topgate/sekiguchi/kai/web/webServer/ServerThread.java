@@ -3,14 +3,12 @@ package jp.co.topgate.sekiguchi.kai.web.webServer;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.web_app.WebApp;
+import jp.co.topgate.sekiguchi.kai.web.util.Token;
 import jp.co.topgate.sekiguchi.kai.web.web_app.WebAppStorage;
-import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.IndexTemplate;
-import jp.co.topgate.sekiguchi.kai.web.util.Session;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.Method;
 import java.net.Socket;
 
 /**
@@ -44,22 +42,20 @@ class ServerThread extends Thread {
             HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
             String requestURI = httpRequest.getRequestURI();
-            httpRequest.setRequestParameter();
+            httpRequest.setRequestParameter();// これをHTTPRequest内部でやること
 
-            // Webサーバ
-            if (!(WebApp.handlerIsExist(requestURI))) {
 
-                StaticFileHandler staticFileHandler = new StaticFileHandler();
-                staticFileHandler.handleGET(httpRequest, httpResponse);
+            // ここで、リクエストURIで使用するアプリ決定
+            WebApp webApp = WebAppStorage.getWebApp(requestURI);
 
-            } else if (httpRequest.getRequestMethod().equals("GET")) {
+            Handler handler = webApp.getHandler(requestURI);
 
-                Handler handler = WebApp.getHandlerMap(requestURI);
+
+            if (httpRequest.getRequestMethod().equals("GET")) {
+
                 handler.handleGET(httpRequest, httpResponse);
 
-            } else if ((httpRequest.getRequestMethod().equals("POST")) && (Session.confirmToken(httpRequest.getRequestParameter("token")))) {// ココ変更すること
-
-                Handler handler = WebApp.getHandlerMap(requestURI);
+            } else if ((httpRequest.getRequestMethod().equals("POST")) && (Token.confirmToken(httpRequest.getRequestParameter("token")))) {// ココ変更すること
                 handler.handlePOST(httpRequest, httpResponse);
             }
 

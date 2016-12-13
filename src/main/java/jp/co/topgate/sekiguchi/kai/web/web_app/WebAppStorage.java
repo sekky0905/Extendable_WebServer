@@ -1,7 +1,9 @@
 package jp.co.topgate.sekiguchi.kai.web.web_app;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,14 +20,39 @@ public class WebAppStorage {
 
 
     /**
-     * webAppの名前とインスタンスをwebAppMapに追加するメソッド
-     *
-     * @param appName webAppMapに格納するwebApp(アプリケーションの名前)
-     * @param webApp  webAppMapに格納するwebAppのインスタンス
+     * アプリケーションをインスタンス化して、ルートURIに紐付けるメソッド
      */
-    public static void setWebAppMap(String appName, WebApp webApp) {
-        webAppMap.put(appName, webApp);
+    public static void initializeApp() {
+        WebApp staticWebServerApp = new StaticWebServerApp();
+        WebApp bulletinBoardApp = new BulletinBoardApp();
+
+        webAppMap.put("/", staticWebServerApp);
+        webAppMap.put("/program/board/", bulletinBoardApp);
+
     }
+
+
+    /**
+     * pathで指定したWebAppのインスタンスを取得するメソッド
+     *
+     * @param path 取得したい WebAppのパス
+     * @return WebAppのインスタンス
+     */
+    public static WebApp getWebApp(String path) {
+
+        int secondSlash = path.indexOf(("/"), 1);
+        int thirdSlash = path.indexOf(("/"), secondSlash + 1);
+        String appPath = path.substring(0, thirdSlash + 1);
+
+        // webサーバの時
+        if (!webAppMap.containsKey(appPath) || path.equals("/")) {
+            return WebAppStorage.webAppMap.get("/");
+
+        } else {
+            return WebAppStorage.webAppMap.get(appPath);
+        }
+    }
+
 
     /**
      * 名前で指定されたwebAppのインスタンスをwebAppMapから取得するメソッド

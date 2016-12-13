@@ -16,13 +16,17 @@ public abstract class WebApp {
      */
     Map<String, Handler> handlerMap = new HashMap<>();
 
+    /**
+     * コンストラクタ
+     * エラーの際のHandlerを設定する
+     */
     WebApp() {
         Handler errHandler = new Handler();
         handlerMap.put("err", errHandler);
     }
 
     /**
-     * WebAppクラスを継承した各クラスに必要なHandlerクラスをインスタンス化し、パスを紐付けるメソッド
+     * WebAppクラスを継承した各クラスに必要なHandlerクラスをインスタンス化し、パスを紐付ける抽象メソッド
      */
     public abstract void initializeHandler();
 

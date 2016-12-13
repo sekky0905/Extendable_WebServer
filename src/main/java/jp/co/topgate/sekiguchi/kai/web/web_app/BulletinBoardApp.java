@@ -5,10 +5,10 @@ import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.handler.*;
 
 
 /**
- * BulletinBoardアプリケーションクラス
+ * BulletinBoardアプリケーションを表すクラス
  * Created by sekiguchikai on 2016/12/13.
  */
-public class BulletinBoardApp extends WebApp {
+class BulletinBoardApp extends WebApp {
 
 
     /**

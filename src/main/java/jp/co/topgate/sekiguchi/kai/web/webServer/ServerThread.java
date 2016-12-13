@@ -44,15 +44,10 @@ class ServerThread extends Thread {
             String requestURI = httpRequest.getRequestURI();
             httpRequest.setRequestParameter();// これをHTTPRequest内部でやること
 
-
-            // ここで、リクエストURIで使用するアプリ決定
             WebApp webApp = WebAppStorage.getWebApp(requestURI);
-
             Handler handler = webApp.getHandler(requestURI);
 
-
             if (httpRequest.getRequestMethod().equals("GET")) {
-
                 handler.handleGET(httpRequest, httpResponse);
 
             } else if ((httpRequest.getRequestMethod().equals("POST")) && (Token.confirmToken(httpRequest.getRequestParameter("token")))) {// ココ変更すること
@@ -60,15 +55,10 @@ class ServerThread extends Thread {
             }
 
 
-        } catch (
-                IOException e)
-
-        {
+        } catch (IOException e) {
             System.err.println("エラー:" + e.getMessage());
             e.printStackTrace();
-        } finally
-
-        {
+        } finally {
             try {
                 if (this.socket != null) {
                     this.socket.close();

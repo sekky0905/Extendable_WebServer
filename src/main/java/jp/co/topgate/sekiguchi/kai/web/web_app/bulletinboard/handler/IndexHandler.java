@@ -3,7 +3,7 @@ package jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.handler;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.IndexTemplate;
-import jp.co.topgate.sekiguchi.kai.web.util.Session;
+import jp.co.topgate.sekiguchi.kai.web.util.Token;
 import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
 
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class IndexHandler extends Handler {
 
         IndexTemplate indexTemplate = new IndexTemplate();
 
-        Session.generateToken();
+        Token.generateToken();
 
         httpResponse.setStatusLine(HTTPResponse.SC_OK);
         indexTemplate.writeHTML(httpRequest, httpResponse);

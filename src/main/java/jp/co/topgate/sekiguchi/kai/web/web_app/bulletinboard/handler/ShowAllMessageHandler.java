@@ -6,7 +6,7 @@ import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.webServer.Template;
 import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.IndexTemplate;
 import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.model.MessageStorage;
-import jp.co.topgate.sekiguchi.kai.web.util.Session;
+import jp.co.topgate.sekiguchi.kai.web.util.Token;
 import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
 
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class ShowAllMessageHandler extends Handler {
      */
     public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException{
         MessageStorage.chooseMessageList(true);
-        Session.generateToken();
+        Token.generateToken();
 
 
         Template template = new IndexTemplate();

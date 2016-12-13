@@ -9,22 +9,23 @@ import java.util.Map;
  * 1つのアプリケーションを表すクラス
  * Created by sekiguchikai on 2016/12/03.
  */
-public class WebApp {
+public abstract class WebApp {
 
     /**
      * Handlerの名前とそれに紐づくHandlerのインスタンスを格納するためのMap
      */
-    private static Map<String, Handler> handlerMap = new HashMap<>();
+    Map<String, Handler> handlerMap = new HashMap<>();
+
+    WebApp() {
+        Handler errHandler = new Handler();
+        handlerMap.put("err", errHandler);
+    }
 
     /**
-     * handlerMapに指定された名前で、Handlerクラスのインスタンスを格納するためのメソッド
-     *
-     * @param path    Handlerに紐づけるパス
-     * @param handler handlerMapに格納するHandlerクラスのインスタンス
+     * WebAppクラスを継承した各クラスに必要なHandlerクラスをインスタンス化し、パスを紐付けるメソッド
      */
-    public void setHandler(String path, Handler handler) {
-        handlerMap.put(path, handler);
-    }
+    public abstract void initializeHandler();
+
 
     /**
      * パスで指定されたHandlerクラスのインスタンスを返ためのメソッド
@@ -32,8 +33,13 @@ public class WebApp {
      * @param path Handlerに紐づけられたパス
      * @return Handlerクラスのインスタンスの名前
      */
-    public static Handler getHandlerMap(String path) {
-        return handlerMap.get(path);
+    public Handler getHandler(String path) {
+        if (handlerMap.containsKey(path)) {
+            return handlerMap.get(path);
+        } else {
+            return handlerMap.get("err");
+        }
+
     }
 
     /**
@@ -42,7 +48,7 @@ public class WebApp {
      * @param handlerName Handlerの名前
      * @return Handlerが存在しているかどうかの真偽値
      */
-    public static boolean handlerIsExist(String handlerName) {
+    public boolean handlerIsExist(String handlerName) {
         return handlerMap.containsKey(handlerName);
     }
 

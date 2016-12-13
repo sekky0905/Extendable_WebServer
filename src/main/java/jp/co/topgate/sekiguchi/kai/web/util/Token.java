@@ -6,7 +6,7 @@ import java.util.UUID;
  * Sessionに関する責任を持つクラス
  * Created by sekiguchikai on 2016/12/01.
  */
-public class Session {
+public class Token {
 
     /**
      * ワンタームトークン
@@ -19,10 +19,10 @@ public class Session {
      * @return ワンタイムトークン
      */
     public static String generateToken() {
-        Session.token = UUID.randomUUID().toString();
+        Token.token = UUID.randomUUID().toString();
         System.out.println(token);
 
-        return Session.token;
+        return Token.token;
 
     }
 
@@ -32,7 +32,7 @@ public class Session {
      * @return tokenの文字列
      */
     public static String getToken() {
-        return Session.token;
+        return Token.token;
     }
 
     /**
@@ -42,6 +42,6 @@ public class Session {
      * @return 受け取ったtokenが、以前発行したtokenと同じものであるかの真偽値
      */
     public static boolean confirmToken(String target) {
-        return target.equals(Session.token);
+        return target.equals(Token.token);
     }
 }

@@ -26,7 +26,7 @@ public class IndexHandler extends Handler {
 
         Token.generateToken();
 
-        httpResponse.setStatusLine(HTTPResponse.SC_OK);
+        httpResponse.addStatusLine(HTTPResponse.SC_OK);
         indexTemplate.writeHTML(httpRequest, httpResponse);
 
     }

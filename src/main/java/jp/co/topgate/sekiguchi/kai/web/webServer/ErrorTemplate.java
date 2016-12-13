@@ -27,7 +27,7 @@ class ErrorTemplate implements Template {
                 .append("<title>エラー</title>")
                 .append("</head>")
                 .append("<body>")
-                .append("<p>" + HTTPResponse.getStatusLine() + "</p>")
+                .append("<p>" + httpResponse.getStatusLine() + "</p>")
                 .append("</body>");
 
 

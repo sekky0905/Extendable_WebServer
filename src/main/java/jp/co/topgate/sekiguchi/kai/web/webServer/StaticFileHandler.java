@@ -26,22 +26,22 @@ public class StaticFileHandler extends Handler {
         Template errTemplate = new ErrorTemplate();
 
         if (file.isDirectory()) {
-            httpResponse.setStatusLine(HTTPResponse.SC_NOT_FOUND);
+            httpResponse.addStatusLine(HTTPResponse.SC_NOT_FOUND);
             errTemplate.writeHTML(httpRequest, httpResponse);
         } else if ((file.exists())) {
             try {
-                httpResponse.setStatusLine(HTTPResponse.SC_OK);
+                httpResponse.addStatusLine(HTTPResponse.SC_OK);
                 httpResponse.setResponseBody(this.readFile(file));
                 httpResponse.sendResponse(extension);
             } catch (IOException e) {
                 System.err.println("エラー" + e.getMessage());
                 e.printStackTrace();
-                httpResponse.setStatusLine(HTTPResponse.SC_INTERNAL_SERVER_ERROR);
+                httpResponse.addStatusLine(HTTPResponse.SC_INTERNAL_SERVER_ERROR);
                 errTemplate.writeHTML(httpRequest, httpResponse);
             }
 
         } else {
-            httpResponse.setStatusLine(HTTPResponse.SC_NOT_FOUND);
+            httpResponse.addStatusLine(HTTPResponse.SC_NOT_FOUND);
             errTemplate.writeHTML(httpRequest, httpResponse);
         }
 

@@ -23,9 +23,10 @@ public class HTTPResponseTest {
      * setStatusLineメソッドとgetStatusLineメソッドをテストするメソッド
      */
     @Test
-    public void setStatusLine() {
-        httpResponse.setStatusLine(HTTPResponse.SC_OK);
-        assertThat(HTTPResponse.getStatusLine(), is("HTTP/1.1 200 OK"));
+    public void addStatusLine() {
+        httpResponse.addStatusLine(HTTPResponse.SC_OK);
+
+        assertThat(httpResponse.getStatusLine(), is("HTTP/1.1 200 OK"));
     }
 
 
@@ -71,7 +72,7 @@ public class HTTPResponseTest {
         HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
 
-        httpResponse.setStatusLine(HTTPResponse.SC_OK);
+        httpResponse.addStatusLine(HTTPResponse.SC_OK);
         httpResponse.setResponseBody("テスト".getBytes());
         try {
             httpResponse.sendResponse("html");

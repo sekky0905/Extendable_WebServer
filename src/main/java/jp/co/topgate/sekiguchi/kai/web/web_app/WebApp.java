@@ -42,16 +42,5 @@ public abstract class WebApp {
 
     }
 
-    /**
-     * 指定された名前のHandlerがHashMapうちに入っているかどうかの確認するためのメソッド
-     *
-     * @param handlerName Handlerの名前
-     * @return Handlerが存在しているかどうかの真偽値
-     */
-    public boolean handlerIsExist(String handlerName) {
-        return handlerMap.containsKey(handlerName);
-    }
-
-
 }
 

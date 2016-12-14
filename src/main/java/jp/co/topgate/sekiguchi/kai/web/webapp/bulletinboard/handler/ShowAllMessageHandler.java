@@ -28,12 +28,12 @@ public class ShowAllMessageHandler extends Handler {
             MessageStorage.chooseMessageList(true);
             Token.generateToken();
 
-            Template template = new IndexTemplate();
-            httpResponse.addStatusLine(HTTPResponse.SC_OK);
-            template.writeHTML(httpRequest, httpResponse);
-
-        } else {
-            System.out.println("tokenの番号が適切ではありません");
         }
+
+        Template template = new IndexTemplate();
+        httpResponse.addStatusLine(HTTPResponse.SC_OK);
+        template.writeHTML(httpRequest, httpResponse);
+
+
     }
 }

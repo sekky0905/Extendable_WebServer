@@ -26,27 +26,25 @@ public class RegisterMessageHandler extends Handler {
      */
     public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) throws Exception {
         if (Token.confirmToken(httpRequest.getRequestParameter("token"))) {
-        System.out.println("RegisterMessageHandlerのhandlePOSTg呼び出されました");
-        MessageStorage.chooseMessageList(true);
-        String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now());
-        String name = httpRequest.getRequestParameter("name");
-        String comment = httpRequest.getRequestParameter("comment");
+            System.out.println("RegisterMessageHandlerのhandlePOSTg呼び出されました");
+            MessageStorage.chooseMessageList(true);
+            String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now());
+            String name = httpRequest.getRequestParameter("name");
+            String comment = httpRequest.getRequestParameter("comment");
 
-        Message message = new Message();
-        message.setAtTime(atTime);
-        message.setName(name);
-        message.setComment(comment);
+            Message message = new Message();
+            message.setAtTime(atTime);
+            message.setName(name);
+            message.setComment(comment);
 
-        Token.generateToken();
-        MessageStorage.setMessageList(message);
+            Token.generateToken();
+            MessageStorage.setMessageList(message);
+        }
 
 
         Template template = new IndexTemplate();
         httpResponse.addStatusLine(HTTPResponse.SC_OK);
         template.writeHTML(httpRequest, httpResponse);
-    } else {
-            System.out.println("tokenの番号が適切ではありません");
-        }
 
 
     }

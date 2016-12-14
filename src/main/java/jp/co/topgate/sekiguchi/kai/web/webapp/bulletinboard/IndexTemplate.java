@@ -74,7 +74,7 @@ public class IndexTemplate implements Template {
                 .append("指定したユーザーの書き込みのみ表示させることができます。<br>")
                 .append("下記で、検索したいユーザー名を指定してください<br>")
 
-                .append("<form action=\"/program/board/search/\" method=\"post\" accept-charset=\"UTF-8\">")
+                .append("<form action=\"/program/board/search/\" method=\"get\" accept-charset=\"UTF-8\">")
                 .append("<table>")
                 .append("<tr>")
                 .append("<th>ユーザーネーム:</th>")
@@ -103,6 +103,7 @@ public class IndexTemplate implements Template {
 
     /**
      * 指定された回数、繰り返し部分のHTMLを作成し、返すメソッド
+     *
      * @param listSize modelListのsize
      * @return 繰り返し部分のHTML
      */

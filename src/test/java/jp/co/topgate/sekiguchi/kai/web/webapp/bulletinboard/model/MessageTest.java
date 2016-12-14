@@ -36,16 +36,15 @@ public class MessageTest {
     }
 
     /**
-     * setAttimeメソッドをテストするメソッド
-     * ついでにgetAtTimeメソッドを実装する
+     * setCreatedAtメソッドをテストするメソッド
+     * ついでにgetCreatedAtメソッドを実装する
      */
     @Test
-    public void setAtTime() {
+    public void setCreatedAt() {
         LocalDateTime localTimeTest = LocalDateTime.of(2016, 11, 29, 15, 0, 00);
-        String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(localTimeTest);
 
-        message.setAtTime(atTime);
-        assertThat(message.getAtTime(), is(atTime));
+        message.setCreatedAt(localTimeTest);
+        assertThat(message.getCreatedAt(), is(localTimeTest));
     }
 
 

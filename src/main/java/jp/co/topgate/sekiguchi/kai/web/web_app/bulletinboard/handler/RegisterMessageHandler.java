@@ -26,7 +26,6 @@ public class RegisterMessageHandler extends Handler {
      */
     public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException {
         System.out.println("RegisterMessageHandlerのhandlePOSTg呼び出されました");
-        MessageStorage.chooseMessageList(true);
         String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now());
         String name = httpRequest.getRequestParameter("name");
         String comment = httpRequest.getRequestParameter("comment");
@@ -40,7 +39,7 @@ public class RegisterMessageHandler extends Handler {
         MessageStorage.setMessageList(message);
 
 
-        Template template = new IndexTemplate();
+        Template template = new IndexTemplate(MessageStorage.getAllMessage());
         httpResponse.addStatusLine(HTTPResponse.SC_OK);
         template.writeHTML(httpRequest, httpResponse);
 

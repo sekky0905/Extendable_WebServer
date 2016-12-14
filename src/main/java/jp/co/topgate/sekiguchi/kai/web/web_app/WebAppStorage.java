@@ -29,7 +29,6 @@ public class WebAppStorage {
 
         webAppMap.put("/", staticWebServerApp);
         webAppMap.put("/program/board/", bulletinBoardApp);
-
     }
 
 

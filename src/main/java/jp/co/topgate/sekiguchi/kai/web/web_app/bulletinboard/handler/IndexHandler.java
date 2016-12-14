@@ -5,6 +5,7 @@ import jp.co.topgate.sekiguchi.kai.web.webServer.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.IndexTemplate;
 import jp.co.topgate.sekiguchi.kai.web.util.Token;
 import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
+import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.model.MessageStorage;
 
 import java.io.IOException;
 
@@ -22,7 +23,7 @@ public class IndexHandler extends Handler {
      */
     public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException {
 
-        IndexTemplate indexTemplate = new IndexTemplate();
+        IndexTemplate indexTemplate = new IndexTemplate(MessageStorage.getAllMessage());
 
         Token.generateToken();
 

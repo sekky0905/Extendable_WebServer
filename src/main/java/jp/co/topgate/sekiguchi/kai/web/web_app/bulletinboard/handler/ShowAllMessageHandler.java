@@ -23,11 +23,9 @@ public class ShowAllMessageHandler extends Handler {
      * @param httpResponse httpResponseのインスタンス
      */
     public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException{
-        MessageStorage.chooseMessageList(true);
         Token.generateToken();
 
-
-        Template template = new IndexTemplate();
+        Template template = new IndexTemplate(MessageStorage.getAllMessage());
         httpResponse.addStatusLine(HTTPResponse.SC_OK);
         template.writeHTML(httpRequest, httpResponse);
 

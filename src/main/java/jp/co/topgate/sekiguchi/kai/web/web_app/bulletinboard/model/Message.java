@@ -5,6 +5,8 @@ package jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.model;
  * Created by sekiguchikai on 2016/11/22.
  */
 public class Message {
+    private int id;
+
     /**
      * ユーザーネーム
      */
@@ -76,4 +78,11 @@ public class Message {
         return this.atTime;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

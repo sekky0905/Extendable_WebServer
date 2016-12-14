@@ -9,12 +9,19 @@ import jp.co.topgate.sekiguchi.kai.web.util.Token;
 import jp.co.topgate.sekiguchi.kai.web.util.XSSMeasure;
 
 import java.io.IOException;
+import java.util.stream.Stream;
 
 /**
  * 正常な時のTemplateを表すクラス
  * Created by sekiguchikai on 2016/11/22.
  */
 public class IndexTemplate implements Template {
+    Stream<Message> messageStream;
+
+    public IndexTemplate(Stream<Message> messageStream) {
+        this.messageStream = messageStream;
+    }
+
     /**
      * HTMLのテンプレートを作成するメソッド
      *
@@ -42,15 +49,9 @@ public class IndexTemplate implements Template {
                 .append("<body>");
 
 
-        int listSize;
-        // 繰り返し部分
-        if (MessageStorage.checkMessageList()) {
-            listSize = MessageStorage.countMessage();
-            stringBuilder.append(this.writeRepetition(listSize));
-        } else {
-            listSize = MessageStorage.countTemp();
-            stringBuilder.append(this.writeRepetition(listSize));
-        }
+        this.messageStream.forEach((Message message) -> {
+            this.writeRepetition(stringBuilder, message);
+        });
 
 
         stringBuilder.append("<form action=\"/program/board/register/\" method=\"post\" accept-charset=\"UTF-8\">")
@@ -98,60 +99,35 @@ public class IndexTemplate implements Template {
 
         httpResponse.setDynamicResponseBody(new String(stringBuilder).getBytes());
         httpResponse.sendResponse("html");
-
     }
 
-    /**
-     * 指定された回数、繰り返し部分のHTMLを作成し、返すメソッド
-     * @param listSize modelListのsize
-     * @return 繰り返し部分のHTML
-     */
-
-    private String writeRepetition(int listSize) {
-        StringBuilder stringBuilder = new StringBuilder();
-
-
-        for (int i = 0; i <= listSize; i++) {
-            if (i == listSize) {
-                break;
-            }
-
-            Message message;
-            if (MessageStorage.checkMessageList()) {
-                message = MessageStorage.getMessageList(i);
-            } else {
-                message = MessageStorage.getTempList(i);
-            }
-
-
-            if (!(message.getName().equals("") || message.getComment().equals(""))) {
-
-                stringBuilder.append("<table>")
-                        .append("<tr>")
-                        .append("<th>投稿日時:</th>")
-                        .append("<td>" + message.getAtTime() + "</td>")
-                        .append("</tr>")
-
-                        .append("<tr>")
-                        .append("<th>ユーザーネーム:</th>")
-                        .append("<td>" + XSSMeasure.sanitize(message.getName()) + "</td>")
-                        .append("</tr>")
-
-                        .append("<tr>")
-                        .append("<th>コメント</th>")
-                        .append("<td>" + XSSMeasure.sanitize(message.getComment()) + "</td>")
-                        .append("</tr>")
-                        .append("</table>")
-                        .append("<form action=\"/program/board/delete/\" method=\"post\" accept-charset=\"UTF-8\">")
-                        .append("<input type=\"hidden\" name=\"token\" value=\"" + Token.getToken() + "\">")
-                        .append("<p>")
-                        .append("<input type=\"hidden\" name =\"delete\" value=" + i + ">")
-                        .append("<input type=\"submit\"  value=\" 削除 \"")
-                        .append("</p>")
-                        .append("</form>");
-            }
-
+    private void writeRepetition(StringBuilder stringBuilder, Message message) {
+        if ("".equals(message.getName()) || "".equals(message.getComment())) {
+            return;
         }
-        return new String(stringBuilder);
+
+        stringBuilder.append("<table>")
+                .append("<tr>")
+                .append("<th>投稿日時:</th>")
+                .append("<td>").append(message.getAtTime()).append("</td>")
+                .append("</tr>")
+
+                .append("<tr>")
+                .append("<th>ユーザーネーム:</th>")
+                .append("<td>" + XSSMeasure.sanitize(message.getName()) + "</td>")
+                .append("</tr>")
+
+                .append("<tr>")
+                .append("<th>コメント</th>")
+                .append("<td>" + XSSMeasure.sanitize(message.getComment()) + "</td>")
+                .append("</tr>")
+                .append("</table>")
+                .append("<form action=\"/program/board/delete/\" method=\"post\" accept-charset=\"UTF-8\">")
+                .append("<input type=\"hidden\" name=\"token\" value=\"" + Token.getToken() + "\">")
+                .append("<p>")
+                .append("<input type=\"hidden\" name =\"delete\" value=" + message.getId() + ">")
+                .append("<input type=\"submit\"  value=\" 削除 \"")
+                .append("</p>")
+                .append("</form>");
     }
 }

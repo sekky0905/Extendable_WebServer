@@ -5,10 +5,12 @@ import jp.co.topgate.sekiguchi.kai.web.webServer.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.webServer.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.webServer.Template;
 import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.IndexTemplate;
+import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.model.Message;
 import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.model.MessageStorage;
 import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
 
 import java.io.IOException;
+import java.util.stream.Stream;
 
 /**
  * "/program/board/search/"に紐づくHandlerを表すクラス
@@ -23,12 +25,11 @@ public class SearchMessageHandler extends Handler {
      * @param httpResponse httpResponseのインスタンス
      */
     public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException{
-        MessageStorage.chooseMessageList(false);
         String name = httpRequest.getRequestParameter("searchName");
-        MessageStorage.searchMessage(name);
+        Stream<Message> messageStream = MessageStorage.searchMessage(name);
 
 
-        Template template = new IndexTemplate();
+        Template template = new IndexTemplate(messageStream);
         httpResponse.addStatusLine(HTTPResponse.SC_OK);
         template.writeHTML(httpRequest, httpResponse);
 

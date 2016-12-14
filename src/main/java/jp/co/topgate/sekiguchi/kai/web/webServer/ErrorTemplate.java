@@ -8,12 +8,25 @@ import java.io.IOException;
  */
 public class ErrorTemplate implements Template {
     /**
+     * エラーメッセージ
+     */
+    private String errMessage;
+
+    /**
+     * errMessageを設定するためのメソッド
+     *
+     * @param errMessage エラーメッセージ
+     */
+    public void setErrMessage(String errMessage) {
+        this.errMessage = errMessage;
+    }
+
+    /**
      * エラーの際のHTMLのテンプレートをするメソッド
      *
      * @param httpRequest  httpRequestのインスタンス
      * @param httpResponse httpResponseのインスタンス
      */
-
     public void writeHTML(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -24,11 +37,10 @@ public class ErrorTemplate implements Template {
                 .append("<title>エラー</title>")
                 .append("</head>")
                 .append("<body>")
-                .append("<p>" + httpResponse.getStatusLine() + "</p>")
+                .append("<p>" + this.errMessage + "</p>")
                 .append("</body>");
 
 
         httpResponse.setDynamicResponseBody(new String(stringBuilder).getBytes());
-        httpResponse.sendResponse("html");
     }
 }

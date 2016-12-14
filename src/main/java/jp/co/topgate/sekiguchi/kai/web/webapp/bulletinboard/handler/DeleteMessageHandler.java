@@ -35,9 +35,7 @@ public class DeleteMessageHandler extends Handler {
         }
 
         Template template = new IndexTemplate();
-        httpResponse.addStatusLine(HTTPResponse.SC_OK);
         template.writeHTML(httpRequest, httpResponse);
-
-
+        httpResponse.sendResponse(HTTPResponse.SC_OK, "OK", "html");
     }
 }

@@ -29,23 +29,21 @@ class StaticFileHandler extends Handler {
         Template errTemplate = new ErrorTemplate();
 
         if (file.isDirectory()) {
-            httpResponse.addStatusLine(HTTPResponse.SC_NOT_FOUND);
             errTemplate.writeHTML(httpRequest, httpResponse);
         } else if ((file.exists())) {
             try {
-                httpResponse.addStatusLine(HTTPResponse.SC_OK);
                 httpResponse.setStaticResponseBody(file);
-                httpResponse.sendResponse(extension);
+                httpResponse.sendResponse(HTTPResponse.SC_OK, "OK", extension);
             } catch (IOException e) {
                 System.err.println("エラー" + e.getMessage());
                 e.printStackTrace();
-                httpResponse.addStatusLine(HTTPResponse.SC_INTERNAL_SERVER_ERROR);
                 errTemplate.writeHTML(httpRequest, httpResponse);
+                httpResponse.sendResponse(HTTPResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error", "html");
             }
 
         } else {
-            httpResponse.addStatusLine(HTTPResponse.SC_NOT_FOUND);
             errTemplate.writeHTML(httpRequest, httpResponse);
+            httpResponse.sendResponse(HTTPResponse.SC_INTERNAL_SERVER_ERROR, "Not Found", "html");
         }
 
 

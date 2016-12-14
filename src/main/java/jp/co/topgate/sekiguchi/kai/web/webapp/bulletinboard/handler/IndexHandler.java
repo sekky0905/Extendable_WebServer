@@ -21,13 +21,10 @@ public class IndexHandler extends Handler {
      * @throws java.io.IOException クライアントへのレスポンスの送信に失敗しました
      */
     public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) throws Exception {
-
-        IndexTemplate indexTemplate = new IndexTemplate();
-
         Token.generateToken();
-
-        httpResponse.addStatusLine(HTTPResponse.SC_OK);
+        IndexTemplate indexTemplate = new IndexTemplate();
         indexTemplate.writeHTML(httpRequest, httpResponse);
+        httpResponse.sendResponse(HTTPResponse.SC_OK, "OK", "html");
 
     }
 }

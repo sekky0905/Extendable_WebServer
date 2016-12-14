@@ -8,7 +8,7 @@ import java.io.IOException;
  */
 public class Handler {
     /**
-     * リクエストGETの際のハンドラ
+     * リクエストGETの際のHandler
      *
      * @param httpRequest  httpRequestのインスタンス
      * @param httpResponse httpResponseのインスタンス
@@ -21,7 +21,7 @@ public class Handler {
     }
 
     /**
-     * リクエストPOSTの際のハンドラ
+     * リクエストPOSTの際のHandler
      *
      * @param httpRequest  httpRequestのインスタンス
      * @param httpResponse httpResponseのインスタンス

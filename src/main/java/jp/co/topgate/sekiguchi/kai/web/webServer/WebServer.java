@@ -49,7 +49,7 @@ public class WebServer {
         // アプリ用の初期設定
         WebAppStorage.initializeApp();
 
-        // ハンドラ初期化
+        // Handler初期化
         WebAppStorage.getWebApp("/").initializeHandler();
         WebAppStorage.getWebApp("/program/board/").initializeHandler();
 
@@ -58,7 +58,7 @@ public class WebServer {
             serverSocket = new ServerSocket(PORT);
 
             System.out.println("サーバが起動しました");
-            // ハンドラインスタンスを使い回せる
+            // Handlerインスタンスを使い回せる
             while (true) {
                 Socket socket = serverSocket.accept();
                 new ServerThread(socket).start();

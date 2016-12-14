@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class IndexHandler extends Handler {
     /**
-     * GETの際のハンドラ
+     * GETの際のHandler
      *
      * @param httpRequest  httpRequestのインスタンス
      * @param httpResponse httpResponseのインスタンス

@@ -17,7 +17,7 @@ import java.io.IOException;
  */
 public class DeleteMessageHandler extends Handler {
     /**
-     * POSTの際のハンドラ
+     * POSTの際のHandler
      *
      * @param httpRequest  httpRequestのインスタンス
      * @param httpResponse httpResponseのインスタンス

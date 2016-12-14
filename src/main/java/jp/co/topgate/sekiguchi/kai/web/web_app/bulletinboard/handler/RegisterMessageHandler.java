@@ -19,7 +19,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class RegisterMessageHandler extends Handler {
     /**
-     * POSTの際のハンドラ
+     * POSTの際のHandler
      *
      * @param httpRequest  httpRequestのインスタンス
      * @param httpResponse httpResponseのインスタンス

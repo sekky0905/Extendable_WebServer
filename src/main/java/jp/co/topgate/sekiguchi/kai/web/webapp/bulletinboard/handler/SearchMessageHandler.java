@@ -23,20 +23,18 @@ public class SearchMessageHandler extends Handler {
      * @param httpRequest  httpRequestのインスタンス
      * @param httpResponse httpResponseのインスタンス
      */
-    public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) throws Exception{
+    public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) throws Exception {
         if (Token.confirmToken(httpRequest.getRequestParameter("token"))) {
 
             MessageStorage.chooseMessageList(false);
             String name = httpRequest.getRequestParameter("searchName");
             MessageStorage.searchMessage(name);
 
-
-            Template template = new IndexTemplate();
-            httpResponse.addStatusLine(HTTPResponse.SC_OK);
-            template.writeHTML(httpRequest, httpResponse);
-        } else {
-            System.out.println("tokenの番号が適切ではありません");
         }
+        Template template = new IndexTemplate();
+        httpResponse.addStatusLine(HTTPResponse.SC_OK);
+        template.writeHTML(httpRequest, httpResponse);
+
 
     }
 }

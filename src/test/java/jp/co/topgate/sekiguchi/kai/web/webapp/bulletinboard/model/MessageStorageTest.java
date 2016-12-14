@@ -43,21 +43,20 @@ public class MessageStorageTest {
     @Test
     public void getMessageList() {
         LocalDateTime localTimeTest = LocalDateTime.of(2016, 11, 29, 15, 0, 0);
-        String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(localTimeTest);
 
         Message message = new Message();
-        message.setAtTime(atTime);
+        message.setCreatedAt(localTimeTest);
         message.setName("sekky");
         message.setComment("テスト");
 
         MessageStorage.setMessageList(message);
 
         Message messageTest = MessageStorage.getMessageList(0);
-        String atTimeTest = messageTest.getAtTime();
+        LocalDateTime createdAtTest = messageTest.getCreatedAt();
         String nameTest = messageTest.getName();
         String commentTest = messageTest.getComment();
 
-        assertThat(atTimeTest, is("2016/11/29 15:00:00"));
+        assertThat(createdAtTest, is(localTimeTest));
         assertThat(nameTest, is("sekky"));
         assertThat(commentTest, is("テスト"));
 
@@ -69,17 +68,16 @@ public class MessageStorageTest {
     @Test
     public void countMessage() {
         LocalDateTime localTimeTest = LocalDateTime.of(2016, 11, 29, 15, 0, 00);
-        String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(localTimeTest);
 
         Message message = new Message();
         Message message1 = new Message();
-        message1.setAtTime(atTime);
+        message1.setCreatedAt(localTimeTest);
         message1.setName("sekky");
         message1.setComment("テスト");
         MessageStorage.setMessageList(message1);
 
         Message message2 = new Message();
-        message2.setAtTime(atTime);
+        message2.setCreatedAt(localTimeTest);
         message2.setName("sekky2");
         message2.setComment("テスト2");
         MessageStorage.setMessageList(message2);
@@ -96,16 +94,15 @@ public class MessageStorageTest {
     @Test
     public void removeMessage() {
         LocalDateTime localTimeTest = LocalDateTime.of(2016, 11, 29, 15, 0, 00);
-        String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(localTimeTest);
 
         Message message1 = new Message();
-        message1.setAtTime(atTime);
+        message1.setCreatedAt(localTimeTest);
         message1.setName("sekky");
         message1.setComment("テスト");
         MessageStorage.setMessageList(message1);
 
         Message message2 = new Message();
-        message2.setAtTime(atTime);
+        message2.setCreatedAt(localTimeTest);
         message2.setName("sekky2");
         message2.setComment("テスト2");
         MessageStorage.setMessageList(message2);
@@ -126,24 +123,23 @@ public class MessageStorageTest {
     public void searchMessage() {
 
         LocalDateTime localTimeTest = LocalDateTime.of(2016, 11, 29, 15, 0, 00);
-        String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(localTimeTest);
 
         MessageStorage.removeAllMessage();
 
         Message message1 = new Message();
-        message1.setAtTime(atTime);
+        message1.setCreatedAt(localTimeTest);
         message1.setName("sekky");
         message1.setComment("テスト");
         MessageStorage.setMessageList(message1);
 
         Message message2 = new Message();
-        message2.setAtTime(atTime);
+        message2.setCreatedAt(localTimeTest);
         message2.setName("sekky2");
         message2.setComment("テスト2");
         MessageStorage.setMessageList(message2);
 
         Message message3 = new Message();
-        message3.setAtTime(atTime);
+        message3.setCreatedAt(localTimeTest);
         message3.setName("sekky");
         message3.setComment("テスト3");
         MessageStorage.setMessageList(message3);
@@ -160,19 +156,18 @@ public class MessageStorageTest {
     @Test
     public void removeAllMessage() {
         LocalDateTime localTimeTest = LocalDateTime.of(2016, 11, 29, 15, 0, 00);
-        String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(localTimeTest);
 
         MessageStorage.removeAllMessage();
 
         Message message1 = new Message();
-        message1.setAtTime(atTime);
+        message1.setCreatedAt(localTimeTest);
         message1.setName("sekky");
         message1.setComment("テスト");
         MessageStorage.setMessageList(message1);
 
 
         Message message2 = new Message();
-        message2.setAtTime(atTime);
+        message2.setCreatedAt(localTimeTest);
         message2.setName("sekky");
         message2.setComment("テスト3");
         MessageStorage.setMessageList(message2);

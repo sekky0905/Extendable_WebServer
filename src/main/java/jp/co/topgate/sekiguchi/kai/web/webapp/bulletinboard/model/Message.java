@@ -1,10 +1,17 @@
 package jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.model;
 
+import java.time.LocalDateTime;
+
 /**
  * 1つのMessageを表すクラス
  * Created by sekiguchikai on 2016/11/22.
  */
 public class Message {
+    /**
+     * Messageを区別するためのid
+     */
+    private int id;
+
     /**
      * ユーザーネーム
      */
@@ -17,8 +24,25 @@ public class Message {
     /**
      * 投稿日時
      */
-    private String atTime;
+    private LocalDateTime createdAt;
 
+    /**
+     * idを設定するためのメソッド
+     *
+     * @param id id
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * idを取得するためのメソッド
+     *
+     * @return id
+     */
+    public int getId() {
+        return this.id;
+    }
 
     /**
      * ユーザーネームを設定するためのメソッド
@@ -60,10 +84,10 @@ public class Message {
     /**
      * 投稿日時を設定するためのメソッド
      *
-     * @param atTime 投稿日時
+     * @param createdAt 投稿日時
      */
-    public void setAtTime(String atTime) {
-        this.atTime = atTime;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
 
@@ -72,8 +96,8 @@ public class Message {
      *
      * @return 投稿日時
      */
-    public String getAtTime() {
-        return this.atTime;
+    public LocalDateTime getCreatedAt() {
+        return this.createdAt;
     }
 
 }

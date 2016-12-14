@@ -28,12 +28,12 @@ public class RegisterMessageHandler extends Handler {
         if (Token.confirmToken(httpRequest.getRequestParameter("token"))) {
             System.out.println("RegisterMessageHandlerのhandlePOSTg呼び出されました");
             MessageStorage.chooseMessageList(true);
-            String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now());
+            LocalDateTime createdAt = LocalDateTime.now();
             String name = httpRequest.getRequestParameter("name");
             String comment = httpRequest.getRequestParameter("comment");
 
             Message message = new Message();
-            message.setAtTime(atTime);
+            message.setCreatedAt(createdAt);
             message.setName(name);
             message.setComment(comment);
 

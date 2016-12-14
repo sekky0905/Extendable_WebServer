@@ -9,6 +9,8 @@ import jp.co.topgate.sekiguchi.kai.web.util.Token;
 import jp.co.topgate.sekiguchi.kai.web.util.XSSMeasure;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * 正常な時のTemplateを表すクラス
@@ -90,8 +92,7 @@ public class IndexTemplate implements Template {
                 .append("<input type=\"hidden\" name=\"token\" value=\"" + Token.getToken() + "\">")
                 .append("<p>")
                 .append("<input type=\"submit\"  value=\" 全件表示 \"")
-                .append("</p>")
-                .append("</form>")
+
 
                 .append("</body>")
                 .append("</html>");
@@ -129,7 +130,7 @@ public class IndexTemplate implements Template {
                 stringBuilder.append("<table>")
                         .append("<tr>")
                         .append("<th>投稿日時:</th>")
-                        .append("<td>" + message.getAtTime() + "</td>")
+                        .append("<td>" + DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(message.getCreatedAt()) + "</td>")
                         .append("</tr>")
 
                         .append("<tr>")

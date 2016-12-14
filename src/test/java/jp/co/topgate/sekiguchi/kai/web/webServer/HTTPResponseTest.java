@@ -20,19 +20,9 @@ public class HTTPResponseTest {
     private OutputStream outputStream = new ByteArrayOutputStream();
     private HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
-    /**
-     * setStatusLineメソッドとgetStatusLineメソッドをテストするメソッド
-     */
-    @Test
-    public void addStatusLine() {
-        httpResponse.addStatusLine(HTTPResponse.SC_OK);
-
-        assertThat(httpResponse.getStatusLine(), is("HTTP/1.1 200 OK"));
-    }
-
 
     /**
-     * makeContentTypeメソッドをテストするメソッド
+     * makeContentTypeメソッドをテストするメソッドit 
      */
     @Test
     public void makeContentType() {
@@ -72,11 +62,9 @@ public class HTTPResponseTest {
         OutputStream outputStream = new ByteArrayOutputStream();
         HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
-
-        httpResponse.addStatusLine(HTTPResponse.SC_OK);
         httpResponse.setDynamicResponseBody("テスト".getBytes());
         try {
-            httpResponse.sendResponse("html");
+            httpResponse.sendResponse(HTTPResponse.SC_OK, "OK", "html");
         } catch (IOException e) {
             System.err.println("エラー:" + e.getMessage());
             e.printStackTrace();

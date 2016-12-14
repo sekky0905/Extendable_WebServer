@@ -1,6 +1,5 @@
 package jp.co.topgate.sekiguchi.kai.web.webServer;
 
-import java.io.IOException;
 
 /**
  * Handlerの継承元クラス
@@ -15,9 +14,11 @@ public class Handler {
      */
     public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) throws Exception {
         // オーバーライドしない場合は、404を返す
-        httpResponse.addStatusLine(HTTPResponse.SC_NOT_FOUND);
-        Template template = new ErrorTemplate();
+        ErrorTemplate template = new ErrorTemplate();
+        template.setErrMessage("400 Internal Server Error");
         template.writeHTML(httpRequest, httpResponse);
+        httpResponse.sendResponse(HTTPResponse.SC_NOT_FOUND, "Not Found", "html");
+
     }
 
     /**
@@ -28,8 +29,9 @@ public class Handler {
      */
     public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) throws Exception {
         // オーバーライドしない場合は、404を返す
-        httpResponse.addStatusLine(HTTPResponse.SC_NOT_FOUND);
-        Template template = new ErrorTemplate();
+        ErrorTemplate template = new ErrorTemplate();
+        template.setErrMessage("400 Internal Server Error");
         template.writeHTML(httpRequest, httpResponse);
+        httpResponse.sendResponse(HTTPResponse.SC_NOT_FOUND, "Not Found", "html");
     }
 }

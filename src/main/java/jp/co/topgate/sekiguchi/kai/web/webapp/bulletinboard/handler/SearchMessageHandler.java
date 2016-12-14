@@ -23,7 +23,7 @@ public class SearchMessageHandler extends Handler {
      * @param httpRequest  httpRequestのインスタンス
      * @param httpResponse httpResponseのインスタンス
      */
-    public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) throws Exception {
+    public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) throws Exception {
         if (Token.confirmToken(httpRequest.getRequestParameter("token"))) {
 
             MessageStorage.chooseMessageList(false);

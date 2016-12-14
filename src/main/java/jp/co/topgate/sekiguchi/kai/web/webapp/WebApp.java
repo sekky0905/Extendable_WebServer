@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai.web.web_app;
+package jp.co.topgate.sekiguchi.kai.web.webapp;
 
 import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
 

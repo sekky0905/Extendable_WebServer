@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.model;
+package jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.model;
 
 /**
  * 1つのMessageを表すクラス

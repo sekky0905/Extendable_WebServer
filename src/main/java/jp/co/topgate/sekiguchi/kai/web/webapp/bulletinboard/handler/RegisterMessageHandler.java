@@ -1,11 +1,11 @@
-package jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.handler;
+package jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.handler;
 
 import jp.co.topgate.sekiguchi.kai.web.webServer.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.webServer.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.webServer.Template;
-import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.IndexTemplate;
-import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.model.Message;
-import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.model.MessageStorage;
+import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.IndexTemplate;
+import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.model.Message;
+import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.model.MessageStorage;
 import jp.co.topgate.sekiguchi.kai.web.util.Token;
 import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
 
@@ -24,7 +24,8 @@ public class RegisterMessageHandler extends Handler {
      * @param httpRequest  httpRequestのインスタンス
      * @param httpResponse httpResponseのインスタンス
      */
-    public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException {
+    public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) throws Exception {
+        if (Token.confirmToken(httpRequest.getRequestParameter("token"))) {
         System.out.println("RegisterMessageHandlerのhandlePOSTg呼び出されました");
         MessageStorage.chooseMessageList(true);
         String atTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now());
@@ -43,6 +44,9 @@ public class RegisterMessageHandler extends Handler {
         Template template = new IndexTemplate();
         httpResponse.addStatusLine(HTTPResponse.SC_OK);
         template.writeHTML(httpRequest, httpResponse);
+    } else {
+            System.out.println("tokenの番号が適切ではありません");
+        }
 
 
     }

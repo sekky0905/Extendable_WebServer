@@ -1,8 +1,8 @@
-package jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard;
+package jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard;
 
 
-import jp.co.topgate.sekiguchi.kai.web.web_app.WebApp;
-import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.handler.*;
+import jp.co.topgate.sekiguchi.kai.web.webapp.WebApp;
+import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.handler.*;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;

@@ -1,6 +1,6 @@
-package jp.co.topgate.sekiguchi.kai.web.web_app.staticwebserver;
+package jp.co.topgate.sekiguchi.kai.web.webapp.staticwebserver;
 
-import jp.co.topgate.sekiguchi.kai.web.web_app.WebApp;
+import jp.co.topgate.sekiguchi.kai.web.webapp.WebApp;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;

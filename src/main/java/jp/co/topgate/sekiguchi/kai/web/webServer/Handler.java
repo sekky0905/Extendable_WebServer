@@ -13,7 +13,7 @@ public class Handler {
      * @param httpRequest  httpRequestのインスタンス
      * @param httpResponse httpResponseのインスタンス
      */
-    public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException {
+    public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) throws Exception {
         // オーバーライドしない場合は、404を返す
         httpResponse.addStatusLine(HTTPResponse.SC_NOT_FOUND);
         Template template = new ErrorTemplate();
@@ -26,7 +26,7 @@ public class Handler {
      * @param httpRequest  httpRequestのインスタンス
      * @param httpResponse httpResponseのインスタンス
      */
-    public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException {
+    public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) throws Exception {
         // オーバーライドしない場合は、404を返す
         httpResponse.addStatusLine(HTTPResponse.SC_NOT_FOUND);
         Template template = new ErrorTemplate();

@@ -1,8 +1,8 @@
-package jp.co.topgate.sekiguchi.kai.web.web_app;
+package jp.co.topgate.sekiguchi.kai.web.webapp;
 
 
-import jp.co.topgate.sekiguchi.kai.web.web_app.bulletinboard.BulletinBoardApp;
-import jp.co.topgate.sekiguchi.kai.web.web_app.staticwebserver.StaticWebServerApp;
+import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.BulletinBoardApp;
+import jp.co.topgate.sekiguchi.kai.web.webapp.staticwebserver.StaticWebServerApp;
 
 import java.util.HashMap;
 import java.util.Map;

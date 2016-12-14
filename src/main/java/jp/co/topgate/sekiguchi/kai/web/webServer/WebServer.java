@@ -3,7 +3,7 @@ package jp.co.topgate.sekiguchi.kai.web.webServer;
 // フィルタをかけて流れてくるデータをバッファリングし、量がたまったら、一気に下流に流し込む
 
 
-import jp.co.topgate.sekiguchi.kai.web.web_app.WebAppStorage;
+import jp.co.topgate.sekiguchi.kai.web.webapp.WebAppStorage;
 
 
 import java.io.IOException;

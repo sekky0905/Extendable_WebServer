@@ -2,8 +2,9 @@ package jp.co.topgate.sekiguchi.kai.web.webServer;
 
 
 import jp.co.topgate.sekiguchi.kai.web.util.Token;
-import jp.co.topgate.sekiguchi.kai.web.web_app.WebApp;
-import jp.co.topgate.sekiguchi.kai.web.web_app.WebAppStorage;
+import jp.co.topgate.sekiguchi.kai.web.webapp.WebApp;
+import jp.co.topgate.sekiguchi.kai.web.webapp.WebAppStorage;
+import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.IndexTemplate;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,18 +51,28 @@ class ServerThread extends Thread {
             if (httpRequest.getRequestMethod().equals("GET")) {
                 try {
                     handler.handleGET(httpRequest, httpResponse);
-                } catch (IOException e) {
+                } catch (Exception e) {
                     System.err.println("エラー:" + e.getMessage());
                     e.printStackTrace();
+
+                    // アプリケーション側の例外をサーバでcatch
+                    Template template = new IndexTemplate();
+                    httpResponse.addStatusLine(HTTPResponse.SC_INTERNAL_SERVER_ERROR);
+                    template.writeHTML(httpRequest, httpResponse);
                 }
 
 
-            } else if ((httpRequest.getRequestMethod().equals("POST")) && (Token.confirmToken(httpRequest.getRequestParameter("token")))) {
+            } else if (httpRequest.getRequestMethod().equals("POST")) {
                 try {
                     handler.handlePOST(httpRequest, httpResponse);
-                } catch (IOException e) {
+                } catch (Exception e) {
                     System.err.println("エラー:" + e.getMessage());
                     e.printStackTrace();
+
+                    // アプリケーション側の例外をサーバでcatch
+                    Template template = new IndexTemplate();
+                    httpResponse.addStatusLine(HTTPResponse.SC_INTERNAL_SERVER_ERROR);
+                    template.writeHTML(httpRequest, httpResponse);
                 }
             }
 

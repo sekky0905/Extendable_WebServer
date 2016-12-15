@@ -96,7 +96,7 @@ public class HTTPResponse {
         String contentType = contentTypeMap.get(fileExt);
 
         if (contentType == null) {
-            contentType = "Content-Type: multipart/form-data" + "\n";
+            contentType = "Content-Type: application/octet-stream" + "\n";
         }
 
         System.out.println("レスポンスヘッダは" + contentType);

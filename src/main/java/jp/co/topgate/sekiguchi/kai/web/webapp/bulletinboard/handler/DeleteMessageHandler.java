@@ -1,15 +1,13 @@
 package jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.handler;
 
-import jp.co.topgate.sekiguchi.kai.web.webServer.HTTPRequest;
-import jp.co.topgate.sekiguchi.kai.web.webServer.HTTPResponse;
+import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPRequest;
+import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPResponse;
 
-import jp.co.topgate.sekiguchi.kai.web.webServer.Template;
+import jp.co.topgate.sekiguchi.kai.web.webserver.Template;
 import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.IndexTemplate;
 import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.model.MessageStorage;
 import jp.co.topgate.sekiguchi.kai.web.util.Token;
-import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
-
-import java.io.IOException;
+import jp.co.topgate.sekiguchi.kai.web.webserver.Handler;
 
 /**
  * "/program/board/delete/"に紐づくHandlerを表すクラス
@@ -26,7 +24,6 @@ public class DeleteMessageHandler extends Handler {
 
         if (Token.confirmToken(httpRequest.getRequestParameter("token"))) {
 
-            MessageStorage.chooseMessageList(true);
             int MessageIndex = Integer.parseInt(httpRequest.getRequestParameter("delete"));
             MessageStorage.removeMessage(MessageIndex);
 
@@ -34,7 +31,7 @@ public class DeleteMessageHandler extends Handler {
 
         }
 
-        Template template = new IndexTemplate();
+        Template template = new IndexTemplate(MessageStorage.getAllMessage());
         template.writeHTML(httpRequest, httpResponse);
         httpResponse.sendResponse(HTTPResponse.SC_OK, "OK", "html");
     }

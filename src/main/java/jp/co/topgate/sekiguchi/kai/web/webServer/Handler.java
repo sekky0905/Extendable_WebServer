@@ -1,6 +1,5 @@
-package jp.co.topgate.sekiguchi.kai.web.webServer;
+package jp.co.topgate.sekiguchi.kai.web.webserver;
 
-import java.io.IOException;
 
 /**
  * Handlerの継承元クラス

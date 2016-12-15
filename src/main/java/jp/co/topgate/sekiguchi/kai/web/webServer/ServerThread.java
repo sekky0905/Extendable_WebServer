@@ -1,7 +1,5 @@
-package jp.co.topgate.sekiguchi.kai.web.webServer;
+package jp.co.topgate.sekiguchi.kai.web.webserver;
 
-
-import jp.co.topgate.sekiguchi.kai.web.util.Token;
 import jp.co.topgate.sekiguchi.kai.web.webapp.WebApp;
 import jp.co.topgate.sekiguchi.kai.web.webapp.WebAppStorage;
 import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.IndexTemplate;
@@ -13,9 +11,9 @@ import java.net.Socket;
 
 /**
  * 1つのスレッドを表すクラス
- * Created by sekiguchikai on 2016/12/02.
+ * Created by sekiguchikai on 2016/12/15.
  */
-class ServerThread extends Thread {
+public class ServerThread extends Thread {
     /**
      * socket socket
      */
@@ -91,3 +89,6 @@ class ServerThread extends Thread {
         }
     }
 }
+
+
+

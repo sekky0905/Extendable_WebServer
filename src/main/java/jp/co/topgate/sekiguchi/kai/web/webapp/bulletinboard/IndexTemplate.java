@@ -1,12 +1,13 @@
 package jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard;
 
-import jp.co.topgate.sekiguchi.kai.web.webServer.HTTPRequest;
-import jp.co.topgate.sekiguchi.kai.web.webServer.HTTPResponse;
-import jp.co.topgate.sekiguchi.kai.web.webServer.Template;
+
+import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.model.Message;
 import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.model.MessageStorage;
 import jp.co.topgate.sekiguchi.kai.web.util.Token;
 import jp.co.topgate.sekiguchi.kai.web.util.XSSMeasure;
+import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPRequest;
+import jp.co.topgate.sekiguchi.kai.web.webserver.Template;
 
 import java.io.IOException;
 

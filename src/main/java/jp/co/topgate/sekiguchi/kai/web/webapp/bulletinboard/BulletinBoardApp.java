@@ -1,9 +1,9 @@
 package jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard;
 
-import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
+
 import jp.co.topgate.sekiguchi.kai.web.webapp.WebApp;
 import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.handler.*;
-
+import jp.co.topgate.sekiguchi.kai.web.webserver.Handler;
 
 /**
  * BulletinBoardアプリケーションを表すクラス

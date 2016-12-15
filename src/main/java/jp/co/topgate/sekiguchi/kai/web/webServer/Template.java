@@ -1,4 +1,7 @@
-package jp.co.topgate.sekiguchi.kai.web.webServer;
+package jp.co.topgate.sekiguchi.kai.web.webserver;
+
+
+
 
 import java.io.IOException;
 
@@ -17,3 +20,5 @@ public interface Template {
     void writeHTML(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException;
 
 }
+
+

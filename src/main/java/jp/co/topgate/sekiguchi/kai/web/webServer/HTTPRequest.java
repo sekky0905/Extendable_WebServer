@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai.web.webServer;
+package jp.co.topgate.sekiguchi.kai.web.webserver;
 
 import java.io.*;
 import java.net.URLDecoder;
@@ -205,5 +205,6 @@ public class HTTPRequest {
         System.out.println("ファイルの拡張子は" + extension);
         return extension;
     }
+
 
 }

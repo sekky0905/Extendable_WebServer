@@ -1,13 +1,10 @@
 package jp.co.topgate.sekiguchi.kai.web.webapp.staticwebserver;
 
-import jp.co.topgate.sekiguchi.kai.web.webServer.HTTPRequest;
-import jp.co.topgate.sekiguchi.kai.web.webServer.HTTPResponse;
-import jp.co.topgate.sekiguchi.kai.web.webServer.ErrorTemplate;
-import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
-import jp.co.topgate.sekiguchi.kai.web.webServer.Template;
 
+import jp.co.topgate.sekiguchi.kai.web.webserver.*;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * 静的なファイルの処理の責任を持つクラス

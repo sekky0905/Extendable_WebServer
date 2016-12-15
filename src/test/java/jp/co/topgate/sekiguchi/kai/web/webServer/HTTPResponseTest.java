@@ -7,7 +7,7 @@ import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import jp.co.topgate.sekiguchi.kai.web.webServer.HTTPResponse;
+import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPResponse;
 import org.junit.Test;
 
 /**

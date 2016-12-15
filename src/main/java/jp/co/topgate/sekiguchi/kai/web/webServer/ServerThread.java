@@ -1,10 +1,8 @@
-package jp.co.topgate.sekiguchi.kai.web.webServer;
+package jp.co.topgate.sekiguchi.kai.web.webserver;
 
 
-import jp.co.topgate.sekiguchi.kai.web.util.Token;
 import jp.co.topgate.sekiguchi.kai.web.webapp.WebApp;
 import jp.co.topgate.sekiguchi.kai.web.webapp.WebAppStorage;
-import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.IndexTemplate;
 
 import java.io.IOException;
 import java.io.InputStream;

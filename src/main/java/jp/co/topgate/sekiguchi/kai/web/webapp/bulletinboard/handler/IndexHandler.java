@@ -1,12 +1,11 @@
 package jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.handler;
 
-import jp.co.topgate.sekiguchi.kai.web.webServer.HTTPRequest;
-import jp.co.topgate.sekiguchi.kai.web.webServer.HTTPResponse;
+import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.model.MessageStorage;
+import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPRequest;
+import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.IndexTemplate;
 import jp.co.topgate.sekiguchi.kai.web.util.Token;
-import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
-
-import java.io.IOException;
+import jp.co.topgate.sekiguchi.kai.web.webserver.Handler;
 
 /**
  * "/program/board/"に紐づくHandlerを表すクラス
@@ -22,7 +21,7 @@ public class IndexHandler extends Handler {
      */
     public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) throws Exception {
         Token.generateToken();
-        IndexTemplate indexTemplate = new IndexTemplate();
+        IndexTemplate indexTemplate = new IndexTemplate(MessageStorage.getAllMessage());
         indexTemplate.writeHTML(httpRequest, httpResponse);
         httpResponse.sendResponse(HTTPResponse.SC_OK, "OK", "html");
 

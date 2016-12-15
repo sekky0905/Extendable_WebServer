@@ -1,6 +1,6 @@
 package jp.co.topgate.sekiguchi.kai.web.webapp.staticwebserver;
 
-import jp.co.topgate.sekiguchi.kai.web.webServer.Handler;
+import jp.co.topgate.sekiguchi.kai.web.webserver.Handler;
 import jp.co.topgate.sekiguchi.kai.web.webapp.WebApp;
 
 

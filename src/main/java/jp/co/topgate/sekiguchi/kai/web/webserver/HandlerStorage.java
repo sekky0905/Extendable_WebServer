@@ -7,7 +7,6 @@ import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboardapp.handler.RegisterM
 import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboardapp.handler.SearchMessageHandler;
 import jp.co.topgate.sekiguchi.kai.web.webapp.staticserverapp.StaticFileHandler;
 
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,17 +54,14 @@ public class HandlerStorage {
      * @return handlerのインスタンス
      */
     static Handler getHandler(String path) {
-
-        int secondSlash = path.indexOf(("/"), 1);
-        int thirdSlash = path.indexOf(("/"), secondSlash + 1);
-        String appPath = path.substring(0, thirdSlash + 1);
-
         // webサーバの時
-        if (!HandlerStorage.handlerMap.containsKey(appPath) || path.equals("/")) {
+        if (!HandlerStorage.handlerMap.containsKey(path) || path.equals("/")) {
             return HandlerStorage.handlerMap.get("/");
         } else {
-            return HandlerStorage.handlerMap.get(appPath);
+            return HandlerStorage.handlerMap.get(path);
         }
     }
 
 }
+
+

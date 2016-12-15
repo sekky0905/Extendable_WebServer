@@ -1,21 +1,11 @@
 package jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboardapp;
 
 
-<<<<<<< HEAD
-import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPResponse;
-=======
-import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPRequest;
-import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPResponse;
-import jp.co.topgate.sekiguchi.kai.web.webserver.Template;
-<<<<<<< HEAD:src/main/java/jp/co/topgate/sekiguchi/kai/web/webapp/bulletinboardapp/IndexTemplate.java
-import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboardapp.model.Message;
-=======
->>>>>>> develop
-import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.model.Message;
->>>>>>> 7b3faeeb4ef5986f5972a5c00571297dcf6eb960:src/main/java/jp/co/topgate/sekiguchi/kai/web/webapp/bulletinboard/IndexTemplate.java
 import jp.co.topgate.sekiguchi.kai.web.util.Token;
 import jp.co.topgate.sekiguchi.kai.web.util.XSSMeasure;
+import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboardapp.model.Message;
 import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPRequest;
+import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.webserver.Template;
 
 import java.io.IOException;
@@ -51,7 +41,7 @@ public class IndexTemplate implements Template {
      * @param httpRequest  httpRequestのインスタンス
      * @param httpResponse httpResponseのインスタンス
      */
-    public void writeHTML(HTTPRequest httpRequest, HTTPResponse httpResponse) throws IOException {
+    public void writeHTML(HTTPRequest httpRequest, HTTPResponse httpResponse) {
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append("<!DOCTYPE html>")
@@ -127,7 +117,7 @@ public class IndexTemplate implements Template {
         if (message.getName().equals("") || message.getComment().equals("")) {
             return;
         }
-        stringBuilder.append("<table>")
+        StringBuilder append = stringBuilder.append("<table>")
                 .append("<tr>")
                 .append("<th>投稿日時:</th>")
                 .append("<td>" + DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(message.getCreatedAt()) + "</td>")

@@ -1,28 +1,12 @@
 package jp.co.topgate.sekiguchi.kai.web.webapp.staticserverapp;
 
-<<<<<<< HEAD:src/main/java/jp/co/topgate/sekiguchi/kai/web/webapp/staticserverapp/StaticFileHandler.java
 import jp.co.topgate.sekiguchi.kai.web.webserver.ErrorTemplate;
-=======
-<<<<<<< HEAD
-=======
->>>>>>> 7b3faeeb4ef5986f5972a5c00571297dcf6eb960:src/main/java/jp/co/topgate/sekiguchi/kai/web/webapp/staticwebserver/StaticFileHandler.java
 import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.webserver.Handler;
-<<<<<<< HEAD:src/main/java/jp/co/topgate/sekiguchi/kai/web/webapp/staticserverapp/StaticFileHandler.java
 
 import java.io.File;
 import java.io.IOException;
-
-=======
-import jp.co.topgate.sekiguchi.kai.web.webserver.Template;
->>>>>>> develop
-
-import jp.co.topgate.sekiguchi.kai.web.webserver.*;
-
-import java.io.File;
-import java.io.IOException;
->>>>>>> 7b3faeeb4ef5986f5972a5c00571297dcf6eb960:src/main/java/jp/co/topgate/sekiguchi/kai/web/webapp/staticwebserver/StaticFileHandler.java
 
 /**
  * 静的なファイルの処理の責任を持つクラス

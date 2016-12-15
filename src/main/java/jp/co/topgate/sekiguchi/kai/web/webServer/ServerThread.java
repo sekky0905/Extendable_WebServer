@@ -1,10 +1,5 @@
 package jp.co.topgate.sekiguchi.kai.web.webserver;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> develop
-import jp.co.topgate.sekiguchi.kai.web.webapp.WebApp;
 
 import java.io.IOException;
 import java.io.InputStream;

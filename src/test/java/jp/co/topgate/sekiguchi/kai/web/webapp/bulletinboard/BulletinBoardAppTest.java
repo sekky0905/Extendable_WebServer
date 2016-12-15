@@ -1,7 +1,6 @@
 package jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard;
 
 
-import jp.co.topgate.sekiguchi.kai.web.webapp.WebApp;
 import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.handler.*;
 import org.junit.Test;
 

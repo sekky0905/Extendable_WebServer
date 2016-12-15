@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai.web.webServer;
+package jp.co.topgate.sekiguchi.kai.web.webserver;
 
 
 import static org.hamcrest.CoreMatchers.*;
@@ -19,32 +19,53 @@ import org.junit.Test;
  */
 public class HTTPRequestTest {
 
-
     /**
-     * 引数で受け取ったデータで、HTTPRequestクラスをインスタンス化して返すメソッド
+     * getRequestURIメソッドをテストする補助をするメソッド
      *
-     * @param data コンストラクタに渡すデータ
-     * @return HTTPRequestクラスのインスタンス
+     * @param data     操作する際に用いるデータ
+     * @param expected 期待する値
      */
-    private HTTPRequest instantiate(String data) {
-        HTTPRequest sut = new HTTPRequest(new ByteArrayInputStream(data.getBytes()));
-        return sut;
-    }
+    private void getRequestMethodHelper(String data, String expected) {
 
+        HTTPRequest httpRequest = new HTTPRequest(new ByteArrayInputStream(data.getBytes()));
+        Method method = null;
+        try {
+            method = httpRequest.getClass().getDeclaredMethod("getRequestMethod");
+        } catch (NoSuchMethodException e) {
+            System.err.println("エラー:" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        method.setAccessible(true);
+        String actual = null;
+        try {
+            actual = (String) method.invoke(httpRequest);
+        } catch (IllegalAccessException iae) {
+            System.err.println("エラー:" + iae.getMessage());
+            iae.printStackTrace();
+        } catch (InvocationTargetException ivt) {
+            System.err.println("エラー:" + ivt.getMessage());
+            ivt.printStackTrace();
+        }
+
+        assertThat(actual, is(expected));
+
+
+    }
 
     /**
      * getRequestMethodメソッドをテストするメソッド
      */
     @Test
     public void getRequestMethod() {
-        String getRequest1 = "GET /../../test/resources/test.html HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+        String getRequest = "GET /../../test/resources/test.html HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
                 + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
                 + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
                 + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
                 + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
 
 
-        String postRequest2 = "POST /../../test/resources/test.html HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
+        String postRequest = "POST /../../test/resources/test.html HTTP/1.1\n" + "Host: localhost:8080\n" + "Connection: keep-alive\n"
                 + "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36\n"
                 + "Accept: */*\n" + "Referer: http://localhost:8080/\n" + "Accept-Encoding: gzip, deflate, sdch, br\n"
                 + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
@@ -52,8 +73,41 @@ public class HTTPRequestTest {
                 + "\n"
                 + "name=a&comment=a";
 
-        assertThat(instantiate(getRequest1).getRequestMethod(), is("GET"));
-        assertThat(instantiate(postRequest2).getRequestMethod(), is("POST"));
+        this.getRequestMethodHelper(getRequest, "GET");
+        this.getRequestMethodHelper(postRequest, "POST");
+    }
+
+
+    /**
+     * getRequestURIメソッドをテストする補助をするメソッド
+     *
+     * @param data     操作する際に用いるデータ
+     * @param expected 期待する値
+     */
+    private void getRequestURIHelper(String data, String expected) {
+        HTTPRequest httpRequest = new HTTPRequest(new ByteArrayInputStream(data.getBytes()));
+        Method method = null;
+        try {
+            method = httpRequest.getClass().getDeclaredMethod("getRequestURI");
+        } catch (NoSuchMethodException e) {
+            System.err.println("エラー:" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        method.setAccessible(true);
+        String actual = null;
+        try {
+            actual = (String) method.invoke(httpRequest);
+        } catch (IllegalAccessException iae) {
+            System.err.println("エラー:" + iae.getMessage());
+            iae.printStackTrace();
+        } catch (InvocationTargetException ivt) {
+            System.err.println("エラー:" + ivt.getMessage());
+            ivt.printStackTrace();
+        }
+
+        assertThat(actual, is(expected));
+
     }
 
 
@@ -147,7 +201,7 @@ public class HTTPRequestTest {
         String expRequestURI[] = {expRequestURI1, expRequestURI2, expRequestURI3, expRequestURI4, expRequestURI5, expRequestURI6, expRequestURI7, expRequestURI8, expRequestURI9, expRequestURI10};
 
         for (int i = 0; i < requestDataArray.length; i++) {
-            assertThat(this.instantiate(requestDataArray[i]).getRequestURI(), is(expRequestURI[i]));
+            getRequestURIHelper(requestDataArray[i], expRequestURI[i]);
         }
 
     }
@@ -199,7 +253,7 @@ public class HTTPRequestTest {
 
         for (int i = 0; i < requestDataArray.length; i++) {
             try {
-                assertThat(getQueryString.invoke(instantiate(requestDataArray[i])), is(expQueryStringArray[i]));
+                assertThat(getQueryString.invoke(new HTTPRequest(new ByteArrayInputStream(requestDataArray[i].getBytes()))), is(expQueryStringArray[i]));
             } catch (InvocationTargetException ite) {
                 System.err.println("エラー:" + ite.getMessage());
                 ite.printStackTrace();
@@ -247,7 +301,7 @@ public class HTTPRequestTest {
         String expRequestParamArray[] = {expRequestParam1, expRequestParam2};
 
         for (int i = 0; i < requestContentsArray.length; i++) {
-            HTTPRequest httpRequest = this.instantiate(requestContentsArray[i]);
+            HTTPRequest httpRequest = new HTTPRequest(new ByteArrayInputStream(requestContentsArray[i].getBytes()));
 
 
             assertThat(httpRequest.getRequestParameter(targetArray[i]), is(expRequestParamArray[i]));
@@ -283,14 +337,14 @@ public class HTTPRequestTest {
 
         String reqContentsArray[] = {requestContents1, requestContents2, requestContents3};
 
-        String resource1 = "/test.html";
-        String resource2 = "/sample/test.html";
-        String resource3 = "/.sample/test.html";
+        String resource1 = "src/main/resources/test.html";
+        String resource2 = "src/main/resources/sample/test.html";
+        String resource3 = "src/main/resources/.sample/test.html";
 
         String expectedResourceArray[] = {resource1, resource2, resource3};
 
         for (int i = 0; i < reqContentsArray.length; i++) {
-            assertThat(this.instantiate(reqContentsArray[i]).getRequestURI(), is(expectedResourceArray[i]));
+            assertThat(new HTTPRequest(new ByteArrayInputStream(reqContentsArray[i].getBytes())).getRequestResource(), is(expectedResourceArray[i]));
         }
 
     }
@@ -306,7 +360,7 @@ public class HTTPRequestTest {
                 + "Accept-Language: ja,en-US;q=0.8,en;q=0.6\n"
                 + "Cookie: Webstorm-eca4e053=a87c22f1-3e1b-475c-85ed-9543ae29fce9\n";
 
-        HTTPRequest httpRequest = instantiate(requestContents);
+        HTTPRequest httpRequest = new HTTPRequest(new ByteArrayInputStream(requestContents.getBytes()));
 
 
         String requestResource1 = "/test.html";

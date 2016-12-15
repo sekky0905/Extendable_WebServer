@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai.web.webServer;
+package jp.co.topgate.sekiguchi.kai.web.webserver;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
@@ -7,7 +7,6 @@ import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import jp.co.topgate.sekiguchi.kai.web.webServer.HTTPResponse;
 import org.junit.Test;
 
 /**

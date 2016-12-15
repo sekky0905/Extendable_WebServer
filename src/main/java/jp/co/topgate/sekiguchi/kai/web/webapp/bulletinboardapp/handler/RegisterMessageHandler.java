@@ -1,5 +1,16 @@
 package jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboardapp.handler;
 
+<<<<<<< HEAD
+
+import jp.co.topgate.sekiguchi.kai.web.util.Token;
+import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.IndexTemplate;
+import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.model.Message;
+import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.model.MessageStorage;
+import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPRequest;
+import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPResponse;
+import jp.co.topgate.sekiguchi.kai.web.webserver.Handler;
+import jp.co.topgate.sekiguchi.kai.web.webserver.Template;
+=======
 import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.webserver.Template;
@@ -8,6 +19,7 @@ import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboardapp.model.Message;
 import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboardapp.model.MessageStorage;
 import jp.co.topgate.sekiguchi.kai.web.util.Token;
 import jp.co.topgate.sekiguchi.kai.web.webserver.Handler;
+>>>>>>> develop
 
 import java.time.LocalDateTime;
 

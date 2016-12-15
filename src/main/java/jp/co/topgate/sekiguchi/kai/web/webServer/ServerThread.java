@@ -1,6 +1,9 @@
 package jp.co.topgate.sekiguchi.kai.web.webserver;
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> develop
 import jp.co.topgate.sekiguchi.kai.web.webapp.WebApp;
 
 import java.io.IOException;
@@ -10,9 +13,9 @@ import java.net.Socket;
 
 /**
  * 1つのスレッドを表すクラス
- * Created by sekiguchikai on 2016/12/02.
+ * Created by sekiguchikai on 2016/12/15.
  */
-class ServerThread extends Thread {
+public class ServerThread extends Thread {
     /**
      * socket socket
      */
@@ -87,3 +90,6 @@ class ServerThread extends Thread {
         }
     }
 }
+
+
+

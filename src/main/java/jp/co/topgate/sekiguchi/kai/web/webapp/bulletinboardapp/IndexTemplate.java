@@ -1,12 +1,22 @@
 package jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboardapp;
 
 
+<<<<<<< HEAD
+import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPResponse;
+=======
 import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.webserver.Template;
+<<<<<<< HEAD:src/main/java/jp/co/topgate/sekiguchi/kai/web/webapp/bulletinboardapp/IndexTemplate.java
 import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboardapp.model.Message;
+=======
+>>>>>>> develop
+import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.model.Message;
+>>>>>>> 7b3faeeb4ef5986f5972a5c00571297dcf6eb960:src/main/java/jp/co/topgate/sekiguchi/kai/web/webapp/bulletinboard/IndexTemplate.java
 import jp.co.topgate.sekiguchi.kai.web.util.Token;
 import jp.co.topgate.sekiguchi.kai.web.util.XSSMeasure;
+import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPRequest;
+import jp.co.topgate.sekiguchi.kai.web.webserver.Template;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;

@@ -9,7 +9,10 @@ import java.io.ByteArrayInputStream;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
+import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPRequest;
 import org.junit.Test;
 
 /**
@@ -20,12 +23,42 @@ import org.junit.Test;
 public class HTTPRequestTest {
 
     /**
+<<<<<<< HEAD:src/test/java/jp/co/topgate/sekiguchi/kai/web/webserver/HTTPRequestTest.java
      * getRequestURIメソッドをテストする補助をするメソッド
      *
      * @param data     操作する際に用いるデータ
      * @param expected 期待する値
      */
     private void getRequestMethodHelper(String data, String expected) {
+=======
+     * getRequestMethodメソッドのテストを補佐するためのメソッド
+     *
+     * @param data     操作に使用するデータ
+     * @param expected 期待する値
+     */
+    private void getRequestMethodHelper(String data, String expected) {
+        Method getRequestMethod = null;
+        HTTPRequest httpRequest = new HTTPRequest(new ByteArrayInputStream(data.getBytes()));
+        try {
+            getRequestMethod = httpRequest.getClass().getDeclaredMethod("getRequestMethod");
+            getRequestMethod.setAccessible(true);
+        } catch (NoSuchMethodException e) {
+            System.err.println("エラー:" + e.getMessage());
+            e.printStackTrace();
+        }
+
+        try {
+            assertThat(getRequestMethod.invoke(httpRequest), is(expected));
+        } catch (IllegalAccessException iae) {
+            System.err.println("エラー:" + iae.getMessage());
+            iae.printStackTrace();
+        } catch (InvocationTargetException ine) {
+            System.err.println("エラー:" + ine.getMessage());
+            ine.printStackTrace();
+        }
+
+    }
+>>>>>>> develop:src/test/java/jp/co/topgate/sekiguchi/kai/web/webServer/HTTPRequestTest.java
 
         HTTPRequest httpRequest = new HTTPRequest(new ByteArrayInputStream(data.getBytes()));
         Method method = null;
@@ -75,25 +108,44 @@ public class HTTPRequestTest {
 
         this.getRequestMethodHelper(getRequest, "GET");
         this.getRequestMethodHelper(postRequest, "POST");
+<<<<<<< HEAD:src/test/java/jp/co/topgate/sekiguchi/kai/web/webserver/HTTPRequestTest.java
+=======
+
+>>>>>>> develop:src/test/java/jp/co/topgate/sekiguchi/kai/web/webServer/HTTPRequestTest.java
     }
 
 
     /**
+<<<<<<< HEAD:src/test/java/jp/co/topgate/sekiguchi/kai/web/webserver/HTTPRequestTest.java
      * getRequestURIメソッドをテストする補助をするメソッド
      *
      * @param data     操作する際に用いるデータ
      * @param expected 期待する値
      */
     private void getRequestURIHelper(String data, String expected) {
+=======
+     * getRequestURIメソッドのテストを補佐するためのメソッド
+     *
+     * @param data     操作に使用するデータ
+     * @param expected 期待する値
+     */
+    private void getRequestURIHelper(String data, String expected) {
+
+>>>>>>> develop:src/test/java/jp/co/topgate/sekiguchi/kai/web/webServer/HTTPRequestTest.java
         HTTPRequest httpRequest = new HTTPRequest(new ByteArrayInputStream(data.getBytes()));
         Method method = null;
         try {
             method = httpRequest.getClass().getDeclaredMethod("getRequestURI");
+<<<<<<< HEAD:src/test/java/jp/co/topgate/sekiguchi/kai/web/webserver/HTTPRequestTest.java
+=======
+            method.setAccessible(true);
+>>>>>>> develop:src/test/java/jp/co/topgate/sekiguchi/kai/web/webServer/HTTPRequestTest.java
         } catch (NoSuchMethodException e) {
             System.err.println("エラー:" + e.getMessage());
             e.printStackTrace();
         }
 
+<<<<<<< HEAD:src/test/java/jp/co/topgate/sekiguchi/kai/web/webserver/HTTPRequestTest.java
         method.setAccessible(true);
         String actual = null;
         try {
@@ -108,6 +160,18 @@ public class HTTPRequestTest {
 
         assertThat(actual, is(expected));
 
+=======
+        try {
+            assertThat(method.invoke(httpRequest), is(expected));
+        } catch (IllegalAccessException iae) {
+            System.err.println("エラー:" + iae.getMessage());
+            iae.printStackTrace();
+        } catch (InvocationTargetException ine) {
+            System.err.println("エラー:" + ine.getMessage());
+            ine.printStackTrace();
+        }
+
+>>>>>>> develop:src/test/java/jp/co/topgate/sekiguchi/kai/web/webServer/HTTPRequestTest.java
     }
 
 
@@ -203,6 +267,7 @@ public class HTTPRequestTest {
         for (int i = 0; i < requestDataArray.length; i++) {
             getRequestURIHelper(requestDataArray[i], expRequestURI[i]);
         }
+
 
     }
 
@@ -302,8 +367,11 @@ public class HTTPRequestTest {
 
         for (int i = 0; i < requestContentsArray.length; i++) {
             HTTPRequest httpRequest = new HTTPRequest(new ByteArrayInputStream(requestContentsArray[i].getBytes()));
+<<<<<<< HEAD:src/test/java/jp/co/topgate/sekiguchi/kai/web/webserver/HTTPRequestTest.java
 
 
+=======
+>>>>>>> develop:src/test/java/jp/co/topgate/sekiguchi/kai/web/webServer/HTTPRequestTest.java
             assertThat(httpRequest.getRequestParameter(targetArray[i]), is(expRequestParamArray[i]));
         }
 

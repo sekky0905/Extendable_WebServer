@@ -1,7 +1,10 @@
 package jp.co.topgate.sekiguchi.kai.web.webserver;
+<<<<<<< HEAD:src/main/java/jp/co/topgate/sekiguchi/kai/web/webServer/Template.java
 
 
 
+=======
+>>>>>>> develop:src/main/java/jp/co/topgate/sekiguchi/kai/web/webserver/Template.java
 
 import java.io.IOException;
 

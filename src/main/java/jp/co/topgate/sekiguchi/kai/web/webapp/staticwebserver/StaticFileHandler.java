@@ -1,5 +1,13 @@
 package jp.co.topgate.sekiguchi.kai.web.webapp.staticwebserver;
 
+<<<<<<< HEAD
+=======
+import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPRequest;
+import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPResponse;
+import jp.co.topgate.sekiguchi.kai.web.webserver.ErrorTemplate;
+import jp.co.topgate.sekiguchi.kai.web.webserver.Handler;
+import jp.co.topgate.sekiguchi.kai.web.webserver.Template;
+>>>>>>> develop
 
 import jp.co.topgate.sekiguchi.kai.web.webserver.*;
 
@@ -23,26 +31,28 @@ class StaticFileHandler extends Handler {
         String extension = httpRequest.getRequestResourceExtension(requestResource);
         File file = new File(requestResource);
 
-        Template errTemplate = new ErrorTemplate();
+        ErrorTemplate errTemplate = new ErrorTemplate();
 
         if (file.isDirectory()) {
-            httpResponse.addStatusLine(HTTPResponse.SC_NOT_FOUND);
+            errTemplate.setErrMessage("400 Not Found");
             errTemplate.writeHTML(httpRequest, httpResponse);
+            httpResponse.sendResponse(HTTPResponse.SC_NOT_FOUND, "Not Found", "html");
         } else if ((file.exists())) {
             try {
-                httpResponse.addStatusLine(HTTPResponse.SC_OK);
                 httpResponse.setStaticResponseBody(file);
-                httpResponse.sendResponse(extension);
+                httpResponse.sendResponse(HTTPResponse.SC_OK, "OK", extension);
             } catch (IOException e) {
                 System.err.println("エラー" + e.getMessage());
                 e.printStackTrace();
-                httpResponse.addStatusLine(HTTPResponse.SC_INTERNAL_SERVER_ERROR);
+                errTemplate.setErrMessage("500 Internal Server Error");
                 errTemplate.writeHTML(httpRequest, httpResponse);
+                httpResponse.sendResponse(HTTPResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error", "html");
             }
 
         } else {
-            httpResponse.addStatusLine(HTTPResponse.SC_NOT_FOUND);
+            errTemplate.setErrMessage("400 Not Found");
             errTemplate.writeHTML(httpRequest, httpResponse);
+            httpResponse.sendResponse(HTTPResponse.SC_NOT_FOUND, "Not Found", "html");
         }
 
 

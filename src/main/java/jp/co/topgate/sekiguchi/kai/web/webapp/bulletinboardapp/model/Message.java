@@ -1,4 +1,4 @@
-package jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.model;
+package jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboardapp.model;
 
 import java.time.LocalDateTime;
 

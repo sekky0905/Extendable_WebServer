@@ -1,10 +1,10 @@
-package jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard;
+package jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboardapp;
 
 
 import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.webserver.Template;
-import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.model.Message;
+import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboardapp.model.Message;
 import jp.co.topgate.sekiguchi.kai.web.util.Token;
 import jp.co.topgate.sekiguchi.kai.web.util.XSSMeasure;
 

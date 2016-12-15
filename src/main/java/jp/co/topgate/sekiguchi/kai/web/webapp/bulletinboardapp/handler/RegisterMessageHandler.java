@@ -1,11 +1,11 @@
-package jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.handler;
+package jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboardapp.handler;
 
 import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.webserver.Template;
-import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.IndexTemplate;
-import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.model.Message;
-import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboard.model.MessageStorage;
+import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboardapp.IndexTemplate;
+import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboardapp.model.Message;
+import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboardapp.model.MessageStorage;
 import jp.co.topgate.sekiguchi.kai.web.util.Token;
 import jp.co.topgate.sekiguchi.kai.web.webserver.Handler;
 
@@ -38,7 +38,7 @@ public class RegisterMessageHandler extends Handler {
      */
     public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) throws Exception {
         if (Token.confirmToken(httpRequest.getRequestParameter("token"))) {
-            System.out.println("RegisterMessageHandlerのhandlePOSTg呼び出されました");
+            System.out.println("RegisterMessageHandlerのhandlePOSTが呼び出されました");
             LocalDateTime createdAt = LocalDateTime.now();
             String name = httpRequest.getRequestParameter("name");
             String comment = httpRequest.getRequestParameter("comment");

@@ -16,6 +16,20 @@ import java.time.LocalDateTime;
  * Created by sekiguchikai on 2016/12/04.
  */
 public class RegisterMessageHandler extends Handler {
+
+    /**
+     * リクエストGETの際のHandler
+     *
+     * @param httpRequest  httpRequestのインスタンス
+     * @param httpResponse httpResponseのインスタンス
+     */
+    public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) throws Exception {
+        Template template = new IndexTemplate(MessageStorage.getAllMessage());
+        template.writeHTML(httpRequest, httpResponse);
+        httpResponse.sendResponse(HTTPResponse.SC_OK, "OK", "html");
+    }
+
+
     /**
      * POSTの際のHandler
      *
@@ -42,7 +56,6 @@ public class RegisterMessageHandler extends Handler {
         Template template = new IndexTemplate(MessageStorage.getAllMessage());
         template.writeHTML(httpRequest, httpResponse);
         httpResponse.sendResponse(HTTPResponse.SC_OK, "OK", "html");
-
 
     }
 }

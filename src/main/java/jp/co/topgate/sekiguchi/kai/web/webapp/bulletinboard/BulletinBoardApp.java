@@ -23,13 +23,13 @@ public class BulletinBoardApp extends WebApp {
         Handler registerMessageHandler = new RegisterMessageHandler();
         Handler searchMessageHandler = new SearchMessageHandler();
         Handler deleteMessageHandler = new DeleteMessageHandler();
-        Handler showAllMessageHandler = new ShowAllMessageHandler();
+
 
         this.handlerMap.put("/program/board/", indexHandler);
         this.handlerMap.put("/program/board/register/", registerMessageHandler);
         this.handlerMap.put("/program/board/search/", searchMessageHandler);
         this.handlerMap.put("/program/board/delete/", deleteMessageHandler);
-        this.handlerMap.put("/program/board/showAll/", showAllMessageHandler);
+
     }
 
 }

@@ -26,10 +26,12 @@ class StaticFileHandler extends Handler {
         String extension = httpRequest.getRequestResourceExtension(requestResource);
         File file = new File(requestResource);
 
-        Template errTemplate = new ErrorTemplate();
+        ErrorTemplate errTemplate = new ErrorTemplate();
 
         if (file.isDirectory()) {
+            errTemplate.setErrMessage("400 Not Found");
             errTemplate.writeHTML(httpRequest, httpResponse);
+            httpResponse.sendResponse(HTTPResponse.SC_NOT_FOUND, "Not Found", "html");
         } else if ((file.exists())) {
             try {
                 httpResponse.setStaticResponseBody(file);
@@ -37,13 +39,15 @@ class StaticFileHandler extends Handler {
             } catch (IOException e) {
                 System.err.println("エラー" + e.getMessage());
                 e.printStackTrace();
+                errTemplate.setErrMessage("500 Internal Server Error");
                 errTemplate.writeHTML(httpRequest, httpResponse);
                 httpResponse.sendResponse(HTTPResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error", "html");
             }
 
         } else {
+            errTemplate.setErrMessage("400 Not Found");
             errTemplate.writeHTML(httpRequest, httpResponse);
-            httpResponse.sendResponse(HTTPResponse.SC_INTERNAL_SERVER_ERROR, "Not Found", "html");
+            httpResponse.sendResponse(HTTPResponse.SC_NOT_FOUND, "Not Found", "html");
         }
 
 

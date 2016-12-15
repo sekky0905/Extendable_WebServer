@@ -15,7 +15,7 @@ public class Handler {
     public void handleGET(HTTPRequest httpRequest, HTTPResponse httpResponse) throws Exception {
         // オーバーライドしない場合は、404を返す
         ErrorTemplate template = new ErrorTemplate();
-        template.setErrMessage("400 Internal Server Error");
+        template.setErrMessage("400 Not Found");
         template.writeHTML(httpRequest, httpResponse);
         httpResponse.sendResponse(HTTPResponse.SC_NOT_FOUND, "Not Found", "html");
 
@@ -30,7 +30,7 @@ public class Handler {
     public void handlePOST(HTTPRequest httpRequest, HTTPResponse httpResponse) throws Exception {
         // オーバーライドしない場合は、404を返す
         ErrorTemplate template = new ErrorTemplate();
-        template.setErrMessage("400 Internal Server Error");
+        template.setErrMessage("400 Not Found");
         template.writeHTML(httpRequest, httpResponse);
         httpResponse.sendResponse(HTTPResponse.SC_NOT_FOUND, "Not Found", "html");
     }

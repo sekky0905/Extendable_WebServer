@@ -97,11 +97,7 @@ public class IndexTemplate implements Template {
                 .append("<input type=\"submit\" value=\"検索する\">")
                 .append("</form>")
 
-
-                .append("<form action=\"/program/board/showAll/\" method=\"post\" accept-charset=\"UTF-8\">")
-                .append("<input type=\"hidden\" name=\"token\" value=\"" + Token.getToken() + "\">")
-                .append("<p>")
-                .append("<input type=\"submit\"  value=\" 全件表示 \"")
+                .append("<a href= \"/program/board/\">全件表示</a>")
 
 
                 .append("</body>")

@@ -1,15 +1,9 @@
-package jp.co.topgate.sekiguchi.kai.web.webapp.staticwebserver;
+package jp.co.topgate.sekiguchi.kai.web.webapp.staticserverapp;
 
-<<<<<<< HEAD
-=======
+import jp.co.topgate.sekiguchi.kai.web.webserver.ErrorTemplate;
 import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPResponse;
-import jp.co.topgate.sekiguchi.kai.web.webserver.ErrorTemplate;
 import jp.co.topgate.sekiguchi.kai.web.webserver.Handler;
-import jp.co.topgate.sekiguchi.kai.web.webserver.Template;
->>>>>>> develop
-
-import jp.co.topgate.sekiguchi.kai.web.webserver.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +13,7 @@ import java.io.IOException;
  *
  * @author sekiguchikai
  */
-class StaticFileHandler extends Handler {
+public class StaticFileHandler extends Handler {
     /**
      * 静的なファイルの処理を行うメソッド
      *
@@ -59,3 +53,4 @@ class StaticFileHandler extends Handler {
     }
 
 }
+

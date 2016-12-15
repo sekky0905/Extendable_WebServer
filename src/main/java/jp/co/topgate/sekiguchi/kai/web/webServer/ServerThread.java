@@ -1,11 +1,5 @@
 package jp.co.topgate.sekiguchi.kai.web.webserver;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> develop
-import jp.co.topgate.sekiguchi.kai.web.webapp.WebApp;
-import jp.co.topgate.sekiguchi.kai.web.webapp.WebAppStorage;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,10 +38,7 @@ public class ServerThread extends Thread {
             HTTPRequest httpRequest = new HTTPRequest(inputStream);
             HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
-            String requestURI = httpRequest.getRequestURI();
-
-            WebApp webApp = WebAppStorage.getWebApp(requestURI);
-            Handler handler = webApp.getHandler(requestURI);
+            Handler handler = HandlerStorage.getHandler(httpRequest.getRequestURI());
 
             if (httpRequest.getRequestMethod().equals("GET")) {
                 try {

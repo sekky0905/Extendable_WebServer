@@ -29,7 +29,6 @@ public class BulletinBoardAppTest {
         assertThat(bulletinBoardApp.getHandler("/program/board/register/") instanceof RegisterMessageHandler, is(true));
         assertThat(bulletinBoardApp.getHandler("/program/board/search/") instanceof SearchMessageHandler, is(true));
         assertThat(bulletinBoardApp.getHandler("/program/board/delete/") instanceof DeleteMessageHandler, is(true));
-        assertThat(bulletinBoardApp.getHandler("/program/board/showAll/") instanceof ShowAllMessageHandler, is(true));
 
     }
 }

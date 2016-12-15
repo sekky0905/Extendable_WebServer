@@ -1,8 +1,13 @@
 package jp.co.topgate.sekiguchi.kai.web.webapp.staticwebserver;
 
+<<<<<<< HEAD
+=======
 import jp.co.topgate.sekiguchi.kai.web.webserver.Handler;
 import jp.co.topgate.sekiguchi.kai.web.webapp.WebApp;
+>>>>>>> develop
 
+import jp.co.topgate.sekiguchi.kai.web.webapp.WebApp;
+import jp.co.topgate.sekiguchi.kai.web.webserver.Handler;
 
 /**
  * StaticWebServerアプリケーションを表すクラス

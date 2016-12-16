@@ -1,7 +1,6 @@
 package jp.co.topgate.sekiguchi.kai.web.webserver;
 
 
-
 import java.io.IOException;
 
 /**

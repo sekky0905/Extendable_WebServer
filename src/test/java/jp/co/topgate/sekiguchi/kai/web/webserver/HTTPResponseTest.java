@@ -1,17 +1,14 @@
 package jp.co.topgate.sekiguchi.kai.web.webserver;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.assertThat;
+
+import org.junit.Test;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-<<<<<<< HEAD:src/test/java/jp/co/topgate/sekiguchi/kai/web/webserver/HTTPResponseTest.java
-=======
-import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPResponse;
->>>>>>> develop:src/test/java/jp/co/topgate/sekiguchi/kai/web/webServer/HTTPResponseTest.java
-import org.junit.Test;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.*;
 
 /**
  * HTTPResponseをテストするクラス
@@ -25,7 +22,7 @@ public class HTTPResponseTest {
 
 
     /**
-     * makeContentTypeメソッドをテストするメソッドit 
+     * makeContentTypeメソッドをテストするメソッドit
      */
     @Test
     public void makeContentType() {
@@ -102,3 +99,4 @@ public class HTTPResponseTest {
 
 
 }
+

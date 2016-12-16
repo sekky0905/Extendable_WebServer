@@ -1,19 +1,15 @@
 package jp.co.topgate.sekiguchi.kai.web.webserver;
 
 
-import static org.hamcrest.CoreMatchers.*;
-
-import static org.junit.Assert.assertThat;
+import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.stream.Stream;
 
-import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPRequest;
-import org.junit.Test;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 /**
  * HTTPRequestをテストするクラス
@@ -23,14 +19,6 @@ import org.junit.Test;
 public class HTTPRequestTest {
 
     /**
-<<<<<<< HEAD:src/test/java/jp/co/topgate/sekiguchi/kai/web/webserver/HTTPRequestTest.java
-     * getRequestURIメソッドをテストする補助をするメソッド
-     *
-     * @param data     操作する際に用いるデータ
-     * @param expected 期待する値
-     */
-    private void getRequestMethodHelper(String data, String expected) {
-=======
      * getRequestMethodメソッドのテストを補佐するためのメソッド
      *
      * @param data     操作に使用するデータ
@@ -58,33 +46,7 @@ public class HTTPRequestTest {
         }
 
     }
->>>>>>> develop:src/test/java/jp/co/topgate/sekiguchi/kai/web/webServer/HTTPRequestTest.java
 
-        HTTPRequest httpRequest = new HTTPRequest(new ByteArrayInputStream(data.getBytes()));
-        Method method = null;
-        try {
-            method = httpRequest.getClass().getDeclaredMethod("getRequestMethod");
-        } catch (NoSuchMethodException e) {
-            System.err.println("エラー:" + e.getMessage());
-            e.printStackTrace();
-        }
-
-        method.setAccessible(true);
-        String actual = null;
-        try {
-            actual = (String) method.invoke(httpRequest);
-        } catch (IllegalAccessException iae) {
-            System.err.println("エラー:" + iae.getMessage());
-            iae.printStackTrace();
-        } catch (InvocationTargetException ivt) {
-            System.err.println("エラー:" + ivt.getMessage());
-            ivt.printStackTrace();
-        }
-
-        assertThat(actual, is(expected));
-
-
-    }
 
     /**
      * getRequestMethodメソッドをテストするメソッド
@@ -108,22 +70,11 @@ public class HTTPRequestTest {
 
         this.getRequestMethodHelper(getRequest, "GET");
         this.getRequestMethodHelper(postRequest, "POST");
-<<<<<<< HEAD:src/test/java/jp/co/topgate/sekiguchi/kai/web/webserver/HTTPRequestTest.java
-=======
 
->>>>>>> develop:src/test/java/jp/co/topgate/sekiguchi/kai/web/webServer/HTTPRequestTest.java
     }
 
 
     /**
-<<<<<<< HEAD:src/test/java/jp/co/topgate/sekiguchi/kai/web/webserver/HTTPRequestTest.java
-     * getRequestURIメソッドをテストする補助をするメソッド
-     *
-     * @param data     操作する際に用いるデータ
-     * @param expected 期待する値
-     */
-    private void getRequestURIHelper(String data, String expected) {
-=======
      * getRequestURIメソッドのテストを補佐するためのメソッド
      *
      * @param data     操作に使用するデータ
@@ -131,36 +82,16 @@ public class HTTPRequestTest {
      */
     private void getRequestURIHelper(String data, String expected) {
 
->>>>>>> develop:src/test/java/jp/co/topgate/sekiguchi/kai/web/webServer/HTTPRequestTest.java
         HTTPRequest httpRequest = new HTTPRequest(new ByteArrayInputStream(data.getBytes()));
         Method method = null;
         try {
             method = httpRequest.getClass().getDeclaredMethod("getRequestURI");
-<<<<<<< HEAD:src/test/java/jp/co/topgate/sekiguchi/kai/web/webserver/HTTPRequestTest.java
-=======
             method.setAccessible(true);
->>>>>>> develop:src/test/java/jp/co/topgate/sekiguchi/kai/web/webServer/HTTPRequestTest.java
         } catch (NoSuchMethodException e) {
             System.err.println("エラー:" + e.getMessage());
             e.printStackTrace();
         }
 
-<<<<<<< HEAD:src/test/java/jp/co/topgate/sekiguchi/kai/web/webserver/HTTPRequestTest.java
-        method.setAccessible(true);
-        String actual = null;
-        try {
-            actual = (String) method.invoke(httpRequest);
-        } catch (IllegalAccessException iae) {
-            System.err.println("エラー:" + iae.getMessage());
-            iae.printStackTrace();
-        } catch (InvocationTargetException ivt) {
-            System.err.println("エラー:" + ivt.getMessage());
-            ivt.printStackTrace();
-        }
-
-        assertThat(actual, is(expected));
-
-=======
         try {
             assertThat(method.invoke(httpRequest), is(expected));
         } catch (IllegalAccessException iae) {
@@ -171,7 +102,6 @@ public class HTTPRequestTest {
             ine.printStackTrace();
         }
 
->>>>>>> develop:src/test/java/jp/co/topgate/sekiguchi/kai/web/webServer/HTTPRequestTest.java
     }
 
 
@@ -367,11 +297,6 @@ public class HTTPRequestTest {
 
         for (int i = 0; i < requestContentsArray.length; i++) {
             HTTPRequest httpRequest = new HTTPRequest(new ByteArrayInputStream(requestContentsArray[i].getBytes()));
-<<<<<<< HEAD:src/test/java/jp/co/topgate/sekiguchi/kai/web/webserver/HTTPRequestTest.java
-
-
-=======
->>>>>>> develop:src/test/java/jp/co/topgate/sekiguchi/kai/web/webServer/HTTPRequestTest.java
             assertThat(httpRequest.getRequestParameter(targetArray[i]), is(expRequestParamArray[i]));
         }
 

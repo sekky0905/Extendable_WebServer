@@ -65,7 +65,7 @@ public class IndexTemplate implements Template {
         this.messageStream.forEach(message -> this.writeRepetition(stringBuilder, message));
 
 
-        stringBuilder.append("<form action=\"/program/board/register/\" method=\"post\" accept-charset=\"UTF-8\">")
+        stringBuilder.append("<form action=\"/program/board/\" method=\"post\" accept-charset=\"UTF-8\">")
                 .append("<table>")
                 .append("<tr>")
                 .append("<th>ユーザーネーム(20文字まで):</th>")
@@ -86,7 +86,7 @@ public class IndexTemplate implements Template {
                 .append("指定したユーザーの書き込みのみ表示させることができます。<br>")
                 .append("下記で、検索したいユーザー名を指定してください<br>")
 
-                .append("<form action=\"/program/board/search/\" method=\"get\" accept-charset=\"UTF-8\">")
+                .append("<form action=\"/program/board/message/\" method=\"get\" accept-charset=\"UTF-8\">")
                 .append("<table>")
                 .append("<tr>")
                 .append("<th>ユーザーネーム:</th>")
@@ -94,6 +94,7 @@ public class IndexTemplate implements Template {
                 .append("</tr>")
                 .append("</table>")
                 .append("<input type=\"hidden\" name=\"token\" value=\"" + Token.getToken() + "\">")
+                .append("<input type=\"hidden\" name\"process\" value=\"search\">")
                 .append("<input type=\"submit\" value=\"検索する\">")
                 .append("</form>")
 
@@ -133,10 +134,11 @@ public class IndexTemplate implements Template {
                 .append("<td>" + XSSMeasure.sanitize(message.getComment()) + "</td>")
                 .append("</tr>")
                 .append("</table>")
-                .append("<form action=\"/program/board/delete/\" method=\"post\" accept-charset=\"UTF-8\">")
+                .append("<form action=\"/program/board/message/\" method=\"post\" accept-charset=\"UTF-8\">")
                 .append("<input type=\"hidden\" name=\"token\" value=\"" + Token.getToken() + "\">")
                 .append("<p>")
                 .append("<input type=\"hidden\" name =\"delete\" value=" + message.getId() + ">")
+                .append("<input type=\"hidden\" name\"process\" value=\"delete\">")
                 .append("<input type=\"submit\"  value=\" 削除 \"")
                 .append("</p>")
                 .append("</form>");

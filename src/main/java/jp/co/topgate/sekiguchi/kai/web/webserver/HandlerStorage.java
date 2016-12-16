@@ -1,10 +1,8 @@
 package jp.co.topgate.sekiguchi.kai.web.webserver;
 
 
-import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboardapp.handler.DeleteMessageHandler;
+import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboardapp.handler.MessageHandler;
 import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboardapp.handler.IndexHandler;
-import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboardapp.handler.RegisterMessageHandler;
-import jp.co.topgate.sekiguchi.kai.web.webapp.bulletinboardapp.handler.SearchMessageHandler;
 import jp.co.topgate.sekiguchi.kai.web.webapp.staticserverapp.StaticFileHandler;
 
 import java.util.HashMap;
@@ -30,9 +28,7 @@ public class HandlerStorage {
 
         // BulletinBoardApp
         Handler indexHandler = new IndexHandler();
-        Handler registerMessageHandler = new RegisterMessageHandler();
-        Handler searchMessageHandler = new SearchMessageHandler();
-        Handler deleteMessageHandler = new DeleteMessageHandler();
+        Handler messageHandler = new MessageHandler();
 
 
         // StaticFileApp
@@ -40,9 +36,8 @@ public class HandlerStorage {
 
         // BulletinBoardApp
         HandlerStorage.handlerMap.put("/program/board/", indexHandler);
-        HandlerStorage.handlerMap.put("/program/board/register/", registerMessageHandler);
-        HandlerStorage.handlerMap.put("/program/board/search/", searchMessageHandler);
-        HandlerStorage.handlerMap.put("/program/board/delete/", deleteMessageHandler);
+        HandlerStorage.handlerMap.put("/program/board/message/", messageHandler);
+
 
     }
 

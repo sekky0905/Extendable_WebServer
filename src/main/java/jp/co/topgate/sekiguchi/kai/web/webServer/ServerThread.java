@@ -1,10 +1,5 @@
-package jp.co.topgate.sekiguchi.kai.web.webServer;
+package jp.co.topgate.sekiguchi.kai.web.webserver;
 
-import jp.co.topgate.sekiguchi.kai.web.http.HTTPRequest;
-import jp.co.topgate.sekiguchi.kai.web.http.HTTPResponse;
-import jp.co.topgate.sekiguchi.kai.web.web_app.WebApp;
-import jp.co.topgate.sekiguchi.kai.web.web_app.bulletin_board.IndexTemplate;
-import jp.co.topgate.sekiguchi.kai.web.util.Session;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,16 +8,17 @@ import java.net.Socket;
 
 /**
  * 1つのスレッドを表すクラス
- * Created by sekiguchikai on 2016/12/02.
+ * Created by sekiguchikai on 2016/12/15.
  */
-class ServerThread extends Thread {
+public class ServerThread extends Thread {
     /**
-     * socket
+     * socket socket
      */
     private final Socket socket;
 
     /**
      * コンストラクタ
+     * socketインスタンスを受け取り、本クラスのsocketフィールドに設定する
      */
     ServerThread(Socket socket) {
         this.socket = socket;
@@ -33,51 +29,50 @@ class ServerThread extends Thread {
      * Thread実行のためのrunメソッド
      */
     public void run() {
+
         try {
             InputStream inputStream = this.socket.getInputStream();
             OutputStream outputStream = this.socket.getOutputStream();
 
+
             HTTPRequest httpRequest = new HTTPRequest(inputStream);
             HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
-            String requestURI = httpRequest.getRequestURI();
+            Handler handler = HandlerStorage.getHandler(httpRequest.getRequestURI());
 
-            // Webサーバ
-            if (!(WebApp.handlerNameIsExist(requestURI))) {
-                StaticFileHandler staticFileHandler = new StaticFileHandler();
-                staticFileHandler.handleGET(httpRequest, httpResponse);
-            } else {
-
-                // ハンドラの決定
-                String handlerName = WebApp.getHandlerName(requestURI);
-                WebApp.setHandlerMap();
-                Handler handler = WebApp.getHandlerMap(handlerName);
-
-
-                if (requestURI.equals("/program/board/")) {
+            if (httpRequest.getRequestMethod().equals("GET")) {
+                try {
                     handler.handleGET(httpRequest, httpResponse);
-                } else if (httpRequest.getRequestMethod().equals("GET") && (WebApp.handlerNameIsExist(requestURI))) {
-                    httpResponse.setStatusLine(HTTPResponse.SC_NOT_FOUND);
-                    Template template = new ErrorTemplate();
-                    template.writeHTML(httpRequest, httpResponse);
+                } catch (Exception e) {
+                    System.err.println("エラー:" + e.getMessage());
+                    e.printStackTrace();
 
-                } else if ((httpRequest.getRequestMethod().equals("POST")) && (Session.confirmToken(httpRequest.getRequestParameter("token")))) {
+                    // アプリケーション側の例外をサーバでcatch
+                    ErrorTemplate template = new ErrorTemplate();
+                    template.setErrMessage("500 Internal Server Error");
+                    template.writeHTML(httpRequest, httpResponse);
+                    httpResponse.sendResponse(HTTPResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error", "html");
+                }
+
+
+            } else if (httpRequest.getRequestMethod().equals("POST")) {
+                try {
                     handler.handlePOST(httpRequest, httpResponse);
+                } catch (Exception e) {
+                    System.err.println("エラー:" + e.getMessage());
+                    e.printStackTrace();
 
-                    Template template = new IndexTemplate();
-                    httpResponse.setStatusLine(HTTPResponse.SC_OK);
+                    // アプリケーション側の例外をサーバでcatch
+                    ErrorTemplate template = new ErrorTemplate();
+                    template.setErrMessage("500 Internal Server Error");
                     template.writeHTML(httpRequest, httpResponse);
-                } else {
-                    Template template = new IndexTemplate();
-                    httpResponse.setStatusLine(HTTPResponse.SC_OK);
-                    template.writeHTML(httpRequest, httpResponse);
+                    httpResponse.sendResponse(HTTPResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error", "html");
                 }
             }
 
         } catch (IOException e) {
             System.err.println("エラー:" + e.getMessage());
             e.printStackTrace();
-            System.exit(1);
         } finally {
             try {
                 if (this.socket != null) {
@@ -87,7 +82,9 @@ class ServerThread extends Thread {
                 System.err.println("エラー:" + e.getMessage());
                 e.printStackTrace();
             }
-
         }
     }
 }
+
+
+

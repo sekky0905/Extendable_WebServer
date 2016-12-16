@@ -37,7 +37,7 @@ public class MessageStorage {
      * @param index リストのインデックス
      * @return インデックスで指定されたモデル
      */
-     static Message getMessage(int index) {
+    static Message getMessage(int index) {
         return MessageStorage.messageList.get(index);
     }
 
@@ -54,12 +54,12 @@ public class MessageStorage {
 
     /**
      * messageListのstreamインスタンスを返すメソッド
+     *
      * @return Stream<Message>
      */
     public static Stream<Message> getAllMessage() {
         return messageList.stream();
     }
-
 
 
     /**
@@ -75,11 +75,9 @@ public class MessageStorage {
      * messageListに保持している全てのインスタンスを削除するメソッド
      */
     static void removeAllMessage() {
-        MessageStorage.currentId = 1;
+        MessageStorage.currentId = 0;
         MessageStorage.messageList.clear();
     }
 
 
 }
-
-

@@ -1,29 +1,65 @@
 package jp.co.topgate.sekiguchi.kai.web.webapp.tittattoeapp;
 
+
 /**
  * TitTatToe（まるばつゲーム）のロジックを表すクラス
  * Created by sekiguchikai on 2016/12/17.
  */
 public class PlayLogic {
-    /**
-     * 盤の状況を引数として受けて、CPUの打ち手を決定し、返すメソッド
-     *
-     * @param playBoard 盤
-     * @return CPUの打ち手
-     */
-    public int generateCPUMove(PlayBoard playBoard) {
-        // CPUの打ち手ロジックを記入
-        return 1;
-    }
 
     /**
-     * 盤の状況を引数として受けて、勝敗を決定して返すメソッド
+     * 勝敗を決定するメソッド
      *
-     * @param boardArray 盤の二次元配列
-     * @return 勝敗(君の勝ちだ/君の負けだ/引き分けだ)
+     * @return 勝敗（勝敗がついていない場合は、「勝負は未定」）
      */
-    public String judgeResult(int[][] boardArray) {
-        // 勝敗を表すロジックを記入
-        return "";
+    public String judgeReslut(int[] boardArray) {
+
+        final int CIRCLE = 1;
+        final int CROSS = 2;
+
+        // 縦
+        for (int i = 0; i < 3; i = i++) {
+            if (boardArray[i] == CIRCLE && boardArray[i + 3] == CIRCLE && boardArray[i + 6] == CIRCLE) {
+                return "君の勝ちだ";
+            } else if (boardArray[i] == CROSS && boardArray[i + 3] == CROSS && boardArray[i + 6] == CROSS) {
+                return "君の負けだ";
+            }
+        }
+
+        // 横
+        for (int i = 1; i < 3; i = i + 3) {
+            if (boardArray[i] == CIRCLE && boardArray[i + 1] == CIRCLE && boardArray[i + 2] == CIRCLE) {
+                return "君の勝ちだ";
+            } else if (boardArray[i] == CROSS && boardArray[i + 1] == CROSS && boardArray[i + 2] == CROSS) {
+                return "君の負けだ";
+            }
+        }
+
+        // 斜め
+        if (boardArray[0] == CIRCLE && boardArray[4] == CIRCLE && boardArray[8] == CIRCLE) {
+            return "君の勝ちだ";
+        } else if (boardArray[0] == CROSS && boardArray[4] == CROSS && boardArray[8] == CROSS) {
+            return "君の負けだ";
+        } else if (boardArray[2] == CIRCLE && boardArray[4] == CIRCLE && boardArray[6] == CIRCLE) {
+            return "君の勝ちだ";
+        } else if (boardArray[2] == CROSS && boardArray[4] == CROSS && boardArray[6] == CROSS) {
+            return "君の負けだ";
+        }
+
+        // 全部埋まった
+        for (int idx : boardArray) {
+            if (idx != 0) {
+                return "引き分けです";
+            }
+        }
+
+        return "勝負は未定";
+
     }
+
+
 }
+
+
+
+

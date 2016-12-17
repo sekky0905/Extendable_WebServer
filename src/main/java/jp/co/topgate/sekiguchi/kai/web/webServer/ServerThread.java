@@ -50,7 +50,7 @@ public class ServerThread extends Thread {
                     e.printStackTrace();
 
                     // アプリケーション側の例外をサーバでcatch
-                    ErrorTemplate template = new ErrorTemplate();
+                    ErrTemplate template = new ErrTemplate();
                     template.setErrMessage("500 Internal Server Error");
                     template.writeHTML(httpRequest, httpResponse);
                     httpResponse.sendResponse(HTTPResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error", "html");
@@ -65,7 +65,7 @@ public class ServerThread extends Thread {
                     e.printStackTrace();
 
                     // アプリケーション側の例外をサーバでcatch
-                    ErrorTemplate template = new ErrorTemplate();
+                    ErrTemplate template = new ErrTemplate();
                     template.setErrMessage("500 Internal Server Error");
                     template.writeHTML(httpRequest, httpResponse);
                     httpResponse.sendResponse(HTTPResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error", "html");

@@ -6,7 +6,7 @@ import java.io.IOException;
  * エラーの際のTemplateを表すクラス
  * Created by sekiguchikai on 2016/12/07.
  */
-public class ErrorTemplate implements Template {
+public class ErrTemplate implements Template {
     /**
      * エラーメッセージ
      */

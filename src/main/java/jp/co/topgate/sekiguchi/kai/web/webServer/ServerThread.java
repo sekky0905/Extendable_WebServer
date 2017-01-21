@@ -1,6 +1,8 @@
 package jp.co.topgate.sekiguchi.kai.web.webserver;
 
 
+import jp.co.topgate.sekiguchi.kai.web.webapp.WebAppStorage;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -38,7 +40,7 @@ public class ServerThread  extends Thread {
             HTTPRequest httpRequest = new HTTPRequest(inputStream);
             HTTPResponse httpResponse = new HTTPResponse(outputStream);
 
-            Handler handler = HandlerStorage.getHandler(httpRequest.getRequestURI());
+            Handler handler = WebAppStorage.getWebApp(httpRequest.getRequestURI()).getHandler(httpRequest.getRequestURI());
 
             if (httpRequest.getRequestMethod().equals("GET")) {
                 try {
@@ -48,7 +50,7 @@ public class ServerThread  extends Thread {
                     e.printStackTrace();
 
                     // アプリケーション側の例外をサーバでcatch
-                    ErrorTemplate template = new ErrorTemplate();
+                    ErrTemplate template = new ErrTemplate();
                     template.setErrMessage("500 Internal Server Error");
                     template.writeHTML(httpRequest, httpResponse);
                     httpResponse.sendResponse(HTTPResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error", "html");
@@ -63,7 +65,7 @@ public class ServerThread  extends Thread {
                     e.printStackTrace();
 
                     // アプリケーション側の例外をサーバでcatch
-                    ErrorTemplate template = new ErrorTemplate();
+                    ErrTemplate template = new ErrTemplate();
                     template.setErrMessage("500 Internal Server Error");
                     template.writeHTML(httpRequest, httpResponse);
                     httpResponse.sendResponse(HTTPResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error", "html");

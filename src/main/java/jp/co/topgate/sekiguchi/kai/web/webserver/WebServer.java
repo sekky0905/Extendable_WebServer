@@ -3,6 +3,9 @@ package jp.co.topgate.sekiguchi.kai.web.webserver;
 // フィルタをかけて流れてくるデータをバッファリングし、量がたまったら、一気に下流に流し込む
 
 
+import jp.co.topgate.sekiguchi.kai.web.webapp.WebApp;
+import jp.co.topgate.sekiguchi.kai.web.webapp.WebAppStorage;
+
 import java.io.IOException;
 // TCP サーバーAPI、通常はクライアントソケットからの接続を 受け入れる
 import java.net.ServerSocket;
@@ -33,17 +36,18 @@ public class WebServer {
      */
     public static void main(String[] args) {
         WebServer webServer = new WebServer();
-        webServer.initialize();
+        webServer.init();
     }
 
     /**
      * socketを確立し、HTTPRequestクラスとHTTPResponseクラスをインスタンス化するクラス
      */
-    private void initialize() {
+    private void init() {
         System.out.println("Start the server at http://localhost:8080");
         ServerSocket serverSocket = null;
 
-        HandlerStorage.initializeHandler();
+        System.out.println("各アプリケーションとHandlerを初期化します");
+        WebAppStorage.initApp();
 
         try {
             serverSocket = new ServerSocket(PORT);

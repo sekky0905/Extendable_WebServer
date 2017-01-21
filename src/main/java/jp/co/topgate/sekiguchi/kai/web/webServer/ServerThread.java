@@ -10,7 +10,7 @@ import java.net.Socket;
  * 1つのスレッドを表すクラス
  * Created by sekiguchikai on 2016/12/15.
  */
-public class ServerThread extends Thread {
+public class ServerThread  extends Thread {
     /**
      * socket socket
      */

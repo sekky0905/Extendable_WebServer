@@ -125,7 +125,12 @@ public class HTTPResponse {
         } else {
             FileDataSource fileDataSource = new FileDataSource(this.staticResponseBody);
             DataHandler dataHandler = new javax.activation.DataHandler(fileDataSource);
+            // 引数で受け取ったステータスラインとレスポンスヘッダを結合
+            byte[] responseHead = ("HTTP/1.1 " + statusCode + " " + reasonPhrase + "\n" + this.makeContentType(fileExt) + "\n").getBytes();
+            dataOutputStream.write(responseHead);
             dataHandler.writeTo(dataOutputStream);
+            dataOutputStream.flush();
+            dataOutputStream.close();
 
         }
 

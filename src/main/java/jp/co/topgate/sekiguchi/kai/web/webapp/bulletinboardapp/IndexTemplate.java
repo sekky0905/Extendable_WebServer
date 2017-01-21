@@ -8,7 +8,6 @@ import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.webserver.Template;
 
-import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Stream;
 

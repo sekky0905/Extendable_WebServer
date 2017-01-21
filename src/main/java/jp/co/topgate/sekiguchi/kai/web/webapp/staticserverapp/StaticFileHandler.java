@@ -1,6 +1,6 @@
 package jp.co.topgate.sekiguchi.kai.web.webapp.staticserverapp;
 
-import jp.co.topgate.sekiguchi.kai.web.webserver.ErrorTemplate;
+import jp.co.topgate.sekiguchi.kai.web.webserver.ErrTemplate;
 import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPRequest;
 import jp.co.topgate.sekiguchi.kai.web.webserver.HTTPResponse;
 import jp.co.topgate.sekiguchi.kai.web.webserver.Handler;
@@ -25,7 +25,7 @@ public class StaticFileHandler extends Handler {
         String extension = httpRequest.getRequestResourceExtension(requestResource);
         File file = new File(requestResource);
 
-        ErrorTemplate errTemplate = new ErrorTemplate();
+        ErrTemplate errTemplate = new ErrTemplate();
 
         if (file.isDirectory()) {
             errTemplate.setErrMessage("400 Not Found");
